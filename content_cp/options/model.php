@@ -108,15 +108,7 @@ class model extends \content_cp\home\model
 			if($row['option_key'] == 'permissions')
 			{
 				$myValue = $row['option_value'];
-				if(!in_array($myValue, $permList))
-				{
-					$myValue = $permList[count($permList)-1];
-				}
-				$qry_result[$row['option_key']] =
-				[
-					'value' => $myValue,
-					'meta'  => $permList
-				];
+				$myMeta  = $permList;
 			}
 			else
 			{
@@ -132,13 +124,13 @@ class model extends \content_cp\home\model
 				{
 					$myMeta = json_decode($myMeta, true);
 				}
-
-				$qry_result[$row['option_key']] =
-				[
-					'value' => $myValue,
-					'meta'  => $myMeta
-				];
 			}
+
+			$qry_result[$row['option_key']] =
+			[
+				'value' => $myValue,
+				'meta'  => $myMeta
+			];
 		}
 		// var_dump($qry_result);
 		return $qry_result;

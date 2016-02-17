@@ -37,10 +37,10 @@
 
       <div class="field">
        <label for="site-role">{%trans "Default permission"%}</label>
-       <select name="site-role" placeholder='{%trans "Default permission"%}'value='{{datarow.permissions.meta}}'>
+       <select name="site-role" placeholder='{%trans "Default permission"%}'>
         <option value="" disabled="disabled">{%trans "Select"%} {%trans "Default permission"%}</option>
 {% for key, value in datarow.permissions.meta%}
-        <option value="{{value}}" {%if datarow.permissions.value == value%}selected{%endif%}>{%trans value%}</option>
+        <option value="{{key}}" {%if datarow.permissions.value == key%}selected{%endif%}>{%trans value%}</option>
 {% endfor %}
        </select>
       </div>

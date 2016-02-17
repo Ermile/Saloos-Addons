@@ -177,7 +177,7 @@ class model extends \mvc\model
 	public function permList($_status = false)
 	{
 		// get list of permissions
-		$permList = $this->sql()->table('options')
+		$qryPerm = $this->sql()->table('options')
 			->where('user_id', 'IS', 'NULL')
 			->and('post_id', 'IS', "NULL")
 			->and('option_cat', 'permissions')
@@ -185,14 +185,19 @@ class model extends \mvc\model
 
 		if($_status)
 		{
-			$permList
+			$qryPerm
 			->groupOpen('g_status')
 			->and('option_status', '=', "'enable'")
 			->or('option_status', 'IS', "NULL")
 			->or('option_status', "")
 			->groupClose('g_status');
 		}
-		$permList = $permList->select()->allassoc('option_value');
+		$qryPerm  = $qryPerm->select()->allassoc();
+		$permList = [];
+		foreach ($qryPerm as $row)
+		{
+			$permList[$row['option_key']] = $row['option_value'];
+		}
 
 		return $permList;
 	}

@@ -228,9 +228,10 @@ class view extends \mvc\view
 			$myPermList = $this->data->form->users->user_permission;
 			$myPermList->type('select');
 			// get list of permissions
-			foreach ($this->model()->permList() as $value)
+			foreach ($this->model()->permList() as $key => $value)
 			{
-				$myPermList->child()->value($value)->label(T_($value));
+				$myPermList->child()->value($key)->label(T_($value))
+					->elname(null)->pl(null)->attr('type', null);
 			}
 		}
 
