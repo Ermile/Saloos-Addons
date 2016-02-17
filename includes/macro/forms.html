@@ -2,7 +2,7 @@
 {% spaceless %}
 {% import _self as form%}
 
- {% for input in array%}
+{% for input in array%}
 
 {%if input.attr.required is not null%}
  <div class="field {{input.attr.id}} {{input.attr.parent}} required">
@@ -10,19 +10,19 @@
  <div class="field {{input.attr.id}} {{input.attr.parent}}">
 {%endif%}
 
-  {% if input.attr.pos %}{% set tippos=input.attr.pos %}{%else%}{% set tippos='hint--right' %}{% endif %}
-  {% if input.attr.desc %}<span class="hint--info {{tippos}}" data-hint="{{input.attr.desc}}">{% endif %}
+{% if input.attr.pos %}{% set tippos=input.attr.pos %}{%else%}{% set tippos='hint--right' %}{% endif %}
+{% if input.attr.desc %}<span class="hint--info {{tippos}}" data-hint="{{input.attr.desc}}">{% endif %}
 
-  {% if input.attr.type     == 'radio'%}                                 {{ form.radio(input)    }}
-  {% elseif input.attr.type == 'checkbox'%}                              {{ form.checkbox(input) }}
-  {% elseif input.attr.type == 'select'%}                                {{ form.select(input)   }}
-  {% elseif input.attr.type == 'datalist'%}                              {{ form.datalist(input) }}
-  {% elseif input.attr.type == 'textarea'%}                              {{ form.textarea(input) }}
-  {% elseif input.attr.type == 'submit' or input.attr.type == 'button'%} {{ form.submit(input)   }}
-  {% else %}                                                             {{ form.input(input)    }}
-  {% endif %}
+{% if input.attr.type     == 'radio'%}                                 {{ form.radio(input)    }}
+{% elseif input.attr.type == 'checkbox'%}                              {{ form.checkbox(input) }}
+{% elseif input.attr.type == 'select'%}                                {{ form.select(input)   }}
+{% elseif input.attr.type == 'datalist'%}                              {{ form.datalist(input) }}
+{% elseif input.attr.type == 'textarea'%}                              {{ form.textarea(input) }}
+{% elseif input.attr.type == 'submit' or input.attr.type == 'button'%} {{ form.submit(input)   }}
+{% else %}                                                             {{ form.input(input)    }}
+{% endif %}
 
-  {% if input.attr.desc %}</span>{% endif %}
+{% if input.attr.desc %}</span>{% endif %}
  </div>
  {% endfor %}
 

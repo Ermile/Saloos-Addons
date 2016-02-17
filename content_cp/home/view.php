@@ -225,13 +225,42 @@ class view extends \mvc\view
 		// if module for users then fill permission list
 		if($this->cpModule('raw') === 'users')
 		{
-			$myPermList = $this->data->form->users->user_permission;
-			$myPermList->type('select');
-			// get list of permissions
-			foreach ($this->model()->permList() as $key => $value)
+			$this->data->form->users->user_status->required('required');
+
+			$checkStatus = null;
+			$myPerm      = null;
+			$myPermNames = $this->model()->permList();
+			$myPermList  = $this->data->form->users->user_permission;
+			$myPermList->required('required')->title(T_('Select one permission'));
+			if(count($myPermNames) > 5)
 			{
-				$myPermList->child()->value($key)->label(T_($value))
-					->elname(null)->pl(null)->attr('type', null);
+				$myPermList->type('select');
+				$checkStatus = 'selected';
+			}
+			else
+			{
+				$myPermList->type('radio');
+				$checkStatus = 'checked';
+			}
+			if($mychild === 'edit')
+			{
+				$myPerm = $this->model()->datarow('users');
+				$myPerm = $myPerm['user_permission'];
+			}
+
+
+			// get list of permissions
+			foreach ($myPermNames as $key => $value)
+			{
+
+				if($myPerm == $key)
+				{
+					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->required()->$checkStatus();
+				}
+				else
+				{
+					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->required();
+				}
 			}
 			$myPass = $this->data->form->users->user_pass;
 			if($mychild === 'add')
