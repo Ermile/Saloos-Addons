@@ -233,6 +233,15 @@ class view extends \mvc\view
 				$myPermList->child()->value($key)->label(T_($value))
 					->elname(null)->pl(null)->attr('type', null);
 			}
+			$myPass = $this->data->form->users->user_pass;
+			if($mychild === 'add')
+			{
+				$myPass->attr('required', 'required')->pl(T_('Enter password within 5 to 40 character') );
+			}
+			else
+			{
+				$myPass->label(T_('New Password'))->value(null)->pl(T_('If you want to change password enter it, else leave it blank'));
+			}
 		}
 
 

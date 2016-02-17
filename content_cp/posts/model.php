@@ -76,7 +76,7 @@ class model extends \content_cp\home\model
 		// if don't set title return error
 		if(!utility::post('title'))
 		{
-			debug::error(T_("Please enter title!"));
+			debug::warn(T_("Please enter title"). "!", 'title');
 			return false;
 		}
 
