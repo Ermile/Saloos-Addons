@@ -92,7 +92,8 @@ class model extends \content_cp\home\model
 				$qryMaxID = $qryMaxID->field('#max(option_key) as id')
 					->select()->assoc('id');
 
-				$qryMaxID += 1;
+				// permission id start from 2 because id 1 used for superuser
+				$qryMaxID += $qryMaxID == 0? 2: 1;
 
 				$qryAdd = $this->qryCreator();
 				$qryAdd = $qryAdd
