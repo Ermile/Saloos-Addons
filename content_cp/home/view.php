@@ -231,7 +231,6 @@ class view extends \mvc\view
 			$myPerm      = null;
 			$myPermNames = $this->model()->permList();
 			$myPermList  = $this->data->form->users->user_permission;
-			$myPermList->required('required')->title(T_('Select one permission'));
 			if(count($myPermNames) > 5)
 			{
 				$myPermList->type('select');
@@ -246,6 +245,10 @@ class view extends \mvc\view
 			{
 				$myPerm = $this->model()->datarow('users');
 				$myPerm = $myPerm['user_permission'];
+				if($myPerm === "1")
+				{
+					$myPermList->addClass('hide');
+				}
 			}
 
 
@@ -255,11 +258,11 @@ class view extends \mvc\view
 
 				if($myPerm == $key)
 				{
-					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->required()->$checkStatus();
+					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->$checkStatus();
 				}
 				else
 				{
-					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->required();
+					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key);
 				}
 			}
 			$myPass = $this->data->form->users->user_pass;

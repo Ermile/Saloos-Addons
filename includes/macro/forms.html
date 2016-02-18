@@ -3,11 +3,16 @@
 {% import _self as form%}
 
 {% for input in array%}
+{%set classlist = input.attr.id ~ ' ' ~ input.attr.parent%}
+
+{% if input.attr.type == 'radio' or input.attr.type == 'select' or input.attr.type == 'checkbox'%}
+ {%set classlist = classlist|trim ~ ' ' ~ input.attr.class%}
+{%endif%}
 
 {%if input.attr.required is not null%}
- <div class="field {{input.attr.id}} {{input.attr.parent}} required">
+ <div class="field {{classlist|trim}} required">
 {%else%}
- <div class="field {{input.attr.id}} {{input.attr.parent}}">
+ <div class="field {{classlist|trim}}">
 {%endif%}
 
 {% if input.attr.pos %}{% set tippos=input.attr.pos %}{%else%}{% set tippos='hint--right' %}{% endif %}
@@ -36,9 +41,9 @@
 {%if array.label %} <label>{{array.label}}</label>{%endif%}
  <div class="radio">
  {% for child in array.child %}
-  <div class="element {{child.attr.value}}">
+  <div class="element {{array.attr.name}}-{{child.attr.value}}">
    <input type="radio" name="{{array.attr.name}}" {% for attr,value in child.attr %}{{attr}}="{{value}}" {% endfor %}>
-   <label for="{{child.attr.id}}" class="label-radio">{{child.label}}</label>
+   <label for="{{child.attr.id}}">{{child.label}}</label>
   </div>
  {% endfor %}
  </div>
