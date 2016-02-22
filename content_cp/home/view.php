@@ -229,7 +229,7 @@ class view extends \mvc\view
 
 			$checkStatus = null;
 			$myPerm      = null;
-			$myPermNames = $this->model()->permListFill();
+			$myPermNames = $this->model()->permList();
 			$myPermList  = $this->data->form->users->user_permission;
 			if(count($myPermNames) > 5)
 			{
