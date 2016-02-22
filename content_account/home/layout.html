@@ -39,7 +39,7 @@
     </div>
     <div id="langList" data-xhr="langList" class="hint--left float-right" data-hint='{%trans "Work with Ermile in your own language"%}'>
 {%for key, lang in site.langlist if site.langlist|length >1 and site.currentlang != key|slice(0, 2)%}
-     <a href="{{url.root}}{{url.path}}?lang={{key}}" hreflang="{{key|slice(0, 2)}}" data-action>{{lang}}</a>
+     <a href="{{url.full}}?lang={{key}}" hreflang="{{key|slice(0, 2)}}" data-action>{{lang}}</a>
 {%endfor%}
     </div>
   </div>
