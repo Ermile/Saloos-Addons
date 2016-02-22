@@ -12,10 +12,6 @@ class model extends \content_cp\home\model
 	 */
 	function put_profile()
 	{
-		// Check permission and if user can do this operation
-		// allow to do it, else show related message in notify center
-		$this->access('cp', 'posts', 'delete', 'notify');
-
 		$qry = $this->sql()->table('users')->where('id', $this->login('id'))
 			->set('user_mobile',      utility::post('mobile'))
 			->set('user_email',       utility::post('email'))
