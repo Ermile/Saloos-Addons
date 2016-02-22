@@ -5,19 +5,9 @@
   <h1>{{page.desc}}</h1>
 {%block form_def%}
    <form class="ajx account" method="post" action="{{module}}">
-  {%if booths%}
-    <select name="booth_" id="booth_" data-unclear="">
-     <option value="" disabled="disabled">انتخاب غرفه</option>
-     {%for row in booths%}
-      <option value="{{row.id}}">{{row.booth_title}}</option>
-     {% endfor %}
-    </select>
-  {%endif%}
 {{forms.make(form[myform])}}
    </form>
 {%endblock%}
 
-  <footer>
 {%block content%}{%endblock%}
-  </footer>
  </div>
