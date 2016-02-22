@@ -16,11 +16,11 @@ class symbol extends \lib\form
 		$this->tel 	   = $this->make("tel")->name('tel')->type("tel")->label(T_("Tel"))
 							->required()->maxlength(17)->pattern(".{9,}");
 
-		$this->mobile 	= $this->make("mobile")->name('mobile')->type("tel")->label(T_("Mobile"))->pl(T_("Mobile"))
+		$this->mobile 	= $this->make("mobile")->name('mobile')->type("tel")->label(T_("Mobile"))->pl(T_("Mobile"))->pos('hint--top')
 							->required()->maxlength(17)->pattern(".{10,}")->autocomplete('off');
 
 		$this->pass =
-		$this->password = $this->make("password")->name("pass")->label(T_("Password"))->autocomplete('off')
+		$this->password = $this->make("password")->name("pass")->label(T_("Password"))->autocomplete('off')->pos('hint--bottom')
 							->maxlength(40)->pattern("^.{5,40}$")->title(T_("between 5-40 character"));
 
 		$this->password->validate()->password();

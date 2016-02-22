@@ -20,16 +20,16 @@ class account extends \lib\form
 	private function login()
 	{
 		$this->mobile	 = $this->make('#mobile')->label(null)->desc(T_("Enter your registered mobile"))
-							 ->value(((isset($_COOKIE["mobile"]))?htmlspecialchars('+'.$_COOKIE["mobile"]):null))->autocomplete('off')->pos('hint--left');
-		$this->password = $this->make('#password')->name('password')->label(null)->pl(T_('Password'))->desc(T_("Enter your password"))->pos('hint--left');
+							 ->value(((isset($_COOKIE["mobile"]))?htmlspecialchars('+'.$_COOKIE["mobile"]):null))->autocomplete('off');
+		$this->password = $this->make('#password')->name('password')->label(null)->pl(T_('Password'))->desc(T_("Enter your password"));
 		$this->submit	 = $this->make('submit')->value(T_('Login'))->title(T_('Login'))->class('button primary row-clear');
 	}
 
 	private function signup()
 	{
 		$this->mobile	 = $this->make('#mobile')->label(null)
-							 ->value(((isset($_COOKIE["mobile"]))?htmlspecialchars('+'.$_COOKIE["mobile"]):null))->pos('hint--right');
-		$this->password = $this->make('#password')->name('password')->label(null)->pl(T_('Password'))->pos('hint--right');
+							 ->value(((isset($_COOKIE["mobile"]))?htmlspecialchars('+'.$_COOKIE["mobile"]):null));
+		$this->password = $this->make('#password')->name('password')->label(null)->pl(T_('Password'));
 		$this->submit	 = $this->make('submit')->value(T_('Create an account'))->title(T_('Create an account'))->class('button primary row-clear');
 	}
 
