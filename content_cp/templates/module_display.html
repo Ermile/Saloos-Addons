@@ -2,6 +2,7 @@
 
 
 {%block content%}
+{%set dtperm = attribute(perm,module)%}
  <div class="row">
   <div class="span12">
    <div class="panel panel-default display-none">
@@ -40,7 +41,14 @@
 {% if value.value == 'slug'%}
          <td class="col_{{value.value}}">{{myvalue}}</td>
 {% elseif value.value == 'title'%}
-         <td class="col_{{value.value}}"><a href='{{url.base}}{{module}}/edit={{d.id}}'>{{myvalue}}</a></td>
+
+         <td class="col_{{value.value}}">
+{%if dtperm.edit%}
+          <a href='{{url.base}}{{module}}/edit={{d.id}}'>{{myvalue}}</a>
+{%else%}
+          {{myvalue}}
+{%endif%}
+         </td>
 {% elseif value.value == 'url'%}
          <td class="col_{{value.value}}"><a target='_blank' href='{{url.root}}{{myvalue}}?preview=yes'>{{myvalue}}</a></td>
 {% elseif (value.value == 'publishdate' or value.value == 'createdate' ) and global.lang == 'fa_IR'%}
@@ -52,13 +60,16 @@
 {%endif%}
 {%endfor%}
          <td class="col_actions">
+{%if dtperm.edit%}
           <span class="fa-stack">
             <a class="fa fa-pencil fa-stack-1x label-default" href="{{url.base}}{{module}}/edit={{d.id}}" ></a>
           </span>
-
+{%endif%}
+{%if dtperm.delete%}
           <span class="fa-stack">
             <a class="fa fa-times fa-stack-1x label-danger" href="{{url.base}}{{module}}/delete={{d.id}}" data-data='{"id": {{d.id}}}' data-method="post" data-modal="delete-confirm"></a>
           </span>
+{%endif%}
          </td>
         </tr>
 {%endfor%}
