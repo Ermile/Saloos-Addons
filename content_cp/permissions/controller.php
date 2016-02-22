@@ -41,7 +41,7 @@ class controller extends \content_cp\home\controller
 	}
 
 
-	public function permList($_fill = false)
+	public function permListFill($_fill = false)
 	{
 		$permResult = [];
 		$permCond   = ['view', 'add', 'edit', 'delete', 'admin'];

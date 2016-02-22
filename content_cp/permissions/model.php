@@ -123,7 +123,7 @@ class model extends \content_cp\home\model
 
 				if($editParam)
 				{
-					$permResult = $this->permList(true);
+					$permResult = $this->permListFill(true);
 					$permResult = json_encode($permResult, JSON_FORCE_OBJECT);
 
 					$qryEdit = $this->qryCreator($_type, $editParam);
