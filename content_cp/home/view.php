@@ -19,6 +19,19 @@ class view extends \mvc\view
 		$this->include->uploader      = true;
 		$this->global->js             = array();
 
+		$this->data->feature['posts']          = true;
+		$this->data->feature['pages']          = true;
+		$this->data->feature['attachments']    = true;
+		$this->data->feature['users']          = true;
+		$this->data->feature['book']           = false;
+		$this->data->feature['visitors']       = false;
+		$this->data->feature['socialnetworks'] = false;
+		$this->data->feature['permissions']    = true;
+		$this->data->feature['options']        = true;
+		$this->data->feature['tools']          = true;
+		$this->data->feature['tags']           = true;
+		$this->data->feature['categories']     = true;
+
 		// $this->global->js             = [$this->url->myStatic.'js/highcharts/highcharts.js'];
 		// $this->data->page['desc']  = 'salam';
 		$this->data->page['haschild'] = true;

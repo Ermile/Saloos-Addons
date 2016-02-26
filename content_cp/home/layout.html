@@ -7,19 +7,19 @@
   <h1 id="page-logo"><a href="{{url.root}}" title="{{site.desc}}" style='font-size:calc(1.1vw - {{(site.title|length)/10}}px)' target="_blank">{{site.title}}</a></h1>
   <nav class="sidebar-items" data-step='1' data-intro='{%trans "Use this menu for navigating to all part of control panel"%}' data-position="{{dir.right}}">
    <a href="{{url.base}}"><i class="fa fa-lg fa-desktop"></i> <span>{%trans "Dashboard"%}</span></a>
-{%if perm.posts.view%}
+{%if feature.posts and perm.posts.view%}
    <a href="{{url.base}}posts"><i class="fa fa-lg fa-file-text-o"></i> <span>{%trans "Posts"%}</span></a>
 {%endif%}
-{%if perm.pages.view%}
+{%if feature.pages and perm.pages.view%}
    <a href="{{url.base}}pages"><i class="fa fa-lg fa-files-o"></i> <span>{%trans "Pages"%}</span></a>
 {%endif%}
-{%if perm.attachments.view%}
+{%if feature.attachments and perm.attachments.view%}
    <a href="{{url.base}}attachments"><i class="fa fa-lg fa-picture-o"></i> <span>{%trans "Attachments"%}</span></a>
 {%endif%}
 {%if feature.books and perm.books.view%}
    <a href="{{url.base}}books"><i class="fa fa-lg fa-book"></i> <span>{%trans "Books"%}</span></a>
 {%endif%}
-{%if perm.users.view%}
+{%if feature.users and perm.users.view%}
    <a href="{{url.base}}users"><i class="fa fa-lg fa-user"></i> <span>{%trans "Users"%}</span></a>
 {%endif%}
 {%if feature.visitors and perm.visitors.view%}
@@ -28,14 +28,14 @@
 {%if feature.socialnetworks and perm.socialNetworks.view%}
    <a href="{{url.base}}socialnetwork"><i class="fa fa-lg fa-share-alt"></i> <span>{%trans "Social networks"%}</span></a>
 {%endif%}
-{%if perm.permissions.view%}
+{%if feature.permissions and perm.permissions.view%}
    <a href="{{url.base}}permissions"><i class="fa fa-lg fa-lock"></i> <span>{%trans "Permissions"%}</span></a>
 {%endif%}
-{%if perm.options.view%}
+{%if feature.option and perm.options.view%}
    <a href="{{url.base}}options"><i class="fa fa-lg fa-cog"></i> <span>{%trans "Options"%}</span></a>
 {%endif%}
 {%if url.tld =='dev'%}
-{%if perm.tools.view%}
+{%if feature.tools and perm.tools.view%}
    <a href="{{url.base}}tools"><i class="fa fa-lg fa-wrench"></i> <span>{%trans "Tools"%}</span></a>
 {%endif%}
 {%endif%}

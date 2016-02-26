@@ -19,6 +19,7 @@
   <div class="{%if visitors%}span8{%else%}span12{%endif%}" data-step='6' data-intro='{%trans "Summarized data of site"%}' data-position="top">
 
    <div class="row auto">
+{%if feature.posts%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-green">
       <div class="panel-body summary">
@@ -30,7 +31,9 @@
       <div class="panel-footer back-footer-green">{%trans "No. of"%} {%trans "Posts"%}</div>
      </div>
     </div>
+{%endif%}
 
+{%if feature.pages%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-blue">
       <div class="panel-body summary">
@@ -42,7 +45,9 @@
       <div class="panel-footer back-footer-blue">{%trans "No. of"%} {%trans "Pages"%}</div>
      </div>
     </div>
+{%endif%}
 
+{%if feature.attachments%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-red">
       <div class="panel-body summary">
@@ -54,9 +59,11 @@
       <div class="panel-footer back-footer-red">{%trans "No. of"%} {%trans "Attachments"%}</div>
      </div>
     </div>
+{%endif%}
    </div>
 
    <div class="row auto">
+{%if feature.tags%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-blue">
       <div class="panel-body summary">
@@ -68,7 +75,9 @@
       <div class="panel-footer back-footer-blue">{%trans "No. of"%} {%trans "Tags"%}</div>
      </div>
     </div>
+{%endif%}
 
+{%if feature.categories%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-green">
       <div class="panel-body summary">
@@ -80,7 +89,9 @@
       <div class="panel-footer back-footer-green">{%trans "No. of"%} {%trans "Categories"%}</div>
      </div>
     </div>
+{%endif%}
 
+{%if feature.users%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-brown">
       <div class="panel-body summary">
@@ -93,7 +104,7 @@
      </div>
     </div>
    </div>
-
+{%endif%}
   </div>
 
 {%if visitors%}
