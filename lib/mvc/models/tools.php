@@ -1,7 +1,7 @@
 <?php
 namespace lib\mvc\models;
 
-trait utility
+trait tools
 {
 	/**
 	 * [get_feeds description]

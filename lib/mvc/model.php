@@ -13,7 +13,7 @@ class model extends \lib\model
 	use \lib\mvc\models\posts;
 	use \lib\mvc\models\template;
 	use \lib\mvc\models\terms;
-	use \lib\mvc\models\utility;
+	use \lib\mvc\models\tools;
 	use \lib\mvc\models\visitors;
 }
 ?>
