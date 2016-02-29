@@ -81,7 +81,7 @@ class config extends \lib\api\config
 				case 'profile':
 					$myblock   = false;
 					break;
-				
+
 				default:
 					break;
 			}
