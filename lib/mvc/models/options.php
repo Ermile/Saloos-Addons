@@ -78,5 +78,38 @@ trait options
 		// var_dump($qry_result);
 		return $qry_result;
 	}
+
+
+	/**
+	 * return list of exist permission in system
+	 * @return [array] contain list of permissions
+	 */
+	public function permList($_status = false)
+	{
+		// get list of permissions
+		$qryPerm = $this->sql()->table('options')
+			->where('user_id', 'IS', 'NULL')
+			->and('post_id', 'IS', "NULL")
+			->and('option_cat', 'permissions')
+			->and('option_status',"enable");
+
+		if($_status)
+		{
+			$qryPerm
+			->groupOpen('g_status')
+			->and('option_status', '=', "'enable'")
+			->or('option_status', 'IS', "NULL")
+			->or('option_status', "")
+			->groupClose('g_status');
+		}
+		$qryPerm  = $qryPerm->select()->allassoc();
+		$permList = [];
+		foreach ($qryPerm as $row)
+		{
+			$permList[$row['option_key']] = $row['option_value'];
+		}
+
+		return $permList;
+	}
 }
 ?>
