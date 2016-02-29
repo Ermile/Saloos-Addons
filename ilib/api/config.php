@@ -1,5 +1,5 @@
 <?php
-namespace addons\lib\api;
+namespace ilib\api;
 use \lib\router;
 
 class config extends \lib\api\config
