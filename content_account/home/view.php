@@ -26,7 +26,6 @@ class view extends \mvc\view
 
 			case 'signup':
 				$this->data->page['desc']	= T_('Create an account');
-				// $this->data->booths         = $this->model()->get_booths();
 				break;
 
 			case 'verification':

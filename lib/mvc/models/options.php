@@ -68,11 +68,17 @@ trait options
 		{
 			if($_type)
 			{
-				$qry_result = $qry_result[$_key][$_type];
+				if(isset($qry_result[$_key][$_type]))
+					$qry_result = $qry_result[$_key][$_type];
+				else
+					$qry_result = null;
 			}
 			else
 			{
-				$qry_result = $qry_result[$_key];
+				if(isset($qry_result[$_key]))
+					$qry_result = $qry_result[$_key];
+				else
+					$qry_result = null;
 			}
 		}
 		// var_dump($qry_result);

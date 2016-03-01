@@ -23,7 +23,7 @@ class symbol extends \lib\form
 		$this->password = $this->make("password")->name("pass")->label(T_("Password"))->autocomplete('off')->pos('hint--bottom')
 							->maxlength(40)->pattern("^.{5,40}$")->title(T_("between 5-40 character"));
 
-		$this->password->validate()->password();
+		// $this->password->validate()->password();
 	}
 }
 ?>
