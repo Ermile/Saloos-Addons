@@ -15,12 +15,12 @@ class controller extends \mvc\controller
 		// Check permission and if user can do this operation
 		// allow to do it, else show related message in notify center
 		$this->access('cp', null, null, 'block');
-	}
 
-
-	function config()
-	{
-
+		if(method_exists("parent", "_route"))
+		{
+			parent::_route();
+			return;
+		}
 		// Restrict unwanted module
 		if(!$this->cpModlueList())
 			\lib\error::page(T_("Not found!"));
@@ -50,15 +50,15 @@ class controller extends \mvc\controller
 			case 'profile':
 				//allow put on profile
 				$this->display_name	= 'content_cp/templates/module_profile.html';
-				$this->get(null, 'datatable')->ALL('/^[^\/]*$/');
-				$this->put('profile')->ALL();
+				$this->get(null, 'datatable')->ALL($cpModule);
+				$this->put('profile')->ALL($cpModule);
 				break;
 
 			case 'options':
 				//allow put on profile
 				// $this->display_name	= 'content_cp/templates/module_options.html';
-				$this->get(null, 'datatable')->ALL('/^[^\/]*$/');
-				$this->put('options')->ALL();
+				$this->get(null, 'datatable')->ALL($cpModule);
+				$this->put('options')->ALL($cpModule);
 				break;
 
 			// case 'permissions':
@@ -91,7 +91,7 @@ class controller extends \mvc\controller
 
 
 
-					$this->route_check_true = true;
+					// $this->route_check_true = true;
 
 					switch ($mychild)
 					{
@@ -99,8 +99,8 @@ class controller extends \mvc\controller
 							$this->redirector()->set_url($this->cpModule('raw')); //->redirect();
 
 							// $this->delete($mychild)->ALL('/^[^\/]*\/[^\/]*$/');
-							$this->post($mychild)->ALL('/^[^\/]*\/[^\/]*$/');
-							$this->get($mychild)->ALL('/^[^\/]*\/[^\/]*$/');		// @hasan: regular?
+							$this->post($mychild)->ALL(["url" => [$cpModule, "/^delete=(\d+)$/"]]);
+							$this->get($mychild)->ALL(["url" => [$cpModule, "/^delete=(\d+)$/"]]);		// @hasan: regular?
 							// $this->display_name = null;
 							// $this->redirector()->set_url($cpModule);//->redirect();
 							return;
@@ -108,25 +108,25 @@ class controller extends \mvc\controller
 
 						case 'edit':
 							// var_dump($this->model()->datarow());
-							$this->get(null, 'child')->ALL('/^[^\/]*\/[^\/]*$/');
-							$this->put($mychild)->ALL('/^[^\/]*\/[^\/]*$/');
+							$this->get(null, 'child')->ALL(["url" => [$cpModule, "/^edit=(\d+)$/"]]);
+							$this->put($mychild)->ALL(["url" => [$cpModule, "/^edit=(\d+)$/"]]);
 							break;
 
 						case 'add':
-							$this->get(null, 'child')->ALL('/^[^\/]*\/[^\/]*$/');
-							$this->post($mychild)->ALL('/^[^\/]*\/[^\/]*$/');
+							$this->get(null, 'child')->ALL(["url" => [$cpModule, "add"]]);
+							$this->post($mychild)->ALL(["url" => [$cpModule, "add"]]);
 							break;
 
 						case 'list':
-							$this->route_check_true = false;
-							$this->get($mychild)->ALL();
-							$this->post($mychild)->ALL();
+							// $this->route_check_true = false;
+							$this->get($mychild)->ALL(["max" => 2]);
+							$this->post($mychild)->ALL(["max" => 2]);
 							break;
 
 						case 'options':
-							$this->route_check_true = false;
-							$this->get($mychild)->ALL();
-							$this->post($mychild)->ALL();
+							// $this->route_check_true = false;
+							$this->get($mychild)->ALL(["max" => 2]);
+							$this->post($mychild)->ALL(["max" => 2]);
 							break;
 
 						default:

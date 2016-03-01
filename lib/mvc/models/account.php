@@ -139,7 +139,7 @@ trait account
 		if(session_status() === PHP_SESSION_ACTIVE)
 		{
 			session_destroy();
-			session_regenerate_id(true);
+			// session_regenerate_id(true);
 		}
 
 		if($_ssid === null)

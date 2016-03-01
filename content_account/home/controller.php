@@ -39,8 +39,8 @@ class controller extends \mvc\controller
 					\lib\error::access(T_("you can't access to this page!"));
 				$this->model_name   = 'content_account\\'.$mymodule.'\model';
 				$this->display_name = 'content_account\\'.$mymodule.'\display.html';
-				$this->post($mymodule)->ALL();
-				$this->get()          ->ALL();
+				$this->post($mymodule)->ALL($mymodule);
+				$this->get()          ->ALL($mymodule);
 				break;
 
 			case 'signup':
@@ -52,7 +52,7 @@ class controller extends \mvc\controller
 
 			case 'login':
 			case 'recovery':
-				if($islogin )
+				if($islogin)
 				{
 					\lib\debug::true(T_("you are logined to system!"));
 					$myreferer = \lib\router::urlParser('referer', 'host');
@@ -68,8 +68,8 @@ class controller extends \mvc\controller
 			case 'changepass':
 				$this->model_name   = 'content_account\\'.$mymodule.'\model';
 				$this->display_name = 'content_account\\'.$mymodule.'\display.html';
-				$this->post($mymodule)->ALL();
-				$this->get()          ->ALL();
+				$this->post($mymodule)->ALL($mymodule);
+				$this->get()          ->ALL($mymodule);
 				break;
 
 
@@ -80,8 +80,8 @@ class controller extends \mvc\controller
 				{
 					$this->model_name	= 'content_account\sms\model';
 					$this->display_name	= 'content_account\sms\display.html';
-					$this->post($mymodule)->ALL();
-					$this->get($mymodule) ->ALL();
+					$this->post($mymodule)->ALL($mymodule);
+					$this->get($mymodule) ->ALL($mymodule);
 				}
 				else
 					\lib\error::access("SMS");
@@ -100,7 +100,7 @@ class controller extends \mvc\controller
 				\lib\error::page();
 				break;
 		}
-		$this->route_check_true = true;
+		// $this->route_check_true = true;
 	}
 }
 ?>

@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 2.3.0: saloos-addons tidy
  * Version 2.2.0: transfer mvc classes to saloos-addons + more!
  * Version 2.1.1: show features in sidebar and dashboard if enable
  * Version 2.1.0: some fix and add fully permission control to cp

@@ -3,12 +3,11 @@ namespace content_account\signup;
 
 class controller extends \mvc\controller
 {
-	function options()
+	function _route()
 	{
 		if($this->option('register'))
 		{
 			$this->post('signup')->ALL();
-			$this->get()         ->ALL();
 		}
 		else
 		{

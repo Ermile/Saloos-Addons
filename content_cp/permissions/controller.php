@@ -3,7 +3,7 @@ namespace content_cp\permissions;
 
 class controller extends \content_cp\home\controller
 {
-	function config()
+	function _route()
 	{
 		$this->route_check_true = true;
 		$myChild = $this->child();
@@ -13,7 +13,7 @@ class controller extends \content_cp\home\controller
 			switch ($myChild)
 			{
 				case 'add':
-					$this->post($myChild)->ALL('/^[^\/]*\/[^\/]*$/');
+					$this->post($myChild)->ALL('permissions/add');
 					break;
 
 				case 'edit':

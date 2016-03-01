@@ -5,13 +5,13 @@ class controller extends \content_cp\home\controller
 {
 	function _route()
 	{
-		if(!$this->login() && Tld !== 'dev')
-		{
-			$mydomain = AccountService? AccountService.MainTld: null;
-			\lib\debug::warn(T_("first of all, you must login to system!"));
-			$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
-			exit();
-		}
+		// if(!$this->login() && Tld !== 'dev')
+		// {
+		// 	$mydomain = AccountService? AccountService.MainTld: null;
+		// 	\lib\debug::warn(T_("first of all, you must login to system!"));
+		// 	$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
+		// 	exit();
+		// }
 
 		// // Restrict unwanted module
 		// if(!$this->cpModlueList())

@@ -3,8 +3,9 @@ namespace content_cp\permissions;
 
 class view extends \content_cp\home\view
 {
-	public function options()
+	public function config()
 	{
+		parent::config();
 		$this->data->page['desc']     = T_('Define or edit user permissions to allow or block access to special pages');
 		$this->data->page['haschild'] = false;
 		$myChild                      = $this->child();
