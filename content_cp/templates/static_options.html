@@ -5,45 +5,46 @@
  <div class="row unselectable">
   <div class="span12">
    <div class="panel panel-default">
-    <div class="panel-body">
+    <div class="panel-body panel-tab">
+
+     <ul class="tabs row auto">
+      <li data-tab="general" class="span3 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
+      <li data-tab="social" class="span3"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
+      <li data-tab="account" class="span3"><i class="fa fa-user"></i> {%trans "Account"%}</li>
+     </ul>
+
      <form class="ajx form row inline autostyle" method="post" {%if child == 'add'%}data-clear{%endif%}>
+      <ul id="tab">
+       <li id="tab-general" class="active">
+{{forms.make(form['options'])}}
+       </li>
+       <li id="tab-social">
 
-      <div class="field">
-       <label for="site-title" class="hint--right" data-hint='{%trans "For multilanguage sites enter title in English and translate it"%}'>{%trans "Site title"%}</label><input type="text" name="site-title" id="site-title" maxlength="20" placeholder='{%trans "Site title"%}' value='{{datarow.title.value}}'>
-      </div>
 
+       </li>
 
-      <div class="field">
-       <label for="site-desc" class="hint--right" data-hint='{%trans "Explain site and porpose of it in a few words"%}'>{%trans "Site Description"%}</label><input type="text" name="site-desc" id="site-desc" maxlength="160" placeholder='{%trans "Site Description"%}' value='{{datarow.desc.value}}'>
-      </div>
+       <li id="tab-account">
+        <div class="field">
+         <input type="checkbox" name="site-redirect" id="site-redirect" class="checkbox" {%if datarow.redirect.value == 'on'%}checked{%endif%}>
+         <label for="site-redirect"><span>{%trans "Redirect to main address"%}</span></label>
+        </div>
 
-      <div class="field email">
-       <label for="site-email">{%trans "Email"%}</label><input type="email" name="site-email" id="site-email" maxlength="50" placeholder='{%trans "Email"%}' value='{{datarow.email.value}}'>
-      </div>
-
-      <div class="field website">
-       <label for="site-url">{%trans "Site main URL"%}</label><input type="url" name="site-url" id="site-url" maxlength="50" placeholder='{%trans "Site main Address (URL)"%}' value='{{datarow.url.value}}'>
-      </div>
-
-      <div class="field">
-       <input type="checkbox" name="site-redirect" id="site-redirect" class="checkbox" {%if datarow.redirect.value == 'on'%}checked{%endif%}>
-       <label for="site-redirect"><span>{%trans "Redirect to main address"%}</span></label>
-      </div>
-
-      <div class="field">
-       <input type="checkbox" name="site-reg" id="site-reg" class="checkbox" {%if datarow.register.value == 'on'%}checked{%endif%}>
-       <label for="site-reg"><span>{%trans "Allow registration"%}</span></label>
-      </div>
-
-      <div class="field">
-       <label for="site-role">{%trans "Default permission"%}</label>
-       <select name="site-role" placeholder='{%trans "Default permission"%}'>
-        <option value="" disabled="disabled">{%trans "Select"%} {%trans "Default permission"%}</option>
+        <div class="field">
+         <input type="checkbox" name="site-reg" id="site-reg" class="checkbox" {%if datarow.register.value == 'on'%}checked{%endif%}>
+         <label for="site-reg"><span>{%trans "Allow registration"%}</span></label>
+        </div>
+        <div class="field">
+         <label for="site-role">{%trans "Default permission"%}</label>
+         <select name="site-role" placeholder='{%trans "Default permission"%}'>
+          <option value="" disabled="disabled">{%trans "Select"%} {%trans "Default permission"%}</option>
 {% for key, value in datarow.permissions.meta%}
-        <option value="{{key}}" {%if datarow.permissions.value == key%}selected{%endif%}>{%trans value%}</option>
+          <option value="{{key}}" {%if datarow.permissions.value == key%}selected{%endif%}>{%trans value%}</option>
 {% endfor %}
-       </select>
-      </div>
+         </select>
+        </div>
+
+       </li>
+      </ul>
 
 
       <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
@@ -54,6 +55,7 @@
      {%trans "Edit your site general options"%}
     </div>
    </div>
+
   </div>
  </div>
 {%endblock%}

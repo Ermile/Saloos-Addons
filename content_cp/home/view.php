@@ -86,6 +86,12 @@ class view extends \mvc\view
 			case 'options':
 				$this->data->page['desc']     = T_('Edit your site general options');
 				$this->data->page['haschild'] = false;
+				$form1 = $this->createform('.options', 'general');
+
+
+				// $form->{'mobile'}->value(66);
+				// var_dump($this->data->form);
+				// exit();
 				break;
 
 			case 'visitors':
