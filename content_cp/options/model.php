@@ -1,10 +1,10 @@
 <?php
-namespace content_cp\options;
+namespace addons\content_cp\options;
 
 use \lib\utility;
 use \lib\debug;
 
-class model extends \content_cp\home\model
+class model extends \addons\content_cp\home\model
 {
 	/**
 	 * Update options data

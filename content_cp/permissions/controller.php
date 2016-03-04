@@ -1,7 +1,7 @@
 <?php
-namespace content_cp\permissions;
+namespace addons\content_cp\permissions;
 
-class controller extends \content_cp\home\controller
+class controller extends \addons\content_cp\home\controller
 {
 	function _route()
 	{
@@ -104,7 +104,6 @@ class controller extends \content_cp\home\controller
 				}
 			}
 		}
-
 		return $permResult;
 	}
 
@@ -143,7 +142,8 @@ class controller extends \content_cp\home\controller
 	public function permModulesList($_content)
 	{
 		$myList      = [];
-		$contentName = '\content_'. $_content. '\home\controller';
+		$contentName = preg_replace("/content(_[^\/]*)?\//", "content" . $_content, get_class(\lib\main::$controller));
+		// $contentName = '\addons\content_'. $_content. '\home\controller';
 		if(method_exists($contentName, 'permModules'))
 		{
 			// if module exist call it

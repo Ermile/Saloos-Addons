@@ -1,10 +1,10 @@
 <?php
-namespace content_cp\posts;
+namespace addons\content_cp\posts;
 
 use \lib\utility;
 use \lib\debug;
 
-class model extends \content_cp\home\model
+class model extends \addons\content_cp\home\model
 {
 	// ---------------------------------------------------- handle all type of request used for all common modules
 	function get_delete()

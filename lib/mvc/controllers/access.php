@@ -18,7 +18,7 @@ trait access
 		if(isset($_SESSION['user']['permission']) && $_SESSION['user']['permission'] === "1")
 		{
 			$su       = true;
-			$suStatus = new \content_cp\permissions\controller;
+			$suStatus = new \addons\content_cp\permissions\controller;
 			$suStatus = $suStatus->permListFill("su");
 		}
 

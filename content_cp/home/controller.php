@@ -1,6 +1,5 @@
 <?php
-namespace content_cp\home;
-
+namespace addons\content_cp\home;
 class controller extends \mvc\controller
 {
 	function _route()
@@ -35,11 +34,11 @@ class controller extends \mvc\controller
 		// 	\lib\error::page(T_("Not found!"));
 
 
-		if( is_file(addons.'content_cp/'.$cpModule.'/model.php') )
-			$this->model_name = 'content_cp\\'.$cpModule.'\model';
+		if( is_file(addons.'content_cp/'.$cpModule.'/model.php') && !$this->model_name)
+			$this->model_name = '\\addons\\content_cp\\'.$cpModule.'\model';
 
-		elseif( is_file(addons.'content_cp/'.$mymodule.'/model.php') )
-			$this->model_name = 'content_cp\\'.$mymodule.'\model';
+		elseif( is_file(addons.'content_cp/'.$mymodule.'/model.php')  && !$this->model_name)
+			$this->model_name = '\\addons\\content_cp\\'.$mymodule.'\model';
 
 
 		switch ($cpModule)
@@ -107,7 +106,6 @@ class controller extends \mvc\controller
 							break;
 
 						case 'edit':
-							// var_dump($this->model()->datarow());
 							$this->get(null, 'child')->ALL(["url" => [$cpModule, "/^edit=(\d+)$/"]]);
 							$this->put($mychild)->ALL(["url" => [$cpModule, "/^edit=(\d+)$/"]]);
 							break;

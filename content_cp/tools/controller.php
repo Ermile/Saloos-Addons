@@ -1,7 +1,7 @@
 <?php
-namespace content_cp\tools;
+namespace addons\content_cp\tools;
 
-class controller extends \content_cp\home\controller
+class controller extends \addons\content_cp\home\controller
 {
 	function _route()
 	{

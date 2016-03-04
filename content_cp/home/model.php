@@ -1,5 +1,5 @@
 <?php
-namespace content_cp\home;
+namespace addons\content_cp\home;
 
 use \lib\utility;
 use \lib\debug;

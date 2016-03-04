@@ -1,7 +1,7 @@
 <?php
-namespace content_cp\permissions;
+namespace addons\content_cp\permissions;
 
-class view extends \content_cp\home\view
+class view extends \addons\content_cp\home\view
 {
 	public function config()
 	{

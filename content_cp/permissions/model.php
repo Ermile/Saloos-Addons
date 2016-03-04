@@ -1,10 +1,10 @@
 <?php
-namespace content_cp\permissions;
+namespace addons\content_cp\permissions;
 
 use \lib\utility;
 use \lib\debug;
 
-class model extends \content_cp\home\model
+class model extends \addons\content_cp\home\model
 {
 	function get_delete()
 	{
