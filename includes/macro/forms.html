@@ -101,5 +101,5 @@
 
 
 {% macro label (_input) %}{% spaceless %}
- {%if _input.label.txt %}<label for="{{_input.attr.id}}" class="{{_input.label.class}}" data-hint="{{_input.label.hint}}" >{{_input.label.txt}}</label>{%endif%}
+ {%if _input.label.txt %}<label for="{{_input.attr.id}}" {%if _input.label.hint %}class="{{_input.label.class}}" data-hint="{{_input.label.hint}}"{%endif%}>{{_input.label.txt}}</label>{%endif%}
 {% endspaceless %}{% endmacro %}
