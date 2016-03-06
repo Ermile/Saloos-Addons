@@ -56,8 +56,47 @@ class options extends \lib\form
 	 */
 	private function social()
 	{
-		$this->twitter();
-		$this->facebook();
+		$this->twitter = $this->make('text')
+			->name('twitter')
+			->label(T_('Twitter'))
+			->attr('data-before','twitter.com/')
+			->maxlength(30);
+
+		$this->facebook = $this->make('text')
+			->name('facebook')
+			->label(T_('Facebook'))
+			->attr('data-before','facebook.com/')
+			->maxlength(60);
+
+		$this->googleplus = $this->make('text')
+			->name('googleplus')
+			->label(T_('Google Plus'))
+			->attr('data-before','plus.google.com/')
+			->maxlength(60);
+
+		$this->github = $this->make('text')
+			->name('github')
+			->label(T_('Github'))
+			->attr('data-before','github.com/')
+			->maxlength(60);
+
+		$this->linkedin = $this->make('text')
+			->name('linkedin')
+			->label(T_('Linkedin'))
+			->attr('data-before','linkedin.com/in/')
+			->maxlength(60);
+
+		$this->telegram = $this->make('text')
+			->name('telegram')
+			->label(T_('Telegram'))
+			->attr('data-before','telegram.me/')
+			->maxlength(60);
+
+		$this->aparat = $this->make('text')
+			->name('aparat')
+			->label(T_('Aparat'))
+			->attr('data-before','aparat.com/')
+			->maxlength(60);
 	}
 
 
@@ -125,7 +164,24 @@ class options extends \lib\form
 			->name('fb-client_token')
 			->label(T_('Facebook'). ' '. T_('client_token'))
 			->maxlength(60);
-
 	}
+
+	private function telegram()
+	{
+		$this->tg_key = $this->make('text')
+			->name('telegram-Key')
+			->label(T_('Telegram'). ' '. T_('Key'))
+			->maxlength(200);
+	}
+
+	private function account()
+	{
+		$this->tg_key = $this->make('text')->type('checkbox')
+			->name('site-reg')
+			->attr('class', 'checkbox')
+			->label(T_('Allow registration'));
+	}
+
+
 }
 ?>

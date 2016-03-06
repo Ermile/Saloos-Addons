@@ -52,7 +52,8 @@
 
 {% macro checkbox(_input) %}
   <input name="{{_input.attr.name}}" {% for attr,value in _input.attr%}{{attr}}="{{value}}" {% endfor %}>
-{%if _input.label %} <label for="{{_input.attr.id}}">{{_input.label}}</label>{%endif%}
+{%if _input.label.txt %} <label for="{{_input.attr.id}}">{{_input.label.txt}}</label>{%endif%}
+
 {% endmacro %}
 
 

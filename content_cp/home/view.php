@@ -87,11 +87,12 @@ class view extends \mvc\view
 				$this->data->page['desc']     = T_('Edit your site general options');
 				$this->data->page['haschild'] = false;
 
-				$form_general  = $this->createform('.options', 'general', true);
-				$form_twitter  = $this->createform('.options', 'twitter', true);
+				$form_general  = $this->createform('.options', 'general',  true);
+				$form_social   = $this->createform('.options', 'social',   true);
+				$form_twitter  = $this->createform('.options', 'twitter',  true);
 				$form_facebook = $this->createform('.options', 'facebook', true);
-				// $form_social   = $this->createform('.options', 'social', true);
-				$form_account  = $this->createform('.options', 'account', true);
+				$form_telegram = $this->createform('.options', 'telegram', true);
+				$form_account  = $this->createform('.options', 'account',  true);
 
 
 

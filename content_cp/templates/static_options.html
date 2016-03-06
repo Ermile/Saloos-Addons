@@ -14,6 +14,7 @@
      <div class="panel panel-default">
       <div class="panel-body">
 {{forms.make(form['general'])}}
+       <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
       </div>
       <div class="panel-footer">
        {%trans "Edit your site general options"%}
@@ -21,34 +22,30 @@
      </div>
    </li>
 
-   <li id="tab-social" class="row">
-    <div class="span3">
-     <ul class="tabs auto vertical" data-group="social">
-      <li data-tab="general"><i class="fa fa-share"></i> {%trans "General"%}</li>
-      <li data-tab="twitter"><i class="fa fa-twitter"></i> {%trans "Twitter"%}</li>
-      <li data-tab="facebook"><i class="fa fa-facebook-official"></i> {%trans "Facebook"%}</li>
-      <li data-tab="telegram"><i class="fa fa-paper-plane"></i> {%trans "Telegram"%}</li>
-      <li class="labeled icon button" data-tab="telegram">
-       <i class="icon fa fa-paper-plane"></i><span>{%trans "Telegram"%}</span>
-      </li>
-     </ul>
-    </div>
-    <div class="span9">
+   <li id="tab-social" class="row auto">
+    <div class="span10">
      <div class="panel panel-default">
       <div class="panel-body">
        <ul class="tab" data-group="social">
-        <li id="tab-twitter">
-{{forms.make(form['twitter'])}}
-        </li>
-        <li id="tab-facebook">
-{{forms.make(form['facebook'])}}
-        </li>
+        <li id="tab-socialnetworks">{{forms.make(form['social'])}}</li>
+        <li id="tab-twitter">{{forms.make(form['twitter'])}}</li>
+        <li id="tab-facebook">{{forms.make(form['facebook'])}}</li>
+        <li id="tab-telegram">{{forms.make(form['telegram'])}}</li>
        </ul>
+       <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
       </div>
       <div class="panel-footer">
        {%trans "Edit your site social networks options"%}
       </div>
      </div>
+    </div>
+    <div class="span2">
+     <ul class="tabs auto vertical" data-group="social">
+      <li class="labeled reverse" data-tab="socialnetworks"><i class="fa middle fa-share-alt"></i> {%trans "General"%}</li>
+      <li class="labeled reverse" data-tab="twitter"><i class="fa middle fa-twitter"></i> {%trans "Twitter"%}</li>
+      <li class="labeled reverse" data-tab="facebook"><i class="fa middle fa-facebook-official"></i> {%trans "Facebook"%}</li>
+      <li class="labeled reverse" data-tab="telegram"><i class="fa middle fa-paper-plane"></i> {%trans "Telegram"%}</li>
+     </ul>
     </div>
    </li>
     <li id="tab-account">
@@ -73,7 +70,7 @@
 {% endfor %}
         </select>
        </div>
-
+       <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
       </div>
       <div class="panel-footer">
        {%trans "Edit your site accounting options"%}
@@ -81,8 +78,6 @@
      </div>
    </li>
   </ul>
-
-  <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
 
  </form>
 {%endblock%}
