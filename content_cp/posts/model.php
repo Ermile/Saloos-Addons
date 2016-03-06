@@ -18,7 +18,7 @@ class model extends \addons\content_cp\home\model
 
 	function delete_delete()
 	{
-		var_dump(0);exit();
+		// var_dump(0);exit();
 		$this->delete( $this->sql()->table('posts')->where('id', $this->childparam('delete')));
 	}
 

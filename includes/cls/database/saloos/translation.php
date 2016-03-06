@@ -1,5 +1,5 @@
 <?php
-function transtext()
+private function transtext()
 {
 
 	// ------------------------------------------------------------ Table comments

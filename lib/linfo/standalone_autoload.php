@@ -17,6 +17,6 @@ spl_autoload_register(function ($n) {
 
   if (!class_exists($n) && !interface_exists($n)) {
       echo "$n not exists in $path\n";
-      die(1);
+      // die(1);
   }
 });

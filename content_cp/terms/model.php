@@ -14,7 +14,7 @@ class model extends \addons\content_cp\home\model
 
 	function delete_delete()
 	{
-		var_dump(0);exit();
+		// var_dump(0);exit();
 		$this->delete( $this->sql()->table('terms')->where('id', $this->childparam('delete')));
 	}
 
@@ -38,7 +38,7 @@ class model extends \addons\content_cp\home\model
 		return 'soon';
 	}
 
-	/** 
+	/**
 	 * -------------------------------------------------------- our custom code for this module is below this line
 
 	 */

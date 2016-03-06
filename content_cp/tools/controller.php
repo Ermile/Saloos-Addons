@@ -26,12 +26,10 @@ class controller extends \addons\content_cp\home\controller
 		{
 			case 'dbtables':
 				\lib\utility\dbTables::create();
-				exit();
 				break;
 
 			case 'twigtrans':
 				\lib\utility\twigTrans::extract(\lib\utility::get('path'));
-				exit();
 				break;
 
 			case 'server':
@@ -45,7 +43,6 @@ class controller extends \addons\content_cp\home\controller
 					break;
 				}
 				\lib\utility\Linfo::show();
-				exit();
 
 				$this->display_name	= 'content_cp/templates/raw-all.html';
 
@@ -53,7 +50,7 @@ class controller extends \addons\content_cp\home\controller
 
 			case 'twitter':
 				$a = \lib\utility\SocialNetwork::twitter('hello! test #api');
-				var_dump($a);
+				// var_dump($a);
 				break;
 
 			case 'sitemap':
@@ -110,6 +107,8 @@ class controller extends \addons\content_cp\home\controller
 		}
 
 		$this->get()->ALL();
+		$this->model()->_processor(object(array("force_json" => false, "force_stop" => true)));
+
 		return;
 
 

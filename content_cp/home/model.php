@@ -13,7 +13,7 @@ class model extends \mvc\model
 
 	function delete_delete()
 	{
-		var_dump(0);exit();
+		// var_dump(0);exit();
 		$this->delete();
 	}
 

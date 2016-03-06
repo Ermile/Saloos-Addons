@@ -52,5 +52,5 @@ try {
 
 } catch (FatalException $e) {
     echo $e->getMessage()."\n";
-    exit(1);
+    // exit(1);
 }

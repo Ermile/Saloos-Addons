@@ -47,10 +47,11 @@ foreach ($result as $row) { //This iterator syntax only works in PHP 5.4+
     } else {
         echo "Message sent to :" . $row['full_name'] . ' (' . str_replace("@", "&#64;", $row['email']) . ')<br />';
         //Mark it as sent in the DB
+        $q1 = mysqli_real_escape_string($mysql, $row['email']);
         mysqli_query(
             $mysql,
             "UPDATE mailinglist SET sent = true WHERE email = '" .
-            mysqli_real_escape_string($mysql, $row['email']) . "'"
+            $q1 . "'"
         );
     }
     // Clear all addresses and attachments for next loop

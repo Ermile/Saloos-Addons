@@ -370,7 +370,8 @@ class POP3
         if ($this->do_debug >= 1) {
             echo '<pre>';
             foreach ($this->errors as $error) {
-                print_r($error);
+                echo $error;
+                // print_r($error);
             }
             echo '</pre>';
         }

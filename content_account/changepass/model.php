@@ -9,7 +9,7 @@ class model extends \mvc\model
 	{
 		$myid = $this->login('id');
 		$newpass   = utility::post('password-new', 'hash');
-		
+
 		$oldpass   = utility::post('password-old');
 
 		$tmp_result =  $this->sql()->tableUsers()->where('id', $myid)->and('user_status','active')->select();
@@ -49,7 +49,7 @@ class model extends \mvc\model
 		// mobile exist more than 2 times!
 		else
 			debug::error(T_("Please forward this message to administrator"));
-		sleep(0.1);
+		// sleep(0.1);
 	}
 }
 ?>

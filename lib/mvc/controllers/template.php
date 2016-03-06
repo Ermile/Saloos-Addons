@@ -59,7 +59,7 @@ trait template
 			$rss->create();
 
 			// \lib\utility\RSS::create();
-			exit();
+			// exit();
 			return;
 		}
 

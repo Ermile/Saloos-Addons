@@ -9,7 +9,7 @@ class controller extends \mvc\controller
 			$mydomain = AccountService? AccountService.MainTld: null;
 			\lib\debug::warn(T_("first of all, you must login to system!"));
 			$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
-			exit();
+			// exit();
 		}
 		// Check permission and if user can do this operation
 		// allow to do it, else show related message in notify center

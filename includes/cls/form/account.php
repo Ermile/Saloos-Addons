@@ -5,7 +5,7 @@ class account extends \lib\form
 {
 	public function __construct($function=null)
 	{
-		if ($function and method_exists($this, $function))
+		if ($function && method_exists($this, $function))
 		{
 			$this->$function();
 		}

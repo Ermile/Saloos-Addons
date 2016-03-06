@@ -2,60 +2,87 @@
 
 
 {%block content%}
- <div class="row unselectable">
-  <div class="span12">
-   <div class="panel panel-default">
-    <div class="panel-body panel-tab">
+  <ul class="tabs row auto" data-group="primary">
+   <li data-tab="general" class="span3"><i class="fa fa-cog"></i> {%trans "General"%}</li>
+   <li data-tab="social" class="span3 active"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
+   <li data-tab="account" class="span3"><i class="fa fa-user"></i> {%trans "Account"%}</li>
+  </ul>
 
-     <ul class="tabs row auto">
-      <li data-tab="general" class="span3 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
-      <li data-tab="social" class="span3"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
-      <li data-tab="account" class="span3"><i class="fa fa-user"></i> {%trans "Account"%}</li>
+  <form class="ajx form row inline autostyle" method="post" {%if child == 'add'%}data-clear{%endif%}>
+   <ul class="tab" data-group="primary">
+    <li id="tab-general">
+     <div class="panel panel-default">
+      <div class="panel-body">
+{{forms.make(form['general'])}}
+      </div>
+      <div class="panel-footer">
+       {%trans "Edit your site general options"%}
+      </div>
+     </div>
+   </li>
+
+   <li id="tab-social" class="row">
+    <div class="span3">
+     <ul class="tabs auto vertical" data-group="social">
+      <li data-tab="general"><i class="fa fa-share"></i> {%trans "General"%}</li>
+      <li data-tab="twitter"><i class="fa fa-twitter"></i> {%trans "Twitter"%}</li>
+      <li data-tab="facebook"><i class="fa fa-facebook-official"></i> {%trans "Facebook"%}</li>
+      <li data-tab="telegram"><i class="fa fa-paper-plane"></i> {%trans "Telegram"%}</li>
+      <li class="labeled icon button" data-tab="telegram">
+       <i class="icon fa fa-paper-plane"></i><span>{%trans "Telegram"%}</span>
+      </li>
      </ul>
+    </div>
+    <div class="span9">
+     <div class="panel panel-default">
+      <div class="panel-body">
+       <ul class="tab" data-group="social">
+        <li id="tab-twitter">
+{{forms.make(form['twitter'])}}
+        </li>
+        <li id="tab-facebook">
+{{forms.make(form['facebook'])}}
+        </li>
+       </ul>
+      </div>
+      <div class="panel-footer">
+       {%trans "Edit your site social networks options"%}
+      </div>
+     </div>
+    </div>
+   </li>
+    <li id="tab-account">
+     <div class="panel panel-default">
+      <div class="panel-body">
+{{forms.make(form['account'])}}
+       <div class="field">
+        <input type="checkbox" name="site-redirect" id="site-redirect" class="checkbox" {%if datarow.redirect.value == 'on'%}checked{%endif%}>
+        <label for="site-redirect"><span>{%trans "Redirect to main address"%}</span></label>
+       </div>
 
-     <form class="ajx form row inline autostyle" method="post" {%if child == 'add'%}data-clear{%endif%}>
-      <ul id="tab">
-       <li id="tab-general" class="active">
-{{forms.make(form['options'])}}
-       </li>
-       <li id="tab-social">
-
-
-       </li>
-
-       <li id="tab-account">
-        <div class="field">
-         <input type="checkbox" name="site-redirect" id="site-redirect" class="checkbox" {%if datarow.redirect.value == 'on'%}checked{%endif%}>
-         <label for="site-redirect"><span>{%trans "Redirect to main address"%}</span></label>
-        </div>
-
-        <div class="field">
-         <input type="checkbox" name="site-reg" id="site-reg" class="checkbox" {%if datarow.register.value == 'on'%}checked{%endif%}>
-         <label for="site-reg"><span>{%trans "Allow registration"%}</span></label>
-        </div>
-        <div class="field">
-         <label for="site-role">{%trans "Default permission"%}</label>
-         <select name="site-role" placeholder='{%trans "Default permission"%}'>
-          <option value="" disabled="disabled">{%trans "Select"%} {%trans "Default permission"%}</option>
+       <div class="field">
+        <input type="checkbox" name="site-reg" id="site-reg" class="checkbox" {%if datarow.register.value == 'on'%}checked{%endif%}>
+        <label for="site-reg"><span>{%trans "Allow registration"%}</span></label>
+       </div>
+       <div class="field">
+        <label for="site-role">{%trans "Default permission"%}</label>
+        <select name="site-role" placeholder='{%trans "Default permission"%}'>
+         <option value="" disabled="disabled">{%trans "Select"%} {%trans "Default permission"%}</option>
 {% for key, value in datarow.permissions.meta%}
-          <option value="{{key}}" {%if datarow.permissions.value == key%}selected{%endif%}>{%trans value%}</option>
+         <option value="{{key}}" {%if datarow.permissions.value == key%}selected{%endif%}>{%trans value%}</option>
 {% endfor %}
-         </select>
-        </div>
+        </select>
+       </div>
 
-       </li>
-      </ul>
+      </div>
+      <div class="panel-footer">
+       {%trans "Edit your site accounting options"%}
+      </div>
+     </div>
+   </li>
+  </ul>
 
+  <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
 
-      <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
-     </form>
-    </div>
-    <div class="panel-footer">
-    <a class="float-right label label-info" href="{{url.base}}">{%trans%}Back to{%endtrans%} {%trans "Dashboard"%}</a>
-     {%trans "Edit your site general options"%}
-    </div>
-   </div>
-
-  </div>
- </div>
+ </form>
 {%endblock%}

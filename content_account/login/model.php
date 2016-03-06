@@ -56,7 +56,7 @@ class model extends \mvc\model
 						$this->redirector()
 							->set_domain()
 							->set_sub_domain('files')
-							->set_url();	
+							->set_url();
 					}
 					elseif(\lib\router::get_storage('CMS'))
 					{
@@ -79,7 +79,7 @@ class model extends \mvc\model
 		// mobile exist more than 2 times!
 		else
 			debug::error(T_("Please forward this message to administrator"));
-		sleep(0.1);
+		// sleep(0.1);
 	}
 }
 ?>
