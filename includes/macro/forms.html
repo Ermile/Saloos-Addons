@@ -5,7 +5,7 @@
 {% for input in inputlist%}
 {%set classlist = input.attr.id ~ ' ' ~ input.attr.parent%}
 
-{% if input.attr.type == 'radio' or input.attr.type == 'select' or input.attr.type == 'checkbox'%}
+{% if input.attr.type == 'radio' or input.attr.type == 'select'%}
  {%set classlist = classlist|trim ~ ' ' ~ input.attr.class%}
 {%endif%}
 
@@ -52,7 +52,7 @@
 
 {% macro checkbox(_input) %}
   <input name="{{_input.attr.name}}" {% for attr,value in _input.attr%}{{attr}}="{{value}}" {% endfor %}>
-{%if _input.label.txt %} <label for="{{_input.attr.id}}">{{_input.label.txt}}</label>{%endif%}
+{%if _input.label.txt %} <label for="{{_input.attr.id}}"><span>{{_input.label.txt}}</span></label>{%endif%}
 
 {% endmacro %}
 
@@ -61,7 +61,7 @@
  {{_self.label(_input)}}
 
  <select {% for attr,value in _input.attr if attr in ['id','class','name']%}{{attr}}="{{value}}" {% endfor %}>
-  <option value="" disabled="disabled">{%trans "Select"%} {{_input.label}}</option>
+  <option value="" disabled="disabled">{%trans "Select"%} {{_input.label.txt}}</option>
   {% for child in _input.child%}
   <option {% for attr,value in child.attr %}{{attr}}="{{value}}" {% endfor %}>{{child.label}}</option>
   {% endfor %}
