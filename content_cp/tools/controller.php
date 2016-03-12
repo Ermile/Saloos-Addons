@@ -16,7 +16,7 @@ class controller extends \addons\content_cp\home\controller
 		// // Restrict unwanted module
 		// if(!$this->cpModlueList())
 		// 	\lib\error::page(T_("Not found!"));
-
+		$exist    = false;
 		$mymodule = $this->cpModule('table');
 		$cpModule = $this->cpModule('raw');
 
@@ -25,14 +25,22 @@ class controller extends \addons\content_cp\home\controller
 		switch ($this->child())
 		{
 			case 'dbtables':
+				$exist    = true;
 				\lib\utility\dbTables::create();
 				break;
 
 			case 'twigtrans':
+				$exist    = true;
 				\lib\utility\twigTrans::extract(\lib\utility::get('path'));
 				break;
 
+			case 'phpinfo':
+				$exist    = true;
+				phpinfo();
+				break;
+
 			case 'server':
+				$exist    = true;
 				if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && !class_exists("COM"))
 				{
 					ob_start();
@@ -54,8 +62,9 @@ class controller extends \addons\content_cp\home\controller
 				break;
 
 			case 'sitemap':
+				$exist    = true;
 				$site_url = \lib\router::get_storage('url_site');
-				$sitemap = new \lib\utility\Sitemap($site_url , root.'public_html/', 'sitemap' );
+				$sitemap  = new \lib\utility\Sitemap($site_url , root.'public_html/', 'sitemap' );
 				// echo "<pre>";
 
 				// add posts
@@ -107,7 +116,10 @@ class controller extends \addons\content_cp\home\controller
 		}
 
 		$this->get()->ALL();
-		$this->model()->_processor(object(array("force_json" => false, "force_stop" => true)));
+		if($exist)
+		{
+			$this->model()->_processor(object(array("force_json" => false, "force_stop" => true)));
+		}
 
 		return;
 

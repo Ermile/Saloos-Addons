@@ -74,7 +74,7 @@ trait options
 			];
 		}
 
-		if($_key)
+		if($_key && isset($qry_result[$_key]))
 		{
 			if($_type)
 			{
@@ -85,11 +85,12 @@ trait options
 			}
 			else
 			{
-				if(isset($qry_result[$_key]))
-					$qry_result = $qry_result[$_key];
-				else
-					$qry_result = null;
+				$qry_result = $qry_result[$_key];
 			}
+		}
+		else
+		{
+			$qry_result = null;
 		}
 		// var_dump($qry_result);
 		return $qry_result;

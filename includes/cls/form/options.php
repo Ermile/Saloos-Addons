@@ -24,13 +24,13 @@ class options extends \lib\form
 	private function general()
 	{
 		$this->title = $this->make('text')->name('site-title')
-			->label(T_('Site title'))
+			->label(T_('Site'). ' '. T_('title'))
 			->maxlength(20)
 			->pl(T_('Site title'))
 			->desc(T_("For multilanguage sites enter title in English and translate it"));
 
 		$this->desc = $this->make('text')->name('site-desc')
-			->label(T_('Site Description'))
+			->label(T_('Site'). ' '.T_('Description'))
 			->maxlength(160)
 			->pl(T_('Site Description'))
 			->desc(T_("Explain site and porpose of it in a few words"));
@@ -43,7 +43,7 @@ class options extends \lib\form
 			;
 
 		$this->url = $this->make('url')->name('site-url')
-			->label(T_('Site main URL'))
+			->label(T_('Site'). ' '.T_('main URL'))
 			->maxlength(50)
 			->pl(T_('Site main Address (URL)'))
 			->desc(T_("Explain site and porpose of it in a few words"));
@@ -207,13 +207,38 @@ class options extends \lib\form
 
 		$this->sms_line1 = $this->make('text')
 			->name('sms-line1')
-			->label(T_('SMS'). ' '. T_('line number 1'))
+			->label(T_('SMS'). ' '. T_('line number'). ' 1')
 			->maxlength(20);
 
 		$this->sms_line2 = $this->make('text')
 			->name('sms-line2')
-			->label(T_('SMS'). ' '. T_('line number 2'))
+			->label(T_('SMS'). ' '. T_('line number'). ' 2')
 			->maxlength(20);
+
+		$this->sms_signup = $this->make('checkbox')
+			->name('sms-signup')
+			->class('checkbox')
+			->label(T_('Send message for'). ' '. T_('signup'));
+
+		$this->sms_verification = $this->make('checkbox')
+			->name('sms-verification')
+			->class('checkbox')
+			->label(T_('Send message for'). ' '. T_('verification'));
+
+		$this->sms_recovery = $this->make('checkbox')
+			->name('sms-recovery')
+			->class('checkbox')
+			->label(T_('Send message for'). ' '. T_('recovery'));
+
+		$this->sms_changepass = $this->make('checkbox')
+			->name('sms-changepass')
+			->class('checkbox')
+			->label(T_('Send message for'). ' '. T_('changepass'));
+
+		$this->sms_verification = $this->make('checkbox')
+			->name('sms-verification')
+			->class('checkbox')
+			->label(T_('Send message for'). ' '. T_('verification'));
 	}
 
 
