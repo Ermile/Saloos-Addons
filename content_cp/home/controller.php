@@ -53,13 +53,6 @@ class controller extends \mvc\controller
 				$this->put('profile')->ALL($cpModule);
 				break;
 
-			case 'options':
-				//allow put on profile
-				// $this->display_name	= 'content_cp/templates/module_options.html';
-				$this->get(null, 'datatable')->ALL($cpModule);
-				$this->put('options')->ALL($cpModule);
-				break;
-
 			// case 'permissions':
 			// 	$this->display_name	= 'content_cp/templates/module_permissions.html';
 			// 	$this->get(null, 'datatable')->ALL('/^[^\/]*$/');

@@ -106,28 +106,32 @@ class options extends \lib\form
 	 */
 	private function twitter()
 	{
-		$this->t_ConsumerKey = $this->make('text')
+		$this->twitter_ConsumerKey = $this->make('text')
 			->name('twitter-ConsumerKey')
 			->label(T_('Twitter'). ' '. T_('ConsumerKey'))
 			->maxlength(20);
 
-		$this->t_ConsumerSecret = $this->make('text')
+		$this->twitter_ConsumerSecret = $this->make('text')
 			->name('twitter-ConsumerSecret')
 			->label(T_('Twitter'). ' '. T_('ConsumerSecret'))
 			->maxlength(60);
 
-		$this->t_AccessToken = $this->make('text')
+		$this->twitter_AccessToken = $this->make('text')
 			->name('twitter-AccessToken')
 			->label(T_('Twitter'). ' '. T_('AccessToken'))
 			->maxlength(60);
 
-		$this->t_AccessTokenSecret = $this->make('text')
+		$this->twitter_AccessTokenSecret = $this->make('text')
 			->name('twitter-AccessTokenSecret')
 			->label(T_('Twitter'). ' '. T_('AccessTokenSecret'))
 			->maxlength(60);
 	}
 
 
+	/**
+	 * Create facebook elements
+	 * @return [type] [description]
+	 */
 	private function facebook()
 	{
 		$this->fb_app_id = $this->make('number')
@@ -166,22 +170,73 @@ class options extends \lib\form
 			->maxlength(60);
 	}
 
+
+	/**
+	 * Create telegram elements
+	 * @return [type] [description]
+	 */
 	private function telegram()
 	{
-		$this->tg_key = $this->make('text')
-			->name('telegram-Key')
+		$this->telegram_key = $this->make('text')
+			->name('tg-key')
 			->label(T_('Telegram'). ' '. T_('Key'))
 			->maxlength(200);
 	}
 
-	private function account()
+
+	/**
+	 * Create sms elements
+	 * @return [type] [description]
+	 */
+	private function sms()
 	{
-		$this->tg_key = $this->make('text')->type('checkbox')
-			->name('site-reg')
-			->attr('class', 'checkbox')
-			->label(T_('Allow registration'));
+		$this->sms_status = $this->make('text')->type('checkbox')
+			->name('sms-status')
+			->class('checkbox')
+			->label(T_('Status of sms service'));
+
+		$this->sms_name = $this->make('select')
+			->name('sms-name')
+			->label(T_('SMS'). ' '. T_('service'))
+			->pl(T_('SMS service'));
+
+		$this->sms_apikey = $this->make('text')
+			->name('sms-apikey')
+			->label(T_('SMS'). ' '. T_('apikey'))
+			->maxlength(100);
+
+		$this->sms_line1 = $this->make('text')
+			->name('sms-line1')
+			->label(T_('SMS'). ' '. T_('line number 1'))
+			->maxlength(20);
+
+		$this->sms_line2 = $this->make('text')
+			->name('sms-line2')
+			->label(T_('SMS'). ' '. T_('line number 2'))
+			->maxlength(20);
 	}
 
 
+	/**
+	 * Create account elements
+	 * @return [type] [description]
+	 */
+	private function account()
+	{
+		$this->register_status = $this->make('checkbox')->type('checkbox')
+			->name('register-status')
+			->class('checkbox')
+			->label(T_('Allow registration'));
+
+		$this->register_redirect = $this->make('checkbox')->type('checkbox')
+			->name('register-redirect')
+			->class('checkbox')
+			->label(T_('Redirect to main address'));
+
+		$this->register_default = $this->make('select')
+			->name('register-default')
+			->label(T_('Default permission'))
+			->pl(T_('Default permission'));
+	}
 }
 ?>

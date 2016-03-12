@@ -14,6 +14,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 Changelog
 =========
 
+ * Version 2.5.0: big update to handle fuly customized options
  * Version 2.4.1: fix and update form with saloos change
  * Version 2.4.0: saloos-addons tidy & Go to best Ermile CMS
  * Version 2.3.0: saloos-addons tidy

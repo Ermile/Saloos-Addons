@@ -6,7 +6,7 @@ class view extends \mvc\view
 	public function config()
 	{
 		// $this->data->list             = $this->cpModlueList('all');
-		$this->data->bodyclass        = 'fixed';
+		$this->data->bodyclass        = 'fixed unselectable';
 		$this->include->css           = false;
 		$this->include->js            = false;
 		$this->include->fontawesome   = true;
@@ -83,24 +83,6 @@ class view extends \mvc\view
 				$this->data->page['desc']     = T_('Publish new post in social networks');
 				break;
 
-			case 'options':
-				$this->data->page['desc']     = T_('Edit your site general options');
-				$this->data->page['haschild'] = false;
-
-				$form_general  = $this->createform('.options', 'general',  true);
-				$form_social   = $this->createform('.options', 'social',   true);
-				$form_twitter  = $this->createform('.options', 'twitter',  true);
-				$form_facebook = $this->createform('.options', 'facebook', true);
-				$form_telegram = $this->createform('.options', 'telegram', true);
-				$form_account  = $this->createform('.options', 'account',  true);
-
-
-
-				// $form->{'mobile'}->value(66);
-				// var_dump($this->data->form);
-				// exit();
-				break;
-
 			case 'visitors':
 				if(LogVisitors)
 				{
@@ -173,11 +155,6 @@ class view extends \mvc\view
 		{
 			case 'profile':
 				$this->data->datarow = $this->model()->datarow('users', $this->login('id'));
-				break;
-
-			case 'options':
-				$this->data->datarow = $this->model()->draw_options();
-				// var_dump($this->data->datarow);
 				break;
 
 			default:

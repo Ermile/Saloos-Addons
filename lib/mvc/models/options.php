@@ -16,7 +16,7 @@ trait options
 		$qry_options = $this->sql()->table('options')
 					->where('user_id', 'IS', 'NULL')
 					->and('post_id', 'IS', "NULL")
-					->and('option_cat', 'options')
+					->and('option_cat', 'like', "'option%'")
 
 					->groupOpen('g_status')
 					->and('option_status', '=', "'enable'")
@@ -43,8 +43,17 @@ trait options
 			}
 			else
 			{
-				$myValue = $row['option_value'];
-				$myMeta  = $row['option_meta'];
+				$myValue  = $row['option_value'];
+				$myMeta   = $row['option_meta'];
+				$myStatus = $row['option_status'];
+				if($myStatus === 'enable' || $myStatus === 'on' || $myStatus === 'active')
+				{
+					$myStatus = true;
+				}
+				else
+				{
+					$myStatus = false;
+				}
 
 				if(substr($myValue, 0,1) == '{')
 				{
@@ -59,8 +68,9 @@ trait options
 
 			$qry_result[$row['option_key']] =
 			[
-				'value' => $myValue,
-				'meta'  => $myMeta
+				'value'  => $myValue,
+				'meta'   => $myMeta,
+				'status' => $myStatus
 			];
 		}
 

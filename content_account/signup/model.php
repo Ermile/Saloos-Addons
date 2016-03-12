@@ -10,7 +10,8 @@ class model extends \mvc\model
 		// get parameters and set to local variables
 		$mymobile   = utility::post('mobile', 'filter');
 		$mypass     = utility::post('password', 'hash');
-		$myperm     = $this->option('permissions');
+		$myperm     = $this->option('register');
+
 		// check for mobile exist
 		$tmp_result = $this->sql()->table('users')
 			->where('user_mobile', $mymobile)

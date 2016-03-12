@@ -45,6 +45,10 @@ class controller extends \lib\controller
 						// $this->redirector()->set_domain(MainService.'.'.Tld)->set_url('logout')->redirect();
 					$this->redirector()->set_domain()->set_url(MyAccount. '/logout'.$param)->redirect();
 					break;
+
+				case 'favicon.ico':
+					$this->redirector()->set_domain()->set_url('static/images/favicon.png')->redirect();
+					break;
 			}
 		}
 		$myrep = router::get_repository_name();

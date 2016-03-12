@@ -61,7 +61,7 @@
  {{_self.label(_input)}}
 
  <select {% for attr,value in _input.attr if attr in ['id','class','name']%}{{attr}}="{{value}}" {% endfor %}>
-  <option value="" disabled="disabled">{%trans "Select"%} {{_input.label.txt}}</option>
+  <option value="">{%trans "Select"%} {{_input.label.txt}}</option>
   {% for child in _input.child%}
   <option {% for attr,value in child.attr %}{{attr}}="{{value}}" {% endfor %}>{{child.label}}</option>
   {% endfor %}

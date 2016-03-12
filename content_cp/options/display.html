@@ -3,8 +3,8 @@
 
 {%block content%}
   <ul class="tabs row auto" data-group="primary">
-   <li data-tab="general" class="span3"><i class="fa fa-cog"></i> {%trans "General"%}</li>
-   <li data-tab="social" class="span3 active"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
+   <li data-tab="general" class="span3 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
+   <li data-tab="social" class="span3"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
    <li data-tab="account" class="span3"><i class="fa fa-user"></i> {%trans "Account"%}</li>
   </ul>
 
@@ -31,6 +31,7 @@
         <li id="tab-twitter">{{forms.make(form['twitter'])}}</li>
         <li id="tab-facebook">{{forms.make(form['facebook'])}}</li>
         <li id="tab-telegram">{{forms.make(form['telegram'])}}</li>
+        <li id="tab-sms">{{forms.make(form['sms'])}}</li>
        </ul>
        <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
       </div>
@@ -45,6 +46,7 @@
       <li class="labeled reverse" data-tab="twitter"><i class="fa middle fa-twitter"></i> {%trans "Twitter"%}</li>
       <li class="labeled reverse" data-tab="facebook"><i class="fa middle fa-facebook-official"></i> {%trans "Facebook"%}</li>
       <li class="labeled reverse" data-tab="telegram"><i class="fa middle fa-paper-plane"></i> {%trans "Telegram"%}</li>
+      <li class="labeled reverse" data-tab="sms"><i class="fa middle fa-envelope"></i> {%trans "SMS"%}</li>
      </ul>
     </div>
    </li>
@@ -52,24 +54,6 @@
      <div class="panel panel-default">
       <div class="panel-body">
 {{forms.make(form['account'])}}
-       <div class="field">
-        <input type="checkbox" name="site-redirect" id="site-redirect" class="checkbox" {%if datarow.redirect.value == 'on'%}checked{%endif%}>
-        <label for="site-redirect"><span>{%trans "Redirect to main address"%}</span></label>
-       </div>
-
-       <div class="field">
-        <input type="checkbox" name="site-reg" id="site-reg" class="checkbox" {%if datarow.register.value == 'on'%}checked{%endif%}>
-        <label for="site-reg"><span>{%trans "Allow registration"%}</span></label>
-       </div>
-       <div class="field">
-        <label for="site-role">{%trans "Default permission"%}</label>
-        <select name="site-role" placeholder='{%trans "Default permission"%}'>
-         <option value="" disabled="disabled">{%trans "Select"%} {%trans "Default permission"%}</option>
-{% for key, value in datarow.permissions.meta%}
-         <option value="{{key}}" {%if datarow.permissions.value == key%}selected{%endif%}>{%trans value%}</option>
-{% endfor %}
-        </select>
-       </div>
        <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
       </div>
       <div class="panel-footer">
