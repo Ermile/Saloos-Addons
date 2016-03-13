@@ -41,7 +41,7 @@ class model extends \mvc\model
 			$this->commit(function($_mobile)
 			{
 
-				// \lib\utility\Sms::send($_mobile, 'signup', $_code);
+				\lib\utility\Sms::send($_mobile, 'signup', $_code);
 				debug::true(T_("Register successfully"));
 
 				// $this->redirector()->set_url('verification?from=signup&mobile='.$_mobile.'&referer='.$myreferer);
