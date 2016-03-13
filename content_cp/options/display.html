@@ -3,9 +3,10 @@
 
 {%block content%}
   <ul class="tabs row auto" data-group="primary">
-   <li data-tab="general" class="span3 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
+   <li data-tab="general" class="span2 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
+   <li data-tab="sms" class="span2"><i class="fa fa-envelope"></i> {%trans "SMS"%}</li>
    <li data-tab="social" class="span3"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
-   <li data-tab="account" class="span3"><i class="fa fa-user"></i> {%trans "Account"%}</li>
+   <li data-tab="account" class="span2"><i class="fa fa-user"></i> {%trans "Account"%}</li>
   </ul>
 
   <form class="ajx form row inline autostyle" method="post" {%if child == 'add'%}data-clear{%endif%}>
@@ -31,7 +32,6 @@
         <li id="tab-twitter">{{forms.make(form['twitter'])}}</li>
         <li id="tab-facebook">{{forms.make(form['facebook'])}}</li>
         <li id="tab-telegram">{{forms.make(form['telegram'])}}</li>
-        <li id="tab-sms">{{forms.make(form['sms'])}}</li>
        </ul>
        <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
       </div>
@@ -46,20 +46,32 @@
       <li class="labeled reverse" data-tab="twitter"><i class="fa middle fa-twitter"></i> {%trans "Twitter"%}</li>
       <li class="labeled reverse" data-tab="facebook"><i class="fa middle fa-facebook-official"></i> {%trans "Facebook"%}</li>
       <li class="labeled reverse" data-tab="telegram"><i class="fa middle fa-paper-plane"></i> {%trans "Telegram"%}</li>
-      <li class="labeled reverse" data-tab="sms"><i class="fa middle fa-envelope"></i> {%trans "SMS"%}</li>
      </ul>
     </div>
    </li>
-    <li id="tab-account">
-     <div class="panel panel-default">
-      <div class="panel-body">
-{{forms.make(form['account'])}}
-       <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
-      </div>
-      <div class="panel-footer">
-       {%trans "Edit your site accounting options"%}
-      </div>
+
+   <li id="tab-sms">
+    <div class="panel panel-default">
+     <div class="panel-body">
+{{forms.make(form['sms'])}}
+      <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
      </div>
+     <div class="panel-footer">
+       {%trans "Edit SMS settings"%}
+     </div>
+    </div>
+   </li>
+
+   <li id="tab-account">
+    <div class="panel panel-default">
+     <div class="panel-body">
+{{forms.make(form['account'])}}
+      <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
+     </div>
+     <div class="panel-footer">
+       {%trans "Edit your site accounting options"%}
+     </div>
+    </div>
    </li>
   </ul>
 

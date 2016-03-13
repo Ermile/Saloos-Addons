@@ -24,7 +24,7 @@ class view extends \addons\content_cp\home\view
 
 
 		// add sms items
-		$form_sms->sms_name->child()->value(T_('Kavenegar'))->label(T_('Kavenegar'));
+		$form_sms->sms_name->child()->value('Kavenegar')->label(T_('Kavenegar'));
 
 		// give perm list and fill it in default register type
 		$myPermList  = $form_register->register_default;

@@ -179,8 +179,13 @@ class model extends \addons\content_cp\home\model
 					'meta'   =>
 					[
 						'apikey'       => utility::post('sms-apikey'),
+						'debug'        => utility::post('sms-debug'),
 						'line1'        => utility::post('sms-line1'),
 						'line2'        => utility::post('sms-line2'),
+						'iran'         => utility::post('sms-iran'),
+						'header'       => utility::post('sms-header'),
+						'footer'       => utility::post('sms-footer'),
+						'one'          => utility::post('sms-one'),
 						'signup'       => utility::post('sms-signup'),
 						'verification' => utility::post('sms-verification'),
 						'recovery'     => utility::post('sms-recovery'),

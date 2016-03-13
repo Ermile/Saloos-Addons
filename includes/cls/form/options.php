@@ -190,14 +190,19 @@ class options extends \lib\form
 	 */
 	private function sms()
 	{
-		$this->sms_status = $this->make('text')->type('checkbox')
+		$this->sms_status = $this->make('checkbox')
 			->name('sms-status')
 			->class('checkbox')
 			->label(T_('Status of sms service'));
 
+		$this->sms_debug = $this->make('checkbox')
+			->name('sms-debug')
+			->class('checkbox')
+			->label(T_('Simulate SMS (Debugging)'));
+
 		$this->sms_name = $this->make('select')
 			->name('sms-name')
-			->label(T_('SMS'). ' '. T_('service'))
+			->label(T_('SMS service'))
 			->pl(T_('SMS service'));
 
 		$this->sms_apikey = $this->make('text')
@@ -214,6 +219,26 @@ class options extends \lib\form
 			->name('sms-line2')
 			->label(T_('SMS'). ' '. T_('line number'). ' 2')
 			->maxlength(20);
+
+		$this->sms_iran = $this->make('checkbox')
+			->name('sms-iran')
+			->class('checkbox')
+			->label(T_('Regional restriction'));
+
+		$this->sms_header = $this->make('text')
+			->name('sms-header')
+			->label(T_('Message header'))
+			->maxlength(20);
+
+		$this->sms_footer = $this->make('text')
+			->name('sms-footer')
+			->label(T_('Message footer'))
+			->maxlength(20);
+
+		$this->sms_one = $this->make('checkbox')
+			->name('sms-one')
+			->class('checkbox')
+			->label(T_('Force one message'));
 
 		$this->sms_signup = $this->make('checkbox')
 			->name('sms-signup')
@@ -248,12 +273,12 @@ class options extends \lib\form
 	 */
 	private function account()
 	{
-		$this->register_status = $this->make('checkbox')->type('checkbox')
+		$this->register_status = $this->make('checkbox')
 			->name('register-status')
 			->class('checkbox')
 			->label(T_('Allow registration'));
 
-		$this->register_redirect = $this->make('checkbox')->type('checkbox')
+		$this->register_redirect = $this->make('checkbox')
 			->name('register-redirect')
 			->class('checkbox')
 			->label(T_('Redirect to main address'));
