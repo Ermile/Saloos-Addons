@@ -172,6 +172,9 @@ class model extends \addons\content_cp\home\model
 					'value' => utility::post('aparat'),
 					'meta'  => ''
 				],
+			],
+			'sms' =>
+			[
 				'sms' =>
 				[
 					'status' => utility::post('sms-status'),
@@ -195,13 +198,16 @@ class model extends \addons\content_cp\home\model
 			],
 			'account' =>
 			[
-				'register'    =>
+				'account'    =>
 				[
-					'status' => utility::post('register-status'),
-					'value'  => utility::post('register-default'),
+					'status' => utility::post('account-status'),
+					'value'  => utility::post('account-default'),
 					'meta'   =>
 					[
-						'redirect' => utility::post('register-redirect'),
+						'default'  => utility::post('account-default'),
+						'redirect' => utility::post('account-redirect'),
+						'register' => utility::post('account-status'),
+						'recovery' => utility::post('account-recovery'),
 					]
 				]
 			],

@@ -274,17 +274,22 @@ class options extends \lib\form
 	private function account()
 	{
 		$this->register_status = $this->make('checkbox')
-			->name('register-status')
+			->name('account-status')
 			->class('checkbox')
 			->label(T_('Allow registration'));
 
-		$this->register_redirect = $this->make('checkbox')
-			->name('register-redirect')
+		$this->account_redirect = $this->make('checkbox')
+			->name('account-redirect')
 			->class('checkbox')
 			->label(T_('Redirect to main address'));
 
-		$this->register_default = $this->make('select')
-			->name('register-default')
+		$this->account_recovery = $this->make('checkbox')
+			->name('account-recovery')
+			->class('checkbox')
+			->label(T_('Recovery account'));
+
+		$this->account_default = $this->make('select')
+			->name('account-default')
 			->label(T_('Default permission'))
 			->pl(T_('Default permission'));
 	}

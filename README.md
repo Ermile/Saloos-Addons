@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 2.5.3: control account link in cp
  * Version 2.5.2: now user can update saloos and addons from cp
  * Version 2.5.1: sms settings is complete and work good
  * Version 2.5.0: big update to handle fuly customized options

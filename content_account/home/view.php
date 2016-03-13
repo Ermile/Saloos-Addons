@@ -12,6 +12,7 @@ class view extends \mvc\view
 		$this->include->fontawesome    = true;
 		$this->data->bodyclass         = 'unselectable';
 		$this->data->myform            = 'account';
+		$this->data->account           = $this->option('account', null);
 
 		$this->global->cookier         = array( 'domain' => '.'.$this->url->raw,
 															 'path'   => '/',

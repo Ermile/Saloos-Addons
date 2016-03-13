@@ -27,7 +27,7 @@ class view extends \addons\content_cp\home\view
 		$form_sms->sms_name->child()->value('Kavenegar')->label(T_('Kavenegar'));
 
 		// give perm list and fill it in default register type
-		$myPermList  = $form_register->register_default;
+		$myPermList  = $form_register->account_default;
 		$myPermNames = $this->model()->permList();
 		$myPerm      = 1;
 		// get list of permissions
@@ -45,15 +45,39 @@ class view extends \addons\content_cp\home\view
 
 		// get the datatable of options
 		$datatable     = $this->model()->draw_options();
+		// $datatable['sms']['sms'] = null;
 
 		// fill all forms used in options page
-		$this->form_fill($form_general,  $datatable['general']);
-		$this->form_fill($form_social,   $datatable['social']);
-		$this->form_fill($form_twitter,  $datatable['social']['twitter']['meta']);
-		$this->form_fill($form_facebook, $datatable['social']['facebook']['meta']);
-		$this->form_fill($form_telegram, $datatable['social']['telegram']['meta']);
-		$this->form_fill($form_sms,      $datatable['social']['sms']);
-		$this->form_fill($form_register, $datatable['account']['register']);
+
+
+		if(isset($datatable['general']))
+		{
+			$this->form_fill($form_general,  $datatable['general']);
+		}
+		if(isset($datatable['social']))
+		{
+			$this->form_fill($form_social,   $datatable['social']);
+		}
+		if(isset($datatable['social']['twitter']['meta']))
+		{
+			$this->form_fill($form_twitter,  $datatable['social']['twitter']['meta']);
+		}
+		if(isset($datatable['social']['facebook']['meta']))
+		{
+			$this->form_fill($form_facebook, $datatable['social']['facebook']['meta']);
+		}
+		if(isset($datatable['social']['telegram']['meta']))
+		{
+			$this->form_fill($form_telegram, $datatable['social']['telegram']['meta']);
+		}
+		if(isset($datatable['sms']['sms']))
+		{
+			$this->form_fill($form_sms,      $datatable['sms']['sms']);
+		}
+		if(isset($datatable['account']['account']))
+		{
+			$this->form_fill($form_register, $datatable['account']['account']);
+		}
 	}
 }
 ?>

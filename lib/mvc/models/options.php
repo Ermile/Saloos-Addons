@@ -18,11 +18,11 @@ trait options
 					->and('post_id', 'IS', "NULL")
 					->and('option_cat', 'like', "'option%'")
 
-					->groupOpen('g_status')
-					->and('option_status', '=', "'enable'")
-					->or('option_status', 'IS', "NULL")
-					->or('option_status', "")
-					->groupClose('g_status')
+					// ->groupOpen('g_status')
+					// ->and('option_status', '=', "'enable'")
+					// ->or('option_status', 'IS', "NULL")
+					// ->or('option_status', "")
+					// ->groupClose('g_status')
 					->select()
 					->allassoc();
 
