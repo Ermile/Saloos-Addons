@@ -95,12 +95,57 @@ class controller extends \addons\content_cp\home\controller
 				break;
 
 			case 'git':
-				echo shell_exec("/".Domain." git pull");
-				// exec('git pull');
+				// declare variables
+				$exist    = true;
+				$rep  = null;
+				$result   = [];
+				$location = '../../';
+				$name     = \lib\utility::get('name');
+				$output   = null;
+
+				// switch by name of repository
+				switch ($name)
+				{
+					case 'saloos':
+						$location .= 'saloos';
+						$rep      .= "https://github.com/Ermile/Saloos.git";
+						break;
+
+					case 'addons':
+						$location .= 'saloos/saloos-addons';
+						$rep      .= "https://github.com/Ermile/Saloos-Addons.git";
+						break;
+
+					default:
+						$exist = false;
+						return;
+						break;
+				}
+				// change location to address of requested
+				chdir($location);
+				// start show result
+				$output   = "<pre>";
+				$output  .= 'Repository address: '. getcwd(). '<br/>';
+				$output  .= 'Remote address:     '. $rep. '<hr/>';
+				$command  = 'git pull '.$rep.' 2>&1';
+
+				// Print the exec output inside of a pre element
+				exec($command, $result);
+				if(!$result)
+				{
+					$output .= T_('Not Work!');
+				}
+				foreach ($result as $line)
+				{
+					$output .= $line . "\n";
+				}
+				$output .= "</pre>";
+
+				echo $output;
 				break;
 
 			case null:
-				$mypath   = $this->url('path','_');
+				$mypath = $this->url('path','_');
 				if( is_file(addons.'content_cp/templates/static_'.$mypath.'.html') )
 				{
 					$this->display_name	= 'content_cp/templates/static_'.$mypath.'.html';
