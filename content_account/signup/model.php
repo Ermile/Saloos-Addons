@@ -1,5 +1,5 @@
 <?php
-namespace content_account\signup;
+namespace addons\content_account\signup;
 use \lib\utility;
 use \lib\debug;
 

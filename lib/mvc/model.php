@@ -15,5 +15,12 @@ class model extends \lib\model
 	use \lib\mvc\models\terms;
 	use \lib\mvc\models\tools;
 	use \lib\mvc\models\visitors;
+
+	public function __construct($object = false)
+	{
+		parent::__construct($object);
+		$this->options     = $this->sp_get_options();
+		$this->permissions = $this->permList();
+	}
 }
 ?>

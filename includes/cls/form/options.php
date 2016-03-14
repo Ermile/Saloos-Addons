@@ -273,20 +273,42 @@ class options extends \lib\form
 	 */
 	private function account()
 	{
-		$this->register_status = $this->make('checkbox')
+		$this->account_status = $this->make('checkbox')
 			->name('account-status')
 			->class('checkbox')
-			->label(T_('Allow registration'));
+			->label(T_('Account Status'));
+
+		$this->account_passphrase = $this->make('checkbox')
+			->name('account-passphrase')
+			->class('checkbox')
+			->label(T_('Access with pass phrase'));
+
+		$this->account_passkey = $this->make('text')
+			->name('account-passkey')
+			->label(T_('Pass phrase key'))
+			->attr('data-parent', 'account-passphrase' )
+			->maxlength(20);
+
+		$this->account_passvalue = $this->make('text')
+			->name('account-passvalue')
+			->label(T_('Pass phrase value'))
+			->attr('data-parent', 'account-passphrase' )
+			->maxlength(20);
 
 		$this->account_redirect = $this->make('checkbox')
 			->name('account-redirect')
 			->class('checkbox')
 			->label(T_('Redirect to main address'));
 
+		$this->account_register = $this->make('checkbox')
+			->name('account-register')
+			->class('checkbox')
+			->label(T_('Allow registration'));
+
 		$this->account_recovery = $this->make('checkbox')
 			->name('account-recovery')
 			->class('checkbox')
-			->label(T_('Recovery account'));
+			->label(T_('Allow recovery account'));
 
 		$this->account_default = $this->make('select')
 			->name('account-default')

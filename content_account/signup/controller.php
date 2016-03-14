@@ -1,11 +1,12 @@
 <?php
-namespace content_account\signup;
+namespace addons\content_account\signup;
 
-class controller extends \mvc\controller
+class controller extends \addons\content_account\home\controller
 {
 	function _route()
 	{
-		if($this->option('register'))
+		$canAccess = $this->option('account', 'meta', 'register');
+		if($canAccess)
 		{
 			$this->post('signup')->ALL();
 		}

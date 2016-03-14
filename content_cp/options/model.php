@@ -204,10 +204,13 @@ class model extends \addons\content_cp\home\model
 					'value'  => utility::post('account-default'),
 					'meta'   =>
 					[
-						'default'  => utility::post('account-default'),
-						'redirect' => utility::post('account-redirect'),
-						'register' => utility::post('account-status'),
-						'recovery' => utility::post('account-recovery'),
+						'passphrase' => utility::post('account-passphrase'),
+						'passkey'    => utility::post('account-passkey'),
+						'passvalue'  => utility::post('account-passvalue'),
+						'default'    => utility::post('account-default'),
+						'redirect'   => utility::post('account-redirect'),
+						'register'   => utility::post('account-register'),
+						'recovery'   => utility::post('account-recovery'),
 					]
 				]
 			],

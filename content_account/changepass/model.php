@@ -1,5 +1,5 @@
 <?php
-namespace content_account\changepass;
+namespace addons\content_account\changepass;
 use \lib\utility;
 use \lib\debug;
 

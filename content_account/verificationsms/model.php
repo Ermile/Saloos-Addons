@@ -1,5 +1,5 @@
 <?php
-namespace content_account\verificationsms;
+namespace addons\content_account\verificationsms;
 use \lib\utility;
 use \lib\debug;
 

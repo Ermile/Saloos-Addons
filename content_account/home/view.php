@@ -1,5 +1,5 @@
 <?php
-namespace content_account\home;
+namespace addons\content_account\home;
 
 class view extends \mvc\view
 {
