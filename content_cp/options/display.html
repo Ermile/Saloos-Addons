@@ -3,10 +3,18 @@
 
 {%block content%}
   <ul class="tabs row auto" data-group="primary">
+{%if feature.options.general%}
    <li data-tab="general" class="span2 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
+{%endif%}
+{%if feature.options.sms%}
    <li data-tab="sms" class="span2"><i class="fa fa-envelope"></i> {%trans "SMS"%}</li>
+{%endif%}
+{%if feature.options.social%}
    <li data-tab="social" class="span3"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
+{%endif%}
+{%if feature.options.account%}
    <li data-tab="account" class="span2"><i class="fa fa-user"></i> {%trans "Account"%}</li>
+{%endif%}
   </ul>
 
   <form class="ajx form row inline autostyle" method="post" {%if child == 'add'%}data-clear{%endif%}>

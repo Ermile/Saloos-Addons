@@ -69,7 +69,7 @@ private function transtext()
 	echo T_("You can work with control panel in your language");                      // Line 56
 	echo T_("Go to your profile, change password or logout from conrtol panel");      // Line 68
 	echo T_("My Profile");                                                            // Line 97 Seperate
-	echo T_("Change Password");                                                       // Line 307 Seperate
+	echo T_("Change Password");                                                       // Line 305 Seperate
 	echo T_("Lock Screen");                                                           // Line 99 Seperate
 	echo T_("Logout");                                                                // Line 100 Seperate
 	echo T_("We glad to working for you and hope you enjoy using our system");        // Line 98
@@ -304,7 +304,7 @@ private function transtext()
 	echo T_("Login Successfully");                                                    // Line 114 Seperate
 	echo T_("Login failed!");                                                         // Line 115 Seperate
 	echo T_("Mobile or password is incorrect");                                       // Line 120 Seperate
-	echo T_("Please forward this message to administrator");                          // Line 289 Seperate
+	echo T_("Please forward this message to administrator");                          // Line 287 Seperate
 	echo T_("Please enter title");                                                    // Line 122 Seperate
 	echo T_("Assign keywords to your posts using tags");                              // Line 123 Seperate
 	echo T_("Use categories to define sections of your site and group related posts");// Line 124 Seperate
@@ -431,41 +431,40 @@ private function transtext()
 	echo T_("Pass phrase key");                                                       // Line 271 Seperate
 	echo T_("Pass phrase value");                                                     // Line 272 Seperate
 	echo T_("Allow recovery account");                                                // Line 273 Seperate
-	echo T_("Default");                                                               // Line 276 Seperate
-	echo T_("Enter your registered mobile");                                          // Line 282 Seperate
-	echo T_("Enter your password");                                                   // Line 283 Seperate
-	echo T_("Mobile number exist!");                                                  // Line 286 Seperate
-	echo T_("Register successfully");                                                 // Line 287 Seperate
-	echo T_("Register failed!");                                                      // Line 288 Seperate
-	echo T_("Recovery");                                                              // Line 292 Seperate
-	echo T_("your recovery code is");                                                 // Line 293 Seperate
-	echo T_("recovery failed!");                                                      // Line 294 Seperate
-	echo T_("Mobile number is incorrect");                                            // Line 295 Seperate
-	echo T_("Verificate");                                                            // Line 298 Seperate
-	echo T_("Verification");                                                          // Line 299 Seperate
-	echo T_("verify successfully.");                                                  // Line 300 Seperate
-	echo T_("please Input your new password");                                        // Line 301 Seperate
-	echo T_("verify failed!");                                                        // Line 302 Seperate
-	echo T_("this data is incorrect");                                                // Line 303 Seperate
-	echo T_("Check your mobile and enter the code");                                  // Line 304 Seperate
-	echo T_("Current Password");                                                      // Line 308 Seperate
-	echo T_("New Password");                                                          // Line 309 Seperate
-	echo T_("Change it");                                                             // Line 310 Seperate
-	echo T_("change password successfully");                                          // Line 311 Seperate
-	echo T_("change password failed!");                                               // Line 312 Seperate
-	echo T_("First you must enter name of permission");                               // Line 316 Seperate
-	echo T_("This permission name exist!");                                           // Line 317 Seperate
-	echo T_("You can edit this permission");                                          // Line 318 Seperate
-	echo T_("Define or edit user permissions to allow or block access to special pages");// Line 319 Seperate
-	echo T_("You are editing permission");                                            // Line 320 Seperate
-	echo T_("We send a verification code for you");                                   // Line 324 Seperate
-	echo T_("We send a verification code to this number");                            // Line 325 Seperate
-	echo T_("You account is verified successfully");                                  // Line 326 Seperate
-	echo T_("Your verification code is");                                             // Line 327 Seperate
-	echo T_("Your password is changed successfully");                                 // Line 328 Seperate
-	echo T_("Now we only support IRAN!");                                             // Line 329 Seperate
-	echo T_("Thanks for using our service");                                          // Line 331 Seperate
-	echo T_(" ");                                                                     // Line 334 Seperate
+	echo T_("Enter your registered mobile");                                          // Line 280 Seperate
+	echo T_("Enter your password");                                                   // Line 281 Seperate
+	echo T_("Mobile number exist!");                                                  // Line 284 Seperate
+	echo T_("Register successfully");                                                 // Line 285 Seperate
+	echo T_("Register failed!");                                                      // Line 286 Seperate
+	echo T_("Recovery");                                                              // Line 290 Seperate
+	echo T_("your recovery code is");                                                 // Line 291 Seperate
+	echo T_("recovery failed!");                                                      // Line 292 Seperate
+	echo T_("Mobile number is incorrect");                                            // Line 293 Seperate
+	echo T_("Verificate");                                                            // Line 296 Seperate
+	echo T_("Verification");                                                          // Line 297 Seperate
+	echo T_("verify successfully.");                                                  // Line 298 Seperate
+	echo T_("please Input your new password");                                        // Line 299 Seperate
+	echo T_("verify failed!");                                                        // Line 300 Seperate
+	echo T_("this data is incorrect");                                                // Line 301 Seperate
+	echo T_("Check your mobile and enter the code");                                  // Line 302 Seperate
+	echo T_("Current Password");                                                      // Line 306 Seperate
+	echo T_("New Password");                                                          // Line 307 Seperate
+	echo T_("Change it");                                                             // Line 308 Seperate
+	echo T_("change password successfully");                                          // Line 309 Seperate
+	echo T_("change password failed!");                                               // Line 310 Seperate
+	echo T_("First you must enter name of permission");                               // Line 314 Seperate
+	echo T_("This permission name exist!");                                           // Line 315 Seperate
+	echo T_("You can edit this permission");                                          // Line 316 Seperate
+	echo T_("Define or edit user permissions to allow or block access to special pages");// Line 317 Seperate
+	echo T_("You are editing permission");                                            // Line 318 Seperate
+	echo T_("We send a verification code for you");                                   // Line 322 Seperate
+	echo T_("We send a verification code to this number");                            // Line 323 Seperate
+	echo T_("You account is verified successfully");                                  // Line 324 Seperate
+	echo T_("Your verification code is");                                             // Line 325 Seperate
+	echo T_("Your password is changed successfully");                                 // Line 326 Seperate
+	echo T_("Now we only support IRAN!");                                             // Line 327 Seperate
+	echo T_("Thanks for using our service");                                          // Line 329 Seperate
+	echo T_(" ");                                                                     // Line 332 Seperate
 
 	//-----------------------------------------saloos-addons\includes\macro\forms.html
 	echo T_("Select");                                                                // Line 64

@@ -31,7 +31,7 @@
 {%if feature.permissions and perm.permissions.view%}
    <a href="{{url.base}}permissions"><i class="fa fa-lg fa-lock"></i> <span>{%trans "Permissions"%}</span></a>
 {%endif%}
-{%if feature.options and perm.options.view%}
+{%if feature.options.status and perm.options.view%}
    <a href="{{url.base}}options"><i class="fa fa-lg fa-cog"></i> <span>{%trans "Options"%}</span></a>
 {%endif%}
 {%if url.tld =='dev'%}

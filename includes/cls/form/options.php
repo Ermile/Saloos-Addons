@@ -308,6 +308,7 @@ class options extends \lib\form
 		$this->account_recovery = $this->make('checkbox')
 			->name('account-recovery')
 			->class('checkbox')
+			->attr('data-relation', 'account-passphrase' )
 			->label(T_('Allow recovery account'));
 
 		$this->account_default = $this->make('select')
