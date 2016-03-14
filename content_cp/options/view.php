@@ -35,7 +35,7 @@ class view extends \addons\content_cp\home\view
 		{
 			if($myPerm == $key)
 			{
-				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->$checkStatus();
+				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->selected();
 			}
 			else
 			{
