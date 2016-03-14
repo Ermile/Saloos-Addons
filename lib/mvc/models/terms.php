@@ -80,8 +80,8 @@ trait terms
 		}
 
 		$qry = $this->sql()->table('posts')->where('post_status', 'publish')->order('id', 'DESC');
-		$qry->join('termusages')->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"');
-		$qry->join('terms')->on('id', '#termusages.term_id')->and('term_url', $url)->groupby('#posts.id');
+		$qry->join('termusages')->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"')->field(false);
+		$qry->join('terms')->on('id', '#termusages.term_id')->and('term_url', $url)->groupby('#posts.id')->field(false);
 
 		return $qry->select()->allassoc();
 	}

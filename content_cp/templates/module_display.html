@@ -10,14 +10,10 @@
 {%block datatable%}
 {%if include.datatable%}
        <table class="{%if datatable.total <100 %}datatable{%else%}hidden{%endif%} display responsive nowrap" cellspacing="0" width="100%" {%if datatable.total >100 %}data-tablesrc='{{module}}/list' {%endif%}>
-{%if datatable.total >100 %}
+{%-if datatable.total >100-%}
         <tbody>
           <tr>
-           <td>
-           {%set datatable = datatable|merge({"recordsFiltered": datatable.filter, "recordsTotal": datatable.total})%}
-           {{datatable|json_encode()|raw}}
-
-           </td>
+           <td>{%set datatable = datatable|merge({"recordsFiltered": datatable.filter, "recordsTotal": datatable.total})%}{{-datatable|json_encode()|raw-}}</td>
           </tr>
         </tbody>
 {%else%}

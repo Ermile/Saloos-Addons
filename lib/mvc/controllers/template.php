@@ -115,9 +115,7 @@ trait template
 			$this->display_name	= 'content\template\dafault.html';
 
 		$this->route_check_true = true;
-
-		$this->get(null, $myurl['table'])->ALL();
-		// $this->get()->ALL();
+		$this->get(null, $myurl['table'])->ALL("/.*/");
 	}
 }
 ?>

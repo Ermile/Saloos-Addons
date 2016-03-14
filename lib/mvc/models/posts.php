@@ -109,14 +109,14 @@ trait posts
 			// $qry = $qry->query("SELECT `posts`.* FROM `posts` ");
 			$post_cat = $post_cat[0];
 
-			$qry->joinTermusages()->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"');
+			$qry->joinTermusages()->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"')->field(false);
 			// $qry->joinTerms()->whereId('#termusages.term_id')->andTerm_slug('#"statements"');
 
 			// $obj = $qry->joinTerms();
 			// $obj->whereId('#termusages.term_id')->andTerm_slug('#"statements"');
 
 
-			$obj = $qry->joinTerms()->on('id', '#termusages.term_id')->groupby('#posts.id');
+			$obj = $qry->joinTerms()->on('id', '#termusages.term_id')->field(false)->groupby('#posts.id');
 			// $obj->whereTerm_slug('#"statements"');
 
 			// if pass in array splite it and create specefic query
@@ -159,7 +159,8 @@ trait posts
 			// 						->fieldUser_firstname("firstname")
 		}
 
-		$qry = $qry->select();
+		// var_dump($qry);
+		$qry = $qry->select('DISTINCT');
 		// echo $qry->string();
 		return $qry->allassoc();
 	}
