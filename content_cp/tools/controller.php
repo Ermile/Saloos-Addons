@@ -31,7 +31,9 @@ class controller extends \addons\content_cp\home\controller
 
 			case 'twigtrans':
 				$exist    = true;
-				\lib\utility\twigTrans::extract(\lib\utility::get('path'));
+				$mypath   = \lib\utility::get('path');
+				$myupdate = \lib\utility::get('update');
+				\lib\utility\twigTrans::extract($mypath, $myupdate);
 				break;
 
 			case 'phpinfo':
