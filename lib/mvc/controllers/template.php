@@ -62,6 +62,50 @@ trait template
 			// exit();
 			return;
 		}
+		else
+		{
+			// save name of current module as name of social
+			$social_name = $mymodule;
+			// declare list of shortkey for socials
+			$social_list =
+			[
+				'@'        => 'twitter',
+				'~'        => 'github',
+				'+'        => 'googleplus',
+				'f'        => 'facebook',
+				'fb'       => 'facebook',
+				'in'       => 'linkedin',
+				'tg'       => 'telegram',
+			];
+
+			// if name of current module is exist then save complete name of it
+			if(isset($social_list[$mymodule]))
+			{
+				$social_name = $social_list[$mymodule];
+			}
+
+			// declare address of social networks
+			$social_list =
+			[
+				'twitter'    => 'https://twitter.com/',
+				'github'     => 'https://github.com/',
+				'googleplus' => 'https://plus.google.com/',
+				'facebook'   => 'https://www.facebook.com/',
+				'linkedin'   => 'https://linkedin.com/in/',
+				'telegram'   => 'http://telegram.me/',
+				'aparat'     => 'http://www.aparat.com/',
+			];
+
+			// if social name exist in social adresses then redirect to it
+			if(isset($social_list[$social_name]))
+			{
+				// create url of social network
+				$social_url = $social_list[$social_name] . $this->option($social_name);
+				// redirect to new address
+				$this->redirector($social_url, false)->redirect();
+				return;
+			}
+		}
 
 		$myurl = null;
 		if(!empty(db_name))
