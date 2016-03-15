@@ -58,17 +58,17 @@ class view extends \addons\content_cp\home\view
 		{
 			$this->form_fill($form_social,   $datatable['social']);
 		}
-		if(isset($datatable['social']['twitter']['meta']))
+		if(isset($datatable['social']['twitter']))
 		{
-			$this->form_fill($form_twitter,  $datatable['social']['twitter']['meta']);
+			$this->form_fill($form_twitter,  $datatable['social']['twitter']);
 		}
-		if(isset($datatable['social']['facebook']['meta']))
+		if(isset($datatable['social']['facebook']))
 		{
-			$this->form_fill($form_facebook, $datatable['social']['facebook']['meta']);
+			$this->form_fill($form_facebook, $datatable['social']['facebook']);
 		}
-		if(isset($datatable['social']['telegram']['meta']))
+		if(isset($datatable['social']['telegram']))
 		{
-			$this->form_fill($form_telegram, $datatable['social']['telegram']['meta']);
+			$this->form_fill($form_telegram, $datatable['social']['telegram']);
 		}
 		if(isset($datatable['sms']['sms']))
 		{

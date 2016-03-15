@@ -112,17 +112,18 @@ class model extends \addons\content_cp\home\model
 		[
 			'general' =>
 			[
-				'title'       => utility::post('site-title'),
-				'desc'        => utility::post('site-desc'),
-				'email'       => utility::post('site-email'),
-				'url'         => utility::post('site-url)'),
+				'title' => utility::post('site-title'),
+				'desc'  => utility::post('site-desc'),
+				'email' => utility::post('site-email'),
+				'url'   => utility::post('site-url'),
 			],
-			'social'  =>
+			'social' =>
 			[
-				'twitter'     =>
+				'twitter' =>
 				[
-					'value' => utility::post('twitter'),
-					'meta'  =>
+					'status' => utility::post('twitter-status'),
+					'value'  => utility::post('twitter'),
+					'meta'   =>
 					[
 						'ConsumerKey'       => utility::post('twitter-ConsumerKey'),
 						'ConsumerSecret'    => utility::post('twitter-ConsumerSecret'),
@@ -130,10 +131,11 @@ class model extends \addons\content_cp\home\model
 						'AccessTokenSecret' => utility::post('twitter-AccessTokenSecret')
 					]
 				],
-				'facebook'    =>
+				'facebook' =>
 				[
-					'value' => utility::post('facebook'),
-					'meta'  =>
+					'status' => utility::post('fb-status'),
+					'value'  => utility::post('facebook'),
+					'meta'   =>
 					[
 						'app_id'         => utility::post('fb-app_id'),
 						'app_secret'     => utility::post('fb-app_secret'),
@@ -144,30 +146,31 @@ class model extends \addons\content_cp\home\model
 						'client_token'   => utility::post('fb-client_token')
 					]
 				],
-				'googleplus'  =>
+				'googleplus' =>
 				[
 					'value' => utility::post('googleplus'),
 					'meta'  => ''
 				],
-				'github'      =>
+				'github' =>
 				[
 					'value' => utility::post('github'),
 					'meta'  => ''
 				],
-				'linkedin'    =>
+				'linkedin' =>
 				[
 					'value' => utility::post('linkedin'),
 					'meta'  => ''
 				],
-				'telegram'    =>
+				'telegram' =>
 				[
+					'status' => utility::post('tg-status'),
 					'value' => utility::post('telegram'),
 					'meta'  =>
 					[
 						'key' => utility::post('tg-key'),
 					]
 				],
-				'aparat'      =>
+				'aparat' =>
 				[
 					'value' => utility::post('aparat'),
 					'meta'  => ''
@@ -198,7 +201,7 @@ class model extends \addons\content_cp\home\model
 			],
 			'account' =>
 			[
-				'account'    =>
+				'account' =>
 				[
 					'status' => utility::post('account-status'),
 					'value'  => utility::post('account-default'),
@@ -258,7 +261,10 @@ class model extends \addons\content_cp\home\model
 			}
 			else
 			{
-				$result[$cat][$key] = $value;
+				// $result[$cat][$key] = $value;
+				$result[$cat][$key]['status'] = $status;
+				$result[$cat][$key]['value']  = $value;
+				$result[$cat][$key]['meta']   = $meta;
 			}
 		}
 
