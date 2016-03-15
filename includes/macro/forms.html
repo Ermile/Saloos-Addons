@@ -9,7 +9,10 @@
  {%set classlist = classlist|trim ~ ' ' ~ input.attr.class%}
 {%endif%}
 
-{%if input.attr.required is not null%}
+{%if input.attr.type == 'seperator'%}
+ <div class="{{classlist|trim}}">
+{%if input.label.txt %}   <label for="{{input.attr.id}}" {% for attr,value in input.attr %}{{attr}}="{{value}}" {% endfor %}>{{input.label.txt}}</label>{%endif%}
+{%elseif input.attr.required is not null%}
  <div class="field {{classlist|trim}} required">
 {%else%}
  <div class="field {{classlist|trim}}">
@@ -23,6 +26,7 @@
 {% elseif input.attr.type == 'select'%}                                {{ form.select(input)   }}
 {% elseif input.attr.type == 'datalist'%}                              {{ form.datalist(input) }}
 {% elseif input.attr.type == 'textarea'%}                              {{ form.textarea(input) }}
+{% elseif input.attr.type == 'seperator'%}
 {% elseif input.attr.type == 'submit' or input.attr.type == 'button'%} {{ form.submit(input)   }}
 {% else %}                                                             {{ form.input(input)    }}
 {% endif %}
@@ -60,7 +64,7 @@
 {% macro select(_input) %}
  {{_self.label(_input)}}
 
- <select {% for attr,value in _input.attr if attr in ['id','class','name']%}{{attr}}="{{value}}" {% endfor %}>
+ <select {% for attr,value in _input.attr%}{{attr}}="{{value}}" {% endfor %}>
   <option value="">{%trans "Select"%} {{_input.label.txt}}</option>
   {% for child in _input.child%}
   <option {% for attr,value in child.attr %}{{attr}}="{{value}}" {% endfor %}>{{child.label}}</option>
