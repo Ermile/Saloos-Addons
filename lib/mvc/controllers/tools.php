@@ -7,14 +7,17 @@ trait tools
 	 * call model func and return needed option in all condition
 	 * @return [type] return string or array contain option value
 	 */
-	public function option($_key = null, $_type = 'value', $_meta = false)
+	public function option($_key = null, $_type = 'value', $_meta = false, $_model = false)
 	{
-
-		$qry_options = $this->model()->options;
+		if(!$_model)
+		{
+			$_model = $this->model();
+		}
+		$qry_options = $_model->options;
 
 		// get list of permissions
 		// $permList = $this->permList();
-		$permList = $this->model()->permissions;
+		$permList = $_model->permissions;
 		$qry_result['permissions'] =
 		[
 			'value' => null,
@@ -99,7 +102,7 @@ trait tools
 		return $qry_result;
 
 
-		// return $this->model()->sp_get_options(...func_get_args());
+		// return $_model->sp_get_options(...func_get_args());
 	}
 
 

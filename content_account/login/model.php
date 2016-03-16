@@ -3,7 +3,7 @@ namespace addons\content_account\login;
 use \lib\utility;
 use \lib\debug;
 
-class model extends \mvc\model
+class model extends \addons\content_account\home\model
 {
 	public function post_login()
 	{

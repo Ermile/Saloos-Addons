@@ -6,8 +6,7 @@ class model extends \mvc\model
 	function __construct($object = false)
 	{
 		parent::__construct($object);
-
-		$settings = $this->option('account', null);
+		$settings = $this->option('account', null, false, $this);
 		$mymodule = $this->module();
 		$isValid  = false;
 

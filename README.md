@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 2.8.2: fix content acount perm loop
  * Version 2.8.1: fix to work without subdomain
  * Version 2.8.0: work on cp options and add some new elements and fixes
  * Version 2.7.1: add seperator to form creator and update trans
