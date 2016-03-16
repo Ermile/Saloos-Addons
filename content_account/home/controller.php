@@ -32,7 +32,7 @@ class controller extends \mvc\controller
 			case 'verificationsms':
 				if($from !== 'recovery' && $from !== 'signup' && $from !== 'verification')
 					\lib\error::access(T_("you can't access to this page!"));
-				$this->model_name   = 'addons\content_account\\'.$mymodule.'\model';
+				$this->model_name   = '\addons\content_account\\'.$mymodule.'\model';
 				$this->display_name = 'content_account\\'.$mymodule.'\display.html';
 				$this->post($mymodule)->ALL($mymodule);
 				$this->get()          ->ALL($mymodule);
@@ -73,7 +73,7 @@ class controller extends \mvc\controller
 				$uid = 201500001;
 				if(\lib\utility::get('uid') == $uid || \lib\utility\Cookie::read('uid') == $uid)
 				{
-					$this->model_name	= 'addons\content_account\sms\model';
+					$this->model_name	= '\addons\content_account\sms\model';
 					$this->display_name	= 'content_account\sms\display.html';
 					$this->post($mymodule)->ALL($mymodule);
 					$this->get($mymodule) ->ALL($mymodule);
@@ -85,7 +85,7 @@ class controller extends \mvc\controller
 
 			// logout user from system then redirect to ermile
 			case 'logout':
-				$this->model_name	= 'lib\mvc\model';
+				$this->model_name	= '\lib\mvc\model';
 				$this->model()->put_logout();
 				$this->redirector()->set_domain()->set_url()->redirect();
 				break;

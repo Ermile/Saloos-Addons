@@ -7,7 +7,7 @@
    <div class="panel panel-default">
     <div class="panel-heading">{%trans "Define new permission"%}</div>
     <div class="panel-body">
-     <form class="ajx form row inline autostyle" method="post" action="/permissions/add">
+     <form class="ajx form row inline autostyle" method="post" action="{{url.base}}permissions/add">
       <div class="field">
        <label for="pName">{%trans "Permission Name"%}</label><input type="text" name="pName" id="pName" maxlength="50" placeholder='{%trans "Permission Name"%}' autocomplete="off">
       </div>
@@ -25,9 +25,9 @@
     <h3>{%trans "list of permissions"%}</h3>
 {% for key, value in datarow%}
      <span>
-      <a href="/permissions/{{key}}">{%trans key%}
+      <a href="{{url.base}}permissions/{{key}}">{%trans key%}
       </a>
-       <a class="fa fa-times" href="/permissions/delete={{key}}" data-data='{"id": "{{key}}" }' data-method="post" data-modal="delete-confirm"></a></span>
+       <a class="fa fa-times" href="{{url.base}}permissions/delete={{key}}" data-data='{"id": "{{key}}" }' data-method="post" data-modal="delete-confirm"></a></span>
 {%endfor%}
     </div>
     <div class="panel-footer">

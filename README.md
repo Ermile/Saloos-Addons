@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 2.8.1: fix to work without subdomain
  * Version 2.8.0: work on cp options and add some new elements and fixes
  * Version 2.7.1: add seperator to form creator and update trans
  * Version 2.7.0: fix post func to work with mysql5.7+
