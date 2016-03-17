@@ -117,6 +117,18 @@ class model extends \addons\content_cp\home\model
 				'email' => utility::post('site-email'),
 				'url'   => utility::post('site-url'),
 			],
+			'config' =>
+			[
+				'config' =>
+				[
+					'meta'   =>
+					[
+						'coming'       => utility::post('config-coming'),
+						'saveAsCookie' => utility::post('config-cookie'),
+						'logVisitors'  => utility::post('config-logVisitors'),
+					],
+				],
+			],
 			'social' =>
 			[
 				'twitter' =>

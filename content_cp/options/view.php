@@ -15,6 +15,7 @@ class view extends \addons\content_cp\home\view
 	function view_datatable()
 	{
 		$form_general  = $this->createform('.options', 'general',  true);
+		$form_config   = $this->createform('.options', 'config',   true);
 		$form_social   = $this->createform('.options', 'social',   true);
 		$form_twitter  = $this->createform('.options', 'twitter',  true);
 		$form_facebook = $this->createform('.options', 'facebook', true);
@@ -53,6 +54,10 @@ class view extends \addons\content_cp\home\view
 		if(isset($datatable['general']))
 		{
 			$this->form_fill($form_general,  $datatable['general']);
+		}
+		if(isset($datatable['config']['config']))
+		{
+			$this->form_fill($form_config,  $datatable['config']['config']);
 		}
 		if(isset($datatable['social']))
 		{

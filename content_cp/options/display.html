@@ -6,6 +6,9 @@
 {%if feature.options.general%}
    <li data-tab="general" class="span2 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
 {%endif%}
+{%if feature.options.config%}
+   <li data-tab="config" class="span2 active"><i class="fa fa-plug"></i> {%trans "Config"%}</li>
+{%endif%}
 {%if feature.options.sms%}
    <li data-tab="sms" class="span2"><i class="fa fa-envelope"></i> {%trans "SMS"%}</li>
 {%endif%}
@@ -27,6 +30,18 @@
       </div>
       <div class="panel-footer">
        {%trans "Edit your site general options"%}
+      </div>
+     </div>
+   </li>
+
+    <li id="tab-config">
+     <div class="panel panel-default">
+      <div class="panel-body">
+{{forms.make(form['config'])}}
+       <button type="submit" class="button primary row-clear" name="submit" id="submit">{%trans "Save Changes"%}</button>
+      </div>
+      <div class="panel-footer">
+       {%trans "Edit your site config options"%}
       </div>
      </div>
    </li>

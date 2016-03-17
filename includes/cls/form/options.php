@@ -51,6 +51,29 @@ class options extends \lib\form
 
 
 	/**
+	 * Ermile CMS General Settings
+	 * @return [type] [description]
+	 */
+	private function config()
+	{
+		$this->config_coming = $this->make('checkbox')
+			->name('config-coming')
+			->class('checkbox')
+			->label(T_('Enable coming soon'));
+
+		$this->config_saveAsCookie = $this->make('checkbox')
+			->name('config-saveAsCookie')
+			->class('checkbox')
+			->label(T_('Save as cookie'));
+
+		$this->config_logVisitors = $this->make('checkbox')
+			->name('config-logVisitors')
+			->class('checkbox')
+			->label(T_('Log visitors'));
+	}
+
+
+	/**
 	 * Ermile Social Network Settings
 	 * @return [type] [description]
 	 */

@@ -30,6 +30,7 @@ class view extends \mvc\view
 		$this->data->feature['options']            = [];
 		$this->data->feature['options']['status']  = true;
 		$this->data->feature['options']['general'] = true;
+		$this->data->feature['options']['config']  = true;
 		$this->data->feature['options']['sms']     = true;
 		$this->data->feature['options']['social']  = true;
 		$this->data->feature['options']['account'] = true;
