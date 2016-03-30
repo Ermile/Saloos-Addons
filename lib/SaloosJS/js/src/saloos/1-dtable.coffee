@@ -5,6 +5,7 @@ class window.saloos.datatable
 	data_compile = Object()
 	col_creat = Object()
 	constructor : (el)->
+		first_make_data = true
 		if(el instanceof Element)
 			try
 				first_data = JSON.parse($("tbody td:first", el).text())
@@ -49,7 +50,6 @@ class window.saloos.datatable
 			className : "col_actions"
 			createdCell : if col_creat['action'] then col_creat['action'] else null
 			})
-		# console.log(o_columns)
 		lang  = document.documentElement.lang.slice(0,2) + ".json"
 		$(@).DataTable({
 			language: { "url": (location.protocol)+"//"+(location.hostname).match(/([^\.]*)\.([^\.]*)$/)[0]+"/static/js/datatable/datatable-langs/" + lang}
@@ -67,7 +67,7 @@ class window.saloos.datatable
 					this.success(columns)
 					return false
 				data : (data) ->
-					ret = Array()	
+					ret = Array()
 					for d of data
 						if(data_compile[d])
 							val = data_compile[d](data[d], data)
@@ -91,13 +91,14 @@ class window.saloos.datatable
 					data.num = num
 				$('td:first', row).text(num)
 				# console.log(this.fnSettings().aoColumns)
-		})
-	
+		}).on 'init.dt', () ->
+			$this = $(this)
+			$this.parents('.panel').fadeIn(300)
 
 	data_compile.order = (order, data) ->
 		col_name = data_compile.getColName(data, order[0]['column'])
 		return "sortby=#{col_name}&order=#{order[0]['dir']}"
-	
+
 	data_compile.search = (search, data) ->
 		if(search.value)
 			return "search=#{search.value}"
@@ -139,4 +140,3 @@ route('*', () ->
 		new window.saloos.datatable(@)
 	)
 
-		

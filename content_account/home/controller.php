@@ -9,6 +9,9 @@ class controller extends \mvc\controller
 	 */
 	function _route()
 	{
+		// exit();
+		\lib\debug::true("check", 'hi');
+		// var_dump();
 		$mymodule = $this->module();
 		$referer  = \lib\router::urlParser('referer', 'domain');
 		$from     = \lib\utility\Cookie::read('from');
