@@ -63,5 +63,20 @@ class view extends \lib\view
 
 		$this->global->short_title = substr($this->global->title, 0, strrpos(substr($this->global->title, 0, 120), ' ')) . '...';
 	}
+
+
+	/**
+	 * overite corridor to call set_title before creating page
+	 * @return [type] [description]
+	 */
+	function corridor()
+	{
+		// if set title exist
+		if(method_exists($this, 'set_title'))
+		{
+			$this->set_title();
+		}
+		parent::corridor();
+	}
 }
 ?>

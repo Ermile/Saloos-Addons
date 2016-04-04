@@ -98,8 +98,6 @@ trait constructor
 			$this->options();
 		}
 
-		$this->set_title();
-
 		if(defined('SaveAsCookie') && SaveAsCookie)
 		{
 			$mygetlist = \lib\utility::get(null, 'raw');
@@ -126,11 +124,6 @@ trait constructor
 		{
 			$this->model()->checkMainAccount();
 			$this->controller()->checkSession();
-		}
-		// if logvisitor on set visitors
-		if(defined('LogVisitors') && constant('LogVisitors'))
-		{
-			$this->model()->addVisitor();
 		}
 	}
 }
