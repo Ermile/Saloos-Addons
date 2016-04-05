@@ -19,10 +19,14 @@ class controller extends \lib\controller
 		parent::__construct();
 		if(MyAccount && SubDomain == null)
 		{
-			if(is_string(constant('Account')) && constant('Account') === constant('MainService'))
-				$domain = MainService.MainTld;
-			else
+			if(AccountService === Domain)
+			{
 				$domain = null;
+			}
+			else
+			{
+				$domain = AccountService.MainTld;
+			}
 			$param = $this->url('param');
 			if($param)
 				$param = '?'.$param;
