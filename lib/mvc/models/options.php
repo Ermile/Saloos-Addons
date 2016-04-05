@@ -35,6 +35,13 @@ trait options
 	 */
 	public function permList($_status = false)
 	{
+		$permList = [];
+		if($_status === false)
+		{
+			$permList = \lib\utility\option::get('permissions', 'meta');
+			return $permList;
+		}
+
 		// get list of permissions
 		$qryPerm = $this->sql()->table('options')
 			->where('user_id', 'IS', 'NULL')
@@ -52,7 +59,6 @@ trait options
 			->groupClose('g_status');
 		}
 		$qryPerm  = $qryPerm->select()->allassoc();
-		$permList = [];
 		foreach ($qryPerm as $row)
 		{
 			$permList[$row['option_key']] = $row['option_value'];

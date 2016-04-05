@@ -29,7 +29,7 @@ class view extends \addons\content_cp\home\view
 
 		// give perm list and fill it in default register type
 		$myPermList  = $form_register->account_default;
-		$myPermNames = $this->model()->permList();
+		$myPermNames = $this->model()->permissions;
 		$myPerm      = 1;
 		// get list of permissions
 		foreach ($myPermNames as $key => $value)

@@ -19,8 +19,7 @@ class model extends \lib\model
 	public function __construct($object = false)
 	{
 		parent::__construct($object);
-		$this->options     = $this->sp_get_options();
-		$this->permissions = $this->permList();
+		$this->permissions = \lib\utility\option::get('permissions', 'meta');
 	}
 }
 ?>
