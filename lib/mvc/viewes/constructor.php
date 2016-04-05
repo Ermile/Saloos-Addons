@@ -98,7 +98,7 @@ trait constructor
 			$this->options();
 		}
 
-		if(defined('SaveAsCookie') && SaveAsCookie)
+		if(\lib\utility\option::get('config', 'meta', 'saveAsCookie'))
 		{
 			$mygetlist = \lib\utility::get(null, 'raw');
 			if($mygetlist)
