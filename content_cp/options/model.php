@@ -123,10 +123,13 @@ class model extends \addons\content_cp\home\model
 				[
 					'meta'   =>
 					[
-						'coming'       => utility::post('config-coming'),
-						'debug'        => utility::post('config-debug'),
-						'saveAsCookie' => utility::post('config-cookie'),
-						'logVisitors'  => utility::post('config-logVisitors'),
+						'coming'         => utility::post('config-coming'),
+						'debug'          => utility::post('config-debug'),
+						'saveAsCookie'   => utility::post('config-cookie'),
+						'logVisitors'    => utility::post('config-logVisitors'),
+						'useMainAccount' => utility::post('config-useMainAccount'),
+						'mainAccount'    => utility::post('config-mainAccount'),
+
 					],
 				],
 			],

@@ -75,6 +75,18 @@ class options extends \lib\form
 			->name('config-logVisitors')
 			->class('checkbox')
 			->label(T_('Log visitors'));
+
+		$this->config_useMainAccount = $this->make('checkbox')
+			->name('config-useMainAccount')
+			->class('checkbox')
+			->label(T_('Use main account'));
+
+		$this->config_mainAccount = $this->make('text')
+			->attr('data-parent', 'config-useMainAccount')
+			->class('en')
+			->name('config-mainAccount')
+			->label(T_('Main account'))
+			->maxlength(30);
 	}
 
 
@@ -88,42 +100,49 @@ class options extends \lib\form
 			->name('twitter')
 			->label(T_('Twitter'))
 			->attr('data-before','twitter.com/')
+			->class('en')
 			->maxlength(30);
 
 		$this->facebook = $this->make('text')
 			->name('facebook')
 			->label(T_('Facebook'))
 			->attr('data-before','facebook.com/')
+			->class('en')
 			->maxlength(60);
 
 		$this->googleplus = $this->make('text')
 			->name('googleplus')
 			->label(T_('Google Plus'))
 			->attr('data-before','plus.google.com/')
+			->class('en')
 			->maxlength(60);
 
 		$this->github = $this->make('text')
 			->name('github')
 			->label(T_('Github'))
 			->attr('data-before','github.com/')
+			->class('en')
 			->maxlength(60);
 
 		$this->linkedin = $this->make('text')
 			->name('linkedin')
 			->label(T_('Linkedin'))
 			->attr('data-before','linkedin.com/in/')
+			->class('en')
 			->maxlength(60);
 
 		$this->telegram = $this->make('text')
 			->name('telegram')
 			->label(T_('Telegram'))
 			->attr('data-before','telegram.me/')
+			->class('en')
 			->maxlength(60);
 
 		$this->aparat = $this->make('text')
 			->name('aparat')
 			->label(T_('Aparat'))
 			->attr('data-before','aparat.com/')
+			->class('en')
 			->maxlength(60);
 	}
 
@@ -143,24 +162,28 @@ class options extends \lib\form
 			->attr('data-parent', 'twitter-status')
 			->name('twitter-ConsumerKey')
 			->label(T_('Twitter'). ' '. T_('ConsumerKey'))
+			->class('en')
 			->maxlength(20);
 
 		$this->twitter_ConsumerSecret = $this->make('text')
 			->attr('data-parent', 'twitter-status')
 			->name('twitter-ConsumerSecret')
 			->label(T_('Twitter'). ' '. T_('ConsumerSecret'))
+			->class('en')
 			->maxlength(60);
 
 		$this->twitter_AccessToken = $this->make('text')
 			->attr('data-parent', 'twitter-status')
 			->name('twitter-AccessToken')
 			->label(T_('Twitter'). ' '. T_('AccessToken'))
+			->class('en')
 			->maxlength(60);
 
 		$this->twitter_AccessTokenSecret = $this->make('text')
 			->attr('data-parent', 'twitter-status')
 			->name('twitter-AccessTokenSecret')
 			->label(T_('Twitter'). ' '. T_('AccessTokenSecret'))
+			->class('en')
 			->maxlength(60);
 	}
 
@@ -180,42 +203,49 @@ class options extends \lib\form
 			->attr('data-parent', 'fb-status')
 			->name('fb-app_id')
 			->label(T_('Facebook'). ' '. T_('app_id'))
+			->class('en')
 			->maxlength(20);
 
 		$this->fb_app_secret = $this->make('text')
 			->attr('data-parent', 'fb-status')
 			->name('fb-app_secret')
 			->label(T_('Facebook'). ' '. T_('app_secret'))
+			->class('en')
 			->maxlength(40);
 
 		$this->fb_redirect_url = $this->make('url')
 			->attr('data-parent', 'fb-status')
 			->name('fb-redirect_url')
 			->label(T_('Facebook'). ' '. T_('redirect_url'))
+			->class('en')
 			->maxlength(90);
 
 		$this->fb_required_scope = $this->make('text')
 			->attr('data-parent', 'fb-status')
 			->name('fb-required_scope')
 			->label(T_('Facebook'). ' '. T_('required_scope'))
+			->class('en')
 			->maxlength(60);
 
 		$this->fb_page_id = $this->make('text')
 			->attr('data-parent', 'fb-status')
 			->name('fb-page_id')
 			->label(T_('Facebook'). ' '. T_('page_id'))
+			->class('en')
 			->maxlength(20);
 
 		$this->fb_access_token = $this->make('text')
 			->attr('data-parent', 'fb-status')
 			->name('fb-access_token')
 			->label(T_('Facebook'). ' '. T_('access_token'))
+			->class('en')
 			->maxlength(300);
 
 		$this->fb_client_token = $this->make('text')
 			->attr('data-parent', 'fb-status')
 			->name('fb-client_token')
 			->label(T_('Facebook'). ' '. T_('client_token'))
+			->class('en')
 			->maxlength(60);
 	}
 
@@ -235,6 +265,7 @@ class options extends \lib\form
 			->attr('data-parent', 'tg-status')
 			->name('tg-key')
 			->label(T_('Telegram'). ' '. T_('Key'))
+			->class('en')
 			->maxlength(200);
 	}
 
@@ -257,6 +288,7 @@ class options extends \lib\form
 			->label(T_('Simulate SMS (Debugging)'));
 
 		$this->sms_seperator1 = $this->make('seperator')
+			->attr('data-parent', 'sms-status')
 			->label(T_('SMS api detail'));
 
 		$this->sms_name = $this->make('select')
@@ -269,6 +301,7 @@ class options extends \lib\form
 			->attr('data-parent', 'sms-status')
 			->name('sms-apikey')
 			->label(T_('SMS'). ' '. T_('apikey'))
+			->class('en')
 			->maxlength(100);
 
 		$this->sms_line1 = $this->make('number')
@@ -290,6 +323,7 @@ class options extends \lib\form
 			->label(T_('Regional restriction'));
 
 		$this->sms_seperator2 = $this->make('seperator')
+			->attr('data-parent', 'sms-status')
 			->label(T_('Message detail'));
 
 		$this->sms_header = $this->make('text')
@@ -311,6 +345,7 @@ class options extends \lib\form
 			->label(T_('Force one message'));
 
 		$this->sms_seperator3 = $this->make('seperator')
+			->attr('data-parent', 'sms-status')
 			->label(T_('Send message in custom situation'));
 
 		$this->sms_signup = $this->make('checkbox')
@@ -386,12 +421,14 @@ class options extends \lib\form
 			->attr('data-parent', 'account-status account-passphrase' )
 			->name('account-passkey')
 			->label(T_('Pass phrase key'))
+			->class('en')
 			->maxlength(20);
 
 		$this->account_passvalue = $this->make('text')
 			->attr('data-parent', 'account-status account-passphrase' )
 			->name('account-passvalue')
 			->label(T_('Pass phrase value'))
+			->class('en')
 			->maxlength(20);
 
 		$this->account_seperator3 = $this->make('seperator')
