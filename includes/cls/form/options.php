@@ -61,6 +61,11 @@ class options extends \lib\form
 			->class('checkbox')
 			->label(T_('Enable coming soon'));
 
+		$this->config_debug = $this->make('checkbox')
+			->name('config-debug')
+			->class('checkbox')
+			->label(T_('debug mode status'));
+
 		$this->config_saveAsCookie = $this->make('checkbox')
 			->name('config-saveAsCookie')
 			->class('checkbox')
