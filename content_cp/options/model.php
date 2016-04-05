@@ -129,6 +129,7 @@ class model extends \addons\content_cp\home\model
 						'logVisitors'    => utility::post('config-logVisitors'),
 						'useMainAccount' => utility::post('config-useMainAccount'),
 						'mainAccount'    => utility::post('config-mainAccount'),
+						'defaultLang'    => utility::post('config-defaultLang'),
 
 					],
 				],

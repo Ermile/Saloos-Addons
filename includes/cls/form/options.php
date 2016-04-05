@@ -87,6 +87,11 @@ class options extends \lib\form
 			->name('config-mainAccount')
 			->label(T_('Main account'))
 			->maxlength(30);
+
+		$this->config_defaultLang = $this->make('radio')
+			->name('config-defaultLang')
+			->label(T_('Default Language'))
+			->pl(T_('Default Language'));
 	}
 
 

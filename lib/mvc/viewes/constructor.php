@@ -34,14 +34,10 @@ trait constructor
 		$this->url->all              = $this->url->full.$this->url->param;
 
 
-		$this->data->site['title']   = T_("Saloos");
-		$this->data->site['desc']    = T_("Another Project with Saloos");
-		$this->data->site['slogan']  = T_("Saloos is an artichokes for PHP programming!!");
-		if(defined('LangList') && constant('LangList'))
-			$this->data->site['langlist'] = unserialize(constant('LangList'));
-		else
-			$this->data->site['langlist'] = ['fa_IR' => 'فارسی', 'en_US' => 'English'];
-
+		$this->data->site['title']       = T_("Saloos");
+		$this->data->site['desc']        = T_("Another Project with Saloos");
+		$this->data->site['slogan']      = T_("Saloos is an artichokes for PHP programming!!");
+		$this->data->site['langlist']    = \lib\utility\option::languages();
 		$this->data->site['currentlang'] = substr(\lib\router::get_storage('language'), 0, 2);
 		$this->data->site['defaultLang'] = substr(\lib\router::get_storage('defaultLanguage'), 0, 2);
 

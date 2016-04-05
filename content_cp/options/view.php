@@ -24,6 +24,11 @@ class view extends \addons\content_cp\home\view
 		$form_register = $this->createform('.options', 'account',  true);
 
 
+		// add languages item
+      	foreach (\lib\utility\option::languages() as $key => $value)
+      	{
+			$form_config->config_defaultLang->child()->id('lang_'.$key)->value($key)->label($value);
+      	}
 		// add sms items
 		$form_sms->sms_name->child()->value('Kavenegar')->label(T_('Kavenegar'));
 
