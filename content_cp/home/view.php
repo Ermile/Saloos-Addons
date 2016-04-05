@@ -90,7 +90,7 @@ class view extends \mvc\view
 				break;
 
 			case 'visitors':
-				if(LogVisitors)
+				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
 				{
 					// create for chart
 					$type = \lib\utility::get('type');
@@ -125,7 +125,7 @@ class view extends \mvc\view
 				if($ref !== 'cp' && $ref !== null)
 					$this->data->visitor_new = true;
 
-				if(LogVisitors)
+				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
 				{
 					// create for chart
 					$this->data->chart_type             = 'column';
