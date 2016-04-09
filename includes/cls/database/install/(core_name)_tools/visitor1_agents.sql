@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `agents` (
   `agent_version` varchar(50) DEFAULT NULL,
   `agent_os` varchar(50) DEFAULT NULL,
   `agent_osnum` varchar(50) DEFAULT NULL,
-  `agent_platform` varchar(50) DEFAULT NULL,
   `agent_robot` bit(1) DEFAULT NULL,
+  `agent_meta` text DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
