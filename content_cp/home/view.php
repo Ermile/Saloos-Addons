@@ -93,14 +93,16 @@ class view extends \mvc\view
 				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
 				{
 					// create for chart
-					$type = \lib\utility::get('type');
+					$type  = \lib\utility::get('type');
 					$utype = \lib\utility::get('utype');
-					$this->data->chart_type             = $type? $type: 'column';
+					$this->data->chart_type             = $type?  $type:  'column';
 					$this->data->chart_unique_type      = $utype? $utype: 'areaspline';
 
+					// $this->data->visitors               = $this->model()->visitors();
+					// $this->data->visitors_unique        = $this->model()->visitors(true);
 
-					$this->data->visitors               = $this->model()->visitors();
-					$this->data->visitors_unique        = $this->model()->visitors(true);
+					$this->data->visitors               = \lib\utility\visitor::chart();
+					$this->data->visitors_unique        = \lib\utility\visitor::chart(true);
 
 					if($this->data->visitors <= 1)
 						$this->data->error = T_("Chart must be contain at least 2 column!");
@@ -129,11 +131,13 @@ class view extends \mvc\view
 				{
 					// create for chart
 					$this->data->chart_type             = 'column';
-					$this->data->visitors               = $this->model()->visitors();
-					$this->data->visitors_toppages      = $this->model()->visitors_toppages(15);
+					$this->data->visitors               = \lib\utility\visitor::chart();
+					$this->data->visitors_toppages      = \lib\utility\visitor::top_pages(15);
 
 					if($this->data->visitors <= 1)
+					{
 						$this->data->error = T_("Chart must be contain at least 2 column!");
+					}
 				}
 
 				break;

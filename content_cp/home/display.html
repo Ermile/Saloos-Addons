@@ -114,7 +114,7 @@
     <div class="panel-body">
      <ul>
 {%for row in visitors_toppages%}
-      <li><span>{{row.count}}</span> <a href="{{row.url | raw('html') }}" target="_blank">{{row.url | raw |raw }}</a></li>
+      <li><a href="{{row.url | raw('html') }}" target="_blank"><span>{{row.total}}</span> {{row.url | raw |raw }}</a></li>
 {%endfor%}
      </ul>
     </div>
