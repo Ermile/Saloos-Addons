@@ -10,16 +10,16 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-04-04 12:34:11
+Date: 2016-04-09 17:08:01
 */
 
 
 -- ----------------------------
--- Table structure for agents
+-- Table structure for urls
 -- ----------------------------
-CREATE TABLE `agents` (
+CREATE TABLE IF NOT EXISTS `urls` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `agent_agent` text NOT NULL,
-  `agent_robot` bit(1) DEFAULT NULL,
+  `url_url` text NOT NULL,
+  `url_host` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
