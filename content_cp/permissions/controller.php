@@ -46,7 +46,7 @@ class controller extends \addons\content_cp\home\controller
 		$permResult = [];
 		$permCond   = ['view', 'add', 'edit', 'delete', 'admin'];
 
-		foreach ($this->permContentsList() as $myContent)
+		foreach (\lib\utility\option::contentList() as $myContent)
 		{
 			// for superusers allow access
 			if($_fill === "su")
@@ -105,32 +105,6 @@ class controller extends \addons\content_cp\home\controller
 			}
 		}
 		return $permResult;
-	}
-
-	/**
-	 * return the list of contents exist in current project and addons
-	 * @return [type] [description]
-	 */
-	public function permContentsList()
-	{
-		// get all content exist in saloos and current project
-		$addons   = glob(addons. "content_*", GLOB_ONLYDIR);
-		$project  = glob(root. "content_*", GLOB_ONLYDIR);
-		$contents = array_merge($addons, $project);
-		$myList   = [];
-
-		foreach ($contents as $myContent)
-		{
-			$myContent = preg_replace("[\\\\]", "/", $myContent);
-			$myContent = substr( $myContent, ( strrpos( $myContent, "/" ) + 1) );
-			$myContent = substr( $myContent, ( strrpos( $myContent, "_" ) + 1) );
-			array_push($myList, $myContent);
-		}
-		$myList = array_flip($myList);
-		unset($myList['account']);
-		$myList = array_flip($myList);
-
-		return $myList;
 	}
 
 	/**

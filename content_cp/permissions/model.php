@@ -225,7 +225,6 @@ class model extends \addons\content_cp\home\model
 	public function permModuleFill()
 	{
 		$permResult       = [];
-		$permContentsList = $this->permContentsList();
 
 		// 1. get the name of permission
 		$myChild    = $this->child();
@@ -247,7 +246,7 @@ class model extends \addons\content_cp\home\model
 		}
 
 		// 3. fill the result
-		foreach ($permContentsList as $myContent)
+		foreach (\lib\utility\option::contentList() as $myContent)
 		{
 			// 3.1 fill null
 			$permResult[$myContent] =
