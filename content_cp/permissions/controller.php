@@ -74,7 +74,7 @@ class controller extends \addons\content_cp\home\controller
 			}
 
 			// step2: fill content modules status
-			foreach ($this->permModulesList($myContent) as $myLoc =>$value)
+			foreach (\lib\utility\option::moduleList($myContent) as $myLoc =>$value)
 			{
 				foreach ($permCond as $cond)
 				{
@@ -105,60 +105,6 @@ class controller extends \addons\content_cp\home\controller
 			}
 		}
 		return $permResult;
-	}
-
-	/**
-	 * return the modules of each part of system
-	 * first check if function declare then return the permissions module of this content
-	 * @param  [string] $_content content name
-	 * @return [array]  return the permission modules list
-	 */
-	public function permModulesList($_content)
-	{
-		$myList      = [];
-		$contentName = preg_replace("/content(_[^\/]*)?\//", "content" . $_content, get_class(\lib\main::$controller));
-		// $contentName = '\addons\content_'. $_content. '\home\controller';
-		if(method_exists($contentName, 'permModules'))
-		{
-			// if module exist call it
-			$contentInstance = new $contentName;
-			$myList          = $contentInstance->permModules();
-			if(!is_array($myList))
-			{
-				$myList = [];
-			}
-
-			// recheck return value from permission modules list func
-			foreach ($myList as $permLoc => $permValue)
-			{
-				if(is_array($permValue))
-				{
-					$permCond = ['view', 'add', 'edit', 'delete', 'admin'];
-					$myList[$permLoc] = null;
-					foreach ($permCond as $value)
-					{
-						if(in_array($value, $permValue))
-						{
-							// $myList[$permLoc][$value] = 'show';
-							$myList[$permLoc][$value] = 'hide';
-						}
-						else
-						{
-							// $myList[$permLoc][$value] = 'hide';
-						}
-					}
-				}
-				else
-				{
-					$myList[$permLoc] = null;
-				}
-			}
-		}
-		// var_dump($myList);
-		// $myList = array_flip($myList);
-
-
-		return $myList;
 	}
 }
 ?>

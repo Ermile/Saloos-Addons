@@ -263,8 +263,7 @@ class model extends \addons\content_cp\home\model
 			}
 
 			// 3.3 get modules list of specefic content and fill it with db values
-			$permModulesList = $this->permModulesList($myContent);
-			foreach ($permModulesList as $myLoc => $value)
+			foreach (\lib\utility\option::moduleList($myContent) as $myLoc => $value)
 			{
 				if(isset($datarow[$myContent]['modules'][$myLoc])
 					&& is_array($datarow[$myContent]['modules'][$myLoc]))

@@ -286,7 +286,7 @@ class controller extends \mvc\controller
 	 * define perm modules for permission level
 	 * @return [array] return the permissions in this content
 	 */
-	function permModules()
+	static function permModules()
 	{
 		$mylist	= [
 					'posts'       => null,
@@ -302,8 +302,8 @@ class controller extends \mvc\controller
 
 		// get features value from view and fix it later
 		$features = [];
-		if(isset($this->data->feature) && is_array($this->data->feature))
-			$features = $this->data->feature;
+		// if(isset($this->data->feature) && is_array($this->data->feature))
+		// 	$features = $this->data->feature;
 
 		foreach ($features as $feature => $enable)
 		{
