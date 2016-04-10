@@ -10,11 +10,11 @@ class model extends \mvc\model
 		$mymodule = $this->module();
 		$isValid  = false;
 
-		// entire account part is disabled
-		if(isset($settings['status']) && !$settings['status'])
-		{
-			\lib\error::core('Disabled!');
-		}
+		// // entire account part is disabled
+		// if(isset($settings['status']) && !$settings['status'])
+		// {
+		// 	\lib\error::core('Disabled!');
+		// }
 
 		// check access permission to account
 		// if user set passphrase for enter account

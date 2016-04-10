@@ -19,7 +19,7 @@ Date: 2016-04-09 17:08:50
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS  `visitors` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `service_id` smallint(5) unsigned NOT NULL,
+  `service_id` smallint(5) unsigned DEFAULT NULL,
   `visitor_ip` int(10) unsigned NOT NULL,
   `url_id` int(10) unsigned NOT NULL,
   `agent_id` int(10) unsigned NOT NULL,
