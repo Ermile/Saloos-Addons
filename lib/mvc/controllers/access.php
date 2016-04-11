@@ -18,8 +18,7 @@ trait access
 		if(isset($_SESSION['user']['permission']) && $_SESSION['user']['permission'] === "1")
 		{
 			$su       = true;
-			$suStatus = new \addons\content_cp\permissions\controller;
-			$suStatus = $suStatus->permListFill("su");
+			$suStatus = \lib\utility\option::permListFill('su');
 		}
 
 		// if programmer not set content, give it automatically from address
