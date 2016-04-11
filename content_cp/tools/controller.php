@@ -29,6 +29,11 @@ class controller extends \addons\content_cp\home\controller
 				\lib\utility\dbTables::create();
 				break;
 
+			case 'db':
+				$exist    = true;
+				$result = \lib\db::backup(true);
+				break;
+
 			case 'twigtrans':
 				$exist    = true;
 				$mypath   = \lib\utility::get('path');
