@@ -14,6 +14,16 @@ trait tools
 
 
 	/**
+	 * call permission access func
+	 * @return [type] [description]
+	 */
+	public function access()
+	{
+		return \lib\utility\permission::access(...func_get_args());
+	}
+
+
+	/**
 	 * convert numver to en
 	 * @param  [type] $string [description]
 	 * @return [type]         [description]

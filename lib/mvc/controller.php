@@ -3,7 +3,6 @@ namespace lib\mvc;
 use \lib\router;
 class controller extends \lib\controller
 {
-	use \lib\mvc\controllers\access;
 	use \lib\mvc\controllers\login;
 	use \lib\mvc\controllers\sessions;
 	use \lib\mvc\controllers\template;
