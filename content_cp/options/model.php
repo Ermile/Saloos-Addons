@@ -16,7 +16,6 @@ class model extends \addons\content_cp\home\model
 		{
 			foreach ($record as $field => $value)
 			{
-				// var_dump($field);
 				$meta   = null;
 				$status = 'enable';
 				$qry    = $this->sql()->table('options')
@@ -39,6 +38,11 @@ class model extends \addons\content_cp\home\model
 					// set meta values
 					if(isset($value['meta']))
 					{
+						// do something in config
+						if($field == 'config')
+						{
+							$this->doConfig($value['meta']);
+						}
 						$meta   = json_encode($value['meta'], JSON_FORCE_OBJECT | JSON_HEX_QUOT | JSON_HEX_APOS );
 						// $meta   = $value['meta'];
 					}
@@ -286,6 +290,29 @@ class model extends \addons\content_cp\home\model
 		}
 
 		return $result;
+	}
+
+
+	/**
+	 * run something for config of options
+	 * @return [type] [description]
+	 */
+	public function doConfig($_config)
+	{
+		// run visitor table installation
+		// need to run only one times
+		if(isset($_config['logVisitors']))
+		{
+			$result = \lib\utility\visitor::install();
+			if (!in_array(false, $result))
+			{
+				debug::true(T_("Start logging visitors"));
+			}
+		}
+		if(isset($_config['coming']))
+		{
+			setcookie('preview','yes',time() + 365*24*60*60,'/','.'.Service);
+		}
 	}
 }
 ?>
