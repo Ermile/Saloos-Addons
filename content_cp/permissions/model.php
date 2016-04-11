@@ -123,7 +123,7 @@ class model extends \addons\content_cp\home\model
 
 				if($editParam)
 				{
-					$permResult = \lib\utility\option::permListFill(true);
+					$permResult = \lib\utility\permission::permListFill(true);
 					$permResult = json_encode($permResult, JSON_FORCE_OBJECT);
 
 					$qryEdit = $this->qryCreator($_type, $editParam);
@@ -263,7 +263,7 @@ class model extends \addons\content_cp\home\model
 			}
 
 			// 3.3 get modules list of specefic content and fill it with db values
-			foreach (\lib\utility\option::moduleList($myContent) as $myLoc => $value)
+			foreach (\lib\utility\permission::moduleList($myContent) as $myLoc => $value)
 			{
 				if(isset($datarow[$myContent]['modules'][$myLoc])
 					&& is_array($datarow[$myContent]['modules'][$myLoc]))
