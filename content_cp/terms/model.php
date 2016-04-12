@@ -62,7 +62,7 @@ class model extends \addons\content_cp\home\model
 		$datarow['parent'] = utility::post('parent');
 
 		if(!$datarow['slug'])
-			$datarow['slug'] = utility\Filter::slug(utility::post('title'));
+			$datarow['slug'] = utility\filter::slug(utility::post('title'));
 
 		if($datarow['parent'])
 		{

@@ -118,7 +118,7 @@ class model extends \addons\content_cp\home\model
 
 		// set slug if is not set
 		if(!$datarow['slug'])
-			$datarow['slug'] = utility\Filter::slug($datarow['title']);
+			$datarow['slug'] = utility\filter::slug($datarow['title']);
 
 
 		switch ($cpModule['raw'])
