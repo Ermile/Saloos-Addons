@@ -269,57 +269,57 @@ class model extends \addons\content_cp\home\model
 		// before share check db for share before
 		// if on add or in edit and staus exist and status !== 400
 		// then if status == publish and changed from old position
-		$post_status = isset($record['post_status'])? $record['post_status']: null;
-		$post_type   = isset($record['post_type'])? $record['post_type'] : null;
-		$post_type = ($post_type) ? $post_type : $cpModule['type'];
+		// $post_status = isset($record['post_status'])? $record['post_status']: null;
+		// $post_type   = isset($record['post_type'])? $record['post_type'] : null;
+		// $post_type = ($post_type) ? $post_type : $cpModule['type'];
 
-		if($datarow['status'] === 'publish' && $datarow['status'] !== $post_status && $post_type === 'post')
-		{
-			$url_main = $this->url('MainProtocol'). '://'.$this->url('MainSite');
-			if(!(isset($record['twitter']['status']) && $record['twitter']['status'] === 400 ))
-			{
-				$mytwitte = $datarow['title'] . ' '. $url_main.'/'.$datarow['url'];
-				$twitte_result = \lib\utility\socialNetwork::twitter($mytwitte);
-				if(isset($twitte_result) && isset($twitte_result['status']))
-				{
-					$twitte_result = json_encode($twitte_result);
+		// if($datarow['status'] === 'publish' && $datarow['status'] !== $post_status && $post_type === 'post')
+		// {
+		// 	$url_main = $this->url('MainProtocol'). '://'.$this->url('MainSite');
+		// 	if(!(isset($record['twitter']['status']) && $record['twitter']['status'] === 400 ))
+		// 	{
+		// 		$mytwitte = $datarow['title'] . ' '. $url_main.'/'.$datarow['url'];
+		// 		$twitte_result = \lib\utility\socialNetwork::twitter($mytwitte);
+		// 		if(isset($twitte_result) && isset($twitte_result['status']))
+		// 		{
+		// 			$twitte_result = json_encode($twitte_result);
 
-					$qry_twitter = $this->sql()->table('options')
-						->set('post_id',      $post_new_id)
-						->set('option_cat',   'post'. $post_new_id. '_SocialNetwork')
-						->set('option_key',   'twitter')
-						->set('option_value', $twitte_result);
-					// $qry_twitter = $qry_twitter->insertString();
-					// var_dump($qry_twitter);
-					$qry_twitter = $qry_twitter->insert();
-				}
+		// 			$qry_twitter = $this->sql()->table('options')
+		// 				->set('post_id',      $post_new_id)
+		// 				->set('option_cat',   'post'. $post_new_id. '_SocialNetwork')
+		// 				->set('option_key',   'twitter')
+		// 				->set('option_value', $twitte_result);
+		// 			// $qry_twitter = $qry_twitter->insertString();
+		// 			// var_dump($qry_twitter);
+		// 			$qry_twitter = $qry_twitter->insert();
+		// 		}
 
-			}
-			$telegram = \lib\utility\socialNetwork::telegram($datarow['title'] . "\n". $url_main.'/'.$datarow['url']);
+		// 	}
+		// 	$telegram = \lib\utility\socialNetwork::telegram($datarow['title'] . "\n". $url_main.'/'.$datarow['url']);
 
-			$facebook_content = html_entity_decode($datarow['content']);
-			$facebook_content = preg_replace("/<\/p>/", "\n", $facebook_content);
-			$facebook_content = preg_replace("/<[^>]+>/", "", $facebook_content);
-			$facebook_content = preg_replace("/^[\s\n\r\t]+/", "", $facebook_content);
+		// 	$facebook_content = html_entity_decode($datarow['content']);
+		// 	$facebook_content = preg_replace("/<\/p>/", "\n", $facebook_content);
+		// 	$facebook_content = preg_replace("/<[^>]+>/", "", $facebook_content);
+		// 	$facebook_content = preg_replace("/^[\s\n\r\t]+/", "", $facebook_content);
 
-			$facebook_url = $url_main.'/'.$datarow['url'];
+		// 	$facebook_url = $url_main.'/'.$datarow['url'];
 
-			$result_fb = \lib\utility\socialNetwork::facebook($facebook_url, $facebook_content);
+		// 	$result_fb = \lib\utility\socialNetwork::facebook($facebook_url, $facebook_content);
 
 
-				if(isset($result_fb))
-				{
-					// $result_fb = json_encode($result_fb);
+		// 		if(isset($result_fb))
+		// 		{
+		// 			// $result_fb = json_encode($result_fb);
 
-					$qry_facebook = $this->sql()->table('options')
-						->set('post_id',        $post_new_id)
-						->set('option_cat',   'post'. $post_new_id. '_SocialNetwork')
-						->set('option_key',   'facebook')
-						->set('option_value', $result_fb);
-					// $qry_facebook = $qry_facebook->insertString();
-					$qry_facebook = $qry_facebook->insert();
-				}
-		}
+		// 			$qry_facebook = $this->sql()->table('options')
+		// 				->set('post_id',        $post_new_id)
+		// 				->set('option_cat',   'post'. $post_new_id. '_SocialNetwork')
+		// 				->set('option_key',   'facebook')
+		// 				->set('option_value', $result_fb);
+		// 			// $qry_facebook = $qry_facebook->insertString();
+		// 			$qry_facebook = $qry_facebook->insert();
+		// 		}
+		// }
 
 
 		// add tags to terms table
