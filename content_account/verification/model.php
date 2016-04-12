@@ -50,7 +50,7 @@ class model extends \mvc\model
 					// login user to system
 					$this->model()->setLogin($_userid);
 					//Send SMS
-					\lib\utility\Sms::send($_mobile, 'verification');
+					\lib\utility\sms::send($_mobile, 'verification');
 					debug::true(T_("verify successfully."));
 				}
 				else

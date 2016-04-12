@@ -10,7 +10,7 @@ class controller extends \addons\content_cp\home\controller
 		$this->get(null, 'datatable')->ALL('options');
 		$this->put('options')->ALL('options');
 
-		// $result = \lib\utility\Sms::send(9893569759, 'تست');
+		// $result = \lib\utility\sms::send(9893569759, 'تست');
 		// var_dump($result);exit();
 
 	}

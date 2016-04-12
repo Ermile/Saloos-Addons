@@ -41,7 +41,7 @@ class model extends \mvc\model
 			{
 				$myreferer = utility\cookie::read('referer');
 				//Send SMS
-				\lib\utility\Sms::send($_mobile, 'recovery', $_code);
+				\lib\utility\sms::send($_mobile, 'recovery', $_code);
 				debug::true(T_("we send a verification code for you"));
 				$myreferer = utility\cookie::write('mobile', $_mobile, 60*5);
 				$myreferer = utility\cookie::write('from', 'recovery', 60*5);

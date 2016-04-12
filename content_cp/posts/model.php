@@ -279,7 +279,7 @@ class model extends \addons\content_cp\home\model
 			if(!(isset($record['twitter']['status']) && $record['twitter']['status'] === 400 ))
 			{
 				$mytwitte = $datarow['title'] . ' '. $url_main.'/'.$datarow['url'];
-				$twitte_result = \lib\utility\SocialNetwork::twitter($mytwitte);
+				$twitte_result = \lib\utility\socialNetwork::twitter($mytwitte);
 				if(isset($twitte_result) && isset($twitte_result['status']))
 				{
 					$twitte_result = json_encode($twitte_result);
@@ -295,7 +295,7 @@ class model extends \addons\content_cp\home\model
 				}
 
 			}
-			$telegram = \lib\utility\SocialNetwork::telegram($datarow['title'] . "\n". $url_main.'/'.$datarow['url']);
+			$telegram = \lib\utility\socialNetwork::telegram($datarow['title'] . "\n". $url_main.'/'.$datarow['url']);
 
 			$facebook_content = html_entity_decode($datarow['content']);
 			$facebook_content = preg_replace("/<\/p>/", "\n", $facebook_content);
@@ -304,7 +304,7 @@ class model extends \addons\content_cp\home\model
 
 			$facebook_url = $url_main.'/'.$datarow['url'];
 
-			$result_fb = \lib\utility\SocialNetwork::facebook($facebook_url, $facebook_content);
+			$result_fb = \lib\utility\socialNetwork::facebook($facebook_url, $facebook_content);
 
 
 				if(isset($result_fb))
@@ -476,7 +476,7 @@ class model extends \addons\content_cp\home\model
 		// commit for successfull and rollback for failed
 		// if query run without error means commit
 		if($cpModule['raw'] == 'socialnetwork'){
-			$twitte_result = \lib\utility\SocialNetwork::telegram($datarow['content']);
+			$twitte_result = \lib\utility\socialNetwork::telegram($datarow['content']);
 		}
 		$this->commit(function($_module, $_postId, $_edit = null)
 		{
@@ -509,7 +509,7 @@ class model extends \addons\content_cp\home\model
 	{
 		$FOLDER_SIZE = 1000;
 		// 1. check upload process and validate it
-		$invalid = utility\Upload::invalid('upfile');
+		$invalid = utility\upload::invalid('upfile');
 		if($invalid)
 		{
 			debug::property('status','fail');
@@ -525,12 +525,12 @@ class model extends \addons\content_cp\home\model
 		$folder_prefix = "files/";
 		$folder_id = $folder_prefix . ceil(($qry_count+1) / $FOLDER_SIZE);
 		$file_id   = $qry_count % $FOLDER_SIZE + 1;
-		$url_full  = "$folder_id/$file_id-" . utility\Upload::$fileFullName;
+		$url_full  = "$folder_id/$file_id-" . utility\upload::$fileFullName;
 
 
 
 		// 3. Check for record exist in db or not
-		$qry_count = $this->sql()->table('posts')->where('post_slug', utility\Upload::$fileMd5)->select('id');
+		$qry_count = $this->sql()->table('posts')->where('post_slug', utility\upload::$fileMd5)->select('id');
 		if($qry_count->num())
 		{
 			$id = $qry_count->assoc('id');
@@ -543,7 +543,7 @@ class model extends \addons\content_cp\home\model
 		}
 
 		// 4. transfer file to project folder with new name
-		if(!utility\Upload::transfer($url_full, $folder_id))
+		if(!utility\upload::transfer($url_full, $folder_id))
 		{
 			debug::property('status', 'fail');
 			debug::property('error', T_('Fail on tranfering file'));
@@ -551,7 +551,7 @@ class model extends \addons\content_cp\home\model
 			$this->_processor(['force_json'=>true, 'not_redirect'=>true]);
 			return false;
 		}
-		$file_ext   = utility\Upload::$fileExt;
+		$file_ext   = utility\upload::$fileExt;
 		$url_thumb  = null;
 		$url_normal = null;
 
@@ -561,26 +561,26 @@ class model extends \addons\content_cp\home\model
 			case 'jpeg':
 			case 'png':
 			case 'gif':
-				$extlen = strlen(utility\Upload::$fileExt);
+				$extlen = strlen(utility\upload::$fileExt);
 				$url_file = substr($url_full, 0, -$extlen-1);
-				$url_thumb = $url_file.'-thumb.'.utility\Upload::$fileExt;
-				$url_normal = $url_file.'-normal.'.utility\Upload::$fileExt;
+				$url_thumb = $url_file.'-thumb.'.utility\upload::$fileExt;
+				$url_normal = $url_file.'-normal.'.utility\upload::$fileExt;
 				// var_dump($thumb_url);
 				// exit();
-				utility\Image::load($url_full);
-				utility\Image::thumb(600, 400);
-				utility\Image::save($url_normal);
+				utility\image::load($url_full);
+				utility\image::thumb(600, 400);
+				utility\image::save($url_normal);
 
-				utility\Image::thumb(150, 150);
-				utility\Image::save($url_thumb);
+				utility\image::thumb(150, 150);
+				utility\image::save($url_thumb);
 				break;
 		}
 
 		// 5. get filemeta data
 		$file_meta = [
-						'mime'   => utility\Upload::$fileMime,
-						'type'   => utility\Upload::$fileType,
-						'size'   => utility\Upload::$fileSize,
+						'mime'   => utility\upload::$fileMime,
+						'type'   => utility\upload::$fileType,
+						'size'   => utility\upload::$fileSize,
 						'ext'    => $file_ext,
 						'url'    => $url_full,
 						'thumb'  => $url_thumb,
@@ -596,8 +596,8 @@ class model extends \addons\content_cp\home\model
 		// 6. add uploaded file record to db
 		$qry = $this->sql();
 		$qry = $qry->table('posts')
-					->set('post_title',       utility\Upload::$fileName)
-					->set('post_slug',        utility\Upload::$fileMd5)
+					->set('post_title',       utility\upload::$fileName)
+					->set('post_slug',        utility\upload::$fileMd5)
 					->set('post_meta',        $file_meta)
 					->set('post_type',        'attachment')
 					->set('post_url',         $page_url)

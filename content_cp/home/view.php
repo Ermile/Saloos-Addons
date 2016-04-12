@@ -195,7 +195,7 @@ class view extends \mvc\view
 						break;
 
 					case 'attachments':
-						$this->data->maxSize = \lib\utility\Upload::max_file_upload_in_bytes();
+						$this->data->maxSize = \lib\utility\upload::max_file_upload_in_bytes();
 						// $this->include->uploader      = true;
 						// array_push($this->global->js, $this->url->myStatic.'js/cp/uploader.js');
 						$this->data->catList = $this->model()->sp_cats('filecat');

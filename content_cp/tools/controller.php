@@ -57,21 +57,21 @@ class controller extends \addons\content_cp\home\controller
 					echo "<a target='_blank' href='http://www.php.net/manual/en/class.com.php'>" . T_("Read More") . "</a>";
 					break;
 				}
-				\lib\utility\Linfo::show();
+				\lib\utility\linfo::show();
 
 				$this->display_name	= 'content_cp/templates/raw-all.html';
 
 				break;
 
 			case 'twitter':
-				$a = \lib\utility\SocialNetwork::twitter('hello! test #api');
+				$a = \lib\utility\socialNetwork::twitter('hello! test #api');
 				// var_dump($a);
 				break;
 
 			case 'sitemap':
 				$exist    = true;
 				$site_url = \lib\router::get_storage('url_site');
-				$sitemap  = new \lib\utility\Sitemap($site_url , root.'public_html/', 'sitemap' );
+				$sitemap  = new \lib\utility\sitemap($site_url , root.'public_html/', 'sitemap' );
 				// echo "<pre>";
 
 				// add posts
