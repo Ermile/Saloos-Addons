@@ -521,7 +521,7 @@ class model extends \addons\content_cp\home\model
 
 
 		// 2. Generate file_id, folder_id and url
-		$qry_count = $this->sql()->table('posts')->where('post_type', 'attachment')->select('id')->num();
+		$qry_count = $this->sql()->table('posts')->where('post_type', 'attachment')->select()->num();
 		$folder_prefix = "files/";
 		$folder_id = $folder_prefix . ceil(($qry_count+1) / $FOLDER_SIZE);
 		$file_id   = $qry_count % $FOLDER_SIZE + 1;
@@ -530,7 +530,7 @@ class model extends \addons\content_cp\home\model
 
 
 		// 3. Check for record exist in db or not
-		$qry_count = $this->sql()->table('posts')->where('post_slug', utility\upload::$fileMd5)->select('id');
+		$qry_count = $this->sql()->table('posts')->where('post_slug', utility\upload::$fileMd5)->select();
 		if($qry_count->num())
 		{
 			$id = $qry_count->assoc('id');
