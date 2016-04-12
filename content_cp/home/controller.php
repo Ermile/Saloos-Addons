@@ -4,7 +4,9 @@ class controller extends \mvc\controller
 {
 	function _route()
 	{
-		if($this->cpModule('raw') == 'install' && \lib\utility::get('time') == 'first_time')
+		if($this->cpModule('raw') == 'install'
+			&& \lib\utility::get('time') == 'first_time'
+			&& \lib\router::urlParser('referer', 'domain') === Domain)
 		{
 			require_once(lib."install.php");
 			\lib\main::$controller->_processor(['force_stop' => true, 'force_json' => false]);

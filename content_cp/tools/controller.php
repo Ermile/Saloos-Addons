@@ -26,7 +26,7 @@ class controller extends \addons\content_cp\home\controller
 		{
 			case 'dbtables':
 				$exist    = true;
-				\lib\utility\dbTables::create();
+				echo \lib\utility\dbTables::create();
 				break;
 
 			case 'db':
@@ -38,7 +38,7 @@ class controller extends \addons\content_cp\home\controller
 				$exist    = true;
 				$mypath   = \lib\utility::get('path');
 				$myupdate = \lib\utility::get('update');
-				\lib\utility\twigTrans::extract($mypath, $myupdate);
+				echo \lib\utility\twigTrans::extract($mypath, $myupdate);
 				break;
 
 			case 'phpinfo':
