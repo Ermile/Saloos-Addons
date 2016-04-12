@@ -106,7 +106,7 @@ trait constructor
 						$_SESSION['ssid'] = $value;
 
 					elseif( !($name === 'dev' || $name === 'lang') )
-						\lib\utility\Cookie::write($name, $value);
+						\lib\utility\cookie::write($name, $value);
 				}
 
 				// remove get parameter from url

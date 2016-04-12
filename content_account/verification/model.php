@@ -44,7 +44,7 @@ class model extends \mvc\model
 			// if query run without error means commit
 			$this->commit(function($_mobile, $_userid)
 			{
-				$myfrom   = utility\Cookie::read('from');
+				$myfrom   = utility\cookie::read('from');
 				if($myfrom == 'signup')
 				{
 					// login user to system
@@ -59,8 +59,8 @@ class model extends \mvc\model
 					$this->model()->setLogin($_userid, false);
 					$this->redirector()->set_url('changepass');
 
-					$myreferer = utility\Cookie::write('mobile', $_mobile, 60*5);
-					$myreferer = utility\Cookie::write('from', 'verification', 60*5);
+					$myreferer = utility\cookie::write('mobile', $_mobile, 60*5);
+					$myreferer = utility\cookie::write('from', 'verification', 60*5);
 					debug::true(T_("verify successfully.").' '.T_("please Input your new password"));
 				}
 			}, $mymobile, $myuserid);

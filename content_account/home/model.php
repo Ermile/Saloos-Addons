@@ -30,7 +30,7 @@ class model extends \mvc\model
 				// if user not set pass value in get, then check cookie for it
 				if($myPassValue === null)
 				{
-					$myPassValue = \lib\utility\Cookie::read($myPassKey);
+					$myPassValue = \lib\utility\cookie::read($myPassKey);
 				}
 
 				// if not set this passkey and incorrect
@@ -62,12 +62,12 @@ class model extends \mvc\model
 				// if can access set cookie
 				if($isValid)
 				{
-					\lib\utility\Cookie::write($myPassKey, $myPassValue, 60*60*24*7); // allow 1week
+					\lib\utility\cookie::write($myPassKey, $myPassValue, 60*60*24*7); // allow 1week
 				}
 				// else disable access to this page
 				else
 				{
-					\lib\utility\Cookie::delete($myPassKey);
+					\lib\utility\cookie::delete($myPassKey);
 					\lib\error::login();
 				}
 			}

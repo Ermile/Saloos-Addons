@@ -7,7 +7,7 @@ class model extends \mvc\model
 {
 	public function post_verificationsms()
 	{
-		$mymobile   = utility\Cookie::read('mobile');
+		$mymobile   = utility\cookie::read('mobile');
 
 		$tmp_result	= $this->sql()->tableSmss ()
 						->whereSms_from           ($mymobile)

@@ -15,8 +15,8 @@ trait account
 		$tmp_domain = null;
 		$mycode     = $this->setLoginToken($_id);
 		$this->checkMainAccount($_id);
-		$myreferer  = utility\Cookie::read('referer');
-		utility\Cookie::delete('referer');
+		$myreferer  = utility\cookie::read('referer');
+		utility\cookie::delete('referer');
 
 		if($_redirect)
 		{
