@@ -24,19 +24,16 @@ trait datarow
 			// add meta table rows as filed to datarow, can access via meta in datarow
 			if($_metatable)
 			{
-				$prefix = substr($_table, 0, -1) .'meta';
-
-				// $metas  = $this->sql()->table($prefix.'s')->where('post_id', $_id)
 				$metas  = $this->sql()->table('options')->where('post_id', $_id)
-					->field($prefix.'_key', $prefix.'_value')->select()->allassoc();
+					->field('option_key', 'option_value')->select()->allassoc();
 
 				foreach ($metas as $key => $value)
 				{
-					$myval = $value[$prefix.'_value'];
+					$myval = $value['option_value'];
 					if(substr($myval, 0,1) === '{')
 						$myval = json_decode($myval, true);
 
-					$tmp_result['meta'][$value[$prefix.'_key']] = $myval;
+					$tmp_result['meta'][$value['option_key']] = $myval;
 				}
 			}
 
