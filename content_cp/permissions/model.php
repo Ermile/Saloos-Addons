@@ -114,6 +114,7 @@ class model extends \addons\content_cp\home\model
 				{
 					$qryDel = $this->qryCreator($_type, $delParam);
 					$qryDel = $qryDel->set('option_status', 'disable')->update();
+					\lib\utility\session::deleteByPerm($editParam);
 				}
 				break;
 
@@ -128,6 +129,7 @@ class model extends \addons\content_cp\home\model
 
 					$qryEdit = $this->qryCreator($_type, $editParam);
 					$qryEdit = $qryEdit->set('option_meta', $permResult)->update();
+					\lib\utility\session::deleteByPerm($editParam);
 
 					$this->setPermissionSession();
 				}
