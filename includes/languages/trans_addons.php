@@ -226,6 +226,8 @@ private function transtext()
 	echo T_("social networks");                                                       // Line 17
 	echo T_("Saloos Repository");                                                     // Line 19
 	echo T_("Saloos Addons Repository");                                              // Line 20
+	echo T_("Backup");                                                                // Line 21
+	echo T_("Project Database");                                                      // Line 21
 
 	//------------------------------saloos-addons\includes\languages\trans_static.html
 	echo T_("saloos");                                                                // Line 8 Seperate
