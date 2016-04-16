@@ -30,7 +30,7 @@ class view extends \addons\content_cp\home\view
 			$form_config->config_defaultLang->child()->id('lang_'.$key)->value($key)->label($value);
       	}
 		// add sms items
-		$form_sms->sms_name->child()->value('Kavenegar')->label(T_('Kavenegar'));
+		$form_sms->sms_name->child()->value('kavenegarApi')->label(T_('Kavenegar'));
 
 		// give perm list and fill it in default register type
 		$myPermList  = $form_register->account_default;

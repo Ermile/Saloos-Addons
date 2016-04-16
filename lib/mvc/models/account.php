@@ -61,7 +61,7 @@ trait account
 	 */
 	protected function setLoginSession($_datarow, $_fields)
 	{
-		$_SESSION['user']      = [];
+		$_SESSION['user']       = [];
 		$_SESSION['permission'] = [];
 		foreach ($_fields as $value)
 		{

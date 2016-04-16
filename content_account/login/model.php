@@ -46,6 +46,8 @@ class model extends \addons\content_account\home\model
 					// $this->logger('login');
 					// create code for pass with get to service home page
 					debug::true(T_("Login Successfully"));
+					\lib\utility\session::save();
+
 					$referer  = \lib\router::urlParser('referer', 'host');
 					/**
 
