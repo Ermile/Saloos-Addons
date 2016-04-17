@@ -43,7 +43,7 @@
 {% macro radio(_input) %}
  {{_self.label(_input)}}
 
- <div class="radio">
+ <div class="radio" {% for attr,value in _input.attr if attr starts with 'data-'%}{{attr}}="{{value}}" {% endfor %}>
  {% for child in _input.child %}
   <div class="element {{_input.attr.name}}-{{child.attr.value}}">
    <input type="radio" name="{{_input.attr.name}}" {% for attr,value in child.attr %}{{attr}}="{{value}}" {% endfor %}>
