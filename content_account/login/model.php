@@ -49,23 +49,25 @@ class model extends \addons\content_account\home\model
 					\lib\utility\session::save();
 
 					$referer  = \lib\router::urlParser('referer', 'host');
-					/**
 
-					 * temporary: after fix permissions below line must be delete
-					 */
-					if($referer == 'archiver.dev' || $referer == 'irancamera.ir')
+					// set redirect to homepage
+					$this->redirector()->set_domain()->set_url();
+
+					if(\lib\utility\option::get('account', 'status'))
 					{
-						$this->redirector()
-							->set_domain()
-							->set_sub_domain('files')
-							->set_url();
+						$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
+						if($_redirect_sub !== 'home')
+						{
+							if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
+							{
+								$this->redirector()->set_url($_redirect_sub);
+							}
+							else
+							{
+								$this->redirector()->set_sub_domain($_redirect_sub);
+							}
+						}
 					}
-					elseif(\lib\router::get_storage('CMS'))
-					{
-						$this->redirector()->set_domain()->set_sub_domain(\lib\router::get_storage('CMS') )->set_url();
-					}
-					else
-						$this->redirector()->set_domain()->set_url();
 				});
 
 				$this->rollback(function() { debug::error(T_("Login failed!")); });

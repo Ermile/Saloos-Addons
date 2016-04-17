@@ -32,7 +32,7 @@ class view extends \addons\content_cp\home\view
 		// add sms items
 		$form_sms->sms_name->child()->id('sms_kavenegar')->value('kavenegarApi')->label(T_('Kavenegar'));
 		// add content list to show for redirect
-		foreach (\lib\utility\option::contentList() as $key => $value)
+		foreach (\lib\utility\option::contentList(true) as $key => $value)
 		{
 			$form_register->account_redirect->child()->id('redirect_'.$key)->value($value)->label(T_($value));
 		}

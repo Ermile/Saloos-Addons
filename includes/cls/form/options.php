@@ -93,6 +93,11 @@ class options extends \lib\form
 			->label(T_('Default Language'))
 			->pl(T_('Default Language'));
 
+		$this->config_fakeSub = $this->make('checkbox')
+			->name('config-fakeSub')
+			->class('checkbox')
+			->label(T_('Use fake subdomain'));
+
 
 		$this->config_seperator1 = $this->make('seperator')
 			->label(T_('Feature status'));

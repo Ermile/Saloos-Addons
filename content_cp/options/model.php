@@ -134,11 +134,10 @@ class model extends \addons\content_cp\home\model
 						'useMainAccount' => utility::post('config-useMainAccount'),
 						'mainAccount'    => utility::post('config-mainAccount'),
 						'defaultLang'    => utility::post('config-defaultLang'),
+						'fakeSub'        => utility::post('config-fakeSub'),
 						'sms'            => utility::post('config-sms'),
 						'social'         => utility::post('config-social'),
 						'account'        => utility::post('config-account'),
-
-
 					],
 				],
 			],
