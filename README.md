@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 3.1.0: fix and update to work with Saloos last changes
  * Version 3.0.0: many fix and update, complete cp options and ...
  * Version 2.8.2: fix content acount perm loop
  * Version 2.8.1: fix to work without subdomain
