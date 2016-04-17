@@ -296,7 +296,7 @@ class options extends \lib\form
 			->attr('data-parent', 'sms-status')
 			->label(T_('SMS api detail'));
 
-		$this->sms_name = $this->make('select')
+		$this->sms_name = $this->make('radio')
 			->attr('data-parent', 'sms-status')
 			->name('sms-name')
 			->label(T_('SMS service'))
@@ -396,17 +396,16 @@ class options extends \lib\form
 			->class('checkbox')
 			->label(T_('Account Status'));
 
-		$this->account_redirect = $this->make('checkbox')
+		$this->account_redirect = $this->make('radio')
 			->attr('data-parent', 'account-status')
 			->name('account-redirect')
-			->class('checkbox')
-			->label(T_('Redirect to main address'));
+			->label(T_('After login redirect to'));
 
 		$this->account_seperator1 = $this->make('seperator')
 			->attr('data-parent', 'account-status')
 			->label(T_('Signup Settings'));
 
-		$this->account_default = $this->make('select')
+		$this->account_default = $this->make('radio')
 			->attr('data-parent', 'account-status')
 			->name('account-default')
 			->label(T_('Default permission'))

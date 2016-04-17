@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Saloos - Persian\n"
-"POT-Creation-Date: 2016-04-16 11:18+0430\n"
-"PO-Revision-Date: 2016-04-16 11:19+0430\n"
+"POT-Creation-Date: 2016-04-17 12:15+0430\n"
+"PO-Revision-Date: 2016-04-17 12:15+0430\n"
 "Last-Translator: Javad Evazzadeh <J.Evazzadeh@gmail.com>\n"
 "Language-Team: Ermile <J.Evazzadeh@gmail.com>\n"
 "Language: fa_IR\n"
@@ -19,6 +19,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: lib/PHPMailer\n"
 "X-Poedit-SearchPathExcluded-2: ../Twig\n"
 "X-Poedit-SearchPathExcluded-3: lib/SocialNetwork\n"
+"X-Poedit-SearchPathExcluded-4: *.js\n"
 
 #: content_account/changepass/model.php:31
 #: includes/languages/trans_addons.php:473
@@ -38,7 +39,7 @@ msgstr "کلمه عبور اشتباه است"
 msgid "user is incorrect"
 msgstr "نام کاربری اشتباه است"
 
-#: content_account/changepass/model.php:51 content_account/login/model.php:81
+#: content_account/changepass/model.php:51 content_account/login/model.php:83
 #: content_account/signup/model.php:57 includes/languages/trans_addons.php:311
 msgid "Please forward this message to administrator"
 msgstr "لطفا این پیغام را برای مدیر سیستم ارسال کنید"
@@ -91,11 +92,11 @@ msgstr "ارمایل"
 msgid "Login Successfully"
 msgstr "با موفقیت وارد سیستم شدید"
 
-#: content_account/login/model.php:69 includes/languages/trans_addons.php:309
+#: content_account/login/model.php:71 includes/languages/trans_addons.php:309
 msgid "Login failed!"
 msgstr "ورود به سیستم ناموفق بود!"
 
-#: content_account/login/model.php:73 content_account/login/model.php:77
+#: content_account/login/model.php:75 content_account/login/model.php:79
 #: includes/languages/trans_addons.php:310
 msgid "Mobile or password is incorrect"
 msgstr "موبایل یا کلمه عبور اشتباه است"
@@ -261,14 +262,14 @@ msgstr ""
 msgid "We find a problem and solve it!"
 msgstr "ما به مشکلی برخورده و آن را حل کردیم!"
 
-#: content_cp/options/model.php:97 content_cp/permissions/model.php:156
+#: content_cp/options/model.php:97 content_cp/permissions/model.php:158
 #: content_cp/posts/model.php:485 content_cp/profile/model.php:23
 #: content_cp/terms/model.php:124 includes/languages/trans_addons.php:244
 #: lib/mvc/models/commit.php:49
 msgid "Update Successfully"
 msgstr "بروزرسانی با موفقیت انجام شد"
 
-#: content_cp/options/model.php:104 content_cp/permissions/model.php:167
+#: content_cp/options/model.php:104 content_cp/permissions/model.php:169
 #: content_cp/posts/model.php:498 content_cp/profile/model.php:30
 #: content_cp/terms/model.php:138 includes/languages/trans_addons.php:248
 #: lib/mvc/models/commit.php:28
@@ -299,13 +300,13 @@ msgstr "این نام برای سطح‌دسترسی از قبل وجود دار
 msgid "You can edit this permission"
 msgstr "شما توانایی ویرایش این سطح دسترسی را دارید"
 
-#: content_cp/permissions/model.php:147 content_cp/posts/model.php:490
+#: content_cp/permissions/model.php:149 content_cp/posts/model.php:490
 #: content_cp/terms/model.php:129 includes/languages/trans_addons.php:242
 #: lib/mvc/models/commit.php:22
 msgid "Insert Successfully"
 msgstr "افزودن با موفقیت انجام شد"
 
-#: content_cp/permissions/model.php:152 includes/languages/trans_addons.php:246
+#: content_cp/permissions/model.php:154 includes/languages/trans_addons.php:246
 #: lib/mvc/models/commit.php:75
 msgid "Delete Successfully"
 msgstr "حذف با موفقیت انجام شد"
@@ -1008,44 +1009,44 @@ msgstr "تغییر کلمه‌عبور"
 msgid "Account Status"
 msgstr "وضعیت اکانت"
 
-#: includes/cls/form/options.php:403 includes/languages/trans_addons.php:444
-msgid "Redirect to main address"
-msgstr "انتقال کاربران به دامنه اصلی"
+#: includes/cls/form/options.php:402 includes/languages/trans_addons.php:444
+msgid "After login redirect to"
+msgstr "بعد از لاگین انتقال به"
 
-#: includes/cls/form/options.php:407 includes/languages/trans_addons.php:453
+#: includes/cls/form/options.php:406 includes/languages/trans_addons.php:453
 msgid "Signup Settings"
 msgstr "تنظیمات ثبت‌نام"
 
-#: includes/cls/form/options.php:412 includes/cls/form/options.php:413
+#: includes/cls/form/options.php:411 includes/cls/form/options.php:412
 #: includes/languages/trans_addons.php:445
 msgid "Default permission"
 msgstr "سطح‌دسترسی پیش فرض"
 
-#: includes/cls/form/options.php:417 includes/languages/trans_addons.php:452
+#: includes/cls/form/options.php:416 includes/languages/trans_addons.php:452
 msgid "Increase account security"
 msgstr "افزایش امنیت بخش اکانت"
 
-#: includes/cls/form/options.php:423 includes/languages/trans_addons.php:447
+#: includes/cls/form/options.php:422 includes/languages/trans_addons.php:447
 msgid "Access with pass phrase"
 msgstr "دسترسی با عبارت گذرگاه"
 
-#: includes/cls/form/options.php:428 includes/languages/trans_addons.php:448
+#: includes/cls/form/options.php:427 includes/languages/trans_addons.php:448
 msgid "Pass phrase key"
 msgstr "کلید عبارت گذرگاه"
 
-#: includes/cls/form/options.php:435 includes/languages/trans_addons.php:449
+#: includes/cls/form/options.php:434 includes/languages/trans_addons.php:449
 msgid "Pass phrase value"
 msgstr "مقدار عبارت گذرگاه"
 
-#: includes/cls/form/options.php:441 includes/languages/trans_addons.php:451
+#: includes/cls/form/options.php:440 includes/languages/trans_addons.php:451
 msgid "Status of account service"
 msgstr "وضعیت سرویس اکانت"
 
-#: includes/cls/form/options.php:447 includes/languages/trans_addons.php:443
+#: includes/cls/form/options.php:446 includes/languages/trans_addons.php:443
 msgid "Allow registration"
 msgstr "اجازه ثبت‌نام کاربر جدید"
 
-#: includes/cls/form/options.php:454 includes/languages/trans_addons.php:450
+#: includes/cls/form/options.php:453 includes/languages/trans_addons.php:450
 msgid "Allow recovery account"
 msgstr "اجازه بازیابی اکانت"
 
@@ -2366,6 +2367,9 @@ msgstr "کد بیش از یکبار یافت شد. این ممکن نیست!"
 #: lib/mvc/models/datarow.php:48
 msgid "Url incorrect: id not found"
 msgstr "آدرس نادرست: کد یافت نشد"
+
+#~ msgid "Redirect to main address"
+#~ msgstr "انتقال کاربران به دامنه اصلی"
 
 #~ msgid "You can't edit"
 #~ msgstr "شما اجازه ویرایش ندارید"

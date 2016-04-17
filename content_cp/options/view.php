@@ -26,11 +26,16 @@ class view extends \addons\content_cp\home\view
 
 		// add languages item
       	foreach (\lib\utility\option::languages() as $key => $value)
-      	{
+		{
 			$form_config->config_defaultLang->child()->id('lang_'.$key)->value($key)->label($value);
-      	}
+		}
 		// add sms items
-		$form_sms->sms_name->child()->value('kavenegarApi')->label(T_('Kavenegar'));
+		$form_sms->sms_name->child()->id('sms_kavenegar')->value('kavenegarApi')->label(T_('Kavenegar'));
+		// add content list to show for redirect
+		foreach (\lib\utility\option::contentList() as $key => $value)
+		{
+			$form_register->account_redirect->child()->id('redirect_'.$key)->value($value)->label(T_($value));
+		}
 
 		// give perm list and fill it in default register type
 		$myPermList  = $form_register->account_default;
@@ -38,16 +43,21 @@ class view extends \addons\content_cp\home\view
 		if(!$myPermNames)
 			$myPermNames = [];
 		$myPerm      = 1;
+		// if list of permission is more than 6 item show in select
+		if(count($myPermNames) > 6)
+		{
+			$myPermList  = $form_register->account_default->type('select');
+		}
 		// get list of permissions
 		foreach ($myPermNames as $key => $value)
 		{
 			if($myPerm == $key)
 			{
-				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->selected();
+				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm_'.$key)->selected();
 			}
 			else
 			{
-				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key);
+				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm_'.$key);
 			}
 		}
 

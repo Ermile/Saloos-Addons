@@ -441,7 +441,7 @@ private function transtext()
 	echo T_("Status of facebook sharing");                                            // Line 278 Seperate
 	echo T_("Status of telegram sharing");                                            // Line 279 Seperate
 	echo T_("Allow registration");                                                    // Line 283 Seperate
-	echo T_("Redirect to main address");                                              // Line 284 Seperate
+	echo T_("After login redirect to");                                               // Line 284 Seperate
 	echo T_("Default permission");                                                    // Line 285 Seperate
 	echo T_("Account Status");                                                        // Line 286 Seperate
 	echo T_("Access with pass phrase");                                               // Line 287 Seperate
