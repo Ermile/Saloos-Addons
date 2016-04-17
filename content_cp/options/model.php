@@ -134,12 +134,32 @@ class model extends \addons\content_cp\home\model
 						'useMainAccount' => utility::post('config-useMainAccount'),
 						'mainAccount'    => utility::post('config-mainAccount'),
 						'defaultLang'    => utility::post('config-defaultLang'),
+						'sms'            => utility::post('config-sms'),
+						'social'         => utility::post('config-social'),
+						'account'        => utility::post('config-account'),
+
 
 					],
 				],
 			],
 			'social' =>
 			[
+				'social' =>
+				[
+					'status' => utility::post('config-social'),
+					'value'  => null,
+					'meta'   =>
+					[
+						'twitter'    => utility::post('twitter'),
+						'facebook'   => utility::post('facebook'),
+						'googleplus' => utility::post('googleplus'),
+						'github'     => utility::post('github'),
+						'linkedin'   => utility::post('linkedin'),
+						'telegram'   => utility::post('telegram'),
+						'aparat'     => utility::post('aparat'),
+					]
+
+				],
 				'twitter' =>
 				[
 					'status' => utility::post('twitter-status'),
@@ -201,7 +221,7 @@ class model extends \addons\content_cp\home\model
 			[
 				'sms' =>
 				[
-					'status' => utility::post('sms-status'),
+					'status' => utility::post('config-sms'),
 					'value'  => utility::post('sms-name'),
 					'meta'   =>
 					[
@@ -224,7 +244,7 @@ class model extends \addons\content_cp\home\model
 			[
 				'account' =>
 				[
-					'status' => utility::post('account-status'),
+					'status' => utility::post('config-account'),
 					'value'  => utility::post('account-default'),
 					'meta'   =>
 					[

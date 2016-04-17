@@ -41,6 +41,12 @@ trait constructor
 		$this->data->site['currentlang'] = substr(\lib\router::get_storage('language'), 0, 2);
 		$this->data->site['defaultLang'] = substr(\lib\router::get_storage('defaultLanguage'), 0, 2);
 
+		// if allow to use social then get social network account list
+		if(\lib\utility\option::get('social', 'status'))
+		{
+			$this->data->social = \lib\utility\option::get('social', 'meta');
+		}
+
 		$this->data->page['title']   = null;
 		$this->data->page['desc']    = null;
 		$this->data->page['special'] = null;

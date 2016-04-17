@@ -10,13 +10,13 @@
    <li data-tab="config" class="span2 active"><i class="fa fa-plug"></i> {%trans "Config"%}</li>
 {%endif%}
 {%if feature.options.sms%}
-   <li data-tab="sms" class="span2"><i class="fa fa-envelope"></i> {%trans "SMS"%}</li>
+   <li data-tab="sms" class="span2"><i class="fa fa-envelope" data-parent="config-sms"></i> {%trans "SMS"%}</li>
 {%endif%}
 {%if feature.options.social%}
-   <li data-tab="social" class="span3"><i class="fa fa-share-alt"></i> {%trans "Social Networks"%}</li>
+   <li data-tab="social" class="span3"><i class="fa fa-share-alt" data-parent="config-social"></i> {%trans "Social Networks"%}</li>
 {%endif%}
 {%if feature.options.account%}
-   <li data-tab="account" class="span2"><i class="fa fa-user"></i> {%trans "Account"%}</li>
+   <li data-tab="account" class="span2"><i class="fa fa-user" data-parent="config-account"></i> {%trans "Account"%}</li>
 {%endif%}
   </ul>
 

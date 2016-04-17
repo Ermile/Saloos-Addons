@@ -9,7 +9,9 @@
  <meta name     ="site:root"               content="{{url.root}}"/>
 {%block head_twitter%}
  <meta name     ="twitter:card"            content="summary"/>
- <meta name     ="twitter:site"            content="@twitter"/>
+{%if social.twitter%}
+ <meta name     ="twitter:site"            content="@{{social.twitter}}"/>
+{%endif%}
  <meta name     ="twitter:title"           content="{{global.title}}"/>
  <meta name     ="twitter:description"     content="{{page.desc}}"/>
  <meta name     ="twitter:image"           content="{{url.static}}images/logo.png"/>

@@ -92,6 +92,25 @@ class options extends \lib\form
 			->name('config-defaultLang')
 			->label(T_('Default Language'))
 			->pl(T_('Default Language'));
+
+
+		$this->config_seperator1 = $this->make('seperator')
+			->label(T_('Feature status'));
+
+		$this->config_sms = $this->make('checkbox')
+			->name('config-sms')
+			->class('checkbox')
+			->label(T_('Use SMS service'));
+
+		$this->config_social = $this->make('checkbox')
+			->name('config-social')
+			->class('checkbox')
+			->label(T_('Use social networks'));
+
+		$this->config_account = $this->make('checkbox')
+			->name('config-account')
+			->class('checkbox')
+			->label(T_('Use account'));
 	}
 
 
@@ -281,104 +300,82 @@ class options extends \lib\form
 	 */
 	private function sms()
 	{
-		$this->sms_status = $this->make('checkbox')
-			->name('sms-status')
-			->class('checkbox')
-			->label(T_('Status of sms service'));
-
 		$this->sms_debug = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-debug')
 			->class('checkbox')
 			->label(T_('Simulate SMS (Debugging)'));
 
 		$this->sms_seperator1 = $this->make('seperator')
-			->attr('data-parent', 'sms-status')
 			->label(T_('SMS api detail'));
 
 		$this->sms_name = $this->make('radio')
-			->attr('data-parent', 'sms-status')
 			->name('sms-name')
 			->label(T_('SMS service'))
 			->pl(T_('SMS service'));
 
 		$this->sms_apikey = $this->make('text')
-			->attr('data-parent', 'sms-status')
 			->name('sms-apikey')
 			->label(T_('SMS'). ' '. T_('apikey'))
 			->class('en')
 			->maxlength(100);
 
 		$this->sms_line1 = $this->make('number')
-			->attr('data-parent', 'sms-status')
 			->name('sms-line1')
 			->label(T_('SMS'). ' '. T_('line number'). ' 1')
 			->maxlength(20);
 
 		$this->sms_line2 = $this->make('number')
-			->attr('data-parent', 'sms-status')
 			->name('sms-line2')
 			->label(T_('SMS'). ' '. T_('line number'). ' 2')
 			->maxlength(20);
 
 		$this->sms_iran = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-iran')
 			->class('checkbox')
 			->label(T_('Regional restriction'));
 
 		$this->sms_seperator2 = $this->make('seperator')
-			->attr('data-parent', 'sms-status')
 			->label(T_('Message detail'));
 
 		$this->sms_header = $this->make('text')
-			->attr('data-parent', 'sms-status')
 			->name('sms-header')
 			->label(T_('Message header'))
 			->maxlength(20);
 
 		$this->sms_footer = $this->make('text')
-			->attr('data-parent', 'sms-status')
 			->name('sms-footer')
 			->label(T_('Message footer'))
 			->maxlength(20);
 
 		$this->sms_one = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-one')
 			->class('checkbox')
 			->label(T_('Force one message'));
 
 		$this->sms_seperator3 = $this->make('seperator')
-			->attr('data-parent', 'sms-status')
 			->label(T_('Send message in custom situation'));
 
 		$this->sms_signup = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-signup')
 			->class('checkbox')
 			->label(T_('Send message for'). ' '. T_('signup'));
 
 		$this->sms_verification = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-verification')
 			->class('checkbox')
 			->label(T_('Send message for'). ' '. T_('verification'));
 
 		$this->sms_recovery = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-recovery')
 			->class('checkbox')
 			->label(T_('Send message for'). ' '. T_('recovery'));
 
 		$this->sms_changepass = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-changepass')
 			->class('checkbox')
 			->label(T_('Send message for'). ' '. T_('changepass'));
 
 		$this->sms_verification = $this->make('checkbox')
-			->attr('data-parent', 'sms-status')
 			->name('sms-verification')
 			->class('checkbox')
 			->label(T_('Send message for'). ' '. T_('verification'));
@@ -391,62 +388,48 @@ class options extends \lib\form
 	 */
 	private function account()
 	{
-		$this->account_status = $this->make('checkbox')
-			->name('account-status')
-			->class('checkbox')
-			->label(T_('Account Status'));
-
 		$this->account_redirect = $this->make('radio')
-			->attr('data-parent', 'account-status')
 			->name('account-redirect')
 			->label(T_('After login redirect to'));
 
-		$this->account_seperator1 = $this->make('seperator')
-			->attr('data-parent', 'account-status')
-			->label(T_('Signup Settings'));
-
-		$this->account_default = $this->make('radio')
-			->attr('data-parent', 'account-status')
-			->name('account-default')
-			->label(T_('Default permission'))
-			->pl(T_('Default permission'));
 
 		$this->account_seperator2 = $this->make('seperator')
-			->attr('data-parent', 'account-status')
 			->label(T_('Increase account security'));
 
 		$this->account_passphrase = $this->make('checkbox')
-			->attr('data-parent', 'account-status')
 			->name('account-passphrase')
 			->class('checkbox')
 			->label(T_('Access with pass phrase'));
 
 		$this->account_passkey = $this->make('text')
-			->attr('data-parent', 'account-status account-passphrase' )
+			->attr('data-parent', 'account-passphrase' )
 			->name('account-passkey')
 			->label(T_('Pass phrase key'))
 			->class('en')
 			->maxlength(20);
 
 		$this->account_passvalue = $this->make('text')
-			->attr('data-parent', 'account-status account-passphrase' )
+			->attr('data-parent', 'account-passphrase' )
 			->name('account-passvalue')
 			->label(T_('Pass phrase value'))
 			->class('en')
 			->maxlength(20);
 
 		$this->account_seperator3 = $this->make('seperator')
-			->attr('data-parent', 'account-status')
 			->label(T_('Status of account service'));
 
 		$this->account_register = $this->make('checkbox')
-			->attr('data-parent', 'account-status')
 			->name('account-register')
 			->class('checkbox')
 			->label(T_('Allow registration'));
 
+		$this->account_default = $this->make('radio')
+			->attr('data-parent', 'account-register' )
+			->name('account-default')
+			->label(T_('Default permission'))
+			->pl(T_('Default permission'));
+
 		$this->account_recovery = $this->make('checkbox')
-			->attr('data-parent', 'account-status')
 			->name('account-recovery')
 			->class('checkbox')
 			// ->attr('data-relation', 'account-passphrase' )
