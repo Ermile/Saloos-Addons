@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Saloos - Persian\n"
-"POT-Creation-Date: 2016-04-17 12:15+0430\n"
-"PO-Revision-Date: 2016-04-17 12:15+0430\n"
+"POT-Creation-Date: 2016-04-17 16:56+0430\n"
+"PO-Revision-Date: 2016-04-17 16:56+0430\n"
 "Last-Translator: Javad Evazzadeh <J.Evazzadeh@gmail.com>\n"
 "Language-Team: Ermile <J.Evazzadeh@gmail.com>\n"
 "Language: fa_IR\n"
@@ -22,12 +22,12 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: *.js\n"
 
 #: content_account/changepass/model.php:31
-#: includes/languages/trans_addons.php:473
+#: includes/languages/trans_addons.php:478
 msgid "change password successfully"
 msgstr "تغییر کلمه عبور با موفقیت به انجام رسید"
 
 #: content_account/changepass/model.php:37
-#: includes/languages/trans_addons.php:474
+#: includes/languages/trans_addons.php:479
 msgid "change password failed!"
 msgstr "تغییر کلمه عبور ناموفق بود!"
 
@@ -39,7 +39,7 @@ msgstr "کلمه عبور اشتباه است"
 msgid "user is incorrect"
 msgstr "نام کاربری اشتباه است"
 
-#: content_account/changepass/model.php:51 content_account/login/model.php:83
+#: content_account/changepass/model.php:51 content_account/login/model.php:87
 #: content_account/signup/model.php:57 includes/languages/trans_addons.php:311
 msgid "Please forward this message to administrator"
 msgstr "لطفا این پیغام را برای مدیر سیستم ارسال کنید"
@@ -63,12 +63,12 @@ msgid "Create an account"
 msgstr "اکانت بسازید"
 
 #: content_account/home/view.php:33 content_account/home/view.php:37
-#: includes/languages/trans_addons.php:463
+#: includes/languages/trans_addons.php:468
 msgid "Verificate"
 msgstr "اعتبارسنجی"
 
 #: content_account/home/view.php:41 includes/cls/form/account.php:50
-#: includes/languages/trans_addons.php:459
+#: includes/languages/trans_addons.php:464
 msgid "Recovery"
 msgstr "بازیابی کلمه عبور"
 
@@ -92,11 +92,11 @@ msgstr "ارمایل"
 msgid "Login Successfully"
 msgstr "با موفقیت وارد سیستم شدید"
 
-#: content_account/login/model.php:71 includes/languages/trans_addons.php:309
+#: content_account/login/model.php:75 includes/languages/trans_addons.php:309
 msgid "Login failed!"
 msgstr "ورود به سیستم ناموفق بود!"
 
-#: content_account/login/model.php:75 content_account/login/model.php:79
+#: content_account/login/model.php:79 content_account/login/model.php:83
 #: includes/languages/trans_addons.php:310
 msgid "Mobile or password is incorrect"
 msgstr "موبایل یا کلمه عبور اشتباه است"
@@ -105,11 +105,11 @@ msgstr "موبایل یا کلمه عبور اشتباه است"
 msgid "we send a verification code for you"
 msgstr "ما کد اعتبارسنجی را برای شما ارسال خواهیم کرد"
 
-#: content_account/recovery/model.php:54 includes/languages/trans_addons.php:461
+#: content_account/recovery/model.php:54 includes/languages/trans_addons.php:466
 msgid "recovery failed!"
 msgstr "بازیابی ناموفق بود!"
 
-#: content_account/recovery/model.php:59 includes/languages/trans_addons.php:462
+#: content_account/recovery/model.php:59 includes/languages/trans_addons.php:467
 msgid "Mobile number is incorrect"
 msgstr "این شماره موبایل اشتباه است."
 
@@ -122,36 +122,36 @@ msgstr "لطفا این پیغام را برای مدیر سیستم ارسال 
 msgid "Public registration is disabled!"
 msgstr "اجازه ثبت‌نام عمومی غیرفعال است!"
 
-#: content_account/signup/model.php:23 includes/languages/trans_addons.php:456
+#: content_account/signup/model.php:23 includes/languages/trans_addons.php:461
 msgid "Mobile number exist!"
 msgstr "شماره موبایل وجود دارد!"
 
-#: content_account/signup/model.php:45 includes/languages/trans_addons.php:457
+#: content_account/signup/model.php:45 includes/languages/trans_addons.php:462
 msgid "Register successfully"
 msgstr "ثبت‌نام با موفقیت به انجام رسید"
 
-#: content_account/signup/model.php:52 includes/languages/trans_addons.php:458
+#: content_account/signup/model.php:52 includes/languages/trans_addons.php:463
 msgid "Register failed!"
 msgstr "ثبت‌نام ناموفق بود!"
 
 #: content_account/verification/model.php:54
 #: content_account/verification/model.php:64
-#: includes/languages/trans_addons.php:465
+#: includes/languages/trans_addons.php:470
 msgid "verify successfully."
 msgstr "اعتبارسنجی موفقیت آمیز بود."
 
 #: content_account/verification/model.php:64
-#: includes/languages/trans_addons.php:466
+#: includes/languages/trans_addons.php:471
 msgid "please Input your new password"
 msgstr "لطفا کلمه عبور جدید را وارد کنید"
 
 #: content_account/verification/model.php:69
-#: includes/languages/trans_addons.php:467
+#: includes/languages/trans_addons.php:472
 msgid "verify failed!"
 msgstr "اعتبارسنجی ناموفق بود!"
 
 #: content_account/verification/model.php:74
-#: includes/languages/trans_addons.php:468
+#: includes/languages/trans_addons.php:473
 msgid "this data is incorrect"
 msgstr "این اطلاعات اشتباه است"
 
@@ -248,7 +248,7 @@ msgid "Enter password within 5 to 40 character"
 msgstr "گذرواژه‌ای بین ۵ تا ۴۰ کاراکتر وارد کنید"
 
 #: content_cp/home/view.php:288 includes/cls/form/account.php:56
-#: includes/languages/trans_addons.php:471
+#: includes/languages/trans_addons.php:476
 msgid "New Password"
 msgstr "گذرواژه جدید"
 
@@ -276,7 +276,7 @@ msgstr "بروزرسانی با موفقیت انجام شد"
 msgid "Transaction error"
 msgstr "خطای در تراکنش"
 
-#: content_cp/options/model.php:309
+#: content_cp/options/model.php:330
 msgid "Start logging visitors"
 msgstr "ذخیره عملکرد بازدیدکنندگان"
 
@@ -284,19 +284,19 @@ msgstr "ذخیره عملکرد بازدیدکنندگان"
 msgid "Edit your site general options"
 msgstr "ویرایش تنظیمات عمومی وب‌سایت"
 
-#: content_cp/options/view.php:33 includes/languages/trans_addons.php:410
+#: content_cp/options/view.php:33 includes/languages/trans_addons.php:415
 msgid "Kavenegar"
 msgstr "کاوه‌نگار"
 
-#: content_cp/permissions/model.php:76 includes/languages/trans_addons.php:475
+#: content_cp/permissions/model.php:76 includes/languages/trans_addons.php:480
 msgid "First you must enter name of permission"
 msgstr "در ابتدا نام سطح‌دسترسی جدید را وارد کنید"
 
-#: content_cp/permissions/model.php:85 includes/languages/trans_addons.php:476
+#: content_cp/permissions/model.php:85 includes/languages/trans_addons.php:481
 msgid "This permission name exist!"
 msgstr "این نام برای سطح‌دسترسی از قبل وجود دارد!"
 
-#: content_cp/permissions/model.php:86 includes/languages/trans_addons.php:477
+#: content_cp/permissions/model.php:86 includes/languages/trans_addons.php:482
 msgid "You can edit this permission"
 msgstr "شما توانایی ویرایش این سطح دسترسی را دارید"
 
@@ -311,7 +311,7 @@ msgstr "افزودن با موفقیت انجام شد"
 msgid "Delete Successfully"
 msgstr "حذف با موفقیت انجام شد"
 
-#: content_cp/permissions/view.php:9 includes/languages/trans_addons.php:478
+#: content_cp/permissions/view.php:9 includes/languages/trans_addons.php:483
 msgid ""
 "Define or edit user permissions to allow or block access to special pages"
 msgstr "تعریف یا ویرایش سطوح‌دسترسی برای اجازه یا ممنوع کردن دسترسی به صفحات خاص"
@@ -722,7 +722,7 @@ msgstr "ارجاع دهنده"
 msgid "robot"
 msgstr "ربات"
 
-#: includes/cls/form/account.php:22 includes/languages/trans_addons.php:454
+#: includes/cls/form/account.php:22 includes/languages/trans_addons.php:459
 msgid "Enter your registered mobile"
 msgstr "موبایل ثبت شده را وارد کنید"
 
@@ -731,7 +731,7 @@ msgstr "موبایل ثبت شده را وارد کنید"
 msgid "Password"
 msgstr "کلمه عبور"
 
-#: includes/cls/form/account.php:24 includes/languages/trans_addons.php:455
+#: includes/cls/form/account.php:24 includes/languages/trans_addons.php:460
 msgid "Enter your password"
 msgstr "کلمه عبور خود را وارد کنید"
 
@@ -743,19 +743,19 @@ msgstr "کد"
 msgid "input 4 number"
 msgstr "کد حاوی 4 عدد را وارد کنید"
 
-#: includes/cls/form/account.php:42 includes/languages/trans_addons.php:469
+#: includes/cls/form/account.php:42 includes/languages/trans_addons.php:474
 msgid "Check your mobile and enter the code"
 msgstr "پس از بررسی موبایل خود کد را وارد کنید"
 
-#: includes/cls/form/account.php:43 includes/languages/trans_addons.php:464
+#: includes/cls/form/account.php:43 includes/languages/trans_addons.php:469
 msgid "Verification"
 msgstr "اعتبارسنجی"
 
-#: includes/cls/form/account.php:55 includes/languages/trans_addons.php:470
+#: includes/cls/form/account.php:55 includes/languages/trans_addons.php:475
 msgid "Current Password"
 msgstr "گذرواژه فعلی"
 
-#: includes/cls/form/account.php:57 includes/languages/trans_addons.php:472
+#: includes/cls/form/account.php:57 includes/languages/trans_addons.php:477
 msgid "Change it"
 msgstr "تغییر بده"
 
@@ -832,221 +832,239 @@ msgstr "اکانت یکپارچه"
 msgid "Default Language"
 msgstr "زبان پیش‌فرض"
 
-#: includes/cls/form/options.php:106 includes/cls/form/options.php:169
-#: includes/cls/form/options.php:176 includes/cls/form/options.php:183
-#: includes/cls/form/options.php:190 includes/languages/trans_addons.php:92
+#: includes/cls/form/options.php:99 includes/languages/trans_addons.php:404
+msgid "Use fake subdomain"
+msgstr "شبیه‌سازی ساب‌دامین"
+
+#: includes/cls/form/options.php:103 includes/languages/trans_addons.php:403
+msgid "Feature status"
+msgstr "وضعیت ویژگی‌ها"
+
+#: includes/cls/form/options.php:108 includes/languages/trans_addons.php:405
+msgid "Use SMS service"
+msgstr "استفاده از سرویس پیامک"
+
+#: includes/cls/form/options.php:113 includes/languages/trans_addons.php:406
+msgid "Use social networks"
+msgstr "استفاده از شبکه‌های اجتماعی"
+
+#: includes/cls/form/options.php:118 includes/languages/trans_addons.php:407
+msgid "Use account"
+msgstr "استفاده از اکانت یکپارچه"
+
+#: includes/cls/form/options.php:130 includes/cls/form/options.php:193
+#: includes/cls/form/options.php:200 includes/cls/form/options.php:207
+#: includes/cls/form/options.php:214 includes/languages/trans_addons.php:92
 msgid "Twitter"
 msgstr "توییتر"
 
-#: includes/cls/form/options.php:113 includes/cls/form/options.php:210
-#: includes/cls/form/options.php:217 includes/cls/form/options.php:224
-#: includes/cls/form/options.php:231 includes/cls/form/options.php:238
-#: includes/cls/form/options.php:245 includes/cls/form/options.php:252
+#: includes/cls/form/options.php:137 includes/cls/form/options.php:234
+#: includes/cls/form/options.php:241 includes/cls/form/options.php:248
+#: includes/cls/form/options.php:255 includes/cls/form/options.php:262
+#: includes/cls/form/options.php:269 includes/cls/form/options.php:276
 #: includes/languages/trans_addons.php:93
 msgid "Facebook"
 msgstr "فیس‌بوک"
 
-#: includes/cls/form/options.php:120 includes/languages/trans_addons.php:408
+#: includes/cls/form/options.php:144 includes/languages/trans_addons.php:413
 msgid "Google Plus"
 msgstr "گوگل پلاس"
 
-#: includes/cls/form/options.php:127 includes/languages/trans_addons.php:405
+#: includes/cls/form/options.php:151 includes/languages/trans_addons.php:410
 msgid "Github"
 msgstr "گیت‌هاب"
 
-#: includes/cls/form/options.php:134 includes/languages/trans_addons.php:406
+#: includes/cls/form/options.php:158 includes/languages/trans_addons.php:411
 msgid "Linkedin"
 msgstr "لینکدین"
 
-#: includes/cls/form/options.php:141 includes/cls/form/options.php:272
+#: includes/cls/form/options.php:165 includes/cls/form/options.php:296
+#: includes/cls/form/options.php:303 includes/cls/form/options.php:310
 #: includes/languages/trans_addons.php:94
 msgid "Telegram"
 msgstr "تلگرام"
 
-#: includes/cls/form/options.php:148 includes/languages/trans_addons.php:407
+#: includes/cls/form/options.php:172 includes/languages/trans_addons.php:412
 msgid "Aparat"
 msgstr "آپارات"
 
-#: includes/cls/form/options.php:164 includes/languages/trans_addons.php:440
+#: includes/cls/form/options.php:188 includes/languages/trans_addons.php:445
 msgid "Status of twitter sharing"
 msgstr "وضعیت بازنشر در توییتر"
 
-#: includes/cls/form/options.php:169
+#: includes/cls/form/options.php:193
 msgid "ConsumerKey"
 msgstr "ConsumerKey"
 
-#: includes/cls/form/options.php:176 includes/languages/trans_addons.php:413
+#: includes/cls/form/options.php:200 includes/languages/trans_addons.php:418
 msgid "ConsumerSecret"
 msgstr "ConsumerSecret"
 
-#: includes/cls/form/options.php:183 includes/languages/trans_addons.php:414
+#: includes/cls/form/options.php:207 includes/languages/trans_addons.php:419
 msgid "AccessToken"
 msgstr "AccessToken"
 
-#: includes/cls/form/options.php:190 includes/languages/trans_addons.php:415
+#: includes/cls/form/options.php:214 includes/languages/trans_addons.php:420
 msgid "AccessTokenSecret"
 msgstr "AccessTokenSecret"
 
-#: includes/cls/form/options.php:205 includes/languages/trans_addons.php:441
+#: includes/cls/form/options.php:229 includes/languages/trans_addons.php:446
 msgid "Status of facebook sharing"
 msgstr "وضعیت بازنشر در فیس‌بوک"
 
-#: includes/cls/form/options.php:210 includes/languages/trans_addons.php:416
+#: includes/cls/form/options.php:234 includes/languages/trans_addons.php:421
 msgid "app_id"
 msgstr "app_id"
 
-#: includes/cls/form/options.php:217 includes/languages/trans_addons.php:417
+#: includes/cls/form/options.php:241 includes/languages/trans_addons.php:422
 msgid "app_secret"
 msgstr "app_secret"
 
-#: includes/cls/form/options.php:224 includes/languages/trans_addons.php:418
+#: includes/cls/form/options.php:248 includes/languages/trans_addons.php:423
 msgid "redirect_url"
 msgstr "redirect_url"
 
-#: includes/cls/form/options.php:231 includes/languages/trans_addons.php:419
+#: includes/cls/form/options.php:255 includes/languages/trans_addons.php:424
 msgid "required_scope"
 msgstr "required_scope"
 
-#: includes/cls/form/options.php:238 includes/languages/trans_addons.php:420
+#: includes/cls/form/options.php:262 includes/languages/trans_addons.php:425
 msgid "page_id"
 msgstr "page_id"
 
-#: includes/cls/form/options.php:245 includes/languages/trans_addons.php:421
+#: includes/cls/form/options.php:269 includes/languages/trans_addons.php:426
 msgid "access_token"
 msgstr "access_token"
 
-#: includes/cls/form/options.php:252 includes/languages/trans_addons.php:422
+#: includes/cls/form/options.php:276 includes/languages/trans_addons.php:427
 msgid "client_token"
 msgstr "client_token"
 
-#: includes/cls/form/options.php:267 includes/languages/trans_addons.php:442
+#: includes/cls/form/options.php:291 includes/languages/trans_addons.php:447
 msgid "Status of telegram sharing"
 msgstr "وضعیت بازنشر در تلگرام"
 
-#: includes/cls/form/options.php:272 includes/languages/trans_addons.php:306
+#: includes/cls/form/options.php:296 includes/cls/form/options.php:310
+#: includes/languages/trans_addons.php:306
 msgid "Key"
 msgstr "کلید"
 
-#: includes/cls/form/options.php:287 includes/languages/trans_addons.php:409
-msgid "Status of sms service"
-msgstr "وضعیت سرویس پیامک"
+#: includes/cls/form/options.php:303
+msgid "channel"
+msgstr "کانال"
 
-#: includes/cls/form/options.php:293 includes/languages/trans_addons.php:432
+#: includes/cls/form/options.php:310
+msgid "botan"
+msgstr "بوتان"
+
+#: includes/cls/form/options.php:325 includes/languages/trans_addons.php:437
 msgid "Simulate SMS (Debugging)"
 msgstr "شبیه‌سازی پیامک (خطایابی)"
 
-#: includes/cls/form/options.php:297 includes/languages/trans_addons.php:439
+#: includes/cls/form/options.php:328 includes/languages/trans_addons.php:444
 msgid "SMS api detail"
 msgstr "جزئیات رابط برنامه‌نویسی پیامک"
 
-#: includes/cls/form/options.php:302 includes/cls/form/options.php:303
-#: includes/languages/trans_addons.php:411
+#: includes/cls/form/options.php:332 includes/cls/form/options.php:333
+#: includes/languages/trans_addons.php:416
 msgid "SMS service"
 msgstr "سرویس پیامک"
 
-#: includes/cls/form/options.php:308 includes/cls/form/options.php:315
-#: includes/cls/form/options.php:321 includes/languages/trans_addons.php:85
+#: includes/cls/form/options.php:337 includes/cls/form/options.php:343
+#: includes/cls/form/options.php:348 includes/languages/trans_addons.php:85
 msgid "SMS"
 msgstr "پیامک"
 
-#: includes/cls/form/options.php:308 includes/languages/trans_addons.php:404
+#: includes/cls/form/options.php:337 includes/languages/trans_addons.php:409
 msgid "apikey"
 msgstr "کلید ای‌پی‌آی"
 
-#: includes/cls/form/options.php:315 includes/cls/form/options.php:321
-#: includes/languages/trans_addons.php:403
+#: includes/cls/form/options.php:343 includes/cls/form/options.php:348
+#: includes/languages/trans_addons.php:408
 msgid "line number"
 msgstr "شماره خط"
 
-#: includes/cls/form/options.php:328 includes/languages/trans_addons.php:427
+#: includes/cls/form/options.php:354 includes/languages/trans_addons.php:432
 msgid "Regional restriction"
 msgstr "محدودیت منطقه‌ای"
 
-#: includes/cls/form/options.php:332 includes/languages/trans_addons.php:438
+#: includes/cls/form/options.php:357 includes/languages/trans_addons.php:443
 msgid "Message detail"
 msgstr "جزئیات پیامک"
 
-#: includes/cls/form/options.php:337 includes/languages/trans_addons.php:428
+#: includes/cls/form/options.php:361 includes/languages/trans_addons.php:433
 msgid "Message header"
 msgstr "سرصفحه پیام"
 
-#: includes/cls/form/options.php:343 includes/languages/trans_addons.php:429
+#: includes/cls/form/options.php:366 includes/languages/trans_addons.php:434
 msgid "Message footer"
 msgstr "پاصفحه پیام"
 
-#: includes/cls/form/options.php:350 includes/languages/trans_addons.php:430
+#: includes/cls/form/options.php:372 includes/languages/trans_addons.php:435
 msgid "Force one message"
 msgstr "اجبار به یک پیامک"
 
-#: includes/cls/form/options.php:354 includes/languages/trans_addons.php:437
+#: includes/cls/form/options.php:375 includes/languages/trans_addons.php:442
 msgid "Send message in custom situation"
 msgstr "ارسال پیامک در شرایط سفارشی"
 
-#: includes/cls/form/options.php:360 includes/cls/form/options.php:366
-#: includes/cls/form/options.php:372 includes/cls/form/options.php:378
-#: includes/cls/form/options.php:384 includes/languages/trans_addons.php:423
+#: includes/cls/form/options.php:380 includes/cls/form/options.php:385
+#: includes/cls/form/options.php:390 includes/cls/form/options.php:395
+#: includes/cls/form/options.php:400 includes/languages/trans_addons.php:428
 msgid "Send message for"
 msgstr "ارسال پیام برای"
 
-#: includes/cls/form/options.php:360 includes/languages/trans_addons.php:284
+#: includes/cls/form/options.php:380 includes/languages/trans_addons.php:284
 msgid "signup"
 msgstr "ثبت نام"
 
-#: includes/cls/form/options.php:366 includes/cls/form/options.php:384
-#: includes/languages/trans_addons.php:424
+#: includes/cls/form/options.php:385 includes/cls/form/options.php:400
+#: includes/languages/trans_addons.php:429
 msgid "verification"
 msgstr "اعتبارسنجی"
 
-#: includes/cls/form/options.php:372 includes/languages/trans_addons.php:425
+#: includes/cls/form/options.php:390 includes/languages/trans_addons.php:430
 msgid "recovery"
 msgstr "بازیابی"
 
-#: includes/cls/form/options.php:378 includes/languages/trans_addons.php:426
+#: includes/cls/form/options.php:395 includes/languages/trans_addons.php:431
 msgid "changepass"
 msgstr "تغییر کلمه‌عبور"
 
-#: includes/cls/form/options.php:397 includes/languages/trans_addons.php:446
-msgid "Account Status"
-msgstr "وضعیت اکانت"
-
-#: includes/cls/form/options.php:402 includes/languages/trans_addons.php:444
+#: includes/cls/form/options.php:412 includes/languages/trans_addons.php:449
 msgid "After login redirect to"
 msgstr "بعد از لاگین انتقال به"
 
-#: includes/cls/form/options.php:406 includes/languages/trans_addons.php:453
-msgid "Signup Settings"
-msgstr "تنظیمات ثبت‌نام"
-
-#: includes/cls/form/options.php:411 includes/cls/form/options.php:412
-#: includes/languages/trans_addons.php:445
-msgid "Default permission"
-msgstr "سطح‌دسترسی پیش فرض"
-
-#: includes/cls/form/options.php:416 includes/languages/trans_addons.php:452
+#: includes/cls/form/options.php:416 includes/languages/trans_addons.php:457
 msgid "Increase account security"
 msgstr "افزایش امنیت بخش اکانت"
 
-#: includes/cls/form/options.php:422 includes/languages/trans_addons.php:447
+#: includes/cls/form/options.php:421 includes/languages/trans_addons.php:452
 msgid "Access with pass phrase"
 msgstr "دسترسی با عبارت گذرگاه"
 
-#: includes/cls/form/options.php:427 includes/languages/trans_addons.php:448
+#: includes/cls/form/options.php:426 includes/languages/trans_addons.php:453
 msgid "Pass phrase key"
 msgstr "کلید عبارت گذرگاه"
 
-#: includes/cls/form/options.php:434 includes/languages/trans_addons.php:449
+#: includes/cls/form/options.php:433 includes/languages/trans_addons.php:454
 msgid "Pass phrase value"
 msgstr "مقدار عبارت گذرگاه"
 
-#: includes/cls/form/options.php:440 includes/languages/trans_addons.php:451
+#: includes/cls/form/options.php:438 includes/languages/trans_addons.php:456
 msgid "Status of account service"
 msgstr "وضعیت سرویس اکانت"
 
-#: includes/cls/form/options.php:446 includes/languages/trans_addons.php:443
+#: includes/cls/form/options.php:443 includes/languages/trans_addons.php:448
 msgid "Allow registration"
 msgstr "اجازه ثبت‌نام کاربر جدید"
 
-#: includes/cls/form/options.php:453 includes/languages/trans_addons.php:450
+#: includes/cls/form/options.php:448 includes/cls/form/options.php:449
+#: includes/languages/trans_addons.php:450
+msgid "Default permission"
+msgstr "سطح‌دسترسی پیش فرض"
+
+#: includes/cls/form/options.php:455 includes/languages/trans_addons.php:455
 msgid "Allow recovery account"
 msgstr "اجازه بازیابی اکانت"
 
@@ -2276,71 +2294,83 @@ msgstr "به‌دلیل سطح‌دسترسی‌ شما"
 msgid "You can't access to this page!"
 msgstr "شما نمی‌توانید به این صفحه دسترسی داشته باشید!"
 
-#: includes/languages/trans_addons.php:412
+#: includes/languages/trans_addons.php:414
+msgid "Status of sms service"
+msgstr "وضعیت سرویس پیامک"
+
+#: includes/languages/trans_addons.php:417
 msgid "service"
 msgstr "سرویس"
 
-#: includes/languages/trans_addons.php:431
+#: includes/languages/trans_addons.php:436
 msgid "We can't give service to this number"
 msgstr "متاسفانه توانایی ارائه خدمات به این شماره را نداریم"
 
-#: includes/languages/trans_addons.php:433
+#: includes/languages/trans_addons.php:438
 msgid "Please set apikey and linenumber"
 msgstr "لطفا کلید رابط برنامه و شماره خط را تنظیم کنید"
 
-#: includes/languages/trans_addons.php:434
+#: includes/languages/trans_addons.php:439
 msgid "send"
 msgstr "ارسال"
 
-#: includes/languages/trans_addons.php:435
+#: includes/languages/trans_addons.php:440
 msgid " to "
 msgstr " به "
 
-#: includes/languages/trans_addons.php:436
+#: includes/languages/trans_addons.php:441
 msgid "Recovery account"
 msgstr "بازیابی اکانت"
 
-#: includes/languages/trans_addons.php:460
+#: includes/languages/trans_addons.php:451
+msgid "Account Status"
+msgstr "وضعیت اکانت"
+
+#: includes/languages/trans_addons.php:458
+msgid "Signup Settings"
+msgstr "تنظیمات ثبت‌نام"
+
+#: includes/languages/trans_addons.php:465
 msgid "your recovery code is"
 msgstr "کد بازیابی کلمه عبور شما"
 
-#: includes/languages/trans_addons.php:479
+#: includes/languages/trans_addons.php:484
 msgid "You are editing permission"
 msgstr "شما در حال ویرایش سطح‌دسترسی"
 
-#: includes/languages/trans_addons.php:480
+#: includes/languages/trans_addons.php:485
 msgid "We send a verification code for you"
 msgstr "ما کد اعتبارسنجی را برای شما ارسال خواهیم کرد"
 
-#: includes/languages/trans_addons.php:481
+#: includes/languages/trans_addons.php:486
 msgid "We send a verification code to this number"
 msgstr "کد اعتبارسنجی به این شماره ارسال خواهد شد"
 
-#: includes/languages/trans_addons.php:482
+#: includes/languages/trans_addons.php:487
 msgid "You account is verified successfully"
 msgstr "اعتبارسنجی اکانت شما با موفقیت به انجام رسید"
 
-#: includes/languages/trans_addons.php:483
+#: includes/languages/trans_addons.php:488
 msgid "Your verification code is"
 msgstr "کد اعتبارسنجی شما"
 
-#: includes/languages/trans_addons.php:484
+#: includes/languages/trans_addons.php:489
 msgid "Your password is changed successfully"
 msgstr "گذرواژه شما با موفقیت تغییر یافت"
 
-#: includes/languages/trans_addons.php:485
+#: includes/languages/trans_addons.php:490
 msgid "Now we only support IRAN!"
 msgstr "در حال حاضر ما فقط به شماره های ایران سرویس می‌دهیم!"
 
-#: includes/languages/trans_addons.php:486
+#: includes/languages/trans_addons.php:491
 msgid "Thanks for using our service"
 msgstr "متشکریم که از سرویس ما استفاده می‌کنید"
 
-#: includes/languages/trans_addons.php:487
+#: includes/languages/trans_addons.php:492
 msgid " "
 msgstr " "
 
-#: includes/languages/trans_addons.php:490
+#: includes/languages/trans_addons.php:495
 msgid "Select"
 msgstr "انتخاب"
 
