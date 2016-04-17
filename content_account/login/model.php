@@ -68,6 +68,8 @@ class model extends \addons\content_account\home\model
 							}
 						}
 					}
+					// do not use pushstate and run link direct
+					debug::msg('direct', true);
 				});
 
 				$this->rollback(function() { debug::error(T_("Login failed!")); });
