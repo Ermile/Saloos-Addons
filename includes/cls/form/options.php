@@ -291,6 +291,20 @@ class options extends \lib\form
 			->label(T_('Telegram'). ' '. T_('Key'))
 			->class('en')
 			->maxlength(200);
+
+		$this->tg_channel = $this->make('text')
+			->attr('data-parent', 'tg-status')
+			->name('tg-channel')
+			->label(T_('Telegram'). ' '. T_('channel'))
+			->class('en')
+			->maxlength(200);
+
+		$this->tg_botan = $this->make('text')
+			->attr('data-parent', 'tg-status')
+			->name('tg-botan')
+			->label(T_('Telegram'). ' '.T_('botan'). ' '. T_('Key'))
+			->class('en')
+			->maxlength(200);
 	}
 
 

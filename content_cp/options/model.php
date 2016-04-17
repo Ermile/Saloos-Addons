@@ -208,7 +208,9 @@ class model extends \addons\content_cp\home\model
 					'value' => utility::post('telegram'),
 					'meta'  =>
 					[
-						'key' => utility::post('tg-key'),
+						'key'     => utility::post('tg-key'),
+						'channel' => utility::post('tg-channel'),
+						'botan'   => utility::post('tg-botan'),
 					]
 				],
 				'aparat' =>
