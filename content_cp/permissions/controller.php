@@ -5,6 +5,8 @@ class controller extends \addons\content_cp\home\controller
 {
 	function _route()
 	{
+		parent::_route();
+
 		$this->route_check_true = true;
 		$myChild = $this->child();
 		if($myChild)
