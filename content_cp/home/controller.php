@@ -44,15 +44,24 @@ class controller extends \mvc\controller
 		if(!$this->cpModlueList())
 			\lib\error::page(T_("Not found!"));
 
-		$mymodule = $this->cpModule('table');
-		$cpModule = $this->cpModule('raw');
-		$mychild  = $this->child();
-		$mypath   = $this->url('path','_');
 
 		// Restrict unwanted child
 		// if($mychild && !($mychild=='add' || $mychild=='edit' || $mychild=='delete' || $mychild=='list' || $mychild=='options'))
 		// 	\lib\error::page(T_("Not found!"));
+		$this->cpFindDisplay();
+	}
 
+
+	/**
+	 * find best display for this page!
+	 * @return [type] [description]
+	 */
+	function cpFindDisplay()
+	{
+		$mymodule = $this->cpModule('table');
+		$cpModule = $this->cpModule('raw');
+		$mychild  = $this->child();
+		$mypath   = $this->url('path','_');
 
 		if( is_file(addons.'content_cp/'.$cpModule.'/model.php') && !$this->model_name)
 			$this->model_name = '\\addons\\content_cp\\'.$cpModule.'\model';
