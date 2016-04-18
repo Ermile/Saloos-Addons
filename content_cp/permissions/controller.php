@@ -5,9 +5,10 @@ class controller extends \addons\content_cp\home\controller
 {
 	function _route()
 	{
-		parent::_route();
+		// check permission to access to cp
+		parent::_permission('cp');
 
-		$this->route_check_true = true;
+		// $this->route_check_true = true;
 		$myChild = $this->child();
 		if($myChild)
 		{

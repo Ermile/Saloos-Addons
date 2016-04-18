@@ -5,7 +5,9 @@ class controller extends \addons\content_cp\home\controller
 {
 	function _route()
 	{
-		parent::_route();
+		// check permission to access to cp
+		parent::_permission('cp');
+
 		//allow put on profile
 		// $this->display_name	= 'content_cp/templates/module_options.html';
 		$this->get(null, 'datatable')->ALL('options');

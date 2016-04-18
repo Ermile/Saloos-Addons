@@ -2,6 +2,30 @@
 namespace addons\content_cp\home;
 class controller extends \mvc\controller
 {
+	/**
+	 * check login and permission
+	 * @return [type] [description]
+	 */
+	function _permission($_content = null, $_login = true)
+	{
+		// if user is not login then redirect
+		if($_login && !$this->login())
+		{
+			$mydomain = AccountService? AccountService.MainTld: null;
+			\lib\debug::warn(T_("first of all, you must login to system!"));
+			$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
+		}
+		// if content is not set then
+		if($_content === null)
+		{
+			$_content = \lib\router::get_sub_domain();
+		}
+		// Check permission and if user can do this operation
+		// allow to do it, else show related message in notify center
+		$this->access($_content, null, null, 'block');
+	}
+
+
 	function _route()
 	{
 		// run if get is set and no database exist
@@ -13,23 +37,9 @@ class controller extends \mvc\controller
 			require_once(lib."install.php");
 			\lib\main::$controller->_processor(['force_stop' => true, 'force_json' => false]);
 		}
+		// check permission
+		self::_permission();
 
-		if(!$this->login())
-		{
-			$mydomain = AccountService? AccountService.MainTld: null;
-			\lib\debug::warn(T_("first of all, you must login to system!"));
-			$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
-			// exit();
-		}
-		// Check permission and if user can do this operation
-		// allow to do it, else show related message in notify center
-		$this->access('cp', null, null, 'block');
-
-		if(method_exists("parent", "_route"))
-		{
-			parent::_route();
-			return;
-		}
 		// Restrict unwanted module
 		if(!$this->cpModlueList())
 			\lib\error::page(T_("Not found!"));

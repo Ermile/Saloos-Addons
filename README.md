@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 3.3.1: fix on fix! completely fix permission problem
  * Version 3.3.0: bugfix disallow access to cp in all conditions
  * Version 3.2.0: after login redirect to custom address
  * Version 3.1.0: fix and update to work with Saloos last changes

@@ -5,13 +5,8 @@ class controller extends \addons\content_cp\home\controller
 {
 	function _route()
 	{
-		// if(!$this->login() && Tld !== 'dev')
-		// {
-		// 	$mydomain = AccountService? AccountService.MainTld: null;
-		// 	\lib\debug::warn(T_("first of all, you must login to system!"));
-		// 	$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
-		// 	exit();
-		// }
+		// check permission to access to cp
+		parent::_permission('cp');
 
 		// // Restrict unwanted module
 		// if(!$this->cpModlueList())
