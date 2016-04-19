@@ -5,7 +5,9 @@
 <form method="post" id="form_posts" {%if child == 'add'%}data-clear{%endif%}>
  <div class="row auto">
   <div class="span9">
+{%block post_title%}
    <input type="text" name="title" id="sp-title" class="input" placeholder='{%trans "Enter title here"%}' value='{{datarow.post_title}}' autofocus data-step='5' data-intro='{%trans "Set the title of your content"%}'/>
+{%endblock%}
 {%if child == 'edit'%}
    <div id='url-box' data-xhr='url-box' data-step='6' data-intro='{%trans "Url of your content appear here, click on it to view"%}'>
 
@@ -17,9 +19,11 @@
 
    </div>
 {%endif%}
+{%block post_desc%}
    <textarea name="desc" id='sp-desc' class="sp-content textarea editor" data-placeholder='{%trans "Write your post content here"%}' tabindex='2'>{{datarow.post_content | raw}}</textarea>
+{%endblock%}
 
-
+{%block post_expert%}
    <div class="panel panel-default display-none">
     <div class="panel-heading">{%trans "Excerpt"%}</div>
     <div class="panel-body">
@@ -27,8 +31,9 @@
     </div>
     <div class="panel-footer">{%trans "Summaries of your content that can be used as page description."%}</div>
    </div>
+{%endblock%}
 
-
+{%block post_tags%}
   <div class="panel panel-default unselectable" data-step='7' data-intro='{%trans "Write your tag and press enter to add new keyword to content"%}' data-position='top'>
    <div class="panel-heading">{%trans "Tags"%}</div>
    <div class="panel-body">
@@ -38,7 +43,6 @@
     <div id="tag-list"></div>
    </div>
    <div class="panel-footer">{% trans "Normally, tags are ad-hoc keywords that identify important information in your post (names, subjects, etc) that may or may not recur in other posts, while categories are pre-determined sections." %} <a href='tags' target="_blank">{%trans "View list of tags"%}</a></div>
-
   </div>
 
    <div class="row">
@@ -46,6 +50,7 @@
     <p class="alert alert-info fade"><b>{% trans "What’s the difference between posts and pages?" %}</b><br />{%trans "Pages are similar to Posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts."%} {%trans "Pages are not categorized or tagged, but can have a hierarchy."%}</p>
 {%endif%}
    </div>
+{%endblock%}
   </div>
 
 
@@ -54,13 +59,17 @@
   <div class="panel panel-default inline">
    <div class="panel-heading">{%trans "Publish"%}</div>
    <div class="panel-body">
+{%block post_slug%}
     <div class='hint--left hint100' data-hint='{%trans "Slug"%}' data-step='10' data-intro='{%trans "Set slug of content for better addressing in your site and increase SEO rate"%}'>
       <input name="slug" id="sp-slug" class="input" placeholder='{%trans "Enter slug here"%}' value='{{datarow.post_slug}}' data-xhr='slug' />
     </div>
+{%endblock%}
+{%block post_shortcode%}
 {%if module == 'books' and child == 'edit' %}
      <input name="shortcode" id="shortcode" class="input" placeholder='{%trans "Use this shortcode on your posts"%}' value="[ref id='{{datarow.id}}']" disabled="disabled" />
 {%endif%}
-
+{%endblock%}
+{%block post_language%}
 {%if module != 'attachments'%}
     <div class='hint--left hint100' data-hint='{%trans "Language"%}'>
     <select name="language" class="input" id='sp-language' data-step='11' data-intro='{%trans "Set language of your content to show only in this language"%}'>
@@ -71,6 +80,9 @@
     </select>
     </div>
 {%endif%}
+{%endblock%}
+
+{%block post_status%}
     <div class='hint--left hint100' data-hint='{%trans "Status"%}' data-step='12' data-intro='{%trans "All of content set as draft in default, for showing it to visitors you must set it to publish"%}'>
     <select name="status" class="input" id='sp-status'>
 {%for key, value in enum.status.value%}
@@ -78,12 +90,17 @@
 {% endfor %}
     </select>
     </div>
+{%endblock%}
+
+{%block post_submit%}
     <div class='hint--left hint100' data-hint='{%trans "Submit Changes"%}' data-step='13' data-intro='{%trans "After all changes, you must press this key to Submit"%}'>
      <button type="submit" value="submit" class="button positive">{% if child == 'edit'%}{%trans "Update"%}{%else%}{%trans "Publish"%}{%endif%}</button>
     </div>
+{%endblock%}
    </div>
   </div>
 
+{%block post_parent%}
 {%if parentList is iterable %}
   <div class="panel panel-default unselectable">
    <div class="panel-heading">{%trans "Page Attributes"%}</div>
@@ -101,6 +118,9 @@
    </div>
   </div>
 {%endif%}
+{%endblock%}
+
+{%block post_cat%}
 {%if catList is iterable%}
   <div class="panel panel-default cats" data-step='8' data-intro='{%trans "Select a category of your content"%}' data-position='top'>
    <div class="panel-heading">{%trans "Categories"%} <i class="fa fa-step-backward return hidden"></i></div>
@@ -126,7 +146,9 @@
 {%endif%}
   </div>
 {%endif%}
+{%endblock%}
 
+{%block post_thumb%}
  <div class="panel panel-default thumb">
   <div class="panel-heading">{%trans "Featured Image"%}</div>
   <div class="panel-body">
@@ -136,7 +158,9 @@
    </div>
   </div>
  </div>
+{%endblock%}
 
+{%block post_meta_type%}
 {%if datarow.meta.type%}
  <div id='file-meta' data-step='8' data-intro='{%trans "You can see type of your file and click on image to direct access to file"%}' data-position='top'>
 
@@ -155,6 +179,7 @@
   </p>
  </div>
 {%endif%}
+{%endblock%}
 
 
  </div>

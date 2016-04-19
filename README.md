@@ -13,6 +13,8 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 3.5.1: add all part of cp post to block
+ * Version 3.5.0: add poll and pollcategory to cp
  * Version 3.4.0: fix on fix! completely fix permission problem
  * Version 3.3.0: bugfix disallow access to cp in all conditions
  * Version 3.2.0: after login redirect to custom address
