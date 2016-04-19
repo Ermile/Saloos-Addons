@@ -247,55 +247,7 @@ class view extends \mvc\view
 		// if module for users then fill permission list
 		if($this->cpModule('raw') === 'users')
 		{
-			$this->data->form->users->user_status->required('required');
-
-			$checkStatus = null;
-			$myPerm      = null;
-			$myPermNames = \lib\utility\option::permList();
-			$myPermList  = $this->data->form->users->user_permission;
-			if(count($myPermNames) > 5)
-			{
-				$myPermList->type('select');
-				$checkStatus = 'selected';
-			}
-			else
-			{
-				$myPermList->type('radio');
-				$checkStatus = 'checked';
-			}
-			if($mychild === 'edit')
-			{
-				$myPerm = $this->model()->datarow('users');
-				$myPerm = $myPerm['user_permission'];
-				if($myPerm === "1")
-				{
-					$myPermList->addClass('hide');
-				}
-			}
-
-
-			// get list of permissions
-			foreach ($myPermNames as $key => $value)
-			{
-
-				if($myPerm == $key)
-				{
-					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->$checkStatus();
-				}
-				else
-				{
-					$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key);
-				}
-			}
-			$myPass = $this->data->form->users->user_pass;
-			if($mychild === 'add')
-			{
-				$myPass->attr('required', 'required')->pl(T_('Enter password within 5 to 40 character') );
-			}
-			else
-			{
-				$myPass->label(T_('New Password'))->value(null)->pl(T_('If you want to change password enter it, else leave it blank'));
-			}
+			$this->draw_users();
 		}
 
 
@@ -321,6 +273,61 @@ class view extends \mvc\view
 				$url = $this->data->datarow['post_url'];
 				$this->data->datarow['cat_url'] = substr($url, 0, strrpos( $url, '/'));
 			}
+		}
+	}
+
+	function draw_users()
+	{
+		$mychild                = $this->child();
+
+		$this->data->form->users->user_status->required('required');
+
+		$checkStatus = null;
+		$myPerm      = null;
+		$myPermNames = \lib\utility\option::permList();
+		$myPermList  = $this->data->form->users->user_permission;
+		if(count($myPermNames) > 5)
+		{
+			$myPermList->type('select');
+			$checkStatus = 'selected';
+		}
+		else
+		{
+			$myPermList->type('radio');
+			$checkStatus = 'checked';
+		}
+		if($mychild === 'edit')
+		{
+			$myPerm = $this->model()->datarow('users');
+			$myPerm = $myPerm['user_permission'];
+			if($myPerm === "1")
+			{
+				$myPermList->addClass('hide');
+			}
+		}
+
+
+		// get list of permissions
+		foreach ($myPermNames as $key => $value)
+		{
+
+			if($myPerm == $key)
+			{
+				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key)->$checkStatus();
+			}
+			else
+			{
+				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key);
+			}
+		}
+		$myPass = $this->data->form->users->user_pass;
+		if($mychild === 'add')
+		{
+			$myPass->attr('required', 'required')->pl(T_('Enter password within 5 to 40 character') );
+		}
+		else
+		{
+			$myPass->label(T_('New Password'))->value(null)->pl(T_('If you want to change password enter it, else leave it blank'));
 		}
 	}
 
