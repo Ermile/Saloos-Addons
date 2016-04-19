@@ -38,6 +38,8 @@ class view extends \mvc\view
 		$this->data->feature['tags']               = true;
 		$this->data->feature['categories']         = true;
 
+		$this->data->display['cp_posts'] = "content_cp/posts/layout.html";;
+
 		// $this->global->js             = [$this->url->myStatic.'js/highcharts/highcharts.js'];
 		// $this->data->page['desc']  = 'salam';
 		$this->data->page['haschild'] = true;
