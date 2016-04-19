@@ -11,10 +11,12 @@
 
 {%if attribute(input.attr, "data-before")%}
  {%set classlist = classlist|trim ~ ' ' ~ 'prepend'%}
+ {%set classdata = classdata|trim ~ " data-before='" ~ attribute(input.attr, "data-before") ~ "'"%}
 {%endif%}
 
 {%if attribute(input.attr, "data-after") or input.attr.required is not null%}
  {%set classlist = classlist|trim ~ ' ' ~ 'append'%}
+ {%set classdata = classdata|trim ~ " data-after='" ~ attribute(input.attr, "data-after") ~ "'"%}
 {%endif%}
 
 
@@ -22,9 +24,9 @@
  <div class="{{classlist|trim}}">
 {%if input.label.txt %}   <label for="{{input.attr.id}}" {% for attr,value in input.attr %}{{attr}}="{{value}}" {% endfor %}>{{input.label.txt}}</label>{%endif%}
 {%elseif input.attr.required is not null%}
- <div class="field {{classlist|trim}} required">
+ <div class="field {{classlist|trim}} required" {{classdata|raw}}>
 {%else%}
- <div class="field {{classlist|trim}}">
+ <div class="field {{classlist|trim}}" {{classdata|raw}}>
 {%endif%}
 
 {% if input.attr.pos %}{% set tippos=input.attr.pos %}{%else%}{% set tippos='hint--right' %}{% endif %}
