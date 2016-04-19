@@ -203,6 +203,7 @@ class model extends \mvc\model
 		switch ($cpModule['raw'])
 		{
 			case 'categories':
+			case 'pollcategories':
 			case 'filecategories':
 			case 'bookcategories':
 			case 'tags':
@@ -212,6 +213,7 @@ class model extends \mvc\model
 				break;
 
 			case 'posts':
+			case 'polls':
 			case 'pages':
 			case 'books':
 			case 'twitter':
@@ -258,10 +260,12 @@ class model extends \mvc\model
 		{
 			case 'categories':
 			case 'filecategories':
+			case 'pollcategories':
 			case 'bookcategories':
 			case 'tags':
 			case 'books':
 			case 'posts':
+			case 'polls':
 			case 'pages':
 			case 'attachments':
 			case 'socialnetwork':

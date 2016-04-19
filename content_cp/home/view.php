@@ -43,8 +43,10 @@ class view extends \mvc\view
 		$this->data->page['haschild'] = true;
 		$this->data->page['title']    = T_(ucfirst(\lib\router::get_url(' ')));
 
-		$this->data->dir['right']   = $this->global->direction == 'rtl'? 'left':  'right';
-		$this->data->dir['left']    = $this->global->direction == 'rtl'? 'right': 'left';
+		$this->data->cpModule         = $this->cpModule();
+
+		$this->data->dir['right']     = $this->global->direction == 'rtl'? 'left':  'right';
+		$this->data->dir['left']      = $this->global->direction == 'rtl'? 'right': 'left';
 
 		$mymodule = $this->module();
 		switch ($mymodule)
@@ -194,6 +196,12 @@ class view extends \mvc\view
 						$this->data->parentList = $this->model()->sp_parent_list();
 						break;
 
+					case 'polls':
+						$this->data->parentList = $this->model()->sp_parent_list();
+						$this->data->catList = $this->model()->sp_cats('cat_poll');
+
+						break;
+
 					case 'attachments':
 						$this->data->maxSize = \lib\utility\upload::max_file_upload_in_bytes();
 						// $this->include->uploader      = true;
@@ -224,6 +232,7 @@ class view extends \mvc\view
 				switch ($this->cpModule('raw'))
 				{
 					case 'categories':
+					case 'pollcategories':
 					case 'filecategories':
 					case 'bookcategories':
 						$this->data->parentList = $this->model()->sp_category_list($this->cpModule('type'));

@@ -173,9 +173,11 @@ class controller extends \mvc\controller
 					'home',
 					'posts',
 					'pages',
+					'polls',
 					'tags',
 					'categories',
 					'filecategories',
+					'pollcategories',
 					'attachments',
 					'books',
 					'bookcategories',
@@ -200,6 +202,7 @@ class controller extends \mvc\controller
 						'posts',
 						'categories',
 						'pages',
+						'polls',
 						'tags',
 						'attachments',
 						// 'filecategories',
@@ -265,10 +268,13 @@ class controller extends \mvc\controller
 				$result['type']   = $result['type']? $result['type']: 'page';
 			case 'attachments':
 				$result['type']   = $result['type']? $result['type']: 'attachment';
-				$result['cat']    = $result['cat']? $result['cat']: 'filecat';
+				$result['cat']    = $result['cat']?  $result['cat']:  'filecat';
+			case 'polls':
+				$result['type']   = $result['type']? $result['type']: 'poll';
+				$result['cat']    = $result['cat']?  $result['cat']:  'cat_poll';
 			case 'books':
 				$result['type']   = $result['type']? $result['type']: 'book';
-				$result['cat']    = $result['cat']? $result['cat']: 'bookcat';
+				$result['cat']    = $result['cat']?  $result['cat']:  'bookcat';
 
 			case 'socialnetwork':
 				$result['type']   = $result['type']? $result['type']: 'socialnetwork';
@@ -281,6 +287,8 @@ class controller extends \mvc\controller
 				$result['type']   = 'cat';
 			case 'filecategories':
 				$result['type']   = $result['type']? $result['type']: 'filecat';
+			case 'pollcategories':
+				$result['type']   = $result['type']? $result['type']: 'cat_poll';
 			case 'bookcategories':
 				$result['type']   = $result['type']? $result['type']: 'bookcat';
 			case 'tags':
@@ -318,15 +326,17 @@ class controller extends \mvc\controller
 	static function permModules()
 	{
 		$mylist	= [
-					'posts'       => null,
-					'categories'  => ['admin'],
-					'pages'       => null,
-					'tags'        => ['admin'],
-					'attachments' => ['admin'],
-					'users'       => null,
-					'tools'       => ['admin'],
-					'permissions' => ['admin'],
-					'options'     => ['admin', 'add', 'delete']
+					'posts'          => null,
+					'categories'     => ['admin'],
+					'pollcategories' => null,
+					'pages'          => null,
+					'polls'          => null,
+					'tags'           => ['admin'],
+					'attachments'    => ['admin'],
+					'users'          => null,
+					'tools'          => ['admin'],
+					'permissions'    => ['admin'],
+					'options'        => ['admin', 'add', 'delete']
 				];
 
 		// get features value from view and fix it later
