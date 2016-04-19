@@ -9,6 +9,15 @@
  {%set classlist = classlist|trim ~ ' ' ~ input.attr.class%}
 {%endif%}
 
+{%if attribute(input.attr, "data-before")%}
+ {%set classlist = classlist|trim ~ ' ' ~ 'prepend'%}
+{%endif%}
+
+{%if attribute(input.attr, "data-after") or input.attr.required is not null%}
+ {%set classlist = classlist|trim ~ ' ' ~ 'append'%}
+{%endif%}
+
+
 {%if input.attr.type == 'seperator'%}
  <div class="{{classlist|trim}}">
 {%if input.label.txt %}   <label for="{{input.attr.id}}" {% for attr,value in input.attr %}{{attr}}="{{value}}" {% endfor %}>{{input.label.txt}}</label>{%endif%}
