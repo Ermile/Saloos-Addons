@@ -1,7 +1,6 @@
 {%extends display.cp%}
 
 
-{%block post_details%}
 
 {%block post_title%}
    <input type="text" name="title" id="sp-title" class="input" placeholder='{%trans "Enter title here"%}' value='{{datarow.post_title}}' autofocus data-step='5' data-intro='{%trans "Set the title of your content"%}'/>
@@ -38,7 +37,7 @@
 {%endblock%}
 
 
-{%block post_tags%}
+{%block post_tag%}
   <div class="panel panel-default unselectable" data-step='7' data-intro='{%trans "Write your tag and press enter to add new keyword to content"%}' data-position='top'>
    <div class="panel-heading">{%trans "Tags"%}</div>
    <div class="panel-body">
@@ -182,5 +181,44 @@
 {%endblock%}
 
 
+{%block post_poll%}
+{%if module == 'polls'%}
+ <div class="panel panel-default poll_define">
+  <div class="panel-heading">{%trans "Define poll"%}</div>
+  <div class="panel-body">
+   <ul class="answers sortable">
+    <li data-number=1>
+     <input type="number" name="ans1_point" value="1" />
+     <input type="text" name="ans1"/>
+    </li>
+    <li data-number=2>
+     <input type="number" name="ans2_point" value="2"/>
+     <input type="text" name="ans2"/>
+    </li>
+    <li data-number=3>
+     <input type="number" name="ans3_point" value="3"/>
+     <input type="text" name="ans3"/>
+    </li>
+    <li data-number=4>
+     <input type="number" name="ans4_point" value="4"/>
+     <input type="text" name="ans4"/>
+    </li>
 
+   </ul>
+  </div>
+ </div>
+{{ block('post_conditions') }}
+
+{%endif%}
 {%endblock%}
+
+
+{%block post_conditions%}
+ <div class="panel panel-default">
+  <div class="panel-heading">{%trans "Define poll conditions"%}</div>
+  <div class="panel-body">
+
+  </div>
+ </div>
+{%endblock%}
+
