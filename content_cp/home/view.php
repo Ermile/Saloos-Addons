@@ -272,6 +272,12 @@ class view extends \mvc\view
 				// var_dump($this->data->datarow['post_content']);
 				$url = $this->data->datarow['post_url'];
 				$this->data->datarow['cat_url'] = substr($url, 0, strrpos( $url, '/'));
+				// if defaultlang and lang of the post is not the same then add lang to url
+				$defaultLang = substr(\lib\utility\option::get('config', 'meta', 'defaultLang'), 0, 2);
+				if($defaultLang !== $this->data->datarow['post_language'])
+				{
+					$this->data->datarow['post_url'] = $this->data->datarow['post_language']. "/".$this->data->datarow['post_url'];
+				}
 			}
 		}
 	}
