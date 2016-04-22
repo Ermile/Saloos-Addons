@@ -199,7 +199,7 @@ class view extends \mvc\view
 						break;
 
 					case 'polls':
-						$this->data->parentList = $this->model()->sp_parent_list();
+						$this->data->parentList = $this->model()->sp_parent_list(true, 'poll');
 						$this->data->catList = $this->model()->sp_cats('cat_poll');
 
 						break;
