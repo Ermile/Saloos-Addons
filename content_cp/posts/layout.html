@@ -30,7 +30,7 @@
    <div class="panel panel-default display-none">
     <div class="panel-heading">{%trans "Excerpt"%}</div>
     <div class="panel-body">
-     <textarea name="excerpt" class="sp-excerpt" maxlength='160' placeholder='{%trans "If excerpt is empty we get it automatically from content"%}'>{{datarow.meta.excerpt}}</textarea>
+     <textarea name="excerpt" class="sp-excerpt" maxlength='160' placeholder='{%trans "If excerpt is empty we get it automatically from content"%}'>{{datarow.post_meta.excerpt}}</textarea>
     </div>
     <div class="panel-footer">{%trans "Summaries of your content that can be used as page description."%}</div>
    </div>
@@ -152,7 +152,7 @@
   <div class="panel-heading">{%trans "Featured Image"%}</div>
   <div class="panel-body">
    <div class='hint--left hint100' data-hint='{%trans "This allows you to associate an image with your content."%}'>
-    <input class="input" type="text" name="thumbid" id="sp-thumbid" placeholder='{%trans "Enter thumb id"%}' value='{{datarow.meta.thumbid}}' />
+    <input class="input" type="text" name="thumbid" id="sp-thumbid" placeholder='{%trans "Enter thumb id"%}' value='{{datarow.post_meta.thumbid}}' />
     <a href="">{%trans "Set featured image"%}</a>
    </div>
   </div>
@@ -161,20 +161,20 @@
 
 
 {%block post_meta_type%}
-{%if datarow.meta.type%}
+{%if datarow.post_meta.type%}
  <div id='file-meta' data-step='8' data-intro='{%trans "You can see type of your file and click on image to direct access to file"%}' data-position='top'>
   <p>
-{%if datarow.meta.type=='image'%}
-  <a href="{{url.root}}{{datarow.meta.url}}" class="hint--left light-gallery" data-hint='{%trans "Click to view"%}'>
-   <i id='file-type' class="fa fa-file-{{datarow.meta.type}}-o" data-src="{{url.root}}{{datarow.meta.url}}"></i>
+{%if datarow.post_meta.type=='image'%}
+  <a href="{{url.root}}{{datarow.post_meta.url}}" class="hint--left light-gallery" data-hint='{%trans "Click to view"%}'>
+   <i id='file-type' class="fa fa-file-{{datarow.post_meta.type}}-o" data-src="{{url.root}}{{datarow.post_meta.url}}"></i>
   </a><br />
-   <span>{%trans "Height"%} {{datarow.meta.width}}</span> × <span>{%trans "Width"%} {{datarow.meta.height}}</span>
+   <span>{%trans "Height"%} {{datarow.post_meta.width}}</span> × <span>{%trans "Width"%} {{datarow.post_meta.height}}</span>
 {%else%}
-  <a href="{{url.root}}{{datarow.meta.url}}" target="_blank" class="hint--left" data-hint='{%trans "Click to view"%}'>
-   <i id='file-type' class="fa fa-file-{{datarow.meta.type}}-o"></i>
+  <a href="{{url.root}}{{datarow.post_meta.url}}" target="_blank" class="hint--left" data-hint='{%trans "Click to view"%}'>
+   <i id='file-type' class="fa fa-file-{{datarow.post_meta.type}}-o"></i>
   </a>
 {%endif%}
-   <br />{{datarow.meta.size|readableSize}}
+   <br />{{datarow.post_meta.size|readableSize}}
   </p>
  </div>
 {%endif%}
@@ -187,18 +187,13 @@
   <div class="panel-heading">{%trans "Define poll"%}</div>
   <div class="panel-body">
    <ul class="answers sortable">
-    <li data-number=1>
-     <input type="number" name="ans1_point" value="1" />
-     <input type="text" name="ans1"/>
+{%for id, ans in datarow.meta.answers%}
+    <li data-number={{id}}>
+     <i class="fa fa-times" aria-hidden="true"></i>
+     <input type="number" name="ans{{id}}_point" value="{{ans.point}}" />
+     <input type="text" name="ans{{id}}" value="{{ans.txt}}"/>
     </li>
-    <li data-number=2>
-     <input type="number" name="ans2_point" value="2"/>
-     <input type="text" name="ans2"/>
-    </li>
-    <li data-number=3>
-     <input type="number" name="ans3_point" value="3"/>
-     <input type="text" name="ans3"/>
-    </li>
+{%endfor%}
     <li class="add"><i class="fa fa-plus" aria-hidden="true"></i></li>
    </ul>
   </div>

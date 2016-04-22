@@ -190,6 +190,22 @@ class model extends \addons\content_cp\home\model
 				// exit();
 			break;
 
+			case 'polls':
+				$datarow['url'] = utility::post('cat');
+				if(!$datarow['url'])
+				{
+					// calc and set url
+					$datarow['url'] = $this->sql()->table('terms')->where('id', 1)
+						->select()->assoc('term_url');
+				}
+
+				if($datarow['url'])
+					$datarow['url'] = $datarow['url'].'/';
+				$datarow['url']  = $datarow['url']. $datarow['slug'];
+
+			break;
+
+
 			// all other type of post
 			default:
 				unset($datarow['parent']);
@@ -263,6 +279,43 @@ class model extends \addons\content_cp\home\model
 
 		if($post_new_id === 0 || !$post_new_id)
 			return;
+
+
+		if($post_new_id)
+		{
+			$answers = [];
+			$max_ans = 10;
+			for ($i=1; $i <= $max_ans ; $i++)
+			{
+				if(utility::post('ans'.$i))
+				{
+					$answers[$i]['point'] = utility::post('ans' .$i. '_point');
+					$answers[$i]['txt']   = \lib\utility::post('ans' .$i);
+				}
+			}
+			$answers = json_encode($answers, true);
+
+			$qry_ans_exist = $this->sql()->table('options')
+				->where('post_id',       $post_new_id)
+				->and('option_cat',    'meta_polls')
+				->and('option_key',    'answers_'.$post_new_id);
+			// if exist delete them
+			if($qry_ans_exist->select()->num() > 0)
+			{
+				$qry_ans_exist = $qry_ans_exist->delete();
+			}
+
+			// create query to add poll answers to options table
+			$qry_ans = $this->sql()->table('options');
+			$qry_ans = $qry_ans
+				->set('post_id',       $post_new_id)
+				->set('option_cat',    'meta_polls')
+				->set('option_key',    'answers_'.$post_new_id)
+				->set('option_meta',   $answers)
+				->set('option_status', 'enable');
+			// var_dump($qry_ans->insertString('REPLACE'));exit();
+			$qry_ans->insert('REPLACE');
+		}
 
 
 		// if publish post share it on twitter and save in options

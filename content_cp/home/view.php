@@ -258,8 +258,7 @@ class view extends \mvc\view
 			$this->data->datarow = $this->model()->datarow($mytable, null, true);
 
 			if(isset($this->data->datarow['post_meta']))
-				$this->data->datarow['meta'] = json_decode($this->data->datarow['post_meta'], true);
-			// var_dump($this->data->datarow['meta']);
+				$this->data->datarow['post_meta'] = json_decode($this->data->datarow['post_meta'], true);
 
 			if($this->cpModule('raw') === 'attachments')
 			{
