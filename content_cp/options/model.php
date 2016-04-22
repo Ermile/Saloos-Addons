@@ -43,7 +43,7 @@ class model extends \addons\content_cp\home\model
 						{
 							$this->doConfig($value['meta']);
 						}
-						$meta   = json_encode($value['meta'], JSON_FORCE_OBJECT | JSON_HEX_QUOT | JSON_HEX_APOS );
+						$meta   = json_encode($value['meta'], JSON_FORCE_OBJECT | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_UNESCAPED_UNICODE);
 						// $meta   = $value['meta'];
 					}
 					// set status if exist

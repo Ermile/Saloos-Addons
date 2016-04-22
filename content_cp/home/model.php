@@ -157,7 +157,7 @@ class model extends \mvc\model
 	{
 		$datatable = $this->model()->datatable();
 
-		// echo(json_encode($datatable, JSON_FORCE_OBJECT));
+		// echo(json_encode($datatable, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE));
 
 		debug::property('draw'           , $datatable['draw']);
 		debug::property('data'           , $datatable['data']);
@@ -165,7 +165,7 @@ class model extends \mvc\model
 		debug::property('recordsTotal'   , $datatable['total']);
 		debug::property('recordsFiltered', $datatable['filter']);
 		$this->model()->_processor(object(array("force_json" => true, "force_stop" => true)));
-		// echo(json_encode($result, JSON_FORCE_OBJECT));
+		// echo(json_encode($result, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE));
 		// exit();
 	}
 

@@ -125,7 +125,7 @@ class model extends \addons\content_cp\home\model
 				if($editParam)
 				{
 					$permResult = \lib\utility\permission::permListFill(true);
-					$permResult = json_encode($permResult, JSON_FORCE_OBJECT);
+					$permResult = json_encode($permResult, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE);
 
 					$qryEdit = $this->qryCreator($_type, $editParam);
 					$qryEdit = $qryEdit->set('option_meta', $permResult)->update();

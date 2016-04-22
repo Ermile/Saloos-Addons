@@ -110,7 +110,7 @@ class model extends \addons\content_cp\home\model
 		$datarow['meta']['thumbid'] = utility::post('thumbid');
 		$datarow['meta']['slug']    = $datarow['slug'];
 
-		$datarow['meta'] = json_encode($datarow['meta']);
+		$datarow['meta'] = json_encode($datarow['meta'], JSON_UNESCAPED_UNICODE);
 
 
 
@@ -293,7 +293,7 @@ class model extends \addons\content_cp\home\model
 					$answers[$i]['txt']   = \lib\utility::post('ans' .$i);
 				}
 			}
-			$answers = json_encode($answers, true);
+			$answers = json_encode($answers, JSON_UNESCAPED_UNICODE);
 
 			$qry_ans_exist = $this->sql()->table('options')
 				->where('post_id',       $post_new_id)
@@ -304,7 +304,6 @@ class model extends \addons\content_cp\home\model
 			{
 				$qry_ans_exist = $qry_ans_exist->delete();
 			}
-
 			// create query to add poll answers to options table
 			$qry_ans = $this->sql()->table('options');
 			$qry_ans = $qry_ans
@@ -643,7 +642,7 @@ class model extends \addons\content_cp\home\model
 
 		if( strpos($file_meta['mime'], 'image') !== false)
 			list($file_meta['width'], $file_meta['height'])= getimagesize($url_full);
-		$file_meta = json_encode($file_meta);
+		$file_meta = json_encode($file_meta, JSON_UNESCAPED_UNICODE);
 		// var_dump($file_meta);exit();
 
 		// 6. add uploaded file record to db
