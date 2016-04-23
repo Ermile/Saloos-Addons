@@ -26,7 +26,7 @@ class controller extends \mvc\controller
 	}
 
 
-	function _route()
+	protected function _exception()
 	{
 		// run if get is set and no database exist
 		if($this->cpModule('raw') == 'install'
@@ -37,6 +37,23 @@ class controller extends \mvc\controller
 			require_once(lib."install.php");
 			\lib\main::$controller->_processor(['force_stop' => true, 'force_json' => false]);
 		}
+
+		if($this->module() === 'tg')
+		{
+			$result = \lib\utility\social\tg::check();
+			if(DEBUG)
+			{
+				echo $result;
+			}
+			\lib\main::$controller->_processor(['force_stop' => true, 'force_json' => false]);
+		}
+
+	}
+
+	function _route()
+	{
+		// do for exception url
+		self::_exception();
 		// check permission
 		self::_permission();
 

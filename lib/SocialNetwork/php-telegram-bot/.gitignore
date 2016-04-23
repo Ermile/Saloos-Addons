@@ -24,6 +24,7 @@ vendor/
 
 
 # phpDocumentor Logs #
+composer-setup.php
 phpdoc-*
 
 # OSX #
