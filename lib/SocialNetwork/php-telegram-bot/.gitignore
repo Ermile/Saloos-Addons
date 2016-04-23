@@ -20,7 +20,7 @@ composer.phar
 TelegramException.log
 
 # Composer
-vendor/
+#vendor/
 
 
 # phpDocumentor Logs #
