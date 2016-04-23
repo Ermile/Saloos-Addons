@@ -208,6 +208,7 @@ class model extends \addons\content_cp\home\model
 					'meta'  =>
 					[
 						'key'     => utility::post('tg-key'),
+						'bot'     => utility::post('tg-bot'),
 						'channel' => utility::post('tg-channel'),
 						'botan'   => utility::post('tg-botan'),
 					]

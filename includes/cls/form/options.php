@@ -297,6 +297,13 @@ class options extends \lib\form
 			->class('en')
 			->maxlength(200);
 
+		$this->tg_bot = $this->make('text')
+			->attr('data-parent', 'tg-status')
+			->name('tg-bot')
+			->label(T_('Telegram'). ' '. T_('bot name'))
+			->class('en')
+			->maxlength(50);
+
 		$this->tg_channel = $this->make('text')
 			->attr('data-parent', 'tg-status')
 			->name('tg-channel')
