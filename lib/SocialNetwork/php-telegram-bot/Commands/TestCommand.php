@@ -1,8 +1,8 @@
 <?php
 namespace Longman\TelegramBot\Commands;
 
-use Longman\TelegramBot\Request;
-use Longman\TelegramBot\Entities\Update;
+use \Longman\TelegramBot\Request;
+use \Longman\TelegramBot\Entities\Update;
 
 class testCommand extends Command
 {
