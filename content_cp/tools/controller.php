@@ -26,7 +26,15 @@ class controller extends \addons\content_cp\home\controller
 
 			case 'db':
 				$exist    = true;
-				$result = \lib\db::backup(true);
+				if(\lib\utility::get('upgrade'))
+				{
+					// do upgrade
+					$result = \lib\db::install(true);
+				}
+				elseif(\lib\utility::get('backup'))
+				{
+					$result = \lib\db::backup(true);
+				}
 				break;
 
 			case 'twigtrans':
