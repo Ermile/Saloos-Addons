@@ -40,7 +40,7 @@ class controller extends \mvc\controller
 
 		if($this->module() === 'tg')
 		{
-			$result = \lib\utility\social\tg::check();
+			$result = \lib\utility\social\tg::do();
 			if(DEBUG)
 			{
 				echo $result;
