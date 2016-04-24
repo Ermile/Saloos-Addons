@@ -204,11 +204,12 @@ class model extends \addons\content_cp\home\model
 				'telegram' =>
 				[
 					'status' => utility::post('tg-status'),
-					'value' => utility::post('telegram'),
-					'meta'  =>
+					'value'  => utility::post('telegram'),
+					'meta'   =>
 					[
 						'key'     => utility::post('tg-key'),
 						'bot'     => utility::post('tg-bot'),
+						'hook'    => utility::post('tg-hook'),
 						'channel' => utility::post('tg-channel'),
 						'botan'   => utility::post('tg-botan'),
 					]

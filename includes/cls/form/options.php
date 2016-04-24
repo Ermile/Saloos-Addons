@@ -304,6 +304,14 @@ class options extends \lib\form
 			->class('en')
 			->maxlength(50);
 
+		$this->tg_hook = $this->make('text')
+			->attr('data-parent', 'tg-status')
+			->name('tg-hook')
+			->label(T_('Telegram'). ' '. T_('hook url'))
+			->class('en')
+			->maxlength(200);
+
+
 		$this->tg_channel = $this->make('text')
 			->attr('data-parent', 'tg-status')
 			->name('tg-channel')
