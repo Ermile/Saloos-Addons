@@ -37,17 +37,6 @@ class controller extends \mvc\controller
 			require_once(lib."install.php");
 			\lib\main::$controller->_processor(['force_stop' => true, 'force_json' => false]);
 		}
-
-		if($this->module() === 'tg')
-		{
-			$result = \lib\utility\social\tg::do();
-			if(DEBUG)
-			{
-				echo $result;
-			}
-			\lib\main::$controller->_processor(['force_stop' => true, 'force_json' => false]);
-		}
-
 	}
 
 	function _route()

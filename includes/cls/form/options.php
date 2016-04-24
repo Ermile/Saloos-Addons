@@ -306,6 +306,7 @@ class options extends \lib\form
 
 		$this->tg_hook = $this->make('text')
 			->attr('data-parent', 'tg-status')
+			->attr('data-before', '/saloos_tg/')
 			->name('tg-hook')
 			->label(T_('Telegram'). ' '. T_('hook url'))
 			->class('en')
