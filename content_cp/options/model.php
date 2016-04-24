@@ -39,9 +39,13 @@ class model extends \addons\content_cp\home\model
 					if(isset($value['meta']))
 					{
 						// do something in config
-						if($field == 'config')
+						if($field === 'config')
 						{
 							$this->doConfig($value['meta']);
+						}
+						elseif($field === 'telegram')
+						{
+							$this->doTelegram($value['meta']);
 						}
 						$meta   = json_encode($value['meta'], JSON_FORCE_OBJECT | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_UNESCAPED_UNICODE);
 						// $meta   = $value['meta'];
@@ -336,6 +340,25 @@ class model extends \addons\content_cp\home\model
 		{
 			setcookie('preview','yes',time() + 365*24*60*60,'/','.'.Service);
 		}
+	}
+
+
+	/**
+	 * do telegram settings
+	 * @param  [type] $_options [description]
+	 * @return [type]           [description]
+	 */
+	public function doTelegram($_options)
+	{
+		if(isset($_options['hook']))
+		{
+			$result = \lib\utility\social\tg::setWebhook();
+		}
+		else
+		{
+			$result = \lib\utility\social\tg::unsetWebhook();
+		}
+		debug::true($result);
 	}
 }
 ?>
