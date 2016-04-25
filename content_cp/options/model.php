@@ -16,6 +16,7 @@ class model extends \addons\content_cp\home\model
 		if(\lib\utility::post('reset') === 'reset' || \lib\utility::get('action') === 'reset')
 		{
 			$newOptions = $this->getDefault();
+			\lib\debug::msg('direct', true);
 		}
 		else
 		{
@@ -417,6 +418,11 @@ class model extends \addons\content_cp\home\model
 	 */
 	public function doTelegram($_options)
 	{
+		// if key is fake do not run telegram hook
+		if(!isset($_options['key']) || strlen($_options['key']) < 20)
+		{
+			return null;
+		}
 		if(isset($_options['hook']))
 		{
 			$result = \lib\utility\social\tg::setWebhook();
