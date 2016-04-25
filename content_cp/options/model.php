@@ -126,6 +126,21 @@ class model extends \addons\content_cp\home\model
 	 */
 	private function getOptions()
 	{
+		$mainsite_url = Domain;
+
+		if(utility::post('config-domainSame'))
+		{
+			$mainsite_url = utility::post('config-domainName');
+		}
+		if(utility::post('config-defaultTld'))
+		{
+			$mainsite_url .= '.' .utility::post('config-defaultTld');
+		}
+		else
+		{
+			$mainsite_url .= MainTld;
+		}
+
 		$myOptions =
 		[
 			'general' =>
@@ -152,6 +167,13 @@ class model extends \addons\content_cp\home\model
 						'sms'            => utility::post('config-sms'),
 						'social'         => utility::post('config-social'),
 						'account'        => utility::post('config-account'),
+						'multiDomain'    => utility::post('config-multiDomain'),
+						'defaultTld'     => utility::post('config-defaultTld'),
+						'domainSame'     => utility::post('config-domainSame'),
+						'domainName'     => utility::post('config-domainName'),
+						'redirectToMain' => utility::post('config-redirectToMain'),
+						'redirectURL'    => utility::post('config-redirectToMain'),
+						'mainSite'       => $mainsite_url,
 					],
 				],
 			],

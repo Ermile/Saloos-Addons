@@ -42,11 +42,11 @@ class options extends \lib\form
 			// ->desc(T_("Explain site and porpose of it in a few words"))
 			;
 
-		$this->url = $this->make('url')->name('site-url')
-			->label(T_('Site'). ' '.T_('main URL'))
-			->maxlength(50)
-			->pl(T_('Site main Address (URL)'))
-			->desc(T_("Explain site and porpose of it in a few words"));
+		// $this->url = $this->make('url')->name('site-url')
+		// 	->label(T_('Site'). ' '.T_('main URL'))
+		// 	->maxlength(50)
+		// 	->pl(T_('Site main Address (URL)'))
+		// 	->desc(T_("Explain site and porpose of it in a few words"));
 	}
 
 
@@ -116,6 +116,56 @@ class options extends \lib\form
 			->name('config-account')
 			->class('checkbox')
 			->label(T_('Use account'));
+
+
+		$this->config_seperator2 = $this->make('seperator')
+			->label(T_('Multi domain'));
+
+		$this->config_multiDomain = $this->make('checkbox')
+			->name('config-multiDomain')
+			->class('checkbox')
+			->label(T_('Use multi domain'));
+
+		$this->config_defaultTld = $this->make('radio')
+			->attr('data-parent', 'config-multiDomain')
+			// ->attr('data-init', 'hide')
+			->name('config-defaultTld')
+			->label(T_('Default Tld'))
+			->pl(T_('Default Tld'));
+
+		$this->config_domainSame = $this->make('checkbox')
+			->attr('data-parent', 'config-multiDomain')
+			->attr('data-disable', true)
+			->name('config-domainSame')
+			->class('checkbox')
+			->label(T_('domain name is different?'));
+
+		$this->config_domainName = $this->make('text')
+			->attr('data-parent', 'config-domainSame')
+			->attr('data-init', 'hide')
+			// ->attr('data-reverse', 'true')
+			->name('config-domainName')
+			->label(T_('Main domain name'))
+			->attr('data-before','http[s]://')
+			->attr('data-after','.com')
+			->class('en')
+			->maxlength(50);
+
+		$this->config_redirectToMain = $this->make('checkbox')
+			->attr('data-parent', 'config-multiDomain')
+			->name('config-redirectToMain')
+			->class('checkbox')
+			->label(T_('Redirect to main doamin'));
+
+		$this->config_mainSite = $this->make('text')
+			->attr('data-parent', 'config-multiDomain')
+			->name('config-mainSite')
+			->attr('disabled', 'disabled')
+			->label(T_('Redirect to main doamin'))
+			->attr('data-before','http[s]://')
+			->class('en')
+			->maxlength(50);
+
 	}
 
 

@@ -9,6 +9,7 @@
  {%set classlist = classlist|trim ~ ' ' ~ input.attr.class%}
 {%endif%}
 
+{%set classdata = ""%}
 {%if attribute(input.attr, "data-before")%}
  {%set classlist = classlist|trim ~ ' ' ~ 'prepend'%}
  {%set classdata = "data-before='" ~ attribute(input.attr, "data-before") ~ "'"%}
@@ -16,7 +17,7 @@
 
 {%if attribute(input.attr, "data-after") or input.attr.required is not null%}
  {%set classlist = classlist|trim ~ ' ' ~ 'append'%}
- {%set classdata = "data-after='" ~ attribute(input.attr, "data-after") ~ "'"%}
+ {%set classdata = classdata|trim ~ "data-after='" ~ attribute(input.attr, "data-after") ~ "'"%}
 {%endif%}
 
 

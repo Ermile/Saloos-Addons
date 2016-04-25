@@ -31,6 +31,11 @@ class view extends \addons\content_cp\home\view
 		}
 		// add sms items
 		$form_sms->sms_name->child()->id('sms_kavenegar')->value('kavenegarApi')->label(T_('Kavenegar'));
+		$tld_list = ['com', 'org', 'edu', 'net', 'ir'];
+		foreach ($tld_list as $key => $tld)
+		{
+			$form_config->config_defaultTld->child()->id('config_tld_'.$tld)->value($tld)->label($tld);
+		}
 		// add content list to show for redirect
 		foreach (\lib\utility\option::contentList(true) as $key => $value)
 		{
@@ -75,6 +80,12 @@ class view extends \addons\content_cp\home\view
 		if(isset($datatable['config']['config']))
 		{
 			$this->form_fill($form_config,  $datatable['config']['config']);
+			// add default tld to domain name
+			if(isset($datatable['config']['config']['meta']['defaultTld']))
+			{
+				$selectedTld = $datatable['config']['config']['meta']['defaultTld'];
+				$form_config->config_domainName->attr('data-after', $selectedTld);
+			}
 		}
 		if(isset($datatable['social']))
 		{
