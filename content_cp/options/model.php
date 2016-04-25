@@ -12,7 +12,16 @@ class model extends \addons\content_cp\home\model
 	 */
 	function put_options()
 	{
-		foreach ($this->getOptions() as $group => $record)
+		$newOptions = null;
+		if(\lib\utility::post('reset') === 'reset' || \lib\utility::get('action') === 'reset')
+		{
+			$newOptions = $this->getDefault();
+		}
+		else
+		{
+			$newOptions = $this->getOptions();
+		}
+		foreach ($newOptions as $group => $record)
 		{
 			foreach ($record as $field => $value)
 			{
@@ -268,6 +277,64 @@ class model extends \addons\content_cp\home\model
 		];
 
 		return $myOptions;
+	}
+
+
+	/**
+	 * get post variables and fill it in array for default condition
+	 * @return [array] contain list of all data entered
+	 */
+	private function getDefault()
+	{
+		$myDefaults =
+		[
+			'general' =>
+			[
+				'title' => 'Ermile',
+				'desc'  => 'Powered by Saloss',
+			],
+			'config' =>
+			[
+				'config' =>
+				[
+					'meta'   =>
+					[
+						'logVisitors'    => 'on',
+						'defaultLang'    => 'en_US',
+						'fakeSub'        => 'on',
+						'account'        => 'on',
+					],
+				],
+			],
+			'sms' =>
+			[
+				'sms' =>
+				[
+					'meta'   =>
+					[
+						'one'          => 'on',
+						'signup'       => 'on',
+						'verification' => 'on',
+						'recovery'     => 'on',
+						'changepass'   => 'on',
+					]
+				],
+			],
+			'account' =>
+			[
+				'account' =>
+				[
+					'status' => 'on',
+					'value'  => utility::post('account-default'),
+					'meta'   =>
+					[
+						'redirect'   => 'cp',
+					]
+				]
+			],
+		];
+
+		return $myDefaults;
 	}
 
 
