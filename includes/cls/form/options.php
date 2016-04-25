@@ -98,6 +98,11 @@ class options extends \lib\form
 			->class('checkbox')
 			->label(T_('Use fake subdomain'));
 
+		$this->config_https = $this->make('checkbox')
+			->name('config-https')
+			->class('checkbox')
+			->label(T_('Support https'));
+
 
 		$this->config_seperator1 = $this->make('seperator')
 			->label(T_('Feature status'));
@@ -354,14 +359,25 @@ class options extends \lib\form
 			->class('en')
 			->maxlength(50);
 
+		$this->tg_hookFolder = $this->make('text')
+			->attr('data-parent', 'tg-status')
+			->name('tg-hookFolder')
+			->label(T_('Telegram'). ' '. T_('hook folder'))
+			->class('en')
+			->maxlength(50);
+
 		$this->tg_hook = $this->make('text')
 			->attr('data-parent', 'tg-status')
-			->attr('data-before', '/saloos_tg/')
 			->name('tg-hook')
 			->label(T_('Telegram'). ' '. T_('hook url'))
 			->class('en')
+			->attr('disabled', 'disabled')
 			->maxlength(200);
 
+		$this->tg_debug = $this->make('checkbox')
+			->name('tg-debug')
+			->class('checkbox')
+			->label(T_('Debug mode'));
 
 		$this->tg_channel = $this->make('text')
 			->attr('data-parent', 'tg-status')
