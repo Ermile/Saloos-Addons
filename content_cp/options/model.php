@@ -127,11 +127,12 @@ class model extends \addons\content_cp\home\model
 	private function getOptions()
 	{
 		$mainsite_url = Domain;
-
-		if(utility::post('config-domainSame'))
+		// save domain name
+		if(utility::post('config-domainSame') && strlen(utility::post('config-domainName')) > 1)
 		{
 			$mainsite_url = utility::post('config-domainName');
 		}
+		// save domain tld
 		if(utility::post('config-defaultTld'))
 		{
 			$mainsite_url .= '.' .utility::post('config-defaultTld');
