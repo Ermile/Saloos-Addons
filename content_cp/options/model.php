@@ -142,6 +142,19 @@ class model extends \addons\content_cp\home\model
 			$mainsite_url .= MainTld;
 		}
 
+		// calculate hook url
+		$hook_url = null;
+		if(strlen(utility::post('tg-hookFolder')) > 3)
+		{
+			$hook_url = 'https://'. $mainsite_url. '/saloos_tg/';
+			$botName = utility::post('tg-bot');
+			if($botName && strlen($botName) > 3)
+			{
+				$hook_url .= $botName.'/';
+			}
+			$hook_url .= utility::post('tg-hookFolder');
+		}
+
 		$myOptions =
 		[
 			'general' =>
@@ -165,6 +178,7 @@ class model extends \addons\content_cp\home\model
 						'mainAccount'    => utility::post('config-mainAccount'),
 						'defaultLang'    => utility::post('config-defaultLang'),
 						'fakeSub'        => utility::post('config-fakeSub'),
+						'https'          => utility::post('config-https'),
 						'sms'            => utility::post('config-sms'),
 						'social'         => utility::post('config-social'),
 						'account'        => utility::post('config-account'),
@@ -244,11 +258,13 @@ class model extends \addons\content_cp\home\model
 					'value'  => utility::post('telegram'),
 					'meta'   =>
 					[
-						'key'     => utility::post('tg-key'),
-						'bot'     => utility::post('tg-bot'),
-						'hook'    => utility::post('tg-hook'),
-						'channel' => utility::post('tg-channel'),
-						'botan'   => utility::post('tg-botan'),
+						'key'        => utility::post('tg-key'),
+						'bot'        => utility::post('tg-bot'),
+						'hookFolder' => utility::post('tg-hookFolder'),
+						'hook'       => $hook_url,
+						'debug'      => utility::post('tg-debug'),
+						'channel'    => utility::post('tg-channel'),
+						'botan'      => utility::post('tg-botan'),
 					]
 				],
 				'aparat' =>
