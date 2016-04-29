@@ -40,6 +40,14 @@ class view extends \mvc\view
 
 		$this->data->display['cp_posts'] = "content_cp/posts/layout.html";;
 
+
+		$this->data->saloos['version']    = \lib\saloos::getLastVersion();
+		$this->data->saloos['lastUpdate'] = \lib\saloos::getLastUpdate();
+		$this->data->saloos['langlist']   = ['fa_IR' => 'Persian - فارسی',
+											 'en_US' => 'English',
+											 'ar_SU' => 'Arabic - العربية'];
+
+
 		// $this->global->js             = [$this->url->myStatic.'js/highcharts/highcharts.js'];
 		// $this->data->page['desc']  = 'salam';
 		$this->data->page['haschild'] = true;
