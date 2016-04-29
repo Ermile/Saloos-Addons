@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 3.7.0: add telegram bot support
  * Version 3.6.1: remove old tg library
  * Version 3.6.0: save ans and fix bug of saving meta for unicodes
  * Version 3.5.1: add all part of cp post to block
