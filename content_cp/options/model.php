@@ -154,6 +154,14 @@ class model extends \addons\content_cp\home\model
 			}
 			$hook_url .= utility::post('tg-hookFolder');
 		}
+		if(utility::post('config-https'))
+		{
+			$mainsite_url = 'https://'. $mainsite_url;
+		}
+		else
+		{
+			$mainsite_url = 'http://'. $mainsite_url;
+		}
 
 		$myOptions =
 		[
@@ -462,13 +470,17 @@ class model extends \addons\content_cp\home\model
 		{
 			return null;
 		}
+		if(isset($_options['debug']) && $_options['debug'])
+		{
+			return false;
+		}
 		if(isset($_options['hook']))
 		{
-			$result = \lib\utility\social\tg::setWebhook();
+			$result = \lib\utility\telegram\tg::setWebhook();
 		}
 		else
 		{
-			$result = \lib\utility\social\tg::unsetWebhook();
+			$result = \lib\utility\telegram\tg::unsetWebhook();
 		}
 		debug::true($result);
 	}

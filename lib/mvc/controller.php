@@ -16,6 +16,29 @@ class controller extends \lib\controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		// if redirect to main site is enable and all thing is okay
+		// then redirect to the target url
+		if(
+			\lib\utility\option::get('config', 'meta', 'multiDomain') &&
+			\lib\utility\option::get('config', 'meta', 'redirectToMain') &&
+			$mainSiteUrl = \lib\utility\option::get('config', 'meta', 'mainSite')
+		)
+		{
+			// as soon as posible we create language detector library
+			switch (Tld)
+			{
+				case 'ir':
+					$mainSiteUrl .= "/fa";
+					break;
+
+				default:
+					break;
+			}
+			// if we are not on debug mode
+			$this->redirector($mainSiteUrl)->redirect();
+		}
+
 		if(MyAccount && SubDomain == null)
 		{
 			if(AccountService === Domain)
