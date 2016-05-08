@@ -25,18 +25,33 @@ class controller extends \lib\controller
 			$mainSiteUrl = \lib\utility\option::get('config', 'meta', 'mainSite')
 		)
 		{
-			// as soon as posible we create language detector library
-			switch (Tld)
+			if(substr($mainSiteUrl, 0, 4) !== 'http')
 			{
-				case 'ir':
-					$mainSiteUrl .= "/fa";
-					break;
-
-				default:
-					break;
+				if(\lib\utility\option::get('config', 'meta', 'https'))
+				{
+					$mainSiteUrl = 'https://'. $mainSiteUrl;
+				}
+				else
+				{
+					$mainSiteUrl = 'http://'. $mainSiteUrl;
+				}
 			}
-			// if we are not on debug mode
-			$this->redirector($mainSiteUrl)->redirect();
+			if(parse_url($mainSiteUrl, PHP_URL_HOST) != parse_url($this->url('root'), PHP_URL_HOST))
+			{
+				// as soon as posible we create language detector library
+				switch (Tld)
+				{
+					case 'ir':
+						$mainSiteUrl .= "/fa";
+						break;
+
+					default:
+						break;
+				}
+				// if we are not on debug mode
+				$this->redirector($mainSiteUrl)->redirect();
+
+			}
 		}
 
 		if(MyAccount && SubDomain == null)
