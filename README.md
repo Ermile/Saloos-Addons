@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 4.1.2: do not redirect for developers!
  * Version 4.1.1: fix mainsite redirect for old sites and for mainsite!
  * Version 4.1.0: redirect to mainsite if set in option
  * Version 4.0.0: complete telegram and add telegram template

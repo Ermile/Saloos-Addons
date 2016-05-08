@@ -36,7 +36,7 @@ class controller extends \lib\controller
 					$mainSiteUrl = 'http://'. $mainSiteUrl;
 				}
 			}
-			if(parse_url($mainSiteUrl, PHP_URL_HOST) != parse_url($this->url('root'), PHP_URL_HOST))
+			if(Tld !== 'dev' && parse_url($mainSiteUrl, PHP_URL_HOST) != parse_url($this->url('root'), PHP_URL_HOST))
 			{
 				// as soon as posible we create language detector library
 				switch (Tld)
