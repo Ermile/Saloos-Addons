@@ -60,7 +60,7 @@ class controller extends \addons\content_cp\home\controller
 					echo "<a target='_blank' href='http://www.php.net/manual/en/class.com.php'>" . T_("Read More") . "</a>";
 					break;
 				}
-				\lib\utility\linfo::show();
+				\lib\utility\tools::linfo();
 
 				$this->display_name	= 'content_cp/templates/raw-all.html';
 
@@ -69,6 +69,18 @@ class controller extends \addons\content_cp\home\controller
 			case 'twitter':
 				$a = \lib\utility\socialNetwork::twitter('hello! test #api');
 				// var_dump($a);
+				break;
+
+			case 'mergefiles':
+				$exist    = true;
+				echo \lib\utility\tools::mergefiles('merged-project.php');
+				if(\lib\utility::get('type') === 'all')
+				{
+					echo \lib\utility\tools::mergefiles('merged-saloos-lib.php', core.lib);
+					echo \lib\utility\tools::mergefiles('merged-saloos-cp.php', addons.'content_cp/');
+					echo \lib\utility\tools::mergefiles('merged-saloos-account.php', addons.'content_account/');
+					echo \lib\utility\tools::mergefiles('merged-saloos-includes.php', addons.'includes/');
+				}
 				break;
 
 			case 'sitemap':
