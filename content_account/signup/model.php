@@ -14,7 +14,7 @@ class model extends \mvc\model
 		// get parameters and set to local variables
 		$mymobile   = utility::post('mobile', 'filter');
 		$mypass     = utility::post('password', 'hash');
-		$myperm     = $this->option('register');
+		$myperm     = $this->option('account');
 		if(!$myperm)
 		{
 			$myperm = 'NULL';
