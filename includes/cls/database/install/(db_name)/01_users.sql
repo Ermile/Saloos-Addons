@@ -58,3 +58,9 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `mobile_unique` (`user_mobile`) USING BTREE,
   ADD UNIQUE KEY `email_unique` (`user_email`) USING BTREE;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
