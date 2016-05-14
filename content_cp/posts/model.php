@@ -281,41 +281,6 @@ class model extends \addons\content_cp\home\model
 			return;
 
 
-		if($post_new_id)
-		{
-			$answers = [];
-			$max_ans = 10;
-			for ($i=1; $i <= $max_ans ; $i++)
-			{
-				if(utility::post('ans'.$i))
-				{
-					$answers[$i]['point'] = utility::post('ans' .$i. '_point');
-					$answers[$i]['txt']   = \lib\utility::post('ans' .$i);
-				}
-			}
-			$answers = json_encode($answers, JSON_UNESCAPED_UNICODE);
-
-			$qry_ans_exist = $this->sql()->table('options')
-				->where('post_id',       $post_new_id)
-				->and('option_cat',    'meta_polls')
-				->and('option_key',    'answers_'.$post_new_id);
-			// if exist delete them
-			if($qry_ans_exist->select()->num() > 0)
-			{
-				$qry_ans_exist = $qry_ans_exist->delete();
-			}
-			// create query to add poll answers to options table
-			$qry_ans = $this->sql()->table('options');
-			$qry_ans = $qry_ans
-				->set('post_id',       $post_new_id)
-				->set('option_cat',    'meta_polls')
-				->set('option_key',    'answers_'.$post_new_id)
-				->set('option_meta',   $answers)
-				->set('option_status', 'enable');
-			// var_dump($qry_ans->insertString('REPLACE'));exit();
-			$qry_ans->insert('REPLACE');
-		}
-
 
 		// if publish post share it on twitter and save in options
 		// before share check db for share before
@@ -532,6 +497,12 @@ class model extends \addons\content_cp\home\model
 		}
 		$this->commit(function($_module, $_postId, $_edit = null)
 		{
+			// if we are on create poll add into options table
+			if($_module === 'polls')
+			{
+				self::sp_savePoll($_postId);
+			}
+
 			if($_edit)
 			{
 				debug::true(T_("Update Successfully"));
@@ -551,6 +522,33 @@ class model extends \addons\content_cp\home\model
 		} );
 	}
 
+
+	public function sp_savePoll($_post_new_id)
+	{
+		$answers = [];
+		$max_ans = 10;
+		for ($i=1; $i <= $max_ans ; $i++)
+		{
+			if(utility::post('ans'.$i))
+			{
+				$answers[$i]['point'] = utility::post('ans' .$i. '_point');
+				$answers[$i]['txt']   = utility::post('ans' .$i);
+			}
+		}
+		$answers = json_encode($answers, JSON_UNESCAPED_UNICODE);
+
+		$option_data =
+		[
+			'post'   => $_post_new_id,
+			'cat'    => 'meta_polls',
+			'key'    => 'answers_'.$_post_new_id,
+			'value'  => "1",
+			'meta'   => $answers,
+			'status' => 'enable',
+		];
+		// save in options table and if successful return session_id
+		return  \lib\utility\option::set($option_data, true);
+	}
 
 
 	/**
