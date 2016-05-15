@@ -543,12 +543,12 @@ class model extends \addons\content_cp\home\model
 			'post'   => $_post_new_id,
 			'cat'    => 'meta_polls',
 			'key'    => 'answers_'.$_post_new_id,
-			'value'  => "1",
+			'value'  => "",
 			'meta'   => $answers,
 			'status' => 'enable',
 		];
 		// save in options table and if successful return session_id
-		return  \lib\utility\option::set($option_data, true);
+		return \lib\utility\option::set($option_data, true);
 	}
 
 
