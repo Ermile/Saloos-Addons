@@ -120,6 +120,10 @@ class model extends \addons\content_cp\home\model
 		if(!$datarow['slug'])
 			$datarow['slug'] = utility\filter::slug($datarow['title']);
 
+		// start generate post url
+		$url_slug   = $datarow['slug'];
+		$url_body   = null;
+		$url_prefix = null;
 
 		switch ($cpModule['raw'])
 		{
@@ -128,19 +132,18 @@ class model extends \addons\content_cp\home\model
 				// calc and set url
 				if($datarow['parent'])
 				{
-					$datarow['url'] = $this->sql()->table('posts')
+					$url_body = $this->sql()->table('posts')
 						->where('post_type', $cpModule['type'])->and('id', $datarow['parent'])
-						->select()->assoc('post_url').'/'.$datarow['slug'];
+						->select()->assoc('post_url');
 				}
 				else
 				{
 					$datarow['parent'] = '#NULL';
-					$datarow['url']    = $datarow['slug'];
 				}
 
 				if($cpModule['raw'] === 'books')
 				{
-					$datarow['url'] = 'book/' . preg_replace("#^(book\/)+#", "", $datarow['url']);
+					$url_prefix = 'book/';
 				}
 				break;
 
@@ -151,21 +154,25 @@ class model extends \addons\content_cp\home\model
 				// commented row not deleted and check
 				unset($datarow['language']);
 				// unset($datarow['title']);
-				// unset($datarow['slug']);
+				unset($datarow['slug']);
 				// unset($datarow['content']);
 				unset($datarow['type']);
-				unset($datarow['url']);
+				// unset($datarow['url']);
 				// unset($datarow['status']);
 				unset($datarow['parent']);
 				// unset($datarow['user_id']);
 				unset($datarow['publishdate']);
 
 				if(utility::post('cat'))
+				{
 					$cat = utility::post('cat');
+				}
 				else
+				{
 					$cat = 'file';
-				$datarow['url'] = $cat . '/'. $datarow['slug'];
-				$datarow['url'] = trim($datarow['url'], '/');
+				}
+
+				$url_body = $cat;
 
 				// // read post meta and rewrite it
 				// $datarow['meta'] = $this->sql()->table('posts')
@@ -175,62 +182,35 @@ class model extends \addons\content_cp\home\model
 				// $datarow['meta'] = json_decode($datarow['meta'], true);
 				// $datarow['meta']['slug'] = $datarow['slug'];
 				// $datarow['meta'] = json_encode($datarow['meta']);
-
-				unset($datarow['slug']);
-				// var_dump(utility::post('cat'));
-				// var_dump($datarow['meta']);
-				// exit();
 				break;
 
 			case 'socialnetwork':
-				$datarow['slug'] = 'social'.md5(time());
-				$datarow['url'] = 'social/'.$datarow['slug'];
+				$datarow['slug']   = 'social'.md5(time());
+				$url_slug          = $datarow['slug'];
+				$url_prefix        = 'social/';
 				$datarow['status'] = 'draft';
-				// print_r($datarow);
-				// exit();
 			break;
-
-			case 'polls':
-				$datarow['url'] = utility::post('cat');
-				if(!$datarow['url'])
-				{
-					// calc and set url
-					$datarow['url'] = $this->sql()->table('terms')->where('id', 1)
-						->select()->assoc('term_url');
-				}
-
-				if($datarow['url'])
-					$datarow['url'] = $datarow['url'].'/';
-				$datarow['url']  = $datarow['url']. $datarow['slug'];
-
-			break;
-
 
 			// all other type of post
 			default:
 				unset($datarow['parent']);
-				$datarow['url'] = utility::post('cat');
+			case 'polls':
+				$url_body = utility::post('cat');
 
-				// create url with selected cat
-				if($cpModule['raw'] === 'books')
-				{
-					$datarow['url'] = 'books';
-				}
-				elseif(!$datarow['url'])
+
+				if(!$url_body)
 				{
 					// calc and set url
-					$datarow['url'] = $this->sql()->table('terms')->where('id', 1)
+					$url_body = $this->sql()->table('terms')->where('id', 1)
 						->select()->assoc('term_url');
 				}
-
-				if($datarow['url'])
-					$datarow['url'] = $datarow['url'].'/';
-				$datarow['url']  = $datarow['url']. $datarow['slug'];
 				break;
 		}
 
-		// if in edit get this record data
+		$datarow['url'] = self::sp_generateUrl($url_slug, $url_body, $url_prefix);
 
+
+		// if in edit get this record data
 		if($_id)
 		{
 			$record = $this->sql()->table('posts')->where('id', $_id)->select()->assoc();
@@ -523,6 +503,31 @@ class model extends \addons\content_cp\home\model
 	}
 
 
+	/**
+	 * create url automatically from input values
+	 * @param  [type] $_slug   slug
+	 * @param  [type] $_catUrl body url, cat url or parent url
+	 * @param  [type] $_prefix prefix if needed
+	 * @return [type]          created url
+	 */
+	public static function sp_generateUrl($_slug, $_catUrl = null, $_prefix = null)
+	{
+		$newURL = $_prefix. $_catUrl;
+		if($newURL)
+		{
+			$newURL .= '/';
+		}
+		$newURL .= $_slug. '/';
+		$newURL = trim($newURL, '/');
+		// $newURL .= '/';
+
+		// var_dump($newURL);
+		// exit();
+
+		return $newURL;
+	}
+
+
 	public function sp_savePoll($_post_new_id)
 	{
 		$answers = [];
@@ -636,7 +641,10 @@ class model extends \addons\content_cp\home\model
 						'thumb'  => $url_thumb,
 						'normal' => $url_normal,
 					 ];
-		$page_url  = $file_meta['type'].'/'.substr($url_full, strlen($folder_prefix));
+
+		$slug      = substr($url_full, strlen($folder_prefix));
+		$page_url  = self::sp_generateUrl($slug, $file_meta['type']);
+
 
 		if( strpos($file_meta['mime'], 'image') !== false)
 			list($file_meta['width'], $file_meta['height'])= getimagesize($url_full);
