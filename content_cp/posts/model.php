@@ -62,6 +62,11 @@ class model extends \addons\content_cp\home\model
 	 */
 
 
+	/**
+	 * get posts value and return array contain all of them
+	 * @param  [type] $_id [description]
+	 * @return [type]      [description]
+	 */
 	private function cp_getPosts($_id)
 	{
 		// set all variable get form all type of forms
@@ -99,13 +104,25 @@ class model extends \addons\content_cp\home\model
 			$_id  = $this->childparam('edit');
 
 		// set useful variables
-		$cpModule = $this->cpModule();
-		$qry      = $this->sql()->table('posts');
-		$datarow  = $_data;
+		$cpModule   = $this->cpModule();
+		$qry        = $this->sql()->table('posts');
+		$datarow    = null;
+		$defaultCat = null;
 		// if datarow is not sending from parameter give it form post
 		if(!(is_array($_data) && $_data))
 		{
-			$datarow  = self::cp_getPosts($_id);
+			$datarow    = self::cp_getPosts($_id);
+			$defaultCat = utility::post('cat');
+		}
+		else
+		{
+			// if default cat isset then
+			if(isset($_data['defaultCat']))
+			{
+				$defaultCat = $_data['defaultCat'];
+				unset($_data['defaultCat']);
+			}
+			$datarow  = $_data;
 		}
 		// if don't set title return error
 		if(!(isset($datarow['title']) && $datarow['title']))
@@ -160,12 +177,11 @@ class model extends \addons\content_cp\home\model
 				// unset($datarow['user_id']);
 				unset($datarow['publishdate']);
 
-				$cat = utility::post('cat');
-				if(!$cat)
+				if(!$defaultCat)
 				{
-					$cat = 'file';
+					$defaultCat = 'file';
 				}
-				$url_body = $cat;
+				$url_body = $defaultCat;
 				// // read post meta and rewrite it
 				// $datarow['meta'] = $this->sql()->table('posts')
 				// 		->where('post_type', 'attachment')->and('id', $_id)
@@ -186,7 +202,7 @@ class model extends \addons\content_cp\home\model
 			default:
 				unset($datarow['parent']);
 			case 'polls':
-				$url_body = utility::post('cat');
+				$url_body = $defaultCat;
 
 				if(!$url_body)
 				{
@@ -556,11 +572,12 @@ class model extends \addons\content_cp\home\model
 
 
 		// 2. Generate file_id, folder_id and url
-		$qry_count = $this->sql()->table('posts')->where('post_type', 'attachment')->select()->num();
+		$qry_count     = $this->sql()->table('posts')->where('post_type', 'attachment')->select()->num();
 		$folder_prefix = "files/";
-		$folder_id = $folder_prefix . ceil(($qry_count+1) / $FOLDER_SIZE);
-		$file_id   = $qry_count % $FOLDER_SIZE + 1;
-		$url_full  = "$folder_id/$file_id-" . utility\upload::$fileFullName;
+		$folder_id     = ceil(($qry_count+1) / $FOLDER_SIZE);
+		$folder_loc    = $folder_prefix . $folder_id;
+		$file_id       = $qry_count % $FOLDER_SIZE + 1;
+		$url_full      = "$folder_loc/$file_id-" . utility\upload::$fileFullName;
 
 
 
@@ -578,7 +595,7 @@ class model extends \addons\content_cp\home\model
 		}
 
 		// 4. transfer file to project folder with new name
-		if(!utility\upload::transfer($url_full, $folder_id))
+		if(!utility\upload::transfer($url_full, $folder_loc))
 		{
 			debug::property('status', 'fail');
 			debug::property('error', T_('Fail on tranfering file'));
@@ -621,9 +638,9 @@ class model extends \addons\content_cp\home\model
 						'normal' => $url_normal,
 					 ];
 
-		$slug      = substr($url_full, strlen($folder_prefix));
-		$page_url  = self::sp_generateUrl($slug, $file_meta['type']);
-
+		$url_slug = utility\upload::$fileMd5;
+		$url_body = $folder_id. "_". $file_id;
+		$page_url = self::sp_generateUrl($url_slug, $url_body, $file_meta['type']. "/");
 
 		if( strpos($file_meta['mime'], 'image') !== false)
 			list($file_meta['width'], $file_meta['height'])= getimagesize($url_full);
@@ -643,10 +660,6 @@ class model extends \addons\content_cp\home\model
 
 		$qry         = $qry->insert();
 		$post_new_id = $qry->LAST_INSERT_ID();
-
-
-
-
 
 
 		// 7. commit all changes or rollback and remove file
