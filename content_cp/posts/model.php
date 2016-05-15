@@ -18,7 +18,6 @@ class model extends \addons\content_cp\home\model
 
 	function delete_delete()
 	{
-		// var_dump(0);exit();
 		$this->delete( $this->sql()->table('posts')->where('id', $this->childparam('delete')));
 	}
 
@@ -63,63 +62,62 @@ class model extends \addons\content_cp\home\model
 	 */
 
 
+	private function cp_getPosts($_id)
+	{
+		// set all variable get form all type of forms
+		$datarow                    = [];
+		$datarow['language']        = utility::post('language');
+		$datarow['title']           = utility::post('title');
+		$datarow['slug']            = utility::post('slug', 'filter');
+		$datarow['content']         = utility::post('desc');
+		$datarow['type']            = $this->cpModule('type');
+		$datarow['url']             = null;
+		$datarow['status']          = utility::post('status');
+		$datarow['parent']          = utility::post('parent');
+		$datarow['user_id']         = $this->login('id');
+		$datarow['publishdate']     = date('Y-m-d H:i:s');
+		// read post meta and rewrite it
+		$datarow['meta']            = $this->sql()->table('posts')->where('id', $_id)->select()->assoc('post_meta');
+		$datarow['meta']            = json_decode($datarow['meta'], true);
+		// meta fields
+		$datarow['meta']['slug']    = $datarow['slug'];
+		$datarow['meta']['thumbid'] = utility::post('thumbid');
+		$datarow['meta']            = json_encode($datarow['meta'], JSON_UNESCAPED_UNICODE);
+
+		return $datarow;
+	}
+
+
 	/**
 	 * this function set custom operator for each custom module in cp
 	 * @param  [type] $_id [description]
 	 * @return [type]      [description]
 	 */
-	function cp_create_query($_id = null)
+	function cp_create_query($_id = null, $_data = null)
 	{
 		if(!$_id)
 			$_id  = $this->childparam('edit');
 
+		// set useful variables
+		$cpModule = $this->cpModule();
+		$qry      = $this->sql()->table('posts');
+		$datarow  = $_data;
+		// if datarow is not sending from parameter give it form post
+		if(!(is_array($_data) && $_data))
+		{
+			$datarow  = self::cp_getPosts($_id);
+		}
 		// if don't set title return error
-		if(!utility::post('title'))
+		if(!(isset($datarow['title']) && $datarow['title']))
 		{
 			debug::warn(T_("Please enter title"). "!", 'title');
 			return false;
 		}
-
-
-		// remove this line!
-		$mymodule = $this->cpModule('raw');
-
-
-
-		// set useful variables
-		$datarow                = array();
-		$cpModule              = $this->cpModule();
-		$qry                   = $this->sql()->table('posts');
-		// set all variable get form all type of forms
-		$datarow['language']    = utility::post('language');
-		$datarow['title']       = utility::post('title');
-		$datarow['slug']        = utility::post('slug', 'filter');
-		$datarow['content']     = utility::post('desc');
-		$datarow['type']        = $cpModule['type'];
-		$datarow['url']         = null;
-		$datarow['status']      = utility::post('status');
-		$datarow['parent']      = utility::post('parent');
-		$datarow['user_id']     = $this->login('id');
-		$datarow['publishdate'] = date('Y-m-d H:i:s');
-
-		// read post meta and rewrite it
-		$datarow['meta']        = $this->sql()->table('posts')->where('id', $_id)->select()->assoc('post_meta');
-		$datarow['meta']        = json_decode($datarow['meta'], true);
-
-		// meta fields
-		$datarow['meta']['thumbid'] = utility::post('thumbid');
-		$datarow['meta']['slug']    = $datarow['slug'];
-
-		$datarow['meta'] = json_encode($datarow['meta'], JSON_UNESCAPED_UNICODE);
-
-
-
-
-
 		// set slug if is not set
 		if(!$datarow['slug'])
+		{
 			$datarow['slug'] = utility\filter::slug($datarow['title']);
-
+		}
 		// start generate post url
 		$url_slug   = $datarow['slug'];
 		$url_body   = null;
@@ -147,7 +145,6 @@ class model extends \addons\content_cp\home\model
 				}
 				break;
 
-
 			// only on edit
 			case 'attachments':
 				// remove unuse fields like slug, url, data, status, ...
@@ -163,22 +160,16 @@ class model extends \addons\content_cp\home\model
 				// unset($datarow['user_id']);
 				unset($datarow['publishdate']);
 
-				if(utility::post('cat'))
-				{
-					$cat = utility::post('cat');
-				}
-				else
+				$cat = utility::post('cat');
+				if(!$cat)
 				{
 					$cat = 'file';
 				}
-
 				$url_body = $cat;
-
 				// // read post meta and rewrite it
 				// $datarow['meta'] = $this->sql()->table('posts')
 				// 		->where('post_type', 'attachment')->and('id', $_id)
 				// 		->select()->assoc('post_meta');
-
 				// $datarow['meta'] = json_decode($datarow['meta'], true);
 				// $datarow['meta']['slug'] = $datarow['slug'];
 				// $datarow['meta'] = json_encode($datarow['meta']);
@@ -197,7 +188,6 @@ class model extends \addons\content_cp\home\model
 			case 'polls':
 				$url_body = utility::post('cat');
 
-
 				if(!$url_body)
 				{
 					// calc and set url
@@ -206,9 +196,8 @@ class model extends \addons\content_cp\home\model
 				}
 				break;
 		}
-
+		// generate posturl
 		$datarow['url'] = self::sp_generateUrl($url_slug, $url_body, $url_prefix);
-
 
 		// if in edit get this record data
 		if($_id)
@@ -287,7 +276,6 @@ class model extends \addons\content_cp\home\model
 		// 				->set('option_key',   'twitter')
 		// 				->set('option_value', $twitte_result);
 		// 			// $qry_twitter = $qry_twitter->insertString();
-		// 			// var_dump($qry_twitter);
 		// 			$qry_twitter = $qry_twitter->insert();
 		// 		}
 
@@ -391,9 +379,6 @@ class model extends \addons\content_cp\home\model
 					$myterms_del .= ',';
 				$myterms_del .= $cats_diff;
 			}
-			// var_dump($myterms_del);
-			// exit();
-
 			// delete deleted tags and cats together in one query
 			if($myterms_del)
 			{
@@ -423,13 +408,11 @@ class model extends \addons\content_cp\home\model
 						->set('term_url',    $value);
 				}
 			}
-			// var_dump($qry_tag->insertString('IGNORE'));exit();
 			$qry_tag->insert('IGNORE');
 
 
 			// get the list of tags id
 			$tags_id = $this->cp_tag_id($mytags, false);
-			// var_dump($tags_id);
 			if(!is_array($tags_id))
 				$tags_id = array();
 		}
@@ -437,7 +420,7 @@ class model extends \addons\content_cp\home\model
 
 		// add selected tag to term usages table
 		// on pages dont need cats and only add tags
-		if($mymodule === 'pages')
+		if($cpModule['raw'] === 'pages')
 			$myterms = $tags_id;
 		elseif(is_array($mycats) && count($mycats))
 			$myterms = array_merge($tags_id, $mycats);
@@ -456,7 +439,6 @@ class model extends \addons\content_cp\home\model
 					->set('term_id',           $value)
 					->set('termusage_id',      $post_new_id)
 					->set('termusage_foreign', 'posts');
-			// var_dump($qry_tagusages->insertString());exit();
 			$qry_tagusages->insert('IGNORE');
 		}
 
@@ -475,8 +457,9 @@ class model extends \addons\content_cp\home\model
 		if($cpModule['raw'] == 'socialnetwork'){
 			$twitte_result = \lib\utility\socialNetwork::telegram($datarow['content']);
 		}
-		$this->commit(function($_module, $_postId, $_edit = null)
+		$this->commit(function($_postId, $_edit = null)
 		{
+			$_module = $this->cpModule('raw');
 			// if we are on create poll add into options table
 			if($_module === 'polls')
 			{
@@ -493,7 +476,7 @@ class model extends \addons\content_cp\home\model
 				debug::true(T_("Insert Successfully"));
 				$this->redirector()->set_url($_module.'/edit='.$_postId);
 			}
-		}, $mymodule, $post_new_id, $_id );
+		}, $post_new_id, $_id );
 
 		// if a query has error or any error occour in any part of codes, run roolback
 		$this->rollback(function()
@@ -520,9 +503,6 @@ class model extends \addons\content_cp\home\model
 		$newURL .= $_slug. '/';
 		$newURL = trim($newURL, '/');
 		// $newURL .= '/';
-
-		// var_dump($newURL);
-		// exit();
 
 		return $newURL;
 	}
@@ -620,8 +600,7 @@ class model extends \addons\content_cp\home\model
 				$url_file = substr($url_full, 0, -$extlen-1);
 				$url_thumb = $url_file.'-thumb.'.utility\upload::$fileExt;
 				$url_normal = $url_file.'-normal.'.utility\upload::$fileExt;
-				// var_dump($thumb_url);
-				// exit();
+
 				utility\image::load($url_full);
 				utility\image::thumb(600, 400);
 				utility\image::save($url_normal);
@@ -649,7 +628,6 @@ class model extends \addons\content_cp\home\model
 		if( strpos($file_meta['mime'], 'image') !== false)
 			list($file_meta['width'], $file_meta['height'])= getimagesize($url_full);
 		$file_meta = json_encode($file_meta, JSON_UNESCAPED_UNICODE);
-		// var_dump($file_meta);exit();
 
 		// 6. add uploaded file record to db
 		$qry = $this->sql();
@@ -731,9 +709,6 @@ class model extends \addons\content_cp\home\model
 		}
 
 		// set field name and assoc all rows
-		// var_dump($qry_tags->field('id')->selectString());
-		// var_dump($qry_tags->select()->num());
-		// var_dump($qry_tags);
 		$qry_tags = $qry_tags->field('id')->select()->allassoc('id');
 
 		if($qry_tags)
@@ -836,7 +811,6 @@ class model extends \addons\content_cp\home\model
 				if($parent_title)
 				{
 					// if not exist search in all of array and find a parent
-					// var_dump($parent_title);
 				}
 
 				$result[$row['id']]['title'] = $parent_title . " &gt; " . $row['term_title'];
@@ -848,7 +822,6 @@ class model extends \addons\content_cp\home\model
 
 		}
 
-		// var_dump($result);
 		return $result;
 	}
 
@@ -883,10 +856,6 @@ class model extends \addons\content_cp\home\model
 			->and('termusage_id', $id);
 
 
-		// echo "<pre>";
-		// var_dump($qry->selectString());
-		// exit();
-
 		if($_type === 'tag')
 		{
 			$qry = $qry->select()->allassoc('term_title');
@@ -894,7 +863,6 @@ class model extends \addons\content_cp\home\model
 		else
 		{
 			$qry = $qry->select()->allassoc('term_id');
-			// var_dump($qry);
 		}
 
 		if($_string)
@@ -920,14 +888,11 @@ class model extends \addons\content_cp\home\model
 		if($_select)
 			$qry = $qry->field('id', 'post_title', 'post_parent');
 
-		// var_dump($qry->selectString());
 		$datatable = $qry->select()->allassoc();
-		// var_dump($datatable);
 		$result = array();
 
 		foreach ($datatable as $id => $row)
 		{
-			// var_dump($row['id']);
 			if($row['post_parent'] && array_key_exists($row['post_parent'], $result))
 			// if($row['post_parent'] )
 			{
@@ -935,7 +900,6 @@ class model extends \addons\content_cp\home\model
 				if($parent_title)
 				{
 					// if not exist search in all of array and find a parent
-					// var_dump($parent_title);
 				}
 
 				$result[$row['id']] = $parent_title . " &gt; " . $row['post_title'];
