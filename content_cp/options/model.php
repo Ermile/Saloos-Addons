@@ -127,6 +127,7 @@ class model extends \addons\content_cp\home\model
 	private function getOptions()
 	{
 		$mainsite_url = Domain;
+		$redirectURL  = Domain.'.'.Tld;
 		// save domain name
 		if(utility::post('config-domainSame') && strlen(utility::post('config-domainName')) > 1)
 		{
@@ -154,14 +155,18 @@ class model extends \addons\content_cp\home\model
 			}
 			$hook_url .= utility::post('tg-hookFolder');
 		}
+		$protocol = 'http://';
 		if(utility::post('config-https'))
 		{
-			$mainsite_url = 'https://'. $mainsite_url;
+			$protocol = 'https://';
 		}
-		else
+		if(utility::post('config-redirectToMain'))
 		{
-			$mainsite_url = 'http://'. $mainsite_url;
+			$redirectURL = $mainsite_url;
 		}
+		// complete url by add protocol
+		$mainsite_url = $protocol. $mainsite_url;
+		$redirectURL  = $protocol. $redirectURL;
 
 		$myOptions =
 		[
@@ -195,7 +200,7 @@ class model extends \addons\content_cp\home\model
 						'domainSame'     => utility::post('config-domainSame'),
 						'domainName'     => utility::post('config-domainName'),
 						'redirectToMain' => utility::post('config-redirectToMain'),
-						'redirectURL'    => utility::post('config-redirectToMain'),
+						'redirectURL'    => $redirectURL,
 						'mainSite'       => $mainsite_url,
 					],
 				],

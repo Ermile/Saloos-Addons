@@ -11,9 +11,17 @@ class controller extends \mvc\controller
 		// if user is not login then redirect
 		if($_login && !$this->login())
 		{
-			$mydomain = AccountService? AccountService.MainTld: null;
 			\lib\debug::warn(T_("first of all, you must login to system!"));
-			$this->redirector(null, false)->set_domain($mydomain)->set_url('login')->redirect();
+
+			$mydomain = \lib\utility\option::get('config', 'meta', 'redirectURL');
+			if($mydomain)
+			{
+				$this->redirector($mydomain.'/login', false)->redirect();
+			}
+			else
+			{
+				$this->redirector(null, false)->set_url('login')->redirect();
+			}
 		}
 		// if content is not set then
 		if($_content === null)
