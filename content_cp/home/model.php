@@ -284,7 +284,9 @@ class model extends \mvc\model
 		if(is_array($mytype))
 		{
 			foreach ($mytype as $key => $value)
-				$qry = $qry->and($key, $value);
+			{
+				$qry = $qry->and($key, 'LIKE', "'$value%'");
+			}
 		}
 		$total = $qry->select()->num();
 

@@ -87,6 +87,7 @@ class model extends \addons\content_cp\home\model
 		// meta fields
 		$datarow['meta']['slug']    = $datarow['slug'];
 		$datarow['meta']['thumbid'] = utility::post('thumbid');
+		$datarow['meta']['answers'] = self::sp_savePoll($_id, true);
 		$datarow['meta']            = json_encode($datarow['meta'], JSON_UNESCAPED_UNICODE);
 
 		return $datarow;
@@ -210,6 +211,7 @@ class model extends \addons\content_cp\home\model
 					$url_body = $this->sql()->table('terms')->where('id', 1)
 						->select()->assoc('term_url');
 				}
+				$datarow['type'] = 'poll_sarshomar';
 				break;
 		}
 		// generate posturl
@@ -524,7 +526,7 @@ class model extends \addons\content_cp\home\model
 	}
 
 
-	public function sp_savePoll($_post_new_id)
+	public function sp_savePoll($_post_new_id, $_onlyAns = false)
 	{
 		$answers = [];
 		$max_ans = 10;
@@ -537,6 +539,10 @@ class model extends \addons\content_cp\home\model
 			}
 		}
 		$answers = json_encode($answers, JSON_UNESCAPED_UNICODE);
+		if($_onlyAns === true)
+		{
+			return $answers;
+		}
 
 		$option_data =
 		[
