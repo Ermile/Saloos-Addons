@@ -19,7 +19,7 @@ class model extends \mvc\model
 		{
 			$myperm = 'NULL';
 		}
-		$result     = \lib\utility\account::signup($mymobile, $mypass, $myperm);
+		$result     = \lib\db\users::signup($mymobile, $mypass, $myperm);
 
 		if($result)
 		{
