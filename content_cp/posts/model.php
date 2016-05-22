@@ -534,6 +534,7 @@ class model extends \addons\content_cp\home\model
 		{
 			if(utility::post('ans'.$i))
 			{
+				$answers[$i]['id']    = $i;
 				$answers[$i]['point'] = utility::post('ans' .$i. '_point');
 				$answers[$i]['txt']   = utility::post('ans' .$i);
 			}

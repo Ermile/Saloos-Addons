@@ -187,11 +187,6 @@
   <div class="panel-heading">{%trans "Define poll"%}</div>
   <div class="panel-body">
    <ul class="answers sortable">
-    <li data-number={{id}}>
-     <i class="fa fa-times" aria-hidden="true"></i>
-     <input type="number" name="ans{{id}}_point" value="{{ans.point}}" />
-     <input type="text" name="ans{{id}}" value="{{ans.txt}}"/>
-    </li>
 {%for id, ans in datarow.meta.answers%}
     <li data-number={{id}}>
      <i class="fa fa-times" aria-hidden="true"></i>
@@ -199,6 +194,11 @@
      <input type="text" name="ans{{id}}" value="{{ans.txt}}"/>
     </li>
 {%endfor%}
+    <li data-number={{id}}>
+     <i class="fa fa-times" aria-hidden="true"></i>
+     <input type="number" name="ans{{id}}_point" value="{{ans.point}}" />
+     <input type="text" name="ans{{id}}" value="{{ans.txt}}"/>
+    </li>
     <li class="add"><i class="fa fa-plus" aria-hidden="true"></i></li>
    </ul>
   </div>
