@@ -14,7 +14,7 @@ class controller extends \mvc\controller
 			\lib\debug::warn(T_("first of all, you must login to system!"));
 
 			$mydomain = \lib\utility\option::get('config', 'meta', 'redirectURL');
-			if($mydomain)
+			if($mydomain && $mydomain !== 'on')
 			{
 				$this->redirector($mydomain.'/login', false)->redirect();
 			}
@@ -131,7 +131,9 @@ class controller extends \mvc\controller
 					switch ($mychild)
 					{
 						case 'delete':
-							$this->redirector()->set_url($this->cpModule('raw')); //->redirect();
+							$referrer = \lib\router::urlParser('referer', 'full');
+							$this->redirector($referrer);
+							// $this->redirector()->set_url($this->cpModule('raw')); //->redirect();
 
 							// $this->delete($mychild)->ALL('/^[^\/]*\/[^\/]*$/');
 							$this->post($mychild)->ALL(["url" => [$cpModule, "/^delete=(\d+)$/"]]);
