@@ -9,8 +9,8 @@ trait breadcrumb
 	 */
 	public function breadcrumb()
 	{
-		$_addr = $this->url('breadcrumb');
-		$breadcrumb = array();
+		$_addr      = $this->url('breadcrumb');
+		$breadcrumb = [];
 
 		foreach ($_addr as $key => $value)
 		{
@@ -20,45 +20,53 @@ trait breadcrumb
 				$breadcrumb[] = strtolower("$value");
 		}
 
-		$qry = $this->sql()->table('posts')
-			->where('post_url', 'IN' , "('".join("' , '", $breadcrumb)."')");
-		$qry = $qry->select();
+		$qry         = $this->sql()->table('posts')->where('post_url', 'IN' , "('".join("' , '", $breadcrumb)."')");
+		$qry         = $qry->select();
 		$post_titles = $qry->allassoc('post_title');
-		$post_urls = $qry->allassoc('post_url');
+		$post_urls   = $qry->allassoc('post_url');
 
-		if(count($breadcrumb) != $post_titles){
-			$terms_qry = $this->sql()->table('terms')
-				->where('term_url', 'IN' , "('".join("' , '", $breadcrumb)."')");
-			$terms_qry = $terms_qry->select();
+		if(count($breadcrumb) != $post_titles)
+		{
+			$terms_qry   = $this->sql()->table('terms')->where('term_url', 'IN' , "('".join("' , '", $breadcrumb)."')");
+			$terms_qry   = $terms_qry->select();
 			$term_titles = $terms_qry->allassoc('term_title');
-			$term_urls = $terms_qry->allassoc('term_url');
+			$term_urls   = $terms_qry->allassoc('term_url');
 		}
 
-		$br = array();
+		$br = [];
 		foreach ($breadcrumb as $key => $value)
 		{
 			$post_key = array_search($value, $post_urls);
 			$term_key = array_search($value, $term_urls);
-			if($post_key !== false){
+			if($post_key !== false)
+			{
 				$br[] = $post_titles[$post_key];
-			}elseif($term_key !== false){
+			}
+			elseif($term_key !== false)
+			{
 				$br[] = $term_titles[$term_key];
-			}else{
+			}
+			else
+			{
 				$br[] = T_($_addr[$key]);
 			}
 		}
 		return $br;
 		$qry = $qry->select()->allassoc();
-		if(!$qry){
+		if(!$qry)
+		{
 			return $_addr;
 		}
-		$br = array();
+		$br = [];
 		foreach ($breadcrumb as $key => $value)
 		{
-			if ($value != $qry[$key]['post_url']){
+			if ($value != $qry[$key]['post_url'])
+			{
 				$br[] = T_($_addr[$key]);
 				array_unshift($qry, '');
-			}else{
+			}
+			else
+			{
 				$br[] = $qry[$key]['post_title'];
 			}
 		}
@@ -73,8 +81,8 @@ trait breadcrumb
 	 */
 	public function sp_books_nav()
 	{
-		$myUrl  = \lib\router::get_url(-1);
-		$result = ['cats' => null, 'pages' => null];
+		$myUrl         = \lib\router::get_url(-1);
+		$result        = ['cats' => null, 'pages' => null];
 		$parent_search = null;
 
 		switch (count($myUrl))
