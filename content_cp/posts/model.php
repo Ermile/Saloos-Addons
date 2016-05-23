@@ -136,6 +136,8 @@ class model extends \addons\content_cp\home\model
 		{
 			$datarow['slug'] = utility\filter::slug($datarow['title']);
 		}
+		// fix post language
+		$datarow['language'] = substr($datarow['language'], 0, 2);
 		// start generate post url
 		$url_slug   = $datarow['slug'];
 		$url_body   = null;
