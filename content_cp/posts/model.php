@@ -860,38 +860,15 @@ class model extends \addons\content_cp\home\model
 		if(!$id)
 			return null;
 
-
-		// SELECT DISTINCT
-		// terms.term_title
-		// FROM
-		// terms
-		// INNER JOIN termusages ON termusages.term_id = terms.id
-		// WHERE
-		// terms.term_type = 'tag'
-
-		$qry = $this->sql()->table('terms')
-			->where('term_type', $_type)
-			->field('term_title');
-
-		$qry->joinTermusages()->on('term_id', '#terms.id')
-			->and('termusage_foreign', '#"posts"')
-			->and('termusage_id', $id);
-
-
+		$needle = 'id';
 		if($_type === 'tag')
 		{
-			$qry = $qry->select()->allassoc('term_title');
-		}
-		else
-		{
-			$qry = $qry->select()->allassoc('term_id');
+			$needle = 'term_title';
 		}
 
-		if($_string)
-			$qry = $qry? implode($qry, ', ').', ' : null;
-
-
-		return $qry;
+		$result = \lib\db\tags::usage($id, $needle, null, true);
+		$result .= ', ';
+		return $result;
 	}
 
 
