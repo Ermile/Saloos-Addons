@@ -866,8 +866,11 @@ class model extends \addons\content_cp\home\model
 			$needle = 'term_title';
 		}
 
-		$result = \lib\db\tags::usage($id, $needle, null, true);
-		$result .= ', ';
+		$result = \lib\db\tags::usage($id, $needle, null, $_string);
+		if($_string)
+		{
+			$result .= ', ';
+		}
 		return $result;
 	}
 
