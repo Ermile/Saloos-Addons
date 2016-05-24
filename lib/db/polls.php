@@ -128,6 +128,74 @@ class polls
 
 
 	/**
+	 * get result of specefic item
+	 * @param  [type] $_poll_id [description]
+	 * @param  [type] $_value   [description]
+	 * @param  [type] $_key     [description]
+	 * @return [type]           [description]
+	 */
+	public static function getResult($_poll_id, $_value = null, $_key = null)
+	{
+		// get answers grouped by items
+		$qry = "SELECT
+				option_value as `item`,
+				count(id) as `count`
+			FROM options
+			WHERE
+				option_cat LIKE 'polls\_%' AND
+				option_key = 'answer_$_poll_id' AND
+				option_status = 'enable'
+
+			GROUP BY item
+		";
+		// get result of this question
+		$result = \lib\db::get($qry, ['item', 'count']);
+		// var_dump($result);
+
+		// get list of answers of this question
+		$qry = "SELECT option_meta as `meta`
+			FROM options
+			WHERE
+				option_cat = 'meta_polls' AND
+				option_key = 'answers_$_poll_id' AND
+				option_status = 'enable'
+
+			LIMIT 1
+		";
+		$answers      = \lib\db::get($qry, 'meta', true);
+		$answers      = json_decode($answers, true);
+		$final_result = $answers;
+		// fill result into answers list
+		foreach ($final_result as $key => $value)
+		{
+			// if has count set this number
+			if(isset($result[$key]))
+			{
+				$final_result[$key]['count'] = (int) $result[$key];
+			}
+			// else set zero
+			else
+			{
+				$final_result[$key]['count'] = 0;
+			}
+		}
+		// filter output value
+		if(is_string($_value))
+		{
+			if(is_string($_key))
+			{
+				$final_result = array_column($final_result, $_value, $_key);
+			}
+			else
+			{
+				$final_result = array_column($final_result, $_value);
+			}
+		}
+		return $final_result;
+	}
+
+
+	/**
 	 * get list of questions that this user answered
 	 * @param  [type] $_user_id [description]
 	 * @param  string $_type    [description]
