@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 5.0.1: db\polls: change question text with keyword
  * Version 5.0.0: run new db connection based on class + many update!
  * Version 4.1.3: use account library for signup
  * Version 4.1.2: do not redirect for developers!
