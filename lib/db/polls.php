@@ -114,7 +114,7 @@ class polls
 			{
 				$newValue                = "#". str_replace(' ', '\_', $value);
 				$returnValue['tags']     .= $newValue.' ';
-				$returnValue['question'] = str_replace($value, $newValue, $returnValue['question']);
+				$returnValue['question'] = str_replace($value.' ', $newValue.' ', $returnValue['question']);
 			}
 		}
 		if(isset($result['answers']))
