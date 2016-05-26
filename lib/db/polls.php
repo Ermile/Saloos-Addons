@@ -6,7 +6,7 @@ class polls
 {
 	/**
 	 * this library work with acoount
-	 * v2.6
+	 * v2.7
 	 */
 
 
@@ -218,7 +218,10 @@ class polls
 
 			WHERE
 				$_type AND
-
+				user_id = $_user_id AND
+				option_cat = 'polls_$_user_id' AND
+				option_key LIKE 'answer\_%' AND
+				option_status = 'enable'
 		";
 
 		$result = \lib\db::get($qry, $_return);
@@ -340,7 +343,7 @@ class polls
 			'question'   => $_post_id,
 			'answer'     => $_answer,
 			'answer_txt' => $_answer_txt,
-			'date'       => date('Y-m-d H:i:s')
+			'date'       => date('Y-m-d H:i:s'),
 		];
 		$option_data =
 		[
@@ -351,6 +354,7 @@ class polls
 			'value'  => $_answer,
 			'meta'   => $meta,
 			'status' => 'enable',
+			'modify' => 'now',
 		];
 		// save in options table and if successful return session_id
 		return \lib\utility\option::set($option_data, true);
