@@ -120,8 +120,8 @@ class view extends \mvc\view
 					$this->data->visitors_unique        = \lib\utility\visitor::chart(true);
 
 					// get period of signup from user
-					$period = \lib\utility::get('period');
-					switch ($period)
+					$this->data->period = \lib\utility::get('period');
+					switch ($this->data->period)
 					{
 						case 'year':
 							$period = "%Y";
