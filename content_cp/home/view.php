@@ -175,6 +175,8 @@ class view extends \mvc\view
 		// get data from database through model
 		switch ($this->module())
 		{
+			case 'visitors':
+				break;
 			case 'profile':
 				$this->data->datarow = $this->model()->datarow('users', $this->login('id'));
 				break;
