@@ -109,9 +109,11 @@ class view extends \mvc\view
 					$type  = \lib\utility::get('type');
 					$utype = \lib\utility::get('utype');
 					$stype = \lib\utility::get('stype');
+					$atype = \lib\utility::get('atype');
 					$this->data->chart_type             = $type?  $type:  'column';
 					$this->data->chart_unique_type      = $utype? $utype: 'areaspline';
 					$this->data->chart_signup_type      = $stype? $stype: 'areaspline';
+					$this->data->chart_answered_type    = $atype? $atype: 'column';
 
 					// $this->data->visitors               = $this->model()->visitors();
 					// $this->data->visitors_unique        = $this->model()->visitors(true);
@@ -140,7 +142,8 @@ class view extends \mvc\view
 							$period = "%Y-%m-%d";
 							break;
 					}
-					$this->data->signup                 = \lib\db\stat_users::signup($period);
+					$this->data->signup   = \lib\db\chart_users::signup($period);
+					$this->data->answered = \lib\db\chart_polls::answeredCount($period);
 
 					if($this->data->visitors <= 1)
 					{

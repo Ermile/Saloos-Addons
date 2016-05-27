@@ -2,11 +2,11 @@
 namespace lib\db;
 
 /** get users stats **/
-class stat_users
+class chart_users
 {
 	/**
 	 * this library generate stats from users
-	 * v1.1
+	 * v1.2
 	 */
 
 
@@ -22,11 +22,11 @@ class stat_users
 			$_period = "%Y-%m";
 		}
 		$qry ="SELECT
-			DATE_FORMAT(user_createdate, '$_period') as date,
-			count(id) as total
-		FROM users
-		GROUP BY
-			date
+				DATE_FORMAT(user_createdate, '$_period') as date,
+				count(id) as total
+			FROM users
+			WHERE user_createdate != 0
+			GROUP BY date
 		";
 
 		$result = \lib\db::get($qry);
