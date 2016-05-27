@@ -93,6 +93,10 @@ class options extends \lib\form
 			->label(T_('Default Language'))
 			->pl(T_('Default Language'));
 
+
+		$this->config_seperator3 = $this->make('seperator')
+			->label(T_('URL Settings'));
+
 		$this->config_fakeSub = $this->make('checkbox')
 			->name('config-fakeSub')
 			->class('checkbox')
@@ -102,6 +106,17 @@ class options extends \lib\form
 			->name('config-https')
 			->class('checkbox')
 			->label(T_('Support https'));
+
+		$this->config_shortURL = $this->make('checkbox')
+			->name('config-shortURL')
+			->class('checkbox')
+			->label(T_('allow short URL'));
+
+		$this->config_forceShortURL = $this->make('checkbox')
+			->name('config-forceShortURL')
+			->attr('data-parent', 'config-shortURL')
+			->class('checkbox')
+			->label(T_('force using short URL'));
 
 
 		$this->config_seperator1 = $this->make('seperator')

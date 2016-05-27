@@ -192,6 +192,8 @@ class model extends \addons\content_cp\home\model
 						'defaultLang'    => utility::post('config-defaultLang'),
 						'fakeSub'        => utility::post('config-fakeSub'),
 						'https'          => utility::post('config-https'),
+						'shortURL'       => utility::post('config-shortURL'),
+						'forceShortURL'  => utility::post('config-forceShortURL'),
 						'sms'            => utility::post('config-sms'),
 						'social'         => utility::post('config-social'),
 						'account'        => utility::post('config-account'),
