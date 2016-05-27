@@ -117,8 +117,32 @@ class view extends \mvc\view
 					$this->data->visitors               = \lib\utility\visitor::chart();
 					$this->data->visitors_unique        = \lib\utility\visitor::chart(true);
 
+					// get period of signup from user
+					$period = \lib\utility::get('period');
+					switch ($period)
+					{
+						case 'day':
+							$period = "%Y-%m-%d";
+							break;
+
+						case 'month':
+							$period = "%Y-%m";
+							break;
+
+						case 'year':
+							$period = "%Y";
+							break;
+
+						default:
+							$period = null;
+							break;
+					}
+					$this->data->signup                 = \lib\db\stat_users::signup($period);
+
 					if($this->data->visitors <= 1)
+					{
 						$this->data->error = T_("Chart must be contain at least 2 column!");
+					}
 				}
 				break;
 

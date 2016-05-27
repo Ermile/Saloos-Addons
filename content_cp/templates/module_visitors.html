@@ -7,6 +7,36 @@
    <div class="panel panel-default">
 
     <div class="panel-body">
+     <div class="row auto unselectable">
+{%if error%}<div id="chart-error">{{error}}</div>{%else%}{%endif%}
+      <div id="chart-signup"></div>
+      <div>
+       <span>{%trans "Change period of signup"%}: </span>
+       <a href="{{url.path}}?period=day">{%trans "day"%}</a> -
+       <a href="{{url.path}}?period=month">{%trans "month"%}</a> -
+       <a href="{{url.path}}?period=year">{%trans "year"%}</a>
+      </div>
+     </div>
+     <br /><br /><br />
+     <div class="row auto unselectable">
+{%if error%}<div id="chart-error">{{error}}</div>{%else%}{%endif%}
+      <div id="chart-singup"></div>
+     </div>
+    </div>
+
+    <div class="panel-footer">
+     {%trans "View signup statistics for your website"%}
+    </div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="row">
+  <div class="span12">
+   <div class="panel panel-default">
+
+    <div class="panel-body">
 {%if visitors%}
      <div class="row auto unselectable">
 {%if error%}<div id="chart-error">{{error}}</div>{%else%}{%endif%}
@@ -19,17 +49,11 @@
        <a href="{{url.path}}?type=column">{%trans "column"%}</a>
       </div>
      </div>
-
      <br /><br /><br />
      <div class="row auto unselectable">
 {%if error%}<div id="chart-error">{{error}}</div>{%else%}{%endif%}
       <div id="chart-unique-visitors1" data-step='5' data-intro='{%trans "Daily Visit Chart"%}'></div>
      </div>
-
-
-
-
-
 {%endif%}
     </div>
 
@@ -45,10 +69,11 @@
 {%block foot_js%}
 {%if visitors%}
  <script type="text/javascript">
-  route('*', function() 
+  route('*', function()
   {
-    $(function () { 
-      $('#chart-pageviews').highcharts({
+    $(function () {
+      $('#chart-pageviews').highcharts(
+      {
         chart: { type: '{{chart_type}}' {%if global.lang=='fa_IR'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
         title: { text: '{%trans "No. of"%} {%trans "Pageviews"%}' },
         xAxis: { categories: [{%for datarow in visitors%}'{%if global.lang=="fa_IR"%}{{datarow.date|jdate("y/m/j")}} {%else%} {{datarow.date |date("j F")}}{%endif%}', {%endfor%}] ,crosshair: true},
@@ -60,7 +85,6 @@
           headerFormat: '<table><thead><tr><td colspan="3">{%if global.lang=="fa_IR"%}{point.key} {%else%} {{point.key | date("l j F Y")}} {%endif%}</td></tr></thead>',
           pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' + '<td><b>{point.y:0.0f} {%trans "Visit"%}</b></td></tr>',
           footerFormat: '</table>',
-          
 
         },
         legend: {
@@ -88,17 +112,17 @@
         },
         ]
       });
-    });
 
+    });
   });
  </script>
 
 
 
  <script type="text/javascript">
-  route('*', function() 
+  route('*', function()
   {
-    $(function () { 
+    $(function () {
       $('#chart-unique-visitors').highcharts({
         chart: { type: '{{chart_unique_type}}' {%if global.lang=='fa_IR'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
         title: { text: '{%trans "No. of"%} {%trans "visitors"%}' },
@@ -111,7 +135,7 @@
           headerFormat: '<table><thead><tr><td colspan="3">{%if global.lang=="fa_IR"%}{point.key} {%else%} {{point.key | date("l j F Y")}} {%endif%}</td></tr></thead>',
           pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' + '<td><b>{point.y:0.0f} {%trans "Visit"%}</b></td></tr>',
           footerFormat: '</table>',
-          
+
 
         },
         legend: {
@@ -146,6 +170,53 @@
 
 
 
+
+
+
+
+<script type="text/javascript">
+  route('*', function()
+  {
+    $(function () {
+      $('#chart-signup').highcharts(
+      {
+        chart: { type: '{{chart_type}}' {%if global.lang=='fa_IR'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
+        title: { text: '{%trans "No. of"%} {%trans "signup"%}' },
+        xAxis: { categories: [{%for datarow in signup%}'{{datarow.date}}', {%endfor%}] ,crosshair: true},
+        yAxis: { title: {text: ''}, floor: 0, allowDecimals: false,},
+        tooltip: {
+          shared:true,
+          useHTML: true,
+
+          headerFormat: '<table><thead><tr><td colspan="3">{%if global.lang=="fa_IR"%}{point.key} {%else%} {{point.key | date("l j F Y")}} {%endif%}</td></tr></thead>',
+          pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' + '<td><b>{point.y:0.0f}</b></td></tr>',
+          footerFormat: '</table>',
+
+        },
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          borderWidth: 0
+        },
+        plotOptions: {
+          series: {stacking: 'normal',
+        }
+
+        },
+        series:
+        [
+        {
+         showInLegend: false,
+          name: '{%trans "signup"%}',
+          data: [ {%for datarow in signup%}{{datarow.total}},{%endfor%} ],
+        }
+        ]
+      });
+
+    });
+  });
+ </script>
 
 
 
