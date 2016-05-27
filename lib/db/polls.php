@@ -6,7 +6,7 @@ class polls
 {
 	/**
 	 * this library work with acoount
-	 * v3.0
+	 * v3.1
 	 */
 
 
@@ -108,6 +108,7 @@ class polls
 		];
 		if(isset($result['question']))
 		{
+			$result['question']         = html_entity_decode($result['question']);
 			$returnValue['id']          = $result['id'];
 			$returnValue['question']    = $result['question'];
 			$returnValue['questionRaw'] = $result['question'];
