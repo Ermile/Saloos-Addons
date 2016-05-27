@@ -297,6 +297,8 @@ class view extends \mvc\view
 		if($mychild === 'edit')
 		{
 			$this->data->datarow = $this->model()->datarow($mytable, null, true);
+			// set shortURL
+			$this->data->shortURL = 'sp_'. \lib\utility\shortURL::encode($this->data->datarow['id']);
 
 			if(isset($this->data->datarow['post_meta']))
 				$this->data->datarow['post_meta'] = json_decode($this->data->datarow['post_meta'], true);

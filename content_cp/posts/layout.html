@@ -58,6 +58,16 @@
 {%endblock%}
 
 
+{%block post_shortURL%}
+{%if shortURL%}
+    <div class='hint--left hint100' data-hint='{%trans "ShortURL"%}' data-step='10' data-intro='{%trans "show short URL of this content"%}'>
+      <input name="shortURL" id="shortURL" class="input" placeholder='{%trans "Enter shortURL here"%}' value='{{url.root}}{{shortURL}}' data-xhr='shortURL' disabled="disabled"/>
+    </div>
+{%endif%}
+{%endblock%}
+
+
+
 {%block post_shortcode%}
 {%if module == 'books' and child == 'edit' %}
      <input name="shortcode" id="shortcode" class="input" placeholder='{%trans "Use this shortcode on your posts"%}' value="[ref id='{{datarow.id}}']" disabled="disabled" />
