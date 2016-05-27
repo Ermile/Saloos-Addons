@@ -8,20 +8,27 @@ trait terms
 	 * @param  boolean $_forcheck [description]
 	 * @return [type]             [description]
 	 */
-	public function get_terms($_forcheck = false)
+	public function get_terms($_forcheck = false, $_url = null)
 	{
-		$url = $this->url('path');
-		$qry = $this->sql()->tableTerms()->whereTerm_url($url)->select();
+		if(!$_url)
+		{
+			$_url = $this->url('path');
+		}
+		$qry = $this->sql()->tableTerms()->whereTerm_url($_url)->select();
 
 		if($qry->num() == 1)
 		{
 			$datarow = $qry->assoc();
 
 			if($_forcheck)
-				return array( 'table' => 'terms',
-							  'type' => $datarow['term_type'],
-							  'slug' => $datarow['term_slug']
-							);
+			{
+				return
+				[
+					'table' => 'terms',
+					'type' => $datarow['term_type'],
+					'slug' => $datarow['term_slug']
+				];
+			}
 			else
 				return $datarow;
 		}
