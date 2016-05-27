@@ -6,7 +6,7 @@ class polls
 {
 	/**
 	 * this library work with acoount
-	 * v2.8
+	 * v3.0
 	 */
 
 
@@ -100,16 +100,18 @@ class polls
 		$result      = \lib\db::get($qry, null, true);
 		$returnValue =
 		[
-			'id'       => null,
-			'question' => null,
-			'answers'  => null,
-			'tags'     => null,
+			'id'          => null,
+			'questionRaw' => null,
+			'question'    => null,
+			'answers'     => null,
+			'tags'        => null,
 		];
 		if(isset($result['question']))
 		{
-			$returnValue['id']       = $result['id'];
-			$returnValue['question'] = $result['question'];
-			$tagList                 = \lib\db\tags::usage($returnValue['id']);
+			$returnValue['id']          = $result['id'];
+			$returnValue['question']    = $result['question'];
+			$returnValue['questionRaw'] = $result['question'];
+			$tagList                    = \lib\db\tags::usage($returnValue['id']);
 			foreach ($tagList as $key => $value)
 			{
 				$newValue                = "#". str_replace(' ', '\_', $value);
