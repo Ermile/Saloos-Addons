@@ -108,8 +108,10 @@ class view extends \mvc\view
 					// create for chart
 					$type  = \lib\utility::get('type');
 					$utype = \lib\utility::get('utype');
+					$stype = \lib\utility::get('stype');
 					$this->data->chart_type             = $type?  $type:  'column';
 					$this->data->chart_unique_type      = $utype? $utype: 'areaspline';
+					$this->data->chart_signup_type      = $stype? $stype: 'areaspline';
 
 					// $this->data->visitors               = $this->model()->visitors();
 					// $this->data->visitors_unique        = $this->model()->visitors(true);
@@ -121,20 +123,21 @@ class view extends \mvc\view
 					$period = \lib\utility::get('period');
 					switch ($period)
 					{
-						case 'day':
-							$period = "%Y-%m-%d";
+						case 'year':
+							$period = "%Y";
 							break;
 
 						case 'month':
 							$period = "%Y-%m";
 							break;
 
-						case 'year':
-							$period = "%Y";
+						case 'week':
+							$period = "%Y ". T_('week')."%V";
 							break;
 
+						case 'day':
 						default:
-							$period = null;
+							$period = "%Y-%m-%d";
 							break;
 					}
 					$this->data->signup                 = \lib\db\stat_users::signup($period);

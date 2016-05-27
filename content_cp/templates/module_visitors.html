@@ -13,8 +13,16 @@
       <div>
        <span>{%trans "Change period of signup"%}: </span>
        <a href="{{url.path}}?period=day">{%trans "day"%}</a> -
+       <a href="{{url.path}}?period=week">{%trans "week"%}</a> -
        <a href="{{url.path}}?period=month">{%trans "month"%}</a> -
        <a href="{{url.path}}?period=year">{%trans "year"%}</a>
+      </div>
+      <div>
+       <span>{%trans "Change type of chart to"%}: </span>
+       <a href="{{url.path}}?stype=bar">{%trans "bar"%}</a> -
+       <a href="{{url.path}}?stype=area">{%trans "area"%}</a> -
+       <a href="{{url.path}}?stype=areaspline">{%trans "areaspline"%}</a> -
+       <a href="{{url.path}}?stype=column">{%trans "column"%}</a>
       </div>
      </div>
      <br /><br /><br />
@@ -180,7 +188,7 @@
     $(function () {
       $('#chart-signup').highcharts(
       {
-        chart: { type: '{{chart_type}}' {%if global.lang=='fa_IR'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
+        chart: { type: '{{chart_signup_type}}' {%if global.lang=='fa_IR'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
         title: { text: '{%trans "No. of"%} {%trans "signup"%}' },
         xAxis: { categories: [{%for datarow in signup%}'{{datarow.date}}', {%endfor%}] ,crosshair: true},
         yAxis: { title: {text: ''}, floor: 0, allowDecimals: false,},

@@ -33,9 +33,9 @@ private function transtext()
 	//--------------------------------------saloos-addons\content_cp\home\display.html
 	echo T_("Hello!");                                                                // Line 7
 	echo T_("Welcome to Saloos control panel.");                                      // Line 7
-	echo T_("Daily Visit Chart");                                                     // Line 26
+	echo T_("Daily Visit Chart");                                                     // Line 63
 	echo T_("Summarized data of site");                                               // Line 19
-	echo T_("No. of");                                                                // Line 104
+	echo T_("No. of");                                                                // Line 192
 	echo T_("Posts");                                                                 // Line 91 Seperate
 	echo T_("Pages");                                                                 // Line 92 Seperate
 	echo T_("Attachments");                                                           // Line 94 Seperate
@@ -43,44 +43,45 @@ private function transtext()
 	echo T_("Categories");                                                            // Line 99
 	echo T_("Users");                                                                 // Line 96 Seperate
 	echo T_("Top Visited Page");                                                      // Line 121
-	echo T_("Visit");                                                                 // Line 112
+	echo T_("Visit");                                                                 // Line 144
 	echo T_("Page Views");                                                            // Line 193 Seperate
-	echo T_("Bots");                                                                  // Line 137
+	echo T_("Bots");                                                                  // Line 169
 
 	//-----------------------------------saloos-addons\content_cp\home\layout-xhr.html
 	echo T_("Add New Record");                                                        // Line 84 Seperate
-	echo T_("View your current location and navigate to parent of it");               // Line 82
+	echo T_("View your current location and navigate to parent of it");               // Line 86
 
 	//---------------------------------------saloos-addons\content_cp\home\layout.html
 	echo T_("Use this menu for navigating to all part of control panel");             // Line 8
 	echo T_("Dashboard");                                                             // Line 90 Seperate
-	echo T_("Books");                                                                 // Line 20
-	echo T_("Visitors");                                                              // Line 26
-	echo T_("Social networks");                                                       // Line 29
-	echo T_("Permissions");                                                           // Line 32
+	echo T_("Polls");                                                                 // Line 17
+	echo T_("Books");                                                                 // Line 23
+	echo T_("Visitors");                                                              // Line 30
+	echo T_("Social networks");                                                       // Line 33
+	echo T_("Permissions");                                                           // Line 36
 	echo T_("Options");                                                               // Line 81 Seperate
 	echo T_("Tools");                                                                 // Line 157 Seperate
 	echo T_("Homepage");                                                              // Line 73 Seperate
-	echo T_("Next →");                                                              // Line 52
-	echo T_("← Back");                                                              // Line 52
-	echo T_("Skip");                                                                  // Line 52
-	echo T_("Done");                                                                  // Line 52
-	echo T_("Help");                                                                  // Line 54
-	echo T_("You can work with control panel in your language");                      // Line 56
-	echo T_("Go to your profile, change password or logout from conrtol panel");      // Line 68
+	echo T_("Next →");                                                              // Line 56
+	echo T_("← Back");                                                              // Line 56
+	echo T_("Skip");                                                                  // Line 56
+	echo T_("Done");                                                                  // Line 56
+	echo T_("Help");                                                                  // Line 58
+	echo T_("You can work with control panel in your language");                      // Line 60
+	echo T_("Go to your profile, change password or logout from conrtol panel");      // Line 72
 	echo T_("My Profile");                                                            // Line 97 Seperate
 	echo T_("Change Password");                                                       // Line 330 Seperate
 	echo T_("Lock Screen");                                                           // Line 99 Seperate
 	echo T_("Logout");                                                                // Line 100 Seperate
-	echo T_("We glad to working for you and hope you enjoy using our system");        // Line 98
-	echo T_("Some right reserved");                                                   // Line 100
-	echo T_("Powered by");                                                            // Line 100
+	echo T_("We glad to working for you and hope you enjoy using our system");        // Line 102
+	echo T_("Some right reserved");                                                   // Line 104
+	echo T_("Powered by");                                                            // Line 104
 	echo T_("Saloos");                                                                // Line 7 Seperate
-	echo T_("Last update on");                                                        // Line 102
+	echo T_("Last update on");                                                        // Line 106
 	echo T_("Version");                                                               // Line 103 Seperate
 
 	//-----------------------------------saloos-addons\content_cp\options\display.html
-	echo T_("General");                                                               // Line 68
+	echo T_("General");                                                               // Line 69
 	echo T_("Config");                                                                // Line 10
 	echo T_("SMS");                                                                   // Line 13
 	echo T_("Social Networks");                                                       // Line 16
@@ -88,12 +89,13 @@ private function transtext()
 	echo T_("Save Changes");                                                          // Line 17
 	echo T_("Edit your site general options");                                        // Line 32
 	echo T_("Edit your site config options");                                         // Line 44
-	echo T_("Edit your site social networks options");                                // Line 62
-	echo T_("Twitter");                                                               // Line 69
-	echo T_("Facebook");                                                              // Line 70
-	echo T_("Telegram");                                                              // Line 71
-	echo T_("Edit SMS settings");                                                     // Line 83
-	echo T_("Edit your site accounting options");                                     // Line 95
+	echo T_("Set default settings");                                                  // Line 45
+	echo T_("Edit your site social networks options");                                // Line 63
+	echo T_("Twitter");                                                               // Line 70
+	echo T_("Facebook");                                                              // Line 71
+	echo T_("Telegram");                                                              // Line 72
+	echo T_("Edit SMS settings");                                                     // Line 84
+	echo T_("Edit your site accounting options");                                     // Line 96
 
 	//-------------------------------saloos-addons\content_cp\permissions\display.html
 	echo T_("Define new permission");                                                 // Line 8
@@ -127,55 +129,56 @@ private function transtext()
 	echo T_("Empty");                                                                 // Line 104
 	echo T_("In this section you can edit permission of");                            // Line 108
 
-	//---------------------------saloos-addons\content_cp\templates\child_display.html
-
-	//-----------------------------saloos-addons\content_cp\templates\child_posts.html
+	//--------------------------------------saloos-addons\content_cp\posts\layout.html
 	echo T_("Enter title here");                                                      // Line 19
-	echo T_("Set the title of your content");                                         // Line 8
-	echo T_("Url of your content appear here, click on it to view");                  // Line 10
-	echo T_("Check result");                                                          // Line 12
-	echo T_("Show in new tab");                                                       // Line 16
+	echo T_("Set the title of your content");                                         // Line 6
+	echo T_("Url of your content appear here, click on it to view");                  // Line 12
+	echo T_("Check result");                                                          // Line 14
+	echo T_("Show in new tab");                                                       // Line 18
 	echo T_("Write your post content here");                                          // Line 20
 	echo T_("Excerpt");                                                               // Line 24
 	echo T_("If excerpt is empty we get it automatically from content");              // Line 26
 	echo T_("Summaries of your content that can be used as page description.");       // Line 28
-	echo T_("Write your tag and press enter to add new keyword to content");          // Line 32
-	echo T_("Enter Tags here");                                                       // Line 35
-	echo T_("Enter Tags");                                                            // Line 36
+	echo T_("Write your tag and press enter to add new keyword to content");          // Line 41
+	echo T_("Enter Tags here");                                                       // Line 44
+	echo T_("Enter Tags");                                                            // Line 45
 	echo T_("Normally, tags are ad-hoc keywords that identify important information in your post (names, subjects, etc) that may or may not recur in other posts, while categories are pre-determined sections.");// Line 15
-	echo T_("View list of tags");                                                     // Line 40
-	echo T_("What’s the difference between posts and pages?");                      // Line 56
-	echo T_("Pages are similar to Posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts.");// Line 56
-	echo T_("Pages are not categorized or tagged, but can have a hierarchy.");        // Line 56
-	echo T_("Publish");                                                               // Line 85
-	echo T_("Slug");                                                                  // Line 57
-	echo T_("Set slug of content for better addressing in your site and increase SEO rate");// Line 57
+	echo T_("View list of tags");                                                     // Line 49
+	echo T_("Slug");                                                                  // Line 55
+	echo T_("Set slug of content for better addressing in your site and increase SEO rate");// Line 55
 	echo T_("Enter slug here");                                                       // Line 67
-	echo T_("Use this shortcode on your posts");                                      // Line 61
-	echo T_("Language");                                                              // Line 65
-	echo T_("Set language of your content to show only in this language");            // Line 66
+	echo T_("Use this shortcode on your posts");                                      // Line 63
+	echo T_("Language");                                                              // Line 70
+	echo T_("Set language of your content to show only in this language");            // Line 71
 	echo T_("All Languages");                                                         // Line 69
-	echo T_("Status");                                                                // Line 74
-	echo T_("All of content set as draft in default, for showing it to visitors you must set it to publish");// Line 74
-	echo T_("Submit Changes");                                                        // Line 81
-	echo T_("After all changes, you must press this key to Submit");                  // Line 81
+	echo T_("Status");                                                                // Line 83
+	echo T_("All of content set as draft in default, for showing it to visitors you must set it to publish");// Line 83
+	echo T_("Submit Changes");                                                        // Line 94
+	echo T_("After all changes, you must press this key to Submit");                  // Line 94
 	echo T_("Update");                                                                // Line 147 Seperate
+	echo T_("Publish");                                                               // Line 85
 	echo T_("Page Attributes");                                                       // Line 91
 	echo T_("Parent Page");                                                           // Line 38
 	echo T_("Select parent page to create a group of pages");                         // Line 39
 	echo T_("Without parent");                                                        // Line 40
 	echo T_("You can nest Pages under other Pages by making one the “Parent” of the other, creating a group of Pages.");// Line 56
-	echo T_("Select a category of your content");                                     // Line 105
-	echo T_("Enter cat here");                                                        // Line 109
-	echo T_("Add New Category");                                                      // Line 123
-	echo T_("Featured Image");                                                        // Line 129
-	echo T_("This allows you to associate an image with your content.");              // Line 131
-	echo T_("Enter thumb id");                                                        // Line 132
-	echo T_("Set featured image");                                                    // Line 133
-	echo T_("You can see type of your file and click on image to direct access to file");// Line 139
-	echo T_("Click to view");                                                         // Line 148
-	echo T_("Height");                                                                // Line 146
-	echo T_("Width");                                                                 // Line 146
+	echo T_("Select a category of your content");                                     // Line 123
+	echo T_("Enter cat here");                                                        // Line 127
+	echo T_("Add New Category");                                                      // Line 143
+	echo T_("Featured Image");                                                        // Line 152
+	echo T_("This allows you to associate an image with your content.");              // Line 154
+	echo T_("Enter thumb id");                                                        // Line 155
+	echo T_("Set featured image");                                                    // Line 156
+	echo T_("You can see type of your file and click on image to direct access to file");// Line 165
+	echo T_("Click to view");                                                         // Line 173
+	echo T_("Height");                                                                // Line 171
+	echo T_("Width");                                                                 // Line 171
+	echo T_("Define poll");                                                           // Line 187
+	echo T_("Define poll conditions");                                                // Line 214
+
+	//---------------------------saloos-addons\content_cp\templates\child_display.html
+
+	//-----------------------------saloos-addons\content_cp\templates\child_posts.html
 
 	//-----------------------------saloos-addons\content_cp\templates\child_terms.html
 	echo T_("Click to check result");                                                 // Line 11
@@ -195,16 +198,26 @@ private function transtext()
 	echo T_("Edit your profile data");                                                // Line 22
 
 	//-------------------------saloos-addons\content_cp\templates\module_visitors.html
-	echo T_("Change type of chart to");                                               // Line 15
-	echo T_("bar");                                                                   // Line 16
-	echo T_("area");                                                                  // Line 17
-	echo T_("areaspline");                                                            // Line 18
-	echo T_("column");                                                                // Line 19
-	echo T_("View visitor statistics for your website");                              // Line 38
-	echo T_("Pageviews");                                                             // Line 53
-	echo T_("visitors");                                                              // Line 104
+	echo T_("Change period of signup");                                               // Line 14
+	echo T_("day");                                                                   // Line 32 Seperate
+	echo T_("week");                                                                  // Line 31 Seperate
+	echo T_("month");                                                                 // Line 30 Seperate
+	echo T_("year");                                                                  // Line 29 Seperate
+	echo T_("Change type of chart to");                                               // Line 53
+	echo T_("bar");                                                                   // Line 54
+	echo T_("area");                                                                  // Line 55
+	echo T_("areaspline");                                                            // Line 56
+	echo T_("column");                                                                // Line 57
+	echo T_("View signup statistics for your website");                               // Line 36
+	echo T_("View visitor statistics for your website");                              // Line 70
+	echo T_("Pageviews");                                                             // Line 86
+	echo T_("visitors");                                                              // Line 136
+	echo T_("signup");                                                                // Line 67 Seperate
 
 	//---------------------------------saloos-addons\content_cp\templates\sidebar.html
+	echo T_("What’s the difference between posts and pages?");                      // Line 56
+	echo T_("Pages are similar to Posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts.");// Line 56
+	echo T_("Pages are not categorized or tagged, but can have a hierarchy.");        // Line 56
 	echo T_("Draft");                                                                 // Line 78
 	echo T_("Deleted");                                                               // Line 79
 	echo T_("Schedule");                                                              // Line 80
@@ -227,7 +240,8 @@ private function transtext()
 	echo T_("Saloos Repository");                                                     // Line 19
 	echo T_("Saloos Addons Repository");                                              // Line 20
 	echo T_("Backup");                                                                // Line 21
-	echo T_("Project Database");                                                      // Line 21
+	echo T_("Project Database");                                                      // Line 22
+	echo T_("Upgrade");                                                               // Line 22
 
 	//------------------------------saloos-addons\includes\languages\trans_static.html
 	echo T_("saloos");                                                                // Line 8 Seperate
@@ -247,10 +261,6 @@ private function transtext()
 	echo T_("Delete Failed!");                                                        // Line 22 Seperate
 	echo T_("Transaction error");                                                     // Line 23 Seperate
 	echo T_("Transaction Error");                                                     // Line 24 Seperate
-	echo T_("year");                                                                  // Line 29 Seperate
-	echo T_("month");                                                                 // Line 30 Seperate
-	echo T_("week");                                                                  // Line 31 Seperate
-	echo T_("day");                                                                   // Line 32 Seperate
 	echo T_("hour");                                                                  // Line 33 Seperate
 	echo T_("minute");                                                                // Line 34 Seperate
 	echo T_("second");                                                                // Line 35 Seperate
@@ -281,7 +291,6 @@ private function transtext()
 	echo T_("add new");                                                               // Line 64 Seperate
 	echo T_("signin");                                                                // Line 65 Seperate
 	echo T_("sign in");                                                               // Line 66 Seperate
-	echo T_("signup");                                                                // Line 67 Seperate
 	echo T_("sign up");                                                               // Line 68 Seperate
 	echo T_("register");                                                              // Line 69 Seperate
 	echo T_("home");                                                                  // Line 70 Seperate
@@ -492,7 +501,7 @@ private function transtext()
 	echo T_(" ");                                                                     // Line 357 Seperate
 
 	//-----------------------------------------saloos-addons\includes\macro\forms.html
-	echo T_("Select");                                                                // Line 68
+	echo T_("Select");                                                                // Line 80
 
 }
 ?>

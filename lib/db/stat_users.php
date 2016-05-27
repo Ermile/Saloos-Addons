@@ -6,7 +6,7 @@ class stat_users
 {
 	/**
 	 * this library generate stats from users
-	 * v1.0
+	 * v1.1
 	 */
 
 
@@ -26,7 +26,7 @@ class stat_users
 			count(id) as total
 		FROM users
 		GROUP BY
-			DATE_FORMAT(user_createdate, '$_period')
+			date
 		";
 
 		$result = \lib\db::get($qry);
