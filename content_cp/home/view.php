@@ -102,6 +102,7 @@ class view extends \mvc\view
 				break;
 
 			case 'visitors':
+				$this->data->page['haschild'] = false;
 				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
 				{
 					// create for chart
