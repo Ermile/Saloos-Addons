@@ -6,7 +6,7 @@ class polls
 {
 	/**
 	 * this library work with acoount
-	 * v2.7
+	 * v2.8
 	 */
 
 
@@ -338,6 +338,12 @@ class polls
 	 */
 	public static function saveAnswer($_user_id, $_post_id, $_answer, $_answer_txt = null)
 	{
+		// set status of skip answers to disable
+		$status = 'enable';
+		if($_answer < 0)
+		{
+			$status = 'disable';
+		}
 		$meta =
 		[
 			'question'   => $_post_id,
@@ -353,7 +359,7 @@ class polls
 			'key'    => 'answer_'.$_post_id,
 			'value'  => $_answer,
 			'meta'   => $meta,
-			'status' => 'enable',
+			'status' => $status,
 			'modify' => 'now',
 		];
 		// save in options table and if successful return session_id

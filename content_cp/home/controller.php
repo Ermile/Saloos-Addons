@@ -347,6 +347,7 @@ class controller extends \mvc\controller
 					'pollcategories' => null,
 					'pages'          => null,
 					'polls'          => null,
+					'visitors'       => ['admin', 'add', 'delete', 'edit'],
 					'tags'           => ['admin'],
 					'attachments'    => ['admin'],
 					'users'          => null,
