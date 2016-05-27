@@ -13,6 +13,9 @@
 {%if feature.pages and perm.pages.view%}
    <a href="{{url.base}}pages"><i class="fa fa-lg fa-files-o"></i> <span>{%trans "Pages"%}</span></a>
 {%endif%}
+{%if perm.polls.view%}
+   <a href="{{url.base}}polls"><i class="fa fa-lg fa-hand-paper-o"></i> <span>{%trans "Polls"%}</span></a>
+{%endif%}
 {%if feature.attachments and perm.attachments.view%}
    <a href="{{url.base}}attachments"><i class="fa fa-lg fa-picture-o"></i> <span>{%trans "Attachments"%}</span></a>
 {%endif%}
@@ -22,7 +25,8 @@
 {%if feature.users and perm.users.view%}
    <a href="{{url.base}}users"><i class="fa fa-lg fa-user"></i> <span>{%trans "Users"%}</span></a>
 {%endif%}
-{%if feature.visitors and perm.visitors.view%}
+{{feature.visitors}}
+{%if perm.visitors.view%}
    <a href="{{url.base}}visitors"><i class="fa fa-lg fa-line-chart"></i> <span>{%trans "Visitors"%}</span></a>
 {%endif%}
 {%if feature.socialnetworks and perm.socialNetworks.view%}
