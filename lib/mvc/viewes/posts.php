@@ -30,9 +30,13 @@ trait posts
 		foreach ($tmp_fields as $key => $value)
 		{
 			if(is_array($tmp_result[$key]))
+			{
 				$this->data->post[$value] = $tmp_result[$key];
+			}
 			else
-				$this->data->post[$value] = html_entity_decode(trim($tmp_result[$key]));
+			{
+				$this->data->post[$value] = html_entity_decode(trim(html_entity_decode($tmp_result[$key])));
+			}
 		}
 
 		// set page title

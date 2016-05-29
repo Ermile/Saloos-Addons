@@ -8,16 +8,16 @@ trait template
 	 * first search in posts and if not exist search in terms table
 	 * @return [array] datarow of result if exist else return false
 	 */
-	function s_template_finder($_datarow = false)
+	function s_template_finder($_args = null)
 	{
 		// first of all search in url field if exist return row data
-		$tmp_result = $this->get_posts(true, $_datarow);
+		$tmp_result = $this->get_posts(true, $_args);
 		if($tmp_result)
 		{
 			return $tmp_result;
 		}
 		// if url not exist in posts then search in terms table and if exist return row data
-		$tmp_result = $this->get_terms(true, $_datarow);
+		$tmp_result = $this->get_terms(true, $_args);
 		if($tmp_result)
 		{
 			return $tmp_result;
@@ -32,12 +32,14 @@ trait template
 	 * @param  boolean $_forcheck [description]
 	 * @return [type]             [description]
 	 */
-	public function get_posts($_forcheck = false, $_datarow = null)
+	public function get_posts($_forcheck = false, $_args = null)
 	{
-		if($_datarow & is_array($_datarow))
+		// check shortURL
+		$shortURL = \lib\db\url::checkShortURL();
+		if($shortURL & is_array($shortURL))
 		{
 			// set datarow
-			$datarow = $_datarow;
+			$datarow = $shortURL;
 		}
 		else
 		{
