@@ -541,11 +541,11 @@ class model extends \addons\content_cp\home\model
 				$answers[$i]['txt']   = utility::post('ans' .$i);
 			}
 		}
-		$answers = json_encode($answers, JSON_UNESCAPED_UNICODE);
 		if($_onlyAns === true)
 		{
 			return $answers;
 		}
+		$answers = json_encode($answers, JSON_UNESCAPED_UNICODE);
 
 		$option_data =
 		[
