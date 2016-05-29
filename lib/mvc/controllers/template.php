@@ -110,14 +110,13 @@ trait template
 		$myurl = null;
 		if(!empty(db_name))
 		{
-			$url   = self::checkShortURL();
-			$myurl = $this->model()->s_template_finder($url);
+			$datarow = self::checkShortURL();
+			$myurl   = $this->model()->s_template_finder($datarow);
 		}
 		else
 		{
 			$myurl = null;
 		}
-
 		// if url does not exist show 404 error
 		if(!$myurl)
 		{
@@ -179,19 +178,21 @@ trait template
 		{
 			$_shortURL = $this->url('path');
 		}
-		$table = null;
-		$field = null;
+		$table     = null;
+		$field     = null;
 		$urlPrefix = substr($_shortURL, 0, 3);
 		switch ($urlPrefix)
 		{
 			case 'sp_':
 				// if this is url of one post
 				$table = 'post';
+				$field = "*";
 				break;
 
 			case 'st_':
 				// else if this is url of one term
 				$table = 'term';
+				$field = 'term_url as url';
 				break;
 		}
 		// if prefix is not correct return false
@@ -202,20 +203,19 @@ trait template
 		// remove prefix from url
 		$_shortURL = substr($_shortURL, 3);
 		$id        = \lib\utility\shortURL::decode($_shortURL);
-		$field     = $table.'_url';
 		$table     .= 's';
-
-		$qry       = "SELECT $field as url FROM $table WHERE id = $id";
-		$result    = \lib\db::get($qry, 'url', true);
-		if(!is_string($result))
+		$qry       = "SELECT $field FROM $table WHERE id = $id";
+		$result    = \lib\db::get($qry, null, true);
+		if(!is_array($result))
 		{
 			return false;
 		}
 
-		if(!\lib\utility\option::get('config', 'meta', 'forceShortURL'))
+		if(!\lib\utility\option::get('config', 'meta', 'forceShortURL') && isset($result['post_url']))
 		{
+			$post_url = $result['post_url'];
 			// redirect to url of this post
-			$this->redirector()->set_url($result)->redirect();
+			$this->redirector()->set_url($post_url)->redirect();
 		}
 		// if not force simulate this url
 		return $result;
