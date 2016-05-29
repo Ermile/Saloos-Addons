@@ -38,7 +38,6 @@ trait posts
 		// set page title
 		$this->data->page['title'] = $this->data->post['title'];
 		$this->data->page['desc'] = \lib\utility\excerpt::extractRelevant($this->data->post['content'], $this->data->page['title']);
-		// var_dump($this->data->post['title']);
 		$this->set_title();
 
 		$this->data->nav = $this->model()->sp_nav();

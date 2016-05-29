@@ -121,8 +121,6 @@ trait template
 		// if url does not exist show 404 error
 		if(!$myurl)
 		{
-			// var_dump($mymodule);
-			// var_dump(\lib\router::get_storage('language'));
 			// if user entered url contain one of our site language
 
 			$currentPath = $this->url('path', '_');

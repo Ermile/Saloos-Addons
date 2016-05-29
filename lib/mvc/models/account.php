@@ -159,10 +159,7 @@ trait account
 		// debug::true(T_("logout successfully out"));
 
 		// $_SESSION['debug'][md5('http://ermile.dev')] = debug::compile();
-		// var_dump($_SESSION['debug']);
-		// exit();
 
-		// var_dump('you are logout form system but redirect is not work!');
 
 		if($_status === 'redirect')
 		{
@@ -182,7 +179,6 @@ trait account
 	public function checkMainAccount($_type = null)
 	{
 		$_type = $_type !== null? $_type: $this->put_ssidStatus();
-		// var_dump($_type);
 
 		switch ($_type)
 		{
@@ -238,7 +234,6 @@ trait account
 		{
 			$myfrom = utility::get('from');
 			$is_trustreferer = $myfrom === 'login'? true: false;
-			// var_dump($is_trustreferer);
 		}
 
 		// set ssid from session

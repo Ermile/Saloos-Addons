@@ -105,7 +105,6 @@ trait constructor
 			$mygetlist = \lib\utility::get(null, 'raw');
 			if($mygetlist)
 			{
-				// var_dump(7); exit();
 				foreach ($mygetlist as $name => $value)
 				{
 					if($name === 'ssid')
