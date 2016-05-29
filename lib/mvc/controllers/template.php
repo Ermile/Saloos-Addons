@@ -116,6 +116,9 @@ trait template
 		{
 			$myurl = null;
 		}
+		// set post type, get before underscope
+		$post_type = strtok($myurl['type'], '_');
+
 		// if url does not exist show 404 error
 		if(!$myurl)
 		{
@@ -142,12 +145,12 @@ trait template
 		}
 
 		// elseif template type exist show it
-		elseif( is_file(root.'content/template/'.$myurl['type'].'-'.$myurl['slug'].'.html') )
-			$this->display_name	= 'content\template\\'.$myurl['type'].'-'.$myurl['slug'].'.html';
+		elseif( is_file(root.'content/template/'.$post_type.'-'.$myurl['slug'].'.html') )
+			$this->display_name	= 'content\template\\'.$post_type.'-'.$myurl['slug'].'.html';
 
 		// elseif template type exist show it
-		elseif( is_file(root.'content/template/'.$myurl['type'].'.html') )
-			$this->display_name	= 'content\template\\'.$myurl['type'].'.html';
+		elseif( is_file(root.'content/template/'.$post_type.'.html') )
+			$this->display_name	= 'content\template\\'.$post_type.'.html';
 
 		// elseif template type exist show it
 		elseif( is_file(root.'content/template/'.$myurl['table'].'.html') )
