@@ -20,7 +20,7 @@ class controller extends \mvc\controller
 			}
 			else
 			{
-				$this->redirector(null, false)->set_url('login')->redirect();
+				$this->redirector(null, false)->set_domain()->set_url('login')->redirect();
 			}
 		}
 		// if content is not set then
