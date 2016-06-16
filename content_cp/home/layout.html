@@ -103,7 +103,7 @@
 
   <p class="float-left hint--right" data-hint='{%trans "Some right reserved"%}'>{%trans "Powered by"%} <a href='http://saloos.ir' target="_blank" title='{%trans "Some right reserved"%}' tabindex='-1'>{%trans "Saloos"%}</a></p>
 
-  <p class="float-right hint--left" data-hint='{%trans "Last update on"%} {%if global.lang == "fa_IR"%}{{saloos.lastUpdate | jdate}}{%else%}{{saloos.lastUpdate}}{%endif%}' itemscope><abbr>{%trans "Version"%} {{saloos.version}}</abbr></p>
+  <p class="float-right hint--left" {%if saloos.lastUpdate%}data-hint='{%trans "Last update on"%} {%if global.lang == "fa_IR"%}{{saloos.lastUpdate | jdate}}{%else%}{{saloos.lastUpdate}}{%endif%}'{%else%}data-hint='{%trans "wait for next version!"%}'{%endif%}itemscope><abbr>{%trans "Version"%} {{saloos.version}}</abbr></p>
  </footer>
 
 
