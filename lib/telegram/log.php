@@ -6,7 +6,7 @@ class log extends tg
 {
 	/**
 	 * this library help to save something on telegram
-	 * v3.9
+	 * v4.0
 	 */
 
 
@@ -96,6 +96,9 @@ class log extends tg
 		// calc full_name of user
 		$meta['full_name'] = trim(self::response('from','first_name'). ' '. self::response('from','last_name'));
 
+		// catch user telegram from database and if not exist insert as new user
+		self::catchTelegramUser($from_id, $meta['full_name']);
+
 		if($contact = self::response('contact', null))
 		{
 			$from            = self::response('from', null);
@@ -114,13 +117,11 @@ class log extends tg
 			// if user send contact detail save as normal user
 			if($mobile)
 			{
-				// save user, not important this is correct or not!
-				\lib\db\users::signup($mobile, 'telegram', true, $meta['full_name']);
 				// if this is for current user
 				if($from == $contact)
 				{
-					self::$user_id = \lib\db\users::$user_id;
-					$meta          = array_merge($meta, $contact);
+					\lib\db\users::updateMobile(self::$user_id, $mobile);
+					$meta = array_merge($meta, $contact);
 					// if user send contact detail then save all of his/her profile photos
 					self::sendResponse(['method' => 'getUserProfilePhotos']);
 				}
@@ -142,22 +143,6 @@ class log extends tg
 		elseif($location = self::response('location'))
 		{
 			$meta = array_merge($meta, $location);
-		}
-		// if user_id is not set try to give user_id from database
-		if(!isset(self::$user_id))
-		{
-			$qry = "SELECT `user_id`
-				FROM options
-				WHERE
-					`option_cat` = 'telegram' AND
-					`option_key` LIKE 'user_%' AND
-					`option_value` = $from_id
-			";
-			$my_user_id = \lib\db::get($qry, 'user_id', true);
-			if(is_numeric($my_user_id))
-			{
-				self::$user_id = $my_user_id;
-			}
 		}
 
 		$userDetail =
@@ -338,6 +323,39 @@ class log extends tg
 			}
 		}
 		return $user_details;
+	}
+
+
+	public static function catchTelegramUser($_telegram_id, $_Name)
+	{
+		// if user_id is not set try to give user_id from database
+		// search in db to find user_id
+		$qry = "SELECT `user_id`
+			FROM options
+			WHERE
+				`option_cat` = 'telegram' AND
+				`option_key` LIKE 'user_%' AND
+				`option_value` = $_telegram_id
+		";
+		$my_user_id = \lib\db::get($qry, 'user_id', true);
+		if(is_numeric($my_user_id))
+		{
+			self::$user_id = $my_user_id;
+		}
+
+		// if user does not exist in db, signup it
+		if(!self::$user_id)
+		{
+			$mobile = '1100'. $_telegram_id;
+			\lib\db\users::signup($mobile, 'telegram', true, $_Name);
+			self::$user_id = \lib\db\users::$user_id;
+		}
+
+		if(self::$user_id)
+		{
+			return true;
+		}
+		return false;
 	}
 }
 ?>
