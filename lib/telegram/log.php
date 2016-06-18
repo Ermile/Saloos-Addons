@@ -92,12 +92,10 @@ class log extends tg
 			return false;
 		}
 
-		$meta = $_data['message']['from'];
-		// calc full_name of user
-		$meta['full_name'] = trim(self::response('from','first_name'). ' '. self::response('from','last_name'));
+		$meta = null;
 
 		// catch user telegram from database and if not exist insert as new user
-		self::catchTelegramUser($from_id, $meta['full_name']);
+		self::catchTelegramUser($from_id, $_data['message']['from']);
 
 		if($contact = self::response('contact', null))
 		{
@@ -145,28 +143,7 @@ class log extends tg
 			$meta = array_merge($meta, $location);
 		}
 
-		$userDetail =
-		[
-			'cat'    => 'telegram',
-			'key'    => 'user_'.self::response('from', 'username'),
-			'value'  => $from_id,
-			'meta'   => $meta,
-		];
-		if(isset(self::$user_id))
-		{
-			$userDetail['user']   = self::$user_id;
-			$userDetail['status'] = 'enable';
-		}
-		else
-		{
-			$userDetail['status'] = 'disable';
-		}
-		// save in options table
-		\lib\utility\option::set($userDetail, true);
-		// save session id database only one time
-		// if exist use old one
-		// else insert new one to database
-		\lib\utility\session::save_once(self::$user_id, 'telegram_'.self::response('from', 'id'));
+
 
 		// change language if needede
 		if(\lib\router::get_storage('language') !== self::$language)
@@ -325,16 +302,21 @@ class log extends tg
 		return $user_details;
 	}
 
-
-	public static function catchTelegramUser($_telegram_id, $_Name)
+	/**
+	 * save once telegram user details
+	 * @param  [type] $_telegram_id [description]
+	 * @param  [type] $_fromDetail  [description]
+	 * @return [type]               [description]
+	 */
+	private static function catchTelegramUser($_telegram_id, $_fromDetail = null)
 	{
 		// if user_id is not set try to give user_id from database
 		// search in db to find user_id
 		$qry = "SELECT `user_id`
 			FROM options
 			WHERE
-				`option_cat` = 'telegram' AND
-				`option_key` LIKE 'user_%' AND
+				`option_cat` LIKE 'telegram\_%' AND
+				`option_key` LIKE 'user\_%' AND
 				`option_value` = $_telegram_id
 		";
 		$my_user_id = \lib\db::get($qry, 'user_id', true);
@@ -346,10 +328,37 @@ class log extends tg
 		// if user does not exist in db, signup it
 		if(!self::$user_id)
 		{
+			// calc full_name of user
+			$fullName = trim(self::response('from','first_name'). ' '. self::response('from','last_name'));
+
 			$mobile = '1100'. $_telegram_id;
-			\lib\db\users::signup($mobile, 'telegram', true, $_Name);
+			\lib\db\users::signup($mobile, 'telegram', true, $fullName);
 			self::$user_id = \lib\db\users::$user_id;
+
+			// save telegram user detail like name and username into options
+			$userDetail =
+			[
+				'cat'    => 'telegram_'.self::$user_id,
+				'key'    => 'user_'.self::response('from', 'username'),
+				'value'  => $_telegram_id,
+				'meta'   => $_fromDetail,
+			];
+			if(isset(self::$user_id))
+			{
+				$userDetail['user']   = self::$user_id;
+				$userDetail['status'] = 'enable';
+			}
+			else
+			{
+				$userDetail['status'] = 'disable';
+			}
+			// save in options table
+			\lib\utility\option::set($userDetail, true);
 		}
+
+		// save session id database only one time
+		// if exist use old one else insert new one to database
+		\lib\utility\session::save_once(self::$user_id, 'telegram_'.$_telegram_id);
 
 		if(self::$user_id)
 		{
