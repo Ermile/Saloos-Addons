@@ -6,7 +6,7 @@ class log extends tg
 {
 	/**
 	 * this library help to save something on telegram
-	 * v3.7
+	 * v3.8
 	 */
 
 
@@ -65,7 +65,7 @@ class log extends tg
 			array_pop($_SESSION['tg']['history']);
 		}
 		// if last commit is repeated
-		if(isset($_SESSION['tg']['history'][1]) &&
+		if(isset($_SESSION['tg']['history'][1]) && $_text &&
 			$_SESSION['tg']['history'][1] === $_text
 		)
 		{
