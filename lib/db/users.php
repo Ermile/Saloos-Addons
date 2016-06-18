@@ -6,7 +6,7 @@ class users
 {
 	/**
 	 * this library work with acoount
-	 * v1.1
+	 * v1.2
 	 */
 
 	public static $user_id;
@@ -92,5 +92,33 @@ class users
 		}
 		return null;
 	}
+
+
+	/**
+	 * update mobile number of specefic user
+	 * @param  [type] $_user   [description]
+	 * @param  [type] $_mobile [description]
+	 * @return [type]          [description]
+	 */
+	public static function updateMobile($_user, $_mobile)
+	{
+		$qry        = "UPDATE `users` SET `user_mobile` = $_mobile WHERE id = $_user;";
+		$result     = \lib\db::query($qry);
+		$changeDate = date('Y-m-d H:i:s');
+
+		// save mobile number in user history
+		$userDetail =
+		[
+			'user'   => $_user,
+			'cat'    => 'history_'.$_user,
+			'key'    => 'mobile',
+			'value'  => $_mobile,
+			'meta'   => $changeDate,
+		];
+		$r = \lib\utility\option::set($userDetail);
+
+		return $result;
+	}
+
 }
 ?>
