@@ -115,10 +115,27 @@ class users
 			'value'  => $_mobile,
 			'meta'   => $changeDate,
 		];
-		$r = \lib\utility\option::set($userDetail);
+		$result = \lib\utility\option::set($userDetail);
 
 		return $result;
 	}
 
+
+	public static function updateDetail($_user, $_type, $_value, $_args)
+	{
+		$changeDate = date('Y-m-d H:i:s');
+		// save mobile number in user history
+		$userDetail =
+		[
+			'user'   => $_user,
+			'cat'    => 'history_'.$_user,
+			'key'    => $_type,
+			'value'  => $_value,
+			'meta'   => $_args,
+		];
+		$result = \lib\utility\option::set($userDetail);
+
+		return $result;
+	}
 }
 ?>

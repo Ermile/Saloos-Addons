@@ -92,55 +92,17 @@ class log extends tg
 			return false;
 		}
 
-		$meta = null;
-
 		// catch user telegram from database and if not exist insert as new user
 		self::catchTelegramUser($from_id, $_data['message']['from']);
 
+		// save user detail like contact or location if sended
 		if($contact = self::response('contact', null))
 		{
-			$from            = self::response('from', null);
-			$mobile          = null;
-			// set like contact
-			$from['user_id'] = $from['id'];
-			// remove from values to being like contact array
-			unset($from['id']);
-			unset($from['username']);
-			// if mobile isset, use it
-			if(isset($contact['phone_number']))
-			{
-				$mobile = $contact['phone_number'];
-				unset($contact['phone_number']);
-			}
-			// if user send contact detail save as normal user
-			if($mobile)
-			{
-				// if this is for current user
-				if($from == $contact)
-				{
-					\lib\db\users::updateMobile(self::$user_id, $mobile);
-					$meta = array_merge($meta, $contact);
-					// if user send contact detail then save all of his/her profile photos
-					self::sendResponse(['method' => 'getUserProfilePhotos']);
-				}
-				// else ask real contact detail
-				else
-				{
-					// set fake value for this contact
-					self::$hook['message']['contact']['fake'] = true;
-					// do nothing!
-				}
-			}
-			else
-			{
-				self::$hook['message']['contact']['fake'] = true;
-				self::$hook['message']['contact']['phone_number'] = false;
-				// self::sendResponse(['text' => T_('We need mobile number!')]);
-			}
+			self::saveUserDetail('contact', $contact);
 		}
 		elseif($location = self::response('location'))
 		{
-			$meta = array_merge($meta, $location);
+			self::saveUserDetail('location', $location);
 		}
 
 
@@ -365,6 +327,65 @@ class log extends tg
 			return true;
 		}
 		return false;
+	}
+
+
+	private static function saveUserDetail($_type = 'contact', $_args)
+	{
+		switch ($_type)
+		{
+			case 'contact':
+				$contact         = $_args;
+				$from            = self::response('from', null);
+				$mobile          = null;
+				// set like contact
+				$from['user_id'] = $from['id'];
+				// remove from values to being like contact array
+				unset($from['id']);
+				unset($from['username']);
+				// if mobile isset, use it
+				if(isset($contact['phone_number']))
+				{
+					$mobile = $contact['phone_number'];
+					unset($contact['phone_number']);
+				}
+				// if user send contact detail save as normal user
+				if($mobile)
+				{
+					// if this is for current user
+					if($from == $contact)
+					{
+						\lib\db\users::updateMobile(self::$user_id, $mobile);
+						// if user send contact detail then save all of his/her profile photos
+						self::sendResponse(['method' => 'getUserProfilePhotos']);
+						self::sendResponse(['text' => T_('Your phone number registered successfully;)')]);
+
+					}
+					// else ask real contact detail
+					else
+					{
+						// set fake value for this contact
+						self::$hook['message']['contact']['fake'] = true;
+						self::sendResponse(['text' => T_('We dont need another users contact:?)')]);
+						// do nothing!
+					}
+				}
+				else
+				{
+					self::$hook['message']['contact']['fake'] = true;
+					self::$hook['message']['contact']['phone_number'] = false;
+					self::sendResponse(['text' => T_('We need mobile number!')]);
+				}
+				break;
+
+			case 'location':
+				break;
+
+			default:
+				break;
+		}
+
+		\lib\db\users::updateDetail(self::$user_id, $_type, 'telegram', $_args);
 	}
 }
 ?>
