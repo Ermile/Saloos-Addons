@@ -15,7 +15,7 @@ class keyboard extends tg
 	 * @param  boolean $_onlyArray [description]
 	 * @return [type]              [description]
 	 */
-	public static function draw($_list = null, $_onlyArray = null)
+	public static function draw($_list = null, $_onlyArray = null, $_type = 'keyboard')
 	{
 		if(!$_list)
 		{
@@ -30,7 +30,7 @@ class keyboard extends tg
 
 		$menu =
 		[
-			'keyboard'          => [],
+			$_type              => [],
 			'one_time_keyboard' => true,
 			'resize_keyboard'   => true,
 			'selective'         => true,
@@ -77,7 +77,7 @@ class keyboard extends tg
 			// calc row number
 			$row = floor($i/ $inEachRow);
 			// add to specefic row
-			$menu['keyboard'][$row][] = $value;
+			$menu[$_type][$row][] = $value;
 			// increment counter
 			$i++;
 		}
