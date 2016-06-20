@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.0.0: modular bases start
  * Version 6.0.0: many fix and run shortURL
  * Version 5.0.1: db\polls: change question text with keyword
  * Version 5.0.0: run new db connection based on class + many update!

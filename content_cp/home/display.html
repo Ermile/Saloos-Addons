@@ -19,7 +19,7 @@
   <div class="{%if visitors%}span8{%else%}span12{%endif%}" data-step='6' data-intro='{%trans "Summarized data of site"%}' data-position="top">
 
    <div class="row auto">
-{%if feature.posts%}
+{%if not ('disable' in modules.posts)%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-green summary">
       <div class="panel-body">
@@ -33,7 +33,7 @@
     </div>
 {%endif%}
 
-{%if feature.pages%}
+{%if not ('disable' in modules.pages)%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-blue summary">
       <div class="panel-body">
@@ -47,7 +47,7 @@
     </div>
 {%endif%}
 
-{%if feature.attachments%}
+{%if not ('disable' in modules.attachments)%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-red summary">
       <div class="panel-body">
@@ -63,7 +63,7 @@
    </div>
 
    <div class="row auto">
-{%if feature.tags%}
+{%if not ('disable' in modules.tags)%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-blue summary">
       <div class="panel-body">
@@ -77,7 +77,7 @@
     </div>
 {%endif%}
 
-{%if feature.categories%}
+{%if not ('disable' in modules.categories)%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-green summary">
       <div class="panel-body">
@@ -91,7 +91,7 @@
     </div>
 {%endif%}
 
-{%if feature.users%}
+{%if not ('disable' in modules.users)%}
     <div class="span4">
      <div class="panel text-center no-boder bg-color-brown summary">
       <div class="panel-body">

@@ -3,19 +3,19 @@
 
 {%block content%}
   <ul class="tabs row auto" data-group="primary">
-{%if feature.options.general%}
+{%if modules.options.submodules.general%}
    <li data-tab="general" class="span2 active"><i class="fa fa-cog"></i> {%trans "General"%}</li>
 {%endif%}
-{%if feature.options.config%}
+{%if modules.options.submodules.config%}
    <li data-tab="config" class="span2 active"><i class="fa fa-plug"></i> {%trans "Config"%}</li>
 {%endif%}
-{%if feature.options.sms%}
+{%if modules.options.submodules.sms%}
    <li data-tab="sms" class="span2"><i class="fa fa-envelope" data-parent="config-sms"></i> {%trans "SMS"%}</li>
 {%endif%}
-{%if feature.options.social%}
+{%if modules.options.submodules.social%}
    <li data-tab="social" class="span3"><i class="fa fa-share-alt" data-parent="config-social"></i> {%trans "Social Networks"%}</li>
 {%endif%}
-{%if feature.options.account%}
+{%if modules.options.submodules.account%}
    <li data-tab="account" class="span2"><i class="fa fa-user" data-parent="config-account"></i> {%trans "Account"%}</li>
 {%endif%}
   </ul>

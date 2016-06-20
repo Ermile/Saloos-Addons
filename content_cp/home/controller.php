@@ -2,10 +2,15 @@
 namespace addons\content_cp\home;
 class controller extends \mvc\controller
 {
+	use \lib\mvc\controllers\modules;
 	/**
 	 * check login and permission
 	 * @return [type] [description]
 	 */
+	function __construct(){
+		parent::__construct();
+		self::default_modules();
+	}
 	function _permission($_content = null, $_login = true)
 	{
 		// if user is not login then redirect
@@ -185,77 +190,14 @@ class controller extends \mvc\controller
 	public function cpModlueList($_module = null)
 	{
 		// return true;
-		$mylist	= [
-					'home',
-					'posts',
-					'pages',
-					'polls',
-					'tags',
-					'categories',
-					'filecategories',
-					'pollcategories',
-					'attachments',
-					'books',
-					'bookcategories',
-					'users',
-					'tools',
-					'permissions',
-					'options',
-					'logout',
-					'lock',
-					'profile',
-					'socialnetwork',
-					'visitors',
-				];
+		$mylist	= array_keys(self::get_modules());
 		if($_module == 'all')
 		{
 			return $mylist;
 		}
 		elseif($_module == 'permissions')
 		{
-			$mylist	= [
-						// 'home',
-						'posts',
-						'categories',
-						'pages',
-						'polls',
-						'tags',
-						'attachments',
-						// 'filecategories',
-						'users',
-						'tools',
-						'permissions',
-						'options',
-						// 'profile',
-					];
-
-
-			// get features value from view and fix it later
-			$features = [];
-			if(isset($this->data->feature) && is_array($this->data->feature))
-				$features = $this->data->feature;
-
-			foreach ($features as $feature => $enable)
-			{
-				// if option is not true continue to next
-				if(!$enable)
-					continue;
-
-				// else switch on enabled feature
-				switch ($feature)
-				{
-					case 'book':
-						$mylist = array_push($mylist, $feature);
-						$mylist = array_push($mylist, 'bookcategories');
-						break;
-
-					case 'socialnetworks':
-					case 'visitors':
-					default:
-						$mylist = array_push($mylist, $feature);
-						break;
-				}
-			}
+			$mylist	= array_keys(self::modules_search('permissions'));
 
 			return $mylist;
 		}
@@ -341,51 +283,7 @@ class controller extends \mvc\controller
 	 */
 	static function permModules()
 	{
-		$mylist	= [
-					'posts'          => null,
-					'categories'     => ['admin'],
-					'pollcategories' => null,
-					'pages'          => null,
-					'polls'          => null,
-					'visitors'       => ['admin', 'add', 'delete', 'edit'],
-					'tags'           => ['admin'],
-					'attachments'    => ['admin'],
-					'users'          => null,
-					'tools'          => ['admin'],
-					'permissions'    => ['admin'],
-					'options'        => ['admin', 'add', 'delete']
-				];
-
-		// get features value from view and fix it later
-		$features = [];
-		// if(isset($this->data->feature) && is_array($this->data->feature))
-		// 	$features = $this->data->feature;
-
-		foreach ($features as $feature => $enable)
-		{
-			// if option is not true continue to next
-			if(!$enable)
-				continue;
-
-			// else switch on enabled feature
-			switch ($feature)
-			{
-				case 'book':
-					array_push($mylist, $feature);
-					array_push($mylist, 'bookcategories');
-					break;
-
-				case 'socialnetworks':
-				case 'visitors':
-				default:
-					array_push($mylist, $feature);
-					break;
-			}
-		}
-		// var_dump($mylist);
-		// $mylist = $this->model()->permModuleFill($_content, $mylist);
-		// var_dump($mylist);
-
+		$mylist	= self::modules_search('permissions');
 		return $mylist;
 	}
 }

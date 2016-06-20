@@ -19,25 +19,6 @@ class view extends \mvc\view
 		$this->include->uploader      = true;
 		$this->global->js             = array();
 
-		$this->data->feature['posts']              = true;
-		$this->data->feature['pages']              = true;
-		$this->data->feature['attachments']        = true;
-		$this->data->feature['users']              = true;
-		$this->data->feature['book']               = false;
-		$this->data->feature['visitors']           = false;
-		$this->data->feature['socialnetworks']     = false;
-		$this->data->feature['permissions']        = true;
-		$this->data->feature['options']            = [];
-		$this->data->feature['options']['status']  = true;
-		$this->data->feature['options']['general'] = true;
-		$this->data->feature['options']['config']  = true;
-		$this->data->feature['options']['sms']     = true;
-		$this->data->feature['options']['social']  = true;
-		$this->data->feature['options']['account'] = true;
-		$this->data->feature['tools']              = true;
-		$this->data->feature['tags']               = true;
-		$this->data->feature['categories']         = true;
-
 		$this->data->display['cp_posts'] = "content_cp/posts/layout.html";;
 
 
@@ -48,9 +29,14 @@ class view extends \mvc\view
 											 'ar_SU' => 'Arabic - العربية'];
 
 
+		$this->data->modules 		  = $this->controller::get_modules();
 		// $this->global->js             = [$this->url->myStatic.'js/highcharts/highcharts.js'];
 		// $this->data->page['desc']  = 'salam';
-		$this->data->page['haschild'] = true;
+		$mymodule = $this->module();
+		$this->data->page['desc']	  = $this->controller::get_modules($mymodule, "desc");
+		$this->data->page['title']	  = $this->controller::get_modules($mymodule, "title");
+
+		$this->data->page['haschild'] = $this->controller::get_modules($mymodule, "childless") ? false : true;
 		$this->data->page['title']    = T_(ucfirst(\lib\router::get_url(' ')));
 
 		$this->data->cpModule         = $this->cpModule();
@@ -58,51 +44,9 @@ class view extends \mvc\view
 		$this->data->dir['right']     = $this->global->direction == 'rtl'? 'left':  'right';
 		$this->data->dir['left']      = $this->global->direction == 'rtl'? 'right': 'left';
 
-		$mymodule = $this->module();
 		switch ($mymodule)
 		{
-			case 'tags':
-				$this->data->page['desc']     = T_('Assign keywords to your posts using tags');
-				break;
-
-			case 'categories':
-				$this->data->page['desc']     = T_('Use categories to define sections of your site and group related posts');
-				$this->data->page['title']    = T_('Categories');
-				break;
-
-			case 'filecategories':
-				$this->data->page['desc']     = T_('Use categories to define sections of your site and group related files');
-				$this->data->page['title']    = T_('File Categories');
-				break;
-
-			case 'bookcategories':
-				$this->data->page['desc']     = T_('Use categories to define sections of your site and group related books');
-				$this->data->page['title']    = T_('Book Categories');
-				break;
-
-			case 'books':
-				$this->data->page['desc']     = T_('Use book to define important parts to use in posts');
-				$this->data->page['title']    = T_('books');
-				break;
-
-			case 'posts':
-				$this->data->page['desc']     = T_('Use posts to share your news in specefic category');
-				break;
-
-			case 'pages':
-				$this->data->page['desc']     = T_('Use pages to share your static content');
-				break;
-
-			case 'attachments':
-				$this->data->page['desc']     = T_('Upload your media');
-				break;
-
-			case 'socialnetwork':
-				$this->data->page['desc']     = T_('Publish new post in social networks');
-				break;
-
 			case 'visitors':
-				$this->data->page['haschild'] = false;
 				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
 				{
 					// create for chart
@@ -153,8 +97,6 @@ class view extends \mvc\view
 				break;
 
 			case 'home':
-				$this->data->page['title']          = T_('Dashboard');
-
 				$this->data->countOf['posts']       = $this->model()->countOf('posts');
 				$this->data->countOf['pages']       = $this->model()->countOf('pages');
 				$this->data->countOf['attachments'] = $this->model()->countOf('attachments');
@@ -197,6 +139,11 @@ class view extends \mvc\view
 			$myResult = $this->access('cp', $mymodule, 'add');
 			$this->data->page['haschild'] = $myResult? true: false;
 		}
+		// $f = array_keys($this->controller::modules_hasnot('disable'));
+		// $feature = [];
+		// foreach ($f as $key => $value) {
+		// 	$feature[$value] = true;
+		// }
 		// $this->data->site['title']  = T_('Control Panel'). ' - ' . $this->data->site['title'];
 	}
 
