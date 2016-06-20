@@ -1,4 +1,3 @@
-<!-- {{dump(modules)}} -->
 {%- for key in modules|keys -%}
    {%if not(modules[key]['disable'] == true) and perm[key]['view'] and not('parent' in modules[key]|keys) and not(key == 'home')%}
    {%set title = key|capitalize%}
