@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.0.1: bugfix to work cp on php5.6
  * Version 7.0.0: modular bases start
  * Version 6.0.0: many fix and run shortURL
  * Version 5.0.1: db\polls: change question text with keyword
