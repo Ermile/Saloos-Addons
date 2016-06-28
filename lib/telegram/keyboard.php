@@ -31,17 +31,23 @@ class keyboard extends tg
 		$menu =
 		[
 			$_type              => [],
-			'one_time_keyboard' => true,
-			'resize_keyboard'   => true,
-			'selective'         => true,
 		];
-		if($_onlyArray === 'public')
+
+		if($_type === 'keyboard')
 		{
-			$menu['selective'] = false;
-		}
-		if($_onlyArray === 'fixed')
-		{
-			$menu['resize_keyboard'] = false;
+			$menu['one_time_keyboard'] = true;
+			$menu['resize_keyboard']   = true;
+			$menu['selective']         = true;
+
+			if($_onlyArray === 'public')
+			{
+				$menu['selective'] = false;
+			}
+			if($_onlyArray === 'fixed')
+			{
+				$menu['resize_keyboard'] = false;
+			}
+
 		}
 
 		// calculate number of item in each row
