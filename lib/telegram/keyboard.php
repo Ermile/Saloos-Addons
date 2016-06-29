@@ -35,7 +35,7 @@ class keyboard extends tg
 
 		if($_type === 'keyboard')
 		{
-			$menu['one_time_keyboard'] = true;
+			$menu['one_time_keyboard'] = false;
 			$menu['resize_keyboard']   = true;
 			$menu['selective']         = true;
 
@@ -47,7 +47,10 @@ class keyboard extends tg
 			{
 				$menu['resize_keyboard'] = false;
 			}
-
+			if($_onlyArray === 'one_time')
+			{
+				$menu['one_time_keyboard'] = true;
+			}
 		}
 
 		// calculate number of item in each row
