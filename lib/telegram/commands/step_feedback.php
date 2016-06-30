@@ -7,6 +7,7 @@ use \lib\telegram\step;
 class step_feedback
 {
 	private static $menu = ["hide_keyboard" => true];
+
 	/**
 	 * create define menu that allow user to select
 	 * @param  boolean $_onlyMenu [description]
@@ -64,16 +65,15 @@ class step_feedback
 		}
 
 		self::saveComment($_feedback);
-		step::stop();
-
 		$result   =
 		[
 			[
 				'text'         => $txt_text,
-				'reply_markup' => menu::main(true),
+				'reply_markup' => step::get('menu'),
 			],
 		];
 
+		step::stop();
 		return $result;
 	}
 
