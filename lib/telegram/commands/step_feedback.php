@@ -96,10 +96,16 @@ class step_feedback
 		$result = \lib\db\comments::save($_feedback, $meta);
 
 		// send feedback to javad account after saving in comments table
-		$msg =
+		$text   = "📨 بازخورد جدید از ";
+		$text   .= bot::response('from', 'first_name');
+		$text   .= ' '. bot::response('from', 'last_name');
+		$text   .= "\n$_feedback\n";
+		$text   .= "\nکد کاربر ". bot::response('from');
+		$text   .= ' @'. bot::response('from', 'username');
+		$msg    =
 		[
 			'method'       => 'sendMessage',
-			'text'         => $_feedback,
+			'text'         => $text,
 			'chat_id'      => '46898544',
 
 		];

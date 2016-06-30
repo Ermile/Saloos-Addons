@@ -201,18 +201,28 @@ class step extends tg
 					$currentStep = 'step'. self::get('pointer');
 					break;
 			}
-			// create namespace and class name
-			$call        = tg::$cmdFolder. 'step_'. self::get('name');
-			// create function full name
-			$funcName    = $call. '::'. $currentStep;
 			// save result of step
 			$result      = null;
+			// create namespace and class name
+			$call        = tg::$cmdFolder;
+			// create function full name
+			$funcName    = 'step_'. self::get('name'). '::'. $currentStep;
 			// generate func name
-			if(is_callable($funcName))
+			if(is_callable($call.$funcName))
 			{
 				// get and return response
-				$result = call_user_func($funcName, $_text);
+				$result = call_user_func($call.$funcName, $_text);
 			}
+			elseif(self::get('name'))
+			{
+				$call = '\lib\telegram\commands\\';
+				if(is_callable($call.$funcName))
+				{
+					// get and return response
+					$result = call_user_func($call.$funcName, $_text);
+				}
+			}
+
 			// save text afrer reading current step function
 			self::set('text', $_text);
 			// if want to stop at the end call stop func
