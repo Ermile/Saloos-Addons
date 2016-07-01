@@ -137,5 +137,35 @@ class users
 
 		return $result;
 	}
+
+
+
+	public static function getDetail($_user, $_field = '*', $_cat = null, $_key = null)
+	{
+		$qry = 
+			"SELECT $_field FROM `options` WHERE user_id = $_user ";
+		if($_cat)
+		{
+			$qry .= "AND option_cat LIKE '$_cat'";
+		}
+
+		if($_key)
+		{
+			$qry .= "AND option_key LIKE '$_key'";
+		}
+		if(is_string($_field))
+		{
+			$result = \lib\db::get($qry, $_field, true);
+		}
+		else
+		{
+			$result = \lib\db::get($qry, null, true);
+		}
+		// var_dump($result);
+		// var_dump($qry);
+
+
+		return $result;
+	}
 }
 ?>
