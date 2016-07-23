@@ -166,7 +166,10 @@ class polls
 			LIMIT 1
 		";
 		$answers      = \lib\db::get($qry, 'meta', true);
-		$answers      = json_decode($answers, true);
+		if(is_string($answers))
+		{
+			$answers      = json_decode($answers, true);
+		}
 		$final_result = $answers;
 		// fill result into answers list
 		foreach ($final_result as $key => $value)
