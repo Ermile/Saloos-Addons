@@ -213,7 +213,10 @@ class model extends \addons\content_cp\home\model
 					$url_body = $this->sql()->table('terms')->where('id', 1)
 						->select()->assoc('term_url');
 				}
-				$datarow['type'] = 'poll_sarshomar';
+				if($cpModule['raw'] === 'polls')
+				{
+					$datarow['type'] = 'poll_sarshomar';
+				}
 				break;
 		}
 		// generate posturl
