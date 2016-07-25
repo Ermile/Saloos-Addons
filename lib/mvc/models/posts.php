@@ -162,7 +162,28 @@ trait posts
 		// var_dump($qry);
 		$qry = $qry->select('DISTINCT');
 		// echo $qry->string();
-		return $qry->allassoc();
+		$result = $qry->allassoc();
+
+		// decode and change name of all record to better name
+		foreach ($result as $id => $row)
+		{
+			foreach ($row as $key => $value)
+			{
+				$pos = strpos($key,'post_');
+				if ($pos !== false)
+				{
+					$fieldName = substr($key, 5);
+					if($fieldName === 'content')
+					{
+						$value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, "UTF-8");
+					}
+					$result[$id][$fieldName] = $value;
+					unset($result[$id][$key]);
+				}
+			}
+		}
+
+		return $result;
 	}
 }
 ?>
