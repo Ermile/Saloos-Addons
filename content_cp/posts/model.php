@@ -599,7 +599,7 @@ class model extends \addons\content_cp\home\model
 		{
 			$id = $qry_count->assoc('id');
 			debug::property('status','fail');
-			$link = '<a target="_blank" href=/attachments/edit='. $id. '>'. T_('Duplicate - File exist').'</a>';
+			$link = '<a target="_blank" href=/cp/attachments/edit='. $id. '>'. T_('Duplicate - File exist').'</a>';
 			debug::property('error', $link);
 
 			$this->_processor(['force_json'=>true, 'not_redirect'=>true]);
@@ -682,7 +682,7 @@ class model extends \addons\content_cp\home\model
 		$this->commit(function($_id)
 		{
 			debug::property('status', 'ok');
-			$link = '<a target="_blank" href=/attachments/edit='.$_id.'>'. T_('Edit').'</a>';
+			$link = '<a target="_blank" href=/cp/attachments/edit='.$_id.'>'. T_('Edit').'</a>';
 			debug::property('edit', $link);
 
 		}, $post_new_id);
