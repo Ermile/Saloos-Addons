@@ -483,11 +483,11 @@ class model extends \addons\content_cp\home\model
 		}
 		if(isset($_options['hook']))
 		{
-			$result = \lib\utility\telegram\tg::setWebhook();
+			$result = \lib\telegram\tg::setWebhook();
 		}
 		else
 		{
-			$result = \lib\utility\telegram\tg::unsetWebhook();
+			$result = \lib\telegram\tg::unsetWebhook();
 		}
 		debug::true($result);
 	}
