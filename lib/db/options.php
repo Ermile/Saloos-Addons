@@ -1,17 +1,17 @@
 <?php
 namespace lib\db;
 
-/** logitems managing **/
-class logitems
+/** options managing **/
+class options
 {
 	/**
-	 * this library work with logitems table
+	 * this library work with options table
 	 * v1.0
 	 */
 
 
 	/**
-	 * insert new recrod in logitems table
+	 * insert new recrod in options table
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
@@ -25,7 +25,7 @@ class logitems
 
 		// make insert query
 		$query = "
-			INSERT INTO logitems
+			INSERT INTO options
 				($fields) VALUES ('$values')
 			";
 
@@ -35,7 +35,7 @@ class logitems
 
 
 	/**
-	 * update field from logitems table
+	 * update field from options table
 	 * get fields and value to update
 	 * @param array $_args fields data
 	 * @param string || int $_id record id
@@ -52,9 +52,27 @@ class logitems
 
 		// make update query
 		$query = "
-				UPDATE logitems
+				UPDATE options
 				SET $query
-				WHERE logitems.id = $_id;
+				WHERE options.id = $_id;
+				";
+
+		return \lib\db::query($query);
+	}
+
+
+	/**
+	 * we can not delete a record from database
+	 * we just update field status to 'deleted' or 'disable' or set this record to black list
+	 * @param string || int $_id record id
+	 * @return mysql result
+	 */
+	public function delete($_id) {
+		// get id
+		$query = "
+				UPDATE FROM options
+				SET options.option_status = 'disable'
+				WHERE options.id = $_id
 				";
 
 		return \lib\db::query($query);
@@ -66,7 +84,7 @@ class logitems
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query , $_type = 'query') {
+	public function select($_query, $_type = 'query') {
 		return \lib\db::$_type($_query);
 	}
 

@@ -142,7 +142,7 @@ class users
 
 	public static function getDetail($_user, $_field = '*', $_cat = null, $_key = null)
 	{
-		$qry = 
+		$qry =
 			"SELECT $_field FROM `options` WHERE user_id = $_user ";
 		if($_cat)
 		{

@@ -9,15 +9,6 @@ class logs
 	 * v1.0
 	 */
 
-	// database field 
-	public $fields = [
-					'logitem_id'     => true, // this field can not be null
-					'user_id'        => null,
-					'log_data'       => null,
-					'log_meta'       => null,
-					'log_status'     => ['enable','disable','expire','deliver'],
-					'log_createdate' => null,
-					];
 
 	/**
 	 * insert new recrod in logs table
@@ -25,15 +16,12 @@ class logs
 	 * @return mysql result
 	 */
 	public static function insert($_args){
-		
-		// check match fields and database field
-		$field_value = config::check($_args, $this->fields);
 
 		// creat field list string
-		$fields = join(array_keys($field_value), ",");
+		$fields = join(array_keys($_args), ",");
 
 		// creat value list string
-		$values = join(array_values($field_value), "','");
+		$values = join(array_values($_args), "','");
 
 		// make insert query
 		$query = "
@@ -42,7 +30,6 @@ class logs
 			";
 
 		return \lib\db::query($query);
-		
 	}
 
 
@@ -54,13 +41,10 @@ class logs
 	 * @return mysql result
 	 */
 	public function update($_args, $_id) {
-			
-		// config fields and value
-		$field_value = config::check($_args, $this->fields);
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
-		foreach ($field_value as $field => $value) {
+		foreach ($_args as $field => $value) {
 			$query[] = "$field = '$value'";
 		}
 		$query = join($query, ",");
@@ -71,13 +55,13 @@ class logs
 				SET $query
 				WHERE logs.id = $_id;
 				";
-		
+
 		return \lib\db::query($query);
 	}
 
 
 	/**
-	 * we can not delete a record from database 
+	 * we can not delete a record from database
 	 * we just update field status to 'deleted' or 'disable' or set this record to black list
 	 * @param string || int $_id record id
 	 * @return mysql result
@@ -95,12 +79,12 @@ class logs
 
 
 	/**
-	 * get string query and return mysql result 
+	 * get string query and return mysql result
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query) {
-		return \lib\db::query($_query);
+	public function select($_query, $_type = 'query') {
+		return \lib\db::$_type($_query);
 	}
 
 }

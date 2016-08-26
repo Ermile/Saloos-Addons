@@ -16,7 +16,7 @@ class notifications
 	 * @return mysql result
 	 */
 	public static function insert($_args){
-		
+
 		// creat field list string
 		$fields = join(array_keys($_args), ",");
 
@@ -30,7 +30,7 @@ class notifications
 			";
 
 		return \lib\db::query($query);
-		
+
 	}
 
 
@@ -42,7 +42,7 @@ class notifications
 	 * @return mysql result
 	 */
 	public function update($_args, $_id) {
-			
+
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
 		foreach ($_args as $field => $value) {
@@ -56,13 +56,13 @@ class notifications
 				SET $query
 				WHERE notifications.id = $_id;
 				";
-		
+
 		return \lib\db::query($query);
 	}
 
 
 	/**
-	 * we can not delete a record from database 
+	 * we can not delete a record from database
 	 * we just update field status to 'deleted' or 'disable' or set this record to black list
 	 * @param string || int $_id record id
 	 * @return mysql result
@@ -80,12 +80,12 @@ class notifications
 
 
 	/**
-	 * get string query and return mysql result 
+	 * get string query and return mysql result
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query) {
-		return \lib\db::query($_query);
+	public function select($_query, $_type = 'query') {
+		return \lib\db::$_type($_query);
 	}
 
 }
