@@ -86,8 +86,8 @@ class view extends \mvc\view
 							$period = "%Y-%m-%d";
 							break;
 					}
-					$this->data->signup   = \lib\db\chart_users::signup($period);
-					$this->data->answered = \lib\db\chart_polls::answeredCount($period);
+					$this->data->signup   = \lib\db\chart\users::signup($period);
+					$this->data->answered = \lib\db\chart\polls::answeredCount($period);
 
 					if($this->data->visitors <= 1)
 					{

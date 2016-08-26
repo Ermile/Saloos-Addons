@@ -1,8 +1,8 @@
 <?php
-namespace lib\db;
+namespace lib\db\chart;
 
 /** get users stats **/
-class chart_users
+class users
 {
 	/**
 	 * this library generate stats from users
