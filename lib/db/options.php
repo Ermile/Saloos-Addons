@@ -34,6 +34,10 @@ class options
 	}
 
 
+	public static function insert_multi($_args){
+
+	}
+
 	/**
 	 * update field from options table
 	 * get fields and value to update
