@@ -41,7 +41,7 @@ class notifications
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function update($_args, $_id) {
+	public static function update($_args, $_id) {
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
@@ -67,7 +67,7 @@ class notifications
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function delete($_id) {
+	public static function delete($_id) {
 		// get id
 		$query = "
 				UPDATE FROM notifications
@@ -84,7 +84,7 @@ class notifications
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query') {
 		return \lib\db::$_type($_query);
 	}
 

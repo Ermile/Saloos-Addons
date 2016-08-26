@@ -40,7 +40,7 @@ class posts
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function update($_args, $_id) {
+	public static function update($_args, $_id) {
 
 		// get slug field from slugify library
 		if(isset($_args['term_slug'])){
@@ -71,7 +71,7 @@ class posts
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function delete($_id) {
+	public static function delete($_id) {
 		// get id
 		$query = "
 				UPDATE FROM posts
@@ -88,7 +88,7 @@ class posts
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query') {
 		return \lib\db::$_type($_query);
 	}
 

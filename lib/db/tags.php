@@ -32,7 +32,7 @@ class tags
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function update($_args, $_id) {
+	public static function update($_args, $_id) {
 
 		// jost tag can insert
 		$_args['term_type']	= 'tag';
@@ -47,7 +47,7 @@ class tags
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function delete($_id) {
+	public static function delete($_id) {
 		return terms::delete($_id);
 	}
 
@@ -57,7 +57,7 @@ class tags
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query') {
 		return terms::select($_query, $_type);
 	}
 

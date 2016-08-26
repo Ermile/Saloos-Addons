@@ -41,7 +41,7 @@ class terms
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function update($_args, $_id) {
+	public static function update($_args, $_id) {
 
 		$query = [];
 		foreach ($_args as $field => $value) {
@@ -67,7 +67,7 @@ class terms
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public function block($_id) {
+	public static function block($_id) {
 
 		// get id
 		$query = "
@@ -85,7 +85,7 @@ class terms
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query') {
 		return \lib\db::$_type($_query);
 	}
 
