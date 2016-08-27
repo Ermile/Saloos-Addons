@@ -27,8 +27,9 @@ trait terms
 		$this->data->page['title'] = $this->data->post['title'];
 
 		// generate datatable
-		$this->data->datatable = $this->model()->sp_postsInTerm();
-
+		$result = $this->model()->sp_postsInTerm();
+		$this->data->datatable = $result['result'];
+		$this->data->pagenation = $result['pagenation'];
 		$this->data->datatable_cats = $this->model()->sp_catsInTerm();
 		// switch ($this->data->module)
 		// {

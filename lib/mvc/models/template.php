@@ -87,6 +87,9 @@ trait template
 					if(substr($value, 0, 1) == '{')
 					{
 						$datarow[$key] = json_decode($value, true);
+						if(is_null($datarow[$key]) && preg_match("/meta$/", $key)){
+							$datarow[$key] = json_decode(html_entity_decode($value), true);
+						}
 					}
 				}
 				return $datarow;

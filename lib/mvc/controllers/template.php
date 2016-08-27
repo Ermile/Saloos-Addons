@@ -120,7 +120,7 @@ trait template
 		$post_type = strtok($myurl['type'], '_');
 
 		// if url does not exist show 404 error
-		if(!$myurl)
+		if(!$myurl || ($myurl['table'] != 'terms' && \lib\router::get_storage("pagenation")))
 		{
 			// if user entered url contain one of our site language
 

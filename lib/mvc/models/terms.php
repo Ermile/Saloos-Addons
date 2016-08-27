@@ -55,7 +55,7 @@ trait terms
 	 * return list of posts in custom term like cat or tag
 	 * @return [type] datarow
 	 */
-	public function sp_postsInTerm()
+	public function sp_postsInTerm($_limit = null)
 	{
 		$url = $this->url('path');
 		if(substr($url, 0, 4) === 'tag/')
@@ -89,8 +89,34 @@ trait terms
 		$qry = $this->sql()->table('posts')->where('post_status', 'publish')->order('id', 'DESC');
 		$qry->join('termusages')->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"')->field(false);
 		$qry->join('terms')->on('id', '#termusages.term_id')->and('term_url', $url)->groupby('#posts.id')->field(false);
+		if($_limit){
+			$qryCount = clone $qry;
+			$qryCount->field("#count(posts.id)");
+			$count = $qryCount->select()->num();
+			$pagenationPages 	= ceil($count / $_limit);
+			$pagenationCurrent 	=  \lib\router::get_storage("pagenation");
+			$pagenationNext 	= \lib\router::get_storage("pagenation") +1;
+			$pagenationPrev 	= \lib\router::get_storage("pagenation") -1;
+			if($pagenationCurrent !== null
+				AND ($pagenationCurrent < 1 || $pagenationCurrent > $pagenationPages)){
+					\lib\error::page(T_("Does not exist!"));
+					return;
+			}
+			$pagenation = [
+			"num_page"		=> $pagenationPages,
+			"pages" 		=> intval($pagenationPages),
+			"current" 		=> ($pagenationCurrent == 0)? 1 : intval($pagenationCurrent),
+			"next" 			=> ($pagenationNext <= $pagenationPages) ? $pagenationNext : false,
+			"prev" 			=> ($pagenationPrev >= 1) ? $pagenationPrev : false,
+			"count_link"	=> 7,
+			"current_url" 	=> \lib\router::get_url(),
+			];
+			$start = (\lib\router::get_storage("pagenation")) ? (\lib\router::get_storage("pagenation") -1) * $_limit : 0;
 
-		return $qry->select()->allassoc();
+
+			$qry->limit($start, $_limit);
+		}
+		return ["pagenation" => $pagenation, "result" => $qry->select()->allassoc()];
 	}
 }
 ?>
