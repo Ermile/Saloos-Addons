@@ -87,7 +87,10 @@ class view extends \mvc\view
 							break;
 					}
 					$this->data->signup   = \lib\db\chart\users::signup($period);
-					$this->data->answered = \lib\db\chart\polls::answeredCount($period);
+					if(class_exists('\lib\db\chart\polls'))
+					{
+						$this->data->answered = \lib\db\chart\polls::answeredCount($period);
+					}
 
 					if($this->data->visitors <= 1)
 					{
