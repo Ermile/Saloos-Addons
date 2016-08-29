@@ -35,6 +35,40 @@ class options
 
 
 	public static function insert_multi($_args){
+		// marge all input array to crat list of field to be insert
+		$fields = [];
+		foreach ($_args as $key => $value) {
+			$fields = array_merge($fields, $value);
+		}
+
+		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
+		$values = [];
+		$together = [];
+		foreach ($_args	 as $key => $value) {
+			foreach ($fields as $field_name => $vain) {
+				if(array_key_exists($field_name, $value)){
+					$values[] = "'" . $value[$field_name] . "'";
+				}else{
+					$values[] = "NULL";
+				}
+			}
+			$together[] = join($values, ",");
+			$values = [];
+		}
+
+		$fields = join(array_keys($fields), ",");
+
+		$values = join($together, "),(");
+
+		// crate string query
+		$query = "
+				INSERT INTO options
+				($fields)
+				VALUES
+				($values)
+				";
+
+		return \lib\db::query($query);
 
 	}
 
