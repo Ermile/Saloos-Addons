@@ -2,14 +2,13 @@
 namespace addons\content_cp\home;
 class controller extends \mvc\controller
 {
-	use \lib\mvc\controllers\modules;
 	/**
 	 * check login and permission
 	 * @return [type] [description]
 	 */
 	function __construct(){
 		parent::__construct();
-		self::default_modules();
+		// self::default_modules();
 	}
 	function _permission($_content = null, $_login = true)
 	{
@@ -190,14 +189,14 @@ class controller extends \mvc\controller
 	public function cpModlueList($_module = null)
 	{
 		// return true;
-		$mylist	= array_keys(self::get_modules());
+		$mylist	= array_keys(self::$manifest['modules']->get_modules());
 		if($_module == 'all')
 		{
 			return $mylist;
 		}
 		elseif($_module == 'permissions')
 		{
-			$mylist	= array_keys(self::modules_search('permissions'));
+			$mylist	= array_keys(self::$manifest['modules']->modules_search('permissions'));
 
 			return $mylist;
 		}
@@ -283,7 +282,7 @@ class controller extends \mvc\controller
 	 */
 	static function permModules()
 	{
-		$mylist	= self::modules_search('permissions');
+		$mylist	= self::$manifest['modules']->modules_search('permissions');
 		return $mylist;
 	}
 }

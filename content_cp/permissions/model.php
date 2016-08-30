@@ -250,6 +250,7 @@ class model extends \addons\content_cp\home\model
 		// 3. fill the result
 		foreach (\lib\utility\option::contentList() as $myContent)
 		{
+
 			// 3.1 fill null
 			$permResult[$myContent] =
 			[
@@ -281,7 +282,6 @@ class model extends \addons\content_cp\home\model
 					$permResult[$myContent]['modules'][$myLoc] = $value;
 			}
 		}
-
 		return $permResult;
 	}
 }

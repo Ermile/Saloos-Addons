@@ -28,15 +28,14 @@ class view extends \mvc\view
 											 'en_US' => 'English',
 											 'ar_SU' => 'Arabic - العربية'];
 
-
-		$this->data->modules 		  = $this->controller->get_modules();
+		$this->data->modules 		  = $this->controller::$manifest['modules']->get_modules();
 		// $this->global->js             = [$this->url->myStatic.'js/highcharts/highcharts.js'];
 		// $this->data->page['desc']  = 'salam';
 		$mymodule = $this->module();
-		$this->data->page['desc']	  = $this->controller->get_modules($mymodule, "desc");
-		$this->data->page['title']	  = $this->controller->get_modules($mymodule, "title");
+		$this->data->page['desc']	  = $this->controller::$manifest['modules']->get_modules($mymodule, "desc");
+		$this->data->page['title']	  = $this->controller::$manifest['modules']->get_modules($mymodule, "title");
 
-		$this->data->page['haschild'] = $this->controller->get_modules($mymodule, "childless") ? false : true;
+		$this->data->page['haschild'] = $this->controller::$manifest['modules']->get_modules($mymodule, "childless") ? false : true;
 		$this->data->page['title']    = T_(ucfirst(\lib\router::get_url(' ')));
 
 		$this->data->cpModule         = $this->cpModule();
