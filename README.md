@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.2.0: manifest bugfix and modules
  * Version 7.1.0: terms pagenation added
  * Version 7.0.1: bugfix to work cp on php5.6
  * Version 7.0.0: modular bases start
