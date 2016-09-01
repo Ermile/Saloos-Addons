@@ -328,7 +328,7 @@ class view extends \mvc\view
 		{
 			$myPass->label(T_('New Password'))->value(null)->pl(T_('If you want to change password enter it, else leave it blank'));
 		}
-		$this->data->form->users->add('position', 'text')->label(T_("position"))->value()->compile();
+		$this->data->form->users->add('position', 'text')->name('position')->label(T_("position"))->value()->compile();
 		$this->data->form->users->after('position', 'user_displayname');
 	}
 

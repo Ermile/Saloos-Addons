@@ -121,6 +121,18 @@ trait cp
 					{
 						$incomplete_fields = null;
 					}
+
+					// add meta to save position of users and new properties
+					$meta =
+					[
+						'position' => utility::post('position')
+					];
+					if($meta)
+					{
+						$not_change = false;
+					}
+					$meta = json_encode($meta, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE);
+					$qry  = $qry->set('user_meta', $meta);
 					break;
 			}
 		}
