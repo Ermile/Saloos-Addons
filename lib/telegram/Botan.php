@@ -48,11 +48,11 @@ class Botan
 
     public function track($message, $event_name = 'Message')
     {
-        $uid = $message['from']['id'];
-        if(!$message || !$uid)
+        if(!$message || !isset($message['from']['id']))
         {
             return 'input data is not valid';
         }
+        $uid = $message['from']['id'];
         $url = str_replace(
             ['#TOKEN', '#UID', '#NAME'],
             [$this->token, $uid, urlencode($event_name)],
