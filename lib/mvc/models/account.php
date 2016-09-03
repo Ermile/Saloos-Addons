@@ -67,7 +67,15 @@ trait account
 		{
 			if(substr($value, 0, 5) === 'user_')
 			{
-				$_SESSION['user'][substr($value, 5)] = $_datarow[$value];
+				$key = substr($value, 5);
+				if($key == 'meta')
+				{
+					$_SESSION['user'][$key] = json_decode($_datarow[$value], true);
+				}
+				else
+				{
+					$_SESSION['user'][$key] = $_datarow[$value];
+				}
 			}
 			else
 			{

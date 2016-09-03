@@ -33,6 +33,7 @@ class model extends \addons\content_account\home\model
 				$myfields = array('id',
 										'user_displayname',
 										'user_mobile',
+										'user_meta',
 										'user_status',
 										);
 				$this->setLoginSession($tmp_result, $myfields);

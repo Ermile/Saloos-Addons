@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.2.2: save user_meta in login array
  * Version 7.2.1: save position of users into db
  * Version 7.2.0: manifest bugfix and modules
  * Version 7.1.0: terms pagenation added
