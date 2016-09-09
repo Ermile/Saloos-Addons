@@ -118,7 +118,7 @@ trait template
 		}
 		// set post type, get before underscope
 		$post_type = strtok($myurl['type'], '_');
-
+		$route_check_true = false;
 		// if url does not exist show 404 error
 		if(!$myurl || ($myurl['table'] != 'terms' && \lib\router::get_storage("pagenation")))
 		{
@@ -129,39 +129,53 @@ trait template
 			if( is_file(root.'content/template/static_'. $currentPath. '.html') )
 			{
 				$this->display_name	= 'content\template\static_'. $currentPath. '.html';
+				$route_check_true = true;
 			}
-			// elseif 404 template exist show it
-			elseif( is_file(root.'content/template/404.html') )
-			{
-				header("HTTP/1.1 404 NOT FOUND");
-				$this->display_name	= 'content\template\404.html';
-			}
-			// else show saloos default error page
-			else
-			{
-				\lib\error::page(T_("Does not exist!"));
-				return;
-			}
+			// // elseif 404 template exist show it
+			// elseif( is_file(root.'content/template/404.html') )
+			// {
+			// 	header("HTTP/1.1 404 NOT FOUND");
+			// 	$this->display_name	= 'content\template\404.html';
+			// }
+			// // else show saloos default error page
+			// else
+			// {
+			// 	\lib\error::page(T_("Does not exist!"));
+			// 	return;
+			// }
 		}
 
 		// elseif template type exist show it
 		elseif( is_file(root.'content/template/'.$post_type.'-'.$myurl['slug'].'.html') )
+		{
 			$this->display_name	= 'content\template\\'.$post_type.'-'.$myurl['slug'].'.html';
-
+			$route_check_true = true;
+		}
 		// elseif template type exist show it
 		elseif( is_file(root.'content/template/'.$post_type.'.html') )
+		{
 			$this->display_name	= 'content\template\\'.$post_type.'.html';
+			$route_check_true = true;
+		}
 
 		// elseif template type exist show it
 		elseif( is_file(root.'content/template/'.$myurl['table'].'.html') )
+		{
 			$this->display_name	= 'content\template\\'.$myurl['table'].'.html';
+			$route_check_true = true;
+		}
 
 		// elseif default template exist show it else use homepage!
 		elseif( is_file(root.'content/template/dafault.html') )
+		{
 			$this->display_name	= 'content\template\dafault.html';
-
-		$this->route_check_true = true;
-		$this->get(null, $myurl['table'])->ALL("/.*/");
+			$route_check_true = true;
+		}
+		if($route_check_true)
+		{
+			$this->route_check_true = $route_check_true;
+			$this->get(null, $myurl['table'])->ALL("/.*/");
+		}
 	}
 }
 ?>
