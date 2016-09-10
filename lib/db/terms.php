@@ -15,7 +15,8 @@ class terms
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
 
 		// creat field list string
 		$fields = join(array_keys($_args), ",");
@@ -34,6 +35,52 @@ class terms
 
 
 	/**
+	 * insert multi value to terms
+	 *
+	 * @param      <type>  $_args  The arguments
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function insert_multi($_args)
+	{
+		// marge all input array to creat list of field to be insert
+		$fields = [];
+		foreach ($_args as $key => $value) {
+			$fields = array_merge($fields, $value);
+		}
+
+		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
+		$values = [];
+		$together = [];
+		foreach ($_args	 as $key => $value) {
+			foreach ($fields as $field_name => $vain) {
+				if(array_key_exists($field_name, $value)){
+					$values[] = "'" . $value[$field_name] . "'";
+				}else{
+					$values[] = "NULL";
+				}
+			}
+			$together[] = join($values, ",");
+			$values = [];
+		}
+
+		$fields = join(array_keys($fields), ",");
+
+		$values = join($together, "),(");
+
+		// crate string query
+		$query = "
+				INSERT IGNORE INTO terms
+				($fields)
+				VALUES
+				($values)
+				";
+
+		return \lib\db::query($query);
+	}
+
+
+	/**
 	 * update field from terms table
 	 * get fields and value to update
 	 * @example update table set field = 'value' , field = 'value' , .....
@@ -41,10 +88,12 @@ class terms
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id)
+	{
 
 		$query = [];
-		foreach ($_args as $field => $value) {
+		foreach ($_args as $field => $value)
+		{
 			$query[] = "$field = '$value'";
 		}
 		$query = join($query, ",");
@@ -67,7 +116,8 @@ class terms
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function block($_id) {
+	public static function block($_id)
+	{
 
 		// get id
 		$query = "
@@ -85,7 +135,8 @@ class terms
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query')
+	{
 		return \lib\db::$_type($_query);
 	}
 

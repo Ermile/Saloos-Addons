@@ -17,11 +17,40 @@ class tags
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
 		// jost tag can insert
 		$_args['term_type']	= 'tag';
 
 		return terms::insert($_args);
+	}
+
+
+	/**
+	 * insert mulit tag
+	 *
+	 * @param      <type>  $_tags  strign of tags
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function insert_multi($_tags)
+	{
+		//split tags
+		$tags = preg_split("/\,/", $_tags);
+		// remove empty tags
+		$tags = array_filter($tags);
+
+		$result = [];
+		foreach ($tags as $key => $value) {
+			$result[] =
+			[
+				'term_type'  => 'tag',
+				'term_title' => $value,
+				'term_url'   => $value,
+				'term_slug'  => \lib\utility\filter::slug($value)
+			];
+		}
+		return \lib\db\terms::insert_multi($result);
 	}
 
 
@@ -32,7 +61,8 @@ class tags
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id)
+	{
 
 		// jost tag can insert
 		$_args['term_type']	= 'tag';
@@ -47,8 +77,44 @@ class tags
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id) {
+	public static function delete($_id)
+	{
 		return terms::delete($_id);
+	}
+
+
+	/**
+	 * get id
+	 *
+	 * @param      <type>  $_tags  The tags
+	 */
+	public static function get_multi_id($_tags)
+	{
+		//split tags
+		$tags = preg_split("/\,/", $_tags);
+		// remove empty tags
+		$tags = array_filter($tags);
+
+		$condition = [];
+		foreach ($tags as $key => $value)
+		{
+			$condition[] = " term_title = '" . $value . "' ";
+		}
+
+		$condition = join($condition, " OR ");
+
+		$query = "
+			SELECT
+				id
+			FROM
+				terms
+			WHERE
+				term_type = 'tag' AND
+				($condition)
+			";
+
+		$result = \lib\db::get($query, "id");
+		return $result;
 	}
 
 
@@ -57,7 +123,8 @@ class tags
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query')
+	{
 		return terms::select($_query, $_type);
 	}
 

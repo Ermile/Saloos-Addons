@@ -44,7 +44,7 @@ class posts
 
 		// get slug field from slugify library
 		if(isset($_args['term_slug'])){
-			$_args['term_slug'] = \lib\utility\slugify::slugify($_args['term_slug']);
+			$_args['term_slug'] = \lib\utility\filter::slug($_args['term_slug']);
 		}
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]

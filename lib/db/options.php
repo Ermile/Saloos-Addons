@@ -35,7 +35,7 @@ class options
 
 
 	public static function insert_multi($_args){
-		// marge all input array to crat list of field to be insert
+		// marge all input array to creat list of field to be insert
 		$fields = [];
 		foreach ($_args as $key => $value) {
 			$fields = array_merge($fields, $value);
