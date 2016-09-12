@@ -40,6 +40,11 @@ class tags
 		// remove empty tags
 		$tags = array_filter($tags);
 
+		if(empty($tags))
+		{
+			return null;
+		}
+
 		$result = [];
 		foreach ($tags as $key => $value) {
 			$result[] =
@@ -94,6 +99,11 @@ class tags
 		$tags = preg_split("/\,/", $_tags);
 		// remove empty tags
 		$tags = array_filter($tags);
+
+		if(empty($tags))
+		{
+			return null;
+		}
 
 		$condition = [];
 		foreach ($tags as $key => $value)

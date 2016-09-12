@@ -18,6 +18,10 @@ class terms
 	public static function insert($_args)
 	{
 
+		if(empty($_args))
+		{
+			return null;
+		}
 		// creat field list string
 		$fields = join(array_keys($_args), ",");
 
@@ -55,13 +59,18 @@ class terms
 		foreach ($_args	 as $key => $value) {
 			foreach ($fields as $field_name => $vain) {
 				if(array_key_exists($field_name, $value)){
-					$values[] = "'" . $value[$field_name] . "'";
+					$values[] = "'" . trim($value[$field_name]) . "'";
 				}else{
 					$values[] = "NULL";
 				}
 			}
 			$together[] = join($values, ",");
 			$values = [];
+		}
+
+		if(empty($fields))
+		{
+			return null;
 		}
 
 		$fields = join(array_keys($fields), ",");

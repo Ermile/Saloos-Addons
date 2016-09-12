@@ -73,6 +73,43 @@ class options
 	}
 
 	/**
+	 * update record in options table if we have error in insert
+	 * get fields and value to update  WHERE fields = $value :|
+	 * @param array $_args fields data
+	 * @return mysql result
+	 */
+	public static function update_on_error($_args)
+	{
+		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
+		$fields = [];
+		$where = [];
+		foreach ($_args as $field => $value) {
+			$fields[] = "$field = '$value'";
+
+			if($field != 'option_meta')
+			{
+				$where[] = "$field = '$value'";
+			}
+		}
+
+		$set_fields = join($fields, ",");
+		$where      = join($where, " AND ");
+
+		// make update fields
+		$query = "
+				UPDATE
+					options
+				SET
+					$set_fields
+				WHERE
+					$where
+				";
+
+		return \lib\db::query($query);
+	}
+
+
+	/**
 	 * update field from options table
 	 * get fields and value to update
 	 * @param array $_args fields data
