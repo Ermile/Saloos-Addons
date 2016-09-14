@@ -30,7 +30,7 @@ class model extends \mvc\model
 				{
 					debug::true(T_("change password successfully"));
 					$this->redirector()->set_domain()->set_url();
-					\lib\utility\sms::send($_mobile, 'changepass');
+					// \lib\utility\sms::send($_mobile, 'changepass');
 				});
 
 				// if a query has error or any error occour in any part of codes, run roolback
