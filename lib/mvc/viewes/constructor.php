@@ -9,6 +9,8 @@ trait constructor
 	 */
 	public function mvc_construct()
 	{
+		array_push($this->twig_include_path, addons);
+
 		// define default value for url
 		$this->url->full             = $this->url('full');       // full url except get parameter with http[s]
 		$this->url->path             = $this->url('path');       // full path except parameter and domain name
@@ -96,9 +98,6 @@ trait constructor
 		elseif(isset($this->url->MainStatic))
 			$this->url->myStatic = $this->url->static;
 
-		if(method_exists($this, 'config')){
-			$this->config();
-		}
 		if(method_exists($this, 'options')){
 			$this->options();
 		}
