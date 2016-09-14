@@ -56,7 +56,7 @@
     <div class="span1"></div>
 
     <div class="span1">
-{%if permAccess.view is same as('show')%}
+{%if permAccess.view%}
      <input type="checkbox" name="{{field}}-view" id="{{field}}-view" class="checkbox" {%if permAccess.view == 'on'%}checked{%endif%}>
      <label for="{{field}}-view"><span></span></label>
 {%endif%}
