@@ -96,6 +96,9 @@ trait constructor
 		elseif(isset($this->url->MainStatic))
 			$this->url->myStatic = $this->url->static;
 
+		if(method_exists($this, 'config')){
+			$this->config();
+		}
 		if(method_exists($this, 'options')){
 			$this->options();
 		}
