@@ -8,6 +8,7 @@ class controller extends \lib\controller
 	use \lib\mvc\controllers\template;
 	use \lib\mvc\controllers\tools;
 	use \lib\mvc\controllers\url;
+	use \lib\mvc\controllers\pagenation;
 
 
 	/**
@@ -62,6 +63,8 @@ class controller extends \lib\controller
 		{
 			$this->s_template_finder();
 		}
+
+		$this->pagenation_config();
 	}
 }
 ?>

@@ -80,7 +80,10 @@ trait constructor
 		$this->include->telinput     = null;
 		$this->include->lightbox     = null;
 		$this->include->editor       = null;
-
+		if(isset($this->controller->pagenation))
+		{
+			$this->data->pagenation = $this->controller->pagenation_get();
+		}
 
 
 		if(method_exists($this, '_construct'))
@@ -93,9 +96,6 @@ trait constructor
 		elseif(isset($this->url->MainStatic))
 			$this->url->myStatic = $this->url->static;
 
-		if(method_exists($this, 'config')){
-			$this->config();
-		}
 		if(method_exists($this, 'options')){
 			$this->options();
 		}
