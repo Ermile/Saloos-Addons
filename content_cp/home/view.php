@@ -328,7 +328,18 @@ class view extends \mvc\view
 		{
 			$myPass->label(T_('New Password'))->value(null)->pl(T_('If you want to change password enter it, else leave it blank'));
 		}
-		$this->data->form->users->add('position', 'text')->name('position')->label(T_("position"))->value()->compile();
+		// get user position and set it
+		$position = null;
+		if(isset($this->data->form->users->datarow['user_meta']))
+		{
+			$meta = $this->data->form->users->datarow['user_meta'];
+			$meta = json_decode($meta, true);
+			if(isset($meta['position']))
+			{
+				$position = $meta['position'];
+			}
+		}
+		$this->data->form->users->add('position', 'text')->name('position')->label(T_("position"))->value($position)->compile();
 		$this->data->form->users->after('position', 'user_displayname');
 	}
 
