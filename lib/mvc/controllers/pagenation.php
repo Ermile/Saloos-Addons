@@ -69,7 +69,7 @@ trait pagenation
 
 	public function pagenation_error()
 	{
-		exit();
+		header("HTTP/1.1 404 NOT FOUND ");
 	}
 }
 ?>
