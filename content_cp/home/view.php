@@ -319,6 +319,7 @@ class view extends \mvc\view
 				$myPermList->child()->value($key)->label(T_($value))->elname(null)->pl(null)->attr('type', null)->id('perm'.$key);
 			}
 		}
+		$this->data->form->users->user_pass->autocomplete('new-password');
 		$myPass = $this->data->form->users->user_pass;
 		if($mychild === 'add')
 		{
