@@ -82,9 +82,9 @@ trait constructor
 		$this->include->telinput     = null;
 		$this->include->lightbox     = null;
 		$this->include->editor       = null;
-		if(isset($this->controller->pagenation))
+		if(isset($this->controller->pagnation))
 		{
-			$this->data->pagenation = $this->controller->pagenation_get();
+			$this->data->pagnation = $this->controller->pagnation_get();
 		}
 
 
