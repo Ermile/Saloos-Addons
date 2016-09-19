@@ -17,24 +17,20 @@ trait constructor
 		$this->url->breadcrumb       = $this->url('breadcrumb'); // full path in array for using in breadcrumb
 		$this->url->domain           = $this->url('domain');     // domain name like 'ermile'
 		$this->url->base             = $this->url('base');
-
 		$this->url->tld              = $this->url('tld');        // domain ltd like 'com'
 		$this->url->raw              = Service;                  // domain name except subdomain like 'ermile.com'
 		$this->url->root             = $this->url('root');
 		$this->url->static           = $this->url->root. 'static/';
 		$this->url->protocol         = Protocol;
-
 		$this->url->account          = $this->url('account');
 		$this->url->MainStatic       = $this->url('MainService'). '/'.'static/';
 		$this->url->MainSite         = $this->url('MainSite');
 		$this->url->MainProtocol     = $this->url('MainProtocol');
 		$this->url->SubDomain        = SubDomain? SubDomain.'.': null;
 
-
 		// return all parameters and clean it
 		$this->url->param            = \lib\utility::get(null, true);
 		$this->url->all              = $this->url->full.$this->url->param;
-
 
 		$this->data->site['title']       = T_("Saloos");
 		$this->data->site['desc']        = T_("Another Project with Saloos");
@@ -64,11 +60,20 @@ trait constructor
 		$this->global->title         = null;
 		$this->global->login         = $this->login();
 
-
 		$this->global->lang          = \lib\router::get_storage('language');
 		$this->global->direction     = \lib\router::get_storage('direction');
 		$this->global->id            = $this->url('path','_');
 
+		// add special pages to display array to use without name
+		$this->data->display['main']       = "content/main/layout.html";
+		$this->data->display['home']       = "content/home/display.html";
+		$this->data->display['account']    = "content_account/home/layout.html";
+		$this->data->display['cp']         = "content_cp/home/layout.html";
+		$this->data->display['pagination'] = "content_cp/templates/inc_pagination.html";
+		// add special pages to template array to use without name
+		$this->data->template['header']    = 'content/template/header.html';
+		$this->data->template['sidebar']   = 'content/template/sidebar.html';
+		$this->data->template['footer']    = 'content/template/footer.html';
 
 		// define default value for include
 		$this->include->newline      = PHP_EOL;
@@ -86,7 +91,6 @@ trait constructor
 		{
 			$this->data->pagnation = $this->controller->pagnation_get();
 		}
-
 
 		if(method_exists($this, '_construct'))
 		{

@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.2.6: complete pagination and some other fix
  * Version 7.2.5: addons permistion child display bugfix
  * Version 7.2.4: pagenation added
  * Version 7.2.3: template bigbang bugfixed :)
