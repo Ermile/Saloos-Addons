@@ -163,9 +163,32 @@ class users
 		}
 		// var_dump($result);
 		// var_dump($qry);
-
-
 		return $result;
 	}
+
+
+	/**
+	 * Gets the displayname.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 *
+	 * @return     <type>  The displayname.
+	 */
+	public static function get_displayname($_user_id)
+	{
+		$query =
+		"
+			SELECT
+				users.user_displayname AS 'displayname'
+			FROM
+				users
+			WHERE
+				users.id = $_user_id
+			LIMIT 1
+		";
+
+		return \lib\db::get($query, 'displayname', true);
+	}
+
 }
 ?>
