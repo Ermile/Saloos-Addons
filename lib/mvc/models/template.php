@@ -47,14 +47,22 @@ trait template
 			$language = substr(\lib\router::get_storage('language'), 0, 2);
 			$preview  = \lib\utility::get('preview');
 			// search in url field if exist return row data
-			$qry = "SELECT * from posts
+			$qry = "
+				SELECT
+					*
+				FROM
+					posts
 				WHERE
-				(
-					post_language IS NULL OR
-					post_language = '$language'
-				) AND
-				post_url = '$url'
+					post_url = '$url'
 				";
+			// $qry = "SELECT * from posts
+			// 	WHERE
+			// 	(
+			// 		post_language IS NULL OR
+			// 		post_language = '$language'
+			// 	) AND
+			// 	post_url = '$url'
+			// 	";
 			// $qry = $this->sql()->table('posts')->where('post_url', $url);
 			if(!$preview)
 			{
