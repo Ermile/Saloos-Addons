@@ -109,6 +109,14 @@ trait template
 				$tags = \lib\db\tags::usage($post_id);
 				$datarow['tags'] = $tags;
 
+				// get comment of this post
+				$comments = \lib\db\comments::get_post_comment($post_id);
+				$datarow['comments'] = $comments;
+
+				// get comment of this post
+				$meta = \lib\db\posts::get_post_meta($post_id);
+				$datarow['meta'] = $meta;
+
 				return $datarow;
 			}
 		}

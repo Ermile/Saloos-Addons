@@ -185,5 +185,21 @@ class posts
 		// save answers into options table
 		return $newId;
 	}
+
+
+	public static function get_post_meta($_post_id)
+	{
+		$query =
+		"
+			SELECT
+				*
+			FROM
+				options
+			WHERE
+				options.post_id = $_post_id AND
+				options.option_cat = 'poll_$_post_id'
+		";
+		return \lib\db\options::select($query, "get");
+	}
 }
 ?>

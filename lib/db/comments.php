@@ -173,5 +173,21 @@ class comments
 		// return last insert id
 		return $commentId;
 	}
+
+
+	public static function get_post_comment($_post_id)
+	{
+		$query =
+		"
+			SELECT
+				*
+			FROM
+				comments
+			WHERE
+				comments.post_id = $_post_id
+			LIMIT 10;
+		";
+		return self::select($query,"get");
+	}
 }
 ?>
