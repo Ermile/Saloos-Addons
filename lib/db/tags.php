@@ -33,10 +33,15 @@ class tags
 	 *
 	 * @return     <type>  ( description_of_the_return_value )
 	 */
+
 	public static function insert_multi($_tags)
 	{
 		//split tags
 		$tags = preg_split("/\,/", $_tags);
+		// trim all value
+		foreach ($tags as $key => $value) {
+			$tags[$key] = trim($value);
+		}
 		// remove empty tags
 		$tags = array_filter($tags);
 
@@ -97,6 +102,10 @@ class tags
 	{
 		//split tags
 		$tags = preg_split("/\,/", $_tags);
+		// trim all value
+		foreach ($tags as $key => $value) {
+			$tags[$key] = trim($value);
+		}
 		// remove empty tags
 		$tags = array_filter($tags);
 

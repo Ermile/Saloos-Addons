@@ -55,29 +55,34 @@ trait template
 				WHERE
 					post_url = '$url'
 				";
-			// $qry = "SELECT * from posts
-			// 	WHERE
-			// 	(
-			// 		post_language IS NULL OR
-			// 		post_language = '$language'
-			// 	) AND
-			// 	post_url = '$url'
-			// 	";
-			// $qry = $this->sql()->table('posts')->where('post_url', $url);
 			if(!$preview)
 			{
 				$qry .= "AND post_status = 'publish'";
-				// $qry = $qry->andPost_status('publish');
 			}
+
 			$datarow = \lib\db::get($qry, null, true);
 			// we have more than one record
 			if(isset($datarow[0]))
 			{
 				$datarow = false;
 			}
+
+			if(isset($datarow['id']))
+			{
+				$post_id = $datarow['id'];
+			}
+			else
+			{
+				$datarow = false;
+				$post_id = 0;
+			}
 		}
+
+
 		if($datarow)
 		{
+
+
 			if($_forcheck && isset($datarow['post_type']) && isset($datarow['post_slug']))
 			{
 				return
@@ -100,6 +105,10 @@ trait template
 						}
 					}
 				}
+				// get tags of this post
+				$tags = \lib\db\tags::usage($post_id);
+				$datarow['tags'] = $tags;
+
 				return $datarow;
 			}
 		}
