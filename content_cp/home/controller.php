@@ -8,7 +8,6 @@ class controller extends \mvc\controller
 	 */
 	function __construct(){
 		parent::__construct();
-		// self::default_modules();
 	}
 	function _permission($_content = null, $_login = true)
 	{

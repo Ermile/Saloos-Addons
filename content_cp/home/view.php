@@ -344,6 +344,24 @@ class view extends \mvc\view
 		$this->data->form->users->after('position', 'user_displayname');
 	}
 
+	public function addons_config($_name, $_addons){
+		$addons_path = $_addons['path'];
+		$config_addons = array();
+		$addons_valid_display = ['panel'];
+		foreach ($addons_valid_display as $key => $value) {
+			$display = join(DIRECTORY_SEPARATOR, [$addons_path, $value . '.html']);
+			if($this->twig_file_exists($display))
+			{
+				$config_addons[$value] = $display;
+			}
+		}
+		if(!isset($this->data->addons))
+		{
+			$this->data->addons = array();
+		}
+		$this->data->addons[$_name] = $config_addons;
+	}
+
 	// function pushState()
 	// {
 	// 	// temporary disable push state on control panel

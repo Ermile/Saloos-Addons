@@ -1,4 +1,9 @@
 <?php
+$addons = array();
+$addons['attachments'] = [
+	'path'			=> 'addons/attachments',
+];
+
 $modules = array();
 $modules['home'] = array(
 	'title' 		=> T_('Dashboard'),
@@ -8,6 +13,7 @@ $modules['posts'] = array(
 	'desc' 			=> T_('Use posts to share your news in specefic category'),
 	'icon'			=> 'file-text-o',
 	'permissions'	=> ['view', 'add', 'edit', 'delete', 'admin'],
+	'addons'		=> ['attachments']
 	);
 
 $modules['tags'] = array(
@@ -27,6 +33,7 @@ $modules['pages'] = array(
 	'desc' 			=> T_('Use pages to share your static content'),
 	'icon'			=> 'files-o',
 	'permissions'	=> ['view', 'add', 'edit', 'delete', 'admin'],
+	'addons'		=> ['attachments']
 	);
 
 $modules['books'] = array(
@@ -113,5 +120,5 @@ $modules['logout'] = array(
 	);
 
 $modules['profile'] = array('parent' => 'global', 'childless' => true, 'permissions' => ['view']);
-return ["modules" => $modules];
+return ["modules" => $modules, "addons" => $addons];
 ?>

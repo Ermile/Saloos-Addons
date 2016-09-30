@@ -11,6 +11,9 @@
 {{ block('post_poll') }}
 {{ block('post_excerpt') }}
 {{ block('post_tag') }}
+{% for key, Addons in addons%}
+{%include Addons.panel%}
+{%endfor%}
   </div>
   <div class="span3">
 
