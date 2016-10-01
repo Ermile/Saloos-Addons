@@ -47,6 +47,11 @@ trait template
 			$language = substr(\lib\router::get_storage('language'), 0, 2);
 			$preview  = \lib\utility::get('preview');
 			// search in url field if exist return row data
+			$post_status = "";
+			if(!$preview)
+			{
+				$post_status = " AND post_status = 'publish' ";
+			}
 			$qry = "
 				SELECT
 					*
@@ -54,11 +59,9 @@ trait template
 					posts
 				WHERE
 					post_url = '$url'
+					$post_status
+				LIMIT 1
 				";
-			if(!$preview)
-			{
-				$qry .= "AND post_status = 'publish'";
-			}
 
 			$datarow = \lib\db::get($qry, null, true);
 			// we have more than one record

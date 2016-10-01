@@ -42,10 +42,10 @@ class posts
 	 */
 	public static function update($_args, $_id) {
 
-		// get slug field from slugify library
-		if(isset($_args['term_slug'])){
-			$_args['term_slug'] = \lib\utility\filter::slug($_args['term_slug']);
-		}
+		// // get slug field from slugify library
+		// if(isset($_args['term_slug'])){
+		// 	$_args['term_slug'] = \lib\utility\filter::slug($_args['term_slug']);
+		// }
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
