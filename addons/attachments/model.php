@@ -4,13 +4,28 @@ class model
 {
 	public function get_search_attachments($_args)
 	{
-		$this->controller->on_search_attachments = true;
+		return $this->query_search([
+			"search" => $_args->get_search(0),
+			"image" => $_args->get_image(0),
+			"video" => $_args->get_video(0),
+			"audio" => $_args->get_audio(0),
+			"other" => $_args->get_other(0),
+			'pagnation' => true
+			]);
+	}
+
+	public function caller_attachments_list($_args)
+	{
+		return $this->query_search(['pagnation' => false]);
+	}
+	public function query_search($_parameter = array())
+	{
+		$search = array_key_exists('search', $_parameter) ? $_parameter['search'] : null;
+		$image = array_key_exists('image', $_parameter) ? $_parameter['image'] : null;
+		$video = array_key_exists('video', $_parameter) ? $_parameter['video'] : null;
+		$audio = array_key_exists('audio', $_parameter) ? $_parameter['audio'] : null;
+		$other = array_key_exists('other', $_parameter) ? $_parameter['other'] : null;
 		$where = '';
-		$search = $_args->get_search(0);
-		$image = $_args->get_image(0);
-		$video = $_args->get_video(0);
-		$audio = $_args->get_audio(0);
-		$other = $_args->get_other(0);
 		if($search)
 		{
 			$where .= "(post_title LIKE '%$search%' OR post_content LIKE '%$search%')";
@@ -61,10 +76,39 @@ class model
 		}
 		$where .= empty($where) ? '' : " AND ";
 		$where .= "post_type = 'attachment'";
-		$query = "SELECT * FROM posts WHERE $where";
-		$result = \lib\db::get($query);
-		$decode_result = \lib\utility\filter::decode_meta($result);
-		return $decode_result;
+
+		$length = 5;
+		$start = 0;
+		if($_parameter['pagnation'])
+		{
+			list($start, $length) = $this->controller->pagnation_make_limit($length);
+		}
+
+		$query = "SELECT SQL_CALC_FOUND_ROWS posts.*, FOUND_ROWS() FROM posts WHERE $where LIMIT $start, $length";
+		$result = \lib\db::query($query);
+
+		$query_rows = "SELECT FOUND_ROWS() as rows";
+		$result_rows = \lib\db::query($query_rows);
+		$rows = $result_rows->fetch_assoc()['rows'];
+		if($_parameter['pagnation'])
+		{
+			$this->controller->pagnation_make($rows);
+			$pagnation = $this->controller->pagnation;
+		}
+		else
+		{
+			$pagnation['total_pages'] = intval(ceil($rows/ $length));
+			$pagnation['current'] = 1;
+			$pagnation['next'] = ($pagnation['current']+1 <= $pagnation['total_pages']) ? $pagnation['current']+1 : false;
+			$pagnation['prev']= ($pagnation['current']-1 >= 1) ? $pagnation['current']-1 : false;
+			$pagnation['count_link']= 7;
+			$pagnation['current_url'] = \lib\router::get_class(). '/attachments_data';
+			$pagnation['length'] = $length;
+		}
+
+		$decode_result = \lib\utility\filter::decode_meta(\lib\db::fetch_all($result));
+
+		return ['data' => $decode_result, 'pagnation' => $pagnation ];
 	}
 }
 ?>

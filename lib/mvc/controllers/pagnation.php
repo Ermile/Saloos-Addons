@@ -32,9 +32,19 @@ trait pagnation
 		return $this->pagnation[$_name] = $_value;
 	}
 
+	public function pagnation_make_limit($_default_length)
+	{
+		$current = $this->pagnation_get('current');
+		$current = $current ? $current : 1;
+		$length = $this->pagnation_get('length');
+		$length = $length ? $length : $_default_length;
+		$this->pagnation_set('length', $length);
+		return [($current - 1) * $length, $length];
+	}
+
 	public function pagnation_make($_total_records, $_length = null)
 	{
-		if(!$_length && !$this->pagnation_get('custom_length'))
+		if(!$_length && !$this->pagnation_get('custom_length') && !$this->pagnation_get('length'))
 		{
 			\lib\error::internal("PAGENAMTION LENGTH NOTFOUND");
 			return;

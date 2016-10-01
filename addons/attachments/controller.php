@@ -16,13 +16,16 @@ class controller{
 				'attachments_search_other' => ['/^(on|off)$/', true, 'other']
 			],
 			'max'		=> 1
-			]);
+			], function()
+			{
+				$this->on_search_attachments = true;
+			});
 	}
 	function after__route(){
-		if(!$this->access('cp', 'attachments', 'view')){
+		if(!$this->access('cp', 'attachments', 'view') || isset($this->on_search_attachments)){
 			return;
 		}
-		// $this->caller('attachments_list', null, "/.*/");
+		$this->caller('attachments_list', "attachments_list", "/.*/");
 	}
 }
 ?>
