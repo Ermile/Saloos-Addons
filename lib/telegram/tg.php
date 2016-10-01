@@ -139,7 +139,7 @@ class tg
 	 */
 	public static function sendResponse($_prop)
 	{
-		if(self::$skipText)
+		if(self::$skipText && !\lib\utility\option::get('telegram', 'meta', 'debug'))
 		{
 			return false;
 		}
