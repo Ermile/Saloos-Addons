@@ -190,5 +190,55 @@ class users
 		return \lib\db::get($query, 'displayname', true);
 	}
 
+
+	/**
+	 * Sets the user language.
+	 *
+	 * @param      <type>  $_language  The language
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function set_language($_language)
+	{
+		$arg =
+		[
+			'user_id'      => self::$user_id,
+			'option_cat'   => 'user_detail_'. self::$user_id,
+			'option_key'   => 'language',
+			'option_value' => $_language
+		];
+		$result = \lib\db\options::insert($arg);
+		if(!$result)
+		{
+			$result = \lib\db\options::update_on_error($arg);
+		}
+		return $result;
+	}
+
+
+	/**
+	 * Gets the user language.
+	 *
+	 * @return     <type>  The language.
+	 */
+	public static function get_language()
+	{
+		$user_id = self::$user_id;
+
+		$query =
+		"
+			SELECT
+				option_value AS 'language'
+			FROM
+				options
+			WHERE
+				post_id IS NULL AND
+				user_id = $user_id AND
+				option_cat = 'user_detail_$user_id' AND
+				option_key = 'language'
+			LIMIT 1
+		";
+		return \lib\db::get($query, 'language', true);
+	}
 }
 ?>
