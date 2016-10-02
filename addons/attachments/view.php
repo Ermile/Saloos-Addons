@@ -22,7 +22,6 @@ class view{
 
 	function attachments_list($_lists)
 	{
-		$this->controller->on_search_attachments = true;
 		$this->data->attachments = $_lists['data'];
 		$this->data->attachment_pagnation = $_lists['pagnation'];
 
