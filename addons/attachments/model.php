@@ -106,7 +106,7 @@ class model
 			$pagnation['length'] = $length;
 		}
 
-		$decode_result = \lib\utility\filter::decode_meta(\lib\db::fetch_all($result));
+		$decode_result = \lib\utility\filter::meta_decode(\lib\db::fetch_all($result));
 
 		return ['data' => $decode_result, 'pagnation' => $pagnation ];
 	}
