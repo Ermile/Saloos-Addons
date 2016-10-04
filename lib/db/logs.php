@@ -17,18 +17,25 @@ class logs
 	 */
 	public static function insert($_args){
 
-		// creat field list string
-		$fields = join(array_keys($_args), ",");
-
-		// creat value list string
-		$values = join(array_values($_args), "','");
-
-		// make insert query
-		$query = "
-			INSERT INTO logs
-				($fields) VALUES ('$values')
-			";
-
+		$set = [];
+		foreach ($_args as $key => $value) {
+			if($value === null)
+			{
+				$set[] = " `$key` = NULL ";
+			}
+			else
+			{
+				$set[] = " `$key` = '$value' ";
+			}
+		}
+		$set = join($set, ',');
+		$query =
+		"
+			INSERT INTO
+				posts
+			SET
+				$set
+		";
 		return \lib\db::query($query);
 	}
 

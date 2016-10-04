@@ -198,17 +198,35 @@ class users
 	 *
 	 * @return     <type>  ( description_of_the_return_value )
 	 */
-	public static function set_language($_language)
+	public static function set_language($_language, $_options = [])
 	{
+		$default_options =
+		[
+			"update_on_duplicate" => true,
+			"user_id"             => null
+		];
+
+		$_options = array_merge($default_options, $_options);
+
+		// set user id
+		if($_options['user_id'] === null)
+		{
+			$user_id = self::$user_id;
+		}
+		else
+		{
+			$user_id = $_options['user_id'];
+		}
+
 		$arg =
 		[
-			'user_id'      => self::$user_id,
+			'user_id'      => $user_id,
 			'option_cat'   => 'user_detail_'. self::$user_id,
 			'option_key'   => 'language',
 			'option_value' => $_language
 		];
 		$result = \lib\db\options::insert($arg);
-		if(!$result)
+		if(!$result && $_options['update_on_duplicate'])
 		{
 			$result = \lib\db\options::update_on_error($arg);
 		}
@@ -221,9 +239,16 @@ class users
 	 *
 	 * @return     <type>  The language.
 	 */
-	public static function get_language()
+	public static function get_language($_user_id = null)
 	{
-		$user_id = self::$user_id;
+		if($_user_id === null)
+		{
+			$user_id = self::$user_id;
+		}
+		else
+		{
+			$user_id = $_user_id;
+		}
 
 		$query =
 		"

@@ -22,18 +22,26 @@ class terms
 		{
 			return null;
 		}
-		// creat field list string
-		$fields = join(array_keys($_args), ",");
+		$set = [];
+		foreach ($_args as $key => $value) {
+			if($value === null)
+			{
+				$set[] = " `$key` = NULL ";
+			}
+			else
+			{
+				$set[] = " `$key` = '$value' ";
+			}
+		}
+		$set = join($set, ',');
 
-		// creat value list string
-		$values = join(array_values($_args), "','");
-
-		// make insert query
-		$query = "
-			INSERT IGNORE INTO terms
-				($fields) VALUES ('$values')
-			";
-
+		$query =
+		"
+			INSERT IGNORE INTO
+				posts
+			SET
+				$set
+		";
 		return \lib\db::query($query);
 	}
 
