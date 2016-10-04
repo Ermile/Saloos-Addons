@@ -32,7 +32,7 @@ class comments
 		$query =
 		"
 			INSERT INTO
-				posts
+				comments
 			SET
 				$set
 		";

@@ -32,7 +32,7 @@ class logitems
 		$query =
 		"
 			INSERT INTO
-				posts
+				logitems
 			SET
 				$set
 		";

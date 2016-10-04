@@ -32,7 +32,7 @@ class notifications
 		$query =
 		"
 			INSERT INTO
-				posts
+				notifications
 			SET
 				$set
 		";

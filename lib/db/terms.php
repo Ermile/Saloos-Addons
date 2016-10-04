@@ -38,7 +38,7 @@ class terms
 		$query =
 		"
 			INSERT IGNORE INTO
-				posts
+				terms
 			SET
 				$set
 		";

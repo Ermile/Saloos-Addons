@@ -32,7 +32,7 @@ class options
 		$query =
 		"
 			INSERT INTO
-				posts
+				options
 			SET
 				$set
 		";

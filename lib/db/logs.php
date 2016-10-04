@@ -32,7 +32,7 @@ class logs
 		$query =
 		"
 			INSERT INTO
-				posts
+				logs
 			SET
 				$set
 		";
