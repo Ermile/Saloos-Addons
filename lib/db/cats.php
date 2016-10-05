@@ -104,5 +104,11 @@ class cats
 		}
 		return $result;
 	}
+
+
+	public static function get($_term_type)
+	{
+		return \lib\db\terms::get(['term_type' => $_term_type]);
+	}
 }
 ?>

@@ -61,6 +61,11 @@ class options
 			$together[] = join($values, ",");
 			$values = [];
 		}
+		// empty record not inserted
+		if(empty($fields))
+		{
+			return true;
+		}
 
 		$fields = join(array_keys($fields), ",");
 

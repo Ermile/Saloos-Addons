@@ -206,5 +206,30 @@ class terms
 		// return final result
 		return $result;
 	}
+
+
+	public static function get($_args)
+	{
+		$where = [];
+
+		if(isset($_args['term_type']))
+		{
+			$where[] = " terms.term_type = '". $_args['term_type']. "' ";
+		}
+
+		$where = join($where , " AND ");
+		$query =
+		"
+			SELECT
+				terms.id,
+				terms.term_title AS 'title',
+				terms.term_url AS 'url'
+			FROM
+				terms
+			WHERE
+				$where
+		";
+		return self::select($query, "get");
+	}
 }
 ?>
