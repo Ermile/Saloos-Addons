@@ -191,6 +191,23 @@ class users
 	}
 
 
+	public static function set_displayname($_user_id, $_displayname)
+	{
+		$query =
+		"
+			UPDATE
+				users
+			SET
+				users.user_displayname = '$_displayname'
+			WHERE
+				users.id = $_user_id
+		";
+
+		$result = \lib\db::query($query);
+		return $result;
+	}
+
+
 	/**
 	 * Sets the user language.
 	 *
