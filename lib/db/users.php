@@ -233,7 +233,7 @@ class users
 
 		$arg =
 		[
-			'user_id'      => $user_id,
+			'user_id'      => $_options['user_id'],
 			'option_cat'   => 'user_detail_'. $_options['user_id'],
 			'option_key'   => 'language',
 			'option_value' => $_language
