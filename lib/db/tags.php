@@ -101,7 +101,18 @@ class tags
 	public static function get_multi_id($_tags)
 	{
 		//split tags
-		$tags = preg_split("/\,/", $_tags);
+		if(is_array($_tags))
+		{
+			$tags = $_tags;
+		}
+		else
+		{
+			$tags = preg_split("/\,/", $_tags);
+		}
+		if(!is_array($tags))
+		{
+			return false;
+		}
 		// trim all value
 		foreach ($tags as $key => $value) {
 			$tags[$key] = trim($value);
@@ -175,6 +186,58 @@ class tags
 				$result = "";
 			}
 		}
+		return $result;
+	}
+
+
+	public static function get_post_similar($_args)
+	{
+		$tags    = null;
+		$post_id = null;
+
+		if(isset($_args['tags']))
+		{
+			$tags = $_args['tags'];
+		}
+
+		if(isset($_args['id']))
+		{
+			$post_id = $_args['id'];
+		}
+
+		if($tags)
+		{
+
+			$tags_id = self::get_multi_id($tags);
+		}
+		elseif($post_id)
+		{
+			$tags_id = self::get_multi_id(\lib\db\terms::usage($post_id));
+		}
+
+		$where = [];
+		foreach ($tags_id as $key => $value) {
+			$where[] = "termusages.term_id = $value";
+		}
+
+		$where = join($where, " OR ");
+		$query =
+		"
+			SELECT
+				posts.post_title AS 'title',
+				posts.post_url AS 'url'
+			FROM
+				termusages
+			INNER JOIN posts
+				ON posts.id = termusages.termusage_id
+			WHERE
+				termusages.termusage_foreign = 'posts' AND
+				($where)
+			GROUP BY termusage_id
+			ORDER BY termusage_id DESC
+			LIMIT 0,10
+		";
+		$result = \lib\db::get($query);
 		return $result;
 	}
 }

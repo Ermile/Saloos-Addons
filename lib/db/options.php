@@ -174,5 +174,44 @@ class options
 		return \lib\db::$_type($_query);
 	}
 
+
+	public static function get($_args)
+	{
+		if(empty($_args) || !is_array($_args))
+		{
+			return false;
+		}
+		if(isset($_args['limit']))
+		{
+			$limit = "LIMIT ". $_args['limit'];
+			unset($_args['limit']);
+		}
+		else
+		{
+			$limit = null;
+		}
+
+		$where = [];
+		foreach ($_args as $key => $value) {
+			$where[] = "`$key` = '$value'";
+		}
+		$where = "WHERE ". join($where, " AND ");
+
+		$query =
+		"
+			SELECT
+				id,
+				option_cat AS 'cat',
+				option_key AS 'key',
+				option_value AS 'value',
+				option_meta AS 'meta'
+			FROM
+				options
+			$where
+			$limit
+		";
+		return self::select($query, "get");
+	}
+
 }
 ?>
