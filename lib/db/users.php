@@ -220,25 +220,21 @@ class users
 		$default_options =
 		[
 			"update_on_duplicate" => true,
-			"user_id"             => null
+			"user_id"             => self::$user_id
 		];
 
 		$_options = array_merge($default_options, $_options);
 
 		// set user id
-		if($_options['user_id'] === null)
+		if($_options['user_id'] == null)
 		{
-			$user_id = self::$user_id;
-		}
-		else
-		{
-			$user_id = $_options['user_id'];
+			return false;
 		}
 
 		$arg =
 		[
 			'user_id'      => $user_id,
-			'option_cat'   => 'user_detail_'. self::$user_id,
+			'option_cat'   => 'user_detail_'. $_options['user_id'],
 			'option_key'   => 'language',
 			'option_value' => $_language
 		];
