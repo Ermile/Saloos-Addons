@@ -32,7 +32,7 @@ trait posts
 		$post_language = array_column($args, 'language');
 		if( $post_language && count($post_language) === 1)
 		{
-			$qry = $qry->and('post_language', $post_language);
+			$qry = $qry->and('post_language', $post_language[0]);
 		}
 		// if dont pass through function use default value
 		else

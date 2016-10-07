@@ -5,7 +5,7 @@
 
 
 {% macro make(_first, _end, p)%}
-    {% if p.current > 1 %}<a href="{{p.current_url}}/page={{p.prev}}" class="prev" rel="prev">«</a>{% endif %}
+    {% if p.current > 1 %}<a href="{{p.current_url}}/page={{p.prev}}" class="prev" rel="prev"></a>{% endif %}
 
     {% if (p.current - (p.count_link/2)) > 1 %}<a href="{{p.current_url}}/page=1" class="first">1</a>
     {% if (p.current - (p.count_link/2)) > 2 %}<span>...</span>{% endif %}{% endif %}
@@ -17,7 +17,7 @@
 
     {% if (p.current + (p.count_link/2)) < p.total_pages %}<a href="{{p.current_url}}/page={{p.total_pages}}" class="last">{{p.total_pages}}</a>{% endif %}
 
-    {% if p.current != p.total_pages %}<a href="{{p.current_url}}/page={{p.next}}" class="next" rel="next">»</a>{% endif %}
+    {% if p.current != p.total_pages %}<a href="{{p.current_url}}/page={{p.next}}" class="next" rel="next"></a>{% endif %}
 {%endmacro%}
 
 
