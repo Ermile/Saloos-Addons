@@ -44,6 +44,12 @@ trait template
 		else
 		{
 			$url      = $this->url('path');
+
+			if(substr($url, 0, 7) == 'static/')
+			{
+				return false;
+			}
+
 			$language = substr(\lib\router::get_storage('language'), 0, 2);
 			$preview  = \lib\utility::get('preview');
 			// search in url field if exist return row data
