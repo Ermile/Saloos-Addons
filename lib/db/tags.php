@@ -194,7 +194,7 @@ class tags
 	{
 		$tags    = null;
 		$post_id = null;
-
+		$tags_id = [];
 		if(isset($_args['tags']))
 		{
 			$tags = $_args['tags'];
@@ -219,8 +219,15 @@ class tags
 		foreach ($tags_id as $key => $value) {
 			$where[] = "termusages.term_id = $value";
 		}
+		if(empty($where))
+		{
+			$where = null;
+		}
+		else
+		{
+			$where = 'AND  ('. join($where, " OR "). ')';
+		}
 
-		$where = join($where, " OR ");
 		$query =
 		"
 			SELECT
@@ -231,8 +238,8 @@ class tags
 			INNER JOIN posts
 				ON posts.id = termusages.termusage_id
 			WHERE
-				termusages.termusage_foreign = 'posts' AND
-				($where)
+				termusages.termusage_foreign = 'posts'
+				$where
 			GROUP BY termusage_id
 			ORDER BY termusage_id DESC
 			LIMIT 0,10

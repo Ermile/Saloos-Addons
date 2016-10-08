@@ -176,6 +176,11 @@ class users
 	 */
 	public static function get_displayname($_user_id)
 	{
+		if(isset($_SESSION['user']['displayname']))
+		{
+			return $_SESSION['user']['displayname'];
+		}
+
 		$query =
 		"
 			SELECT
@@ -187,12 +192,23 @@ class users
 			LIMIT 1
 		";
 
-		return \lib\db::get($query, 'displayname', true);
+		$result = \lib\db::get($query, 'displayname', true);
+
+		$_SESSION['user']['displayname'] = $result;
+
+		return $result;
 	}
 
 
 	public static function set_displayname($_user_id, $_displayname)
 	{
+		// check new display name vs old display name
+		if(isset($_SESSION['user']['displayname']) && $_SESSION['user']['displayname'] == $_displayname )
+		{
+			return true;
+		}
+
+		// update display name
 		$query =
 		"
 			UPDATE
@@ -204,6 +220,9 @@ class users
 		";
 
 		$result = \lib\db::query($query);
+
+		$_SESSION['user']['displayname'] = $result;
+
 		return $result;
 	}
 
