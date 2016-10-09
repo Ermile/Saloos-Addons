@@ -21,6 +21,7 @@ class tg
 	public static $defaultText = 'Undefined';
 	public static $defaultMenu = null;
 	public static $skipText    = null;
+	public static $once_log    = null;
 	public static $saveDest    = root.'public_html/files/telegram/';
 	public static $priority    =
 	[
