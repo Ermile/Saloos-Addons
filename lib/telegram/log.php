@@ -27,10 +27,24 @@ class log extends tg
 		\lib\utility\file::makeDir($fileAddr, null, true);
 		// set file address
 		$fileAddr .= 'tg_'. self::$name. '.json';
-		file_put_contents($fileAddr, json_encode($_data, JSON_UNESCAPED_UNICODE). "\r\n", FILE_APPEND);
+		$log_file = file_get_contents($fileAddr);
+		$json_log = json_decode($log_file);
+		if(!$json_log)
+		{
+			$json_log = [];
+		}
+		if(count($json_log) > 1000)
+		{
+			rename($fileAddr . '-' . date('Y-m-d-H:i:s') . '.back');
+			$json_log = [];
+		}
+		$json_log[] = ['data' => $_data, 'debug' => $_SESSION];
+		file_put_contents($fileAddr, json_encode($json_log, JSON_UNESCAPED_UNICODE));
+
+		//file_put_contents($fileAddr, json_encode($_data, JSON_UNESCAPED_UNICODE). "\r\n", FILE_APPEND);
 		// add new line for debug
-		$debug = "DEBUG: $_hook (". self::response('text') .") ". json_encode($_SESSION, JSON_UNESCAPED_UNICODE). "\r\n";
-		file_put_contents($fileAddr, $debug, FILE_APPEND);
+		//$debug = "DEBUG: $_hook (". self::response('text') .") ". json_encode($_SESSION, JSON_UNESCAPED_UNICODE). "\r\n";
+		//file_put_contents($fileAddr, $debug, FILE_APPEND);
 
 		// if not in hook return null
 		if($_hook)
