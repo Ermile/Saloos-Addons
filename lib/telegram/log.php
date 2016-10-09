@@ -38,7 +38,7 @@ class log extends tg
 			rename($fileAddr . '-' . date('Y-m-d-H:i:s') . '.back');
 			$json_log = [];
 		}
-		$json_log[] = ['data' => $_data, 'debug' => $_SESSION];
+		$json_log[] = ['data' => $_data, 'debug' => $_SESSION, 'http' => apache_request_headers()];
 		file_put_contents($fileAddr, json_encode($json_log, JSON_UNESCAPED_UNICODE));
 
 		//file_put_contents($fileAddr, json_encode($_data, JSON_UNESCAPED_UNICODE). "\r\n", FILE_APPEND);
