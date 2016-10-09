@@ -27,7 +27,7 @@ class log extends tg
 		\lib\utility\file::makeDir($fileAddr, null, true);
 		// set file address
 		$fileAddr .= 'tg_'. self::$name. '.json';
-		if(!$once_log){
+		if(!self::$once_log){
 			$log_file = file_get_contents($fileAddr);
 			$json_log = json_decode($log_file);
 			if(!$json_log)
