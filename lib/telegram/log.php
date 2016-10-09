@@ -29,7 +29,7 @@ class log extends tg
 		$fileAddr .= 'tg_'. self::$name. '.json';
 		if(!self::$once_log){
 			$log_file = file_get_contents($fileAddr);
-			$json_log = json_decode($log_file);
+			$json_log = json_decode($log_file, true);
 			if(!$json_log)
 			{
 				$json_log = [];
