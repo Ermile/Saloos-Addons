@@ -16,6 +16,7 @@ class exec extends tg
 	 */
 	public static function send($_method = null, array $_data = null, $_output = null)
 	{
+		$is_json = false;
 		// if telegram is off then do not run
 		if(!\lib\utility\option::get('telegram', 'status'))
 		{
@@ -26,7 +27,14 @@ class exec extends tg
 		{
 			return 'method or data is not set!';
 		}
-
+		if(array_key_exists('method', $_data))
+		{
+			if($_data['method'] == 'answerInlineQuery')
+			{
+				$is_json = true;
+			}
+			unset($_data['method']);
+		}
 		// if api key is not set get it from options
 		if(!self::$api_key)
 		{
@@ -57,10 +65,22 @@ class exec extends tg
 		curl_setopt_array($ch, $curlConfig);
 		if (!empty($_data))
 		{
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
-			// curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
-			// curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query($_data));
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, $_data);
+			if($is_json)
+			{
+				$data_string = json_encode($_data);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Content-Length: ' . strlen($data_string))
+				);
+			}
+			else
+			{
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+				// curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+				// curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query($_data));
+				curl_setopt( $ch, CURLOPT_POSTFIELDS, $_data);
+			}
 		}
 		if(Tld === 'dev')
 		{
