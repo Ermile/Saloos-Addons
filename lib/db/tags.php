@@ -195,9 +195,15 @@ class tags
 		$tags    = null;
 		$post_id = null;
 		$tags_id = [];
+		$limit = 5;
 		if(isset($_args['tags']))
 		{
 			$tags = $_args['tags'];
+		}
+
+		if(isset($_args['limit']))
+		{
+			$limit = $_args['limit'];
 		}
 
 		if(isset($_args['id']))
@@ -219,9 +225,10 @@ class tags
 		foreach ($tags_id as $key => $value) {
 			$where[] = "termusages.term_id = $value";
 		}
+
 		if(empty($where))
 		{
-			$where = null;
+			return null;
 		}
 		else
 		{
@@ -242,7 +249,7 @@ class tags
 				$where
 			GROUP BY termusage_id
 			ORDER BY termusage_id DESC
-			LIMIT 0,10
+			LIMIT 0,$limit
 		";
 		$result = \lib\db::get($query);
 		return $result;
