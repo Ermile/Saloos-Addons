@@ -311,6 +311,14 @@ class tg
 				{
 					$data = self::$hook['callback_query']['from'];
 				}
+				elseif(array_key_exists("chosen_inline_result", self::$hook))
+				{
+					$data = self::$hook['chosen_inline_result']['from'];
+				}
+				elseif(array_key_exists("inline_query", self::$hook))
+				{
+					$data = self::$hook['inline_query']['from'];
+				}
 				if($_arg)
 				{
 					if(isset($data[$_arg]))

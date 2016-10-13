@@ -103,16 +103,25 @@ class log extends tg
 	{
 		// define user detail array
 		$from_id = self::response('from');
+		$from_key = ['message', 'callback_query', 'chosen_inline_result', 'inline_query'];
+		$from = false;
+		foreach ($from_key as $key => $value) {
+			if(array_key_exists($value, $_data))
+			{
+				$from = $_data[$value]['from'];
+				break;
+			}
+		}
 		// add user_id to save dest of files
 		self::$saveDest .= $from_id.'-'. self::response('from', 'username').'/';
 		// if we do not have from id return false
-		if(!isset($_data['message']['from']) || !$from_id)
+		if(!$from || !$from_id)
 		{
 			return false;
 		}
 
 		// catch user telegram from database and if not exist insert as new user
-		self::catchTelegramUser($from_id, $_data['message']['from']);
+		self::catchTelegramUser($from_id, $from);
 
 		// save user detail like contact or location if sended
 		if($contact = self::response('contact', null))
