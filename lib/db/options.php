@@ -201,6 +201,7 @@ class options
 		"
 			SELECT
 				id,
+				user_id AS 'user_id',
 				option_cat AS 'cat',
 				option_key AS 'key',
 				option_value AS 'value',
@@ -210,7 +211,7 @@ class options
 			$where
 			$limit
 		";
-		return self::select($query, "get");
+		return \lib\utility\filter::meta_decode(self::select($query, "get"));
 	}
 
 }
