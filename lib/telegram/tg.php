@@ -46,7 +46,7 @@ class tg
 		// generate response from defined commands
 		$ans    = generate::answer();
 		$result = [];
-		if(!$ans && $_allowSample)
+		if(!$ans && $_allowSample && !is_array($ans))
 		{
 			$ans = generate::answer(true);
 		}

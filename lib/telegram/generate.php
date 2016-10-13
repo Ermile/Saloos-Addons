@@ -35,7 +35,7 @@ class generate extends tg
 				// get response
 				$answer = call_user_func($funcName, self::$cmd);
 				// if has response break loop
-				if($answer)
+				if($answer || is_array($answer))
 				{
 					break;
 				}
@@ -54,7 +54,7 @@ class generate extends tg
 					$answer = ['text' => $msg ];
 				}
 			}
-			elseif(\lib\utility\option::get('telegram', 'meta', 'debug'))
+			elseif(\lib\utility\option::get('telegram', 'meta', 'debug') && !is_array($answer))
 			{
 				// then if not exist set default text
 				$answer = ['text' => self::$defaultText];
