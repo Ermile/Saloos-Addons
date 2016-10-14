@@ -76,19 +76,19 @@ trait template
 				$datarow = false;
 			}
 
-			if(isset($datarow['id']))
-			{
-				$post_id = $datarow['id'];
-			}
-			else
-			{
-				$datarow = false;
-				$post_id = 0;
-			}
 		}
 
+		if(isset($datarow['id']))
+		{
+			$post_id = $datarow['id'];
+		}
+		else
+		{
+			$datarow = false;
+			$post_id  = 0;
+		}
 
-		if($datarow)
+		if($datarow && $post_id)
 		{
 
 
