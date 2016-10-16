@@ -74,15 +74,15 @@ class posts
 
 	/**
 	 * we can not delete a record from database
-	 * we just update field status to 'deleted' or 'disable' or set this record to black list
+	 * we just update field status to 'deleted' or 'deleted' or set this record to black list
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
 	public static function delete($_id) {
 		// get id
 		$query = "
-				UPDATE FROM posts
-				SET posts.post_status = 'disable'
+				UPDATE  posts
+				SET posts.post_status = 'deleted'
 				WHERE posts.id = $_id
 				";
 
