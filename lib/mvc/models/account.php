@@ -61,27 +61,8 @@ trait account
 	 */
 	protected function setLoginSession($_datarow, $_fields)
 	{
-		$_SESSION['user']       = [];
-		$_SESSION['permission'] = [];
-		foreach ($_fields as $value)
-		{
-			if(substr($value, 0, 5) === 'user_')
-			{
-				$key = substr($value, 5);
-				if($key == 'meta')
-				{
-					$_SESSION['user'][$key] = json_decode($_datarow[$value], true);
-				}
-				else
-				{
-					$_SESSION['user'][$key] = $_datarow[$value];
-				}
-			}
-			else
-			{
-				$_SESSION['user'][$value] = $_datarow[$value];
-			}
-		}
+		// set login session
+		\lib\db\users::set_login_session($_datarow, $_fields);
 
 		if(isset($_datarow['user_permission']) && is_numeric($_datarow['user_permission']))
 		{

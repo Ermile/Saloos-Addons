@@ -13,6 +13,35 @@ class users
 
 
 	/**
+	 * insert new recrod in users table
+	 * @param array $_args fields data
+	 * @return mysql result
+	 */
+	public static function insert($_args){
+
+		$set = [];
+		foreach ($_args as $key => $value) {
+			if($value === null)
+			{
+				$set[] = " `$key` = NULL ";
+			}
+			else
+			{
+				$set[] = " `$key` = '$value' ";
+			}
+		}
+		$set = join($set, ',');
+		$query =
+		"
+			INSERT INTO
+				users
+			SET
+				$set
+		";
+		return \lib\db::query($query);
+	}
+
+	/**
 	 * check signup and if can add new user
 	 * @return [type] [description]
 	 */
@@ -23,74 +52,57 @@ class users
 		{
 			// if use true fill it with default value
 			$_perm     = \lib\utility\option::get('account');
-		}
-		// if permission is not set then set it null
-		if(!$_perm)
-		{
-			$_perm = 'NULL';
-		}
-		if(!$_name)
-		{
-			$_name = 'NULL';
-		}
-
-		$qry = "SELECT * FROM `users` WHERE `user_mobile` = $_mobile";
-		// connect to project database
-		\lib\db::connect();
-		$result     = @mysqli_query(\lib\db::$link, $qry);
-		$user_exist = @mysqli_affected_rows(\lib\db::$link);
-
-		if($user_exist !== 0)
-		{
-			if(!is_a($result, 'mysqli_result') || $user_exist !== 1)
+			// default value not set in database
+			if($_perm == '')
 			{
-				// no record exist
-				return false;
+				$_perm = null;
+			}
+		}
+		else
+		{
+			$_perm = null;
+		}
+
+		$query =
+		"
+			SELECT
+				id
+			FROM
+				users
+			WHERE
+				user_mobile = '$_mobile'
+			LIMIT 1
+		";
+
+		$result = \lib\db::get($query, 'id', true);
+
+		if($result)
+		{
+			// signup called and the mobile exist
+			if($result)
+			{
+				self::$user_id = $result;
+				return $result;
 			}
 
-			// if has result return id
-			if($result && $row = @mysqli_fetch_assoc($result))
-			{
-				if(isset($row['id']))
-				{
-					self::$user_id = $row['id'];
-					return $row['id'];
-				}
-			}
-			// mobile number exist in database
 			return false;
 		}
-
-		$qry = "INSERT INTO `users`
-		(
-			`user_mobile`,
-			`user_pass`,
-			`user_displayname`,
-			`user_permission`,
-			`user_createdate`
-		)
-		VALUES
-		(
-			$_mobile,
-			'$_pass',
-			'$_name',
-			$_perm,
-			'".date('Y-m-d H:i:s')."'
-		)";
-
-		// execute query
-		$result     = @mysqli_query(\lib\db::$link, $qry);
-		$user_exist = @mysqli_affected_rows(\lib\db::$link);
-
-		// give last insert id
-		$last_id    = @mysqli_insert_id(\lib\db::$link);
-		// if have last insert it return it
-		if($last_id)
+		else
 		{
-			self::$user_id = $last_id;
-			return $last_id;
+			// signup up users
+			$args =
+			[
+				'user_mobile'      => $_mobile,
+				'user_pass'        => $_pass,
+				'user_displayname' => $_name,
+				'user_permission'  => $_perm,
+				'user_createdate'  => date('Y-m-d H:i:s')
+			];
+			$insert_new = self::insert($args);
+			$insert_id = \lib\db::insert_id();
+			self::$user_id = $insert_id;
+			return $insert_id;
 		}
-		return null;
 	}
 
 
@@ -175,19 +187,39 @@ class users
 	 *
 	 * @return     <type>  The user data.
 	 */
-	public static function get_user_data($_user_id, $_field)
+	public static function get_user_data($_user_id, $_field = null)
 	{
+		if($_field == null)
+		{
+			$_field = "*";
+		}
+		elseif(is_array($_field))
+		{
+			$field = [];
+			foreach ($_field as $key => $value) {
+				$field[] = " users.$value ";
+			}
+			$_field = join($field, ",");
+		}
+		elseif(is_string($_field))
+		{
+			$_field = " users.$_field AS '$_field' ";
+		}
+		else
+		{
+			return false;
+		}
 		$query =
 		"
 			SELECT
-				users.$_field AS '$_field'
+				$_field
 			FROM
 				users
 			WHERE
 				users.id = $_user_id
 			LIMIT 1
 		";
-		$result = \lib\db::get($query, "$_field", true);
+		$result = \lib\db::get($query, null, true);
 		return $result;
 	}
 
@@ -230,7 +262,7 @@ class users
 			return $_SESSION['user']['displayname'];
 		}
 		$result = self::get_user_data($_user_id, "user_displayname");
-		$_SESSION['user']['displayname'] = $result;
+		$_SESSION['user']['displayname'] = $result["user_displayname"];
 		return $result;
 	}
 
@@ -268,7 +300,8 @@ class users
 	 */
 	public static function get_email($_user_id)
 	{
-		return self::get_user_data($_user_id, "user_email");
+		$result = self::get_user_data($_user_id, "user_email");
+		return isset($result["user_email"]) ? $result["user_email"]: null;
 	}
 
 
@@ -368,12 +401,53 @@ class users
 		$mobile      = \lib\utility\filter::temp_mobile();
 		$password    = \lib\utility\filter::temp_password();
 		$user_id     = self::signup($mobile, $password, true, $displayname);
-		$_SESSION['user'] =
-		[
-			'id'          => $user_id,
-			'displayname' => $displayname,
-			'mobile'      => $mobile
-		];
+		return $user_id;
+	}
+
+
+
+	/**
+	 * set login session
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 */
+	public static function set_login_session($_datarow = null, $_fields = null, $_user_id = null)
+	{
+		if($_user_id)
+		{
+			$user_data = self::get_user_data($_user_id);
+			if(is_array($user_data))
+			{
+				$_fields = array_keys($user_data);
+				$_datarow = $user_data;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		$_SESSION['user']       = [];
+		$_SESSION['permission'] = [];
+		foreach ($_fields as $value)
+		{
+			if(substr($value, 0, 5) === 'user_')
+			{
+				$key = substr($value, 5);
+				if($key == 'meta')
+				{
+					$_SESSION['user'][$key] = json_decode($_datarow[$value], true);
+				}
+				else
+				{
+					$_SESSION['user'][$key] = $_datarow[$value];
+				}
+			}
+			else
+			{
+				$_SESSION['user'][$value] = $_datarow[$value];
+			}
+		}
+
 	}
 }
 ?>
