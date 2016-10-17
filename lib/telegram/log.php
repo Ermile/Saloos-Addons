@@ -321,8 +321,10 @@ class log extends tg
 			// calc full_name of user
 			$fullName = trim(self::response('from','first_name'). ' '. self::response('from','last_name'));
 
-			$mobile = '1100'. $_telegram_id;
-			\lib\db\users::signup($mobile, 'telegram', true, $fullName);
+			$mobile = 'tg_'. $_telegram_id;
+			// generate password
+			$password = \lib\utility\filter::temp_password();
+			\lib\db\users::signup($mobile, $password, true, $fullName);
 			self::$user_id = \lib\db\users::$user_id;
 
 			// save telegram user detail like name and username into options

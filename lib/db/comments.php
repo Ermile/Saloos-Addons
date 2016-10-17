@@ -76,7 +76,7 @@ class comments
 	public static function delete($_id) {
 		// get id
 		$query = "
-				UPDATE FROM comments
+				UPDATE comments
 				SET comments.comment_status = 'deleted'
 				WHERE comments.id = $_id
 				";

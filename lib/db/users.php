@@ -168,6 +168,55 @@ class users
 
 
 	/**
+	 * get users data
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 * @param      <type>  $_field    The field
+	 *
+	 * @return     <type>  The user data.
+	 */
+	public static function get_user_data($_user_id, $_field)
+	{
+		$query =
+		"
+			SELECT
+				users.$_field AS '$_field'
+			FROM
+				users
+			WHERE
+				users.id = $_user_id
+			LIMIT 1
+		";
+		$result = \lib\db::get($query, "$_field", true);
+		return $result;
+	}
+
+
+	/**
+	 * Sets the user data.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 * @param      <type>  $_field    The field
+	 * @param      <type>  $_value    The value
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function set_user_data($_user_id, $_field, $_value)
+	{
+		$query =
+		"
+			UPDATE
+				users
+			SET
+				users.$_field = '$_value'
+			WHERE
+				users.id = $_user_id
+		";
+		$result = \lib\db::query($query);
+		return $result;
+	}
+
+	/**
 	 * Gets the displayname.
 	 *
 	 * @param      <type>  $_user_id  The user identifier
@@ -180,26 +229,20 @@ class users
 		{
 			return $_SESSION['user']['displayname'];
 		}
-
-		$query =
-		"
-			SELECT
-				users.user_displayname AS 'displayname'
-			FROM
-				users
-			WHERE
-				users.id = $_user_id
-			LIMIT 1
-		";
-
-		$result = \lib\db::get($query, 'displayname', true);
-
+		$result = self::get_user_data($_user_id, "user_displayname");
 		$_SESSION['user']['displayname'] = $result;
-
 		return $result;
 	}
 
 
+	/**
+	 * Sets the displayname.
+	 *
+	 * @param      <type>   $_user_id      The user identifier
+	 * @param      <type>   $_displayname  The displayname
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
 	public static function set_displayname($_user_id, $_displayname)
 	{
 		// check new display name vs old display name
@@ -207,23 +250,39 @@ class users
 		{
 			return true;
 		}
-
-		// update display name
-		$query =
-		"
-			UPDATE
-				users
-			SET
-				users.user_displayname = '$_displayname'
-			WHERE
-				users.id = $_user_id
-		";
-
-		$result = \lib\db::query($query);
-
-		$_SESSION['user']['displayname'] = $result;
-
+		$result = self::set_user_data($_user_id, "user_displayname", $_displayname);
+		if($result)
+		{
+			$_SESSION['user']['displayname'] = $_displayname;
+		}
 		return $result;
+	}
+
+
+	/**
+	 * Gets the email.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 *
+	 * @return     <type>  The email.
+	 */
+	public static function get_email($_user_id)
+	{
+		return self::get_user_data($_user_id, "user_email");
+	}
+
+
+	/**
+	 * Sets the email.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 * @param      <type>  $_email    The email
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function set_email($_user_id, $_email)
+	{
+		return self::set_user_data($_user_id, "user_email", $_email);
 	}
 
 
@@ -296,6 +355,25 @@ class users
 			LIMIT 1
 		";
 		return \lib\db::get($query, 'language', true);
+	}
+
+
+	/**
+	 * try the sarshomar
+	 * generate mobile and password and register the Guset Session
+	 */
+	public static function signup_inspection()
+	{
+		$displayname = "Guest Session";
+		$mobile      = \lib\utility\filter::temp_mobile();
+		$password    = \lib\utility\filter::temp_password();
+		$user_id     = self::signup($mobile, $password, true, $displayname);
+		$_SESSION['user'] =
+		[
+			'id'          => $user_id,
+			'displayname' => $displayname,
+			'mobile'      => $mobile
+		];
 	}
 }
 ?>
