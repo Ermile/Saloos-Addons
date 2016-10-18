@@ -33,7 +33,7 @@ class controller extends \mvc\controller
 
 			case 'verification':
 			case 'verificationsms':
-				if($from !== 'recovery' && $from !== 'signup' && $from !== 'verification')
+				if($from && $from !== 'recovery' && $from !== 'signup' && $from !== 'verification')
 					\lib\error::access(T_("you can't access to this page!"));
 				$this->model_name   = '\addons\content_account\\'.$mymodule.'\model';
 				$this->display_name = 'content_account\\'.$mymodule.'\display.html';

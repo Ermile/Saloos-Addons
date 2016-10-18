@@ -78,5 +78,30 @@ class logitems
 		return \lib\db::$_type($_query);
 	}
 
+
+	/**
+	 * Gets the logitem id by logitem title
+	 *
+	 * @param      <type>  $_logitem_title  The logitem title
+	 *
+	 * @return     <type>  The identifier.
+	 */
+	public static function get_id($_logitem_title)
+	{
+		$query =
+		"
+			SELECT
+				id
+			FROM
+				logitems
+			WHERE
+				logitems.logitem_title = '$_logitem_title'
+			LIMIT 1
+		";
+		$id = \lib\db::get($query,'id',true);
+		return $id;
+	}
+
+
 }
 ?>

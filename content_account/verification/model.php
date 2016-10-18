@@ -15,8 +15,12 @@ class model extends \mvc\model
 		// get parameters and set to local variables
 		$mycode     = utility::post('code');
 		$mymobile   = utility::post('mobile','filter');
-		$myuserid   = $this->sql()->table('users')->field('id')->where('user_mobile', $mymobile)->select()->assoc('id');
+		if($mymobile == '' && isset($_SESSION['verification_mobile']))
+		{
+			$mymobile = $_SESSION['verification_mobile'];
+		}
 
+		$myuserid   = $this->sql()->table('users')->field('id')->where('user_mobile', $mymobile)->select()->assoc('id');
 		// check for mobile exist
 		$tmp_result = $this->sql()->table('logs')
 						  ->where        ('user_id'       , $myuserid)
