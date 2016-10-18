@@ -79,12 +79,6 @@ class users
 		if($result)
 		{
 			// signup called and the mobile exist
-			if($result)
-			{
-				self::$user_id = $result;
-				return $result;
-			}
-
 			return false;
 		}
 		else

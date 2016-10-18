@@ -30,7 +30,7 @@ class view extends \addons\content_cp\home\view
 			$form_config->config_defaultLang->child()->id('lang_'.$key)->value($key)->label($value);
 		}
 		// add sms items
-		$form_sms->sms_name->child()->id('sms_kavenegar')->value('kavenegarApi')->label(T_('Kavenegar'));
+		$form_sms->sms_name->child()->id('sms_kavenegar')->value('kavenegar_api')->label(T_('Kavenegar'));
 		$tld_list = ['com', 'org', 'edu', 'net', 'ir'];
 		foreach ($tld_list as $key => $tld)
 		{

@@ -25,9 +25,10 @@ class model extends \mvc\model
 		{
 			\lib\utility\sms::send($mymobile, 'signup');
 			debug::true(T_("Register successfully"));
+			$myreferer = null;
 
-			// $this->redirector()->set_url('verification?from=signup&mobile='.$mymobile.'&referer='.$myreferer);
-			$this->redirector()->set_url('login?from=signup&cp=1&mobile='.$mymobile);
+			$this->redirector()->set_url('verification?from=signup&mobile='.$mymobile.'&referer='.$myreferer);
+			// $this->redirector()->set_url('login?from=signup&cp=1&mobile='.$mymobile);
 		}
 		elseif($result === false)
 		{
