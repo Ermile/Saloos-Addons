@@ -505,7 +505,7 @@ class tg
 		return exec::send('setWebhook', $answer, 'description') .': '. $_url;
 	}
 
-	public static is_aerial()
+	public static function is_aerial()
 	{
 		$is_aerial = false;
 		$aerial_method = ['callback_query', 'chosen_inline_result', 'inline_query'];
