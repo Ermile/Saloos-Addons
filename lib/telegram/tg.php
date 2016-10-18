@@ -505,6 +505,19 @@ class tg
 		return exec::send('setWebhook', $answer, 'description') .': '. $_url;
 	}
 
+	public static is_aerial()
+	{
+		$is_aerial = false;
+		$aerial_method = ['callback_query', 'chosen_inline_result', 'inline_query'];
+		foreach ($aerial_method as $key => $value) {
+			if(array_key_exists($value, self::$hooks))
+			{
+				$is_aerial = true;
+				break;
+			}
+		}
+		return $is_aerial;
+	}
 
 	/**
 	 * execute telegram method
