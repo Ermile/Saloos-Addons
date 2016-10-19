@@ -190,35 +190,35 @@ class tags
 	}
 
 
-	public static function get_post_similar($_args)
+	/**
+	 * Gets the post similar.
+	 * default get the post id and return similar post
+	 * you can set the poll is null and send list of tags in array or string of tags has splitable by ','
+	 * and get post similar this tags
+	 *
+	 * @param      <type>  $_post_id  The post identifier
+	 * @param      array   $_options  The options
+	 *
+	 * @return     <type>  The post similar.
+	 */
+	public static function get_post_similar($_post_id = null, $_options = [])
 	{
-		$tags    = null;
-		$post_id = null;
+
+		$default_options =
+		[
+			"limit" => 5,
+			"tags"  => []
+		];
+
+		$_options = array_merge($default_options, $_options);
 		$tags_id = [];
-		$limit = 5;
-		if(isset($_args['tags']))
+		if($_options['tags'])
 		{
-			$tags = $_args['tags'];
+			$tags_id = self::get_multi_id($_options['tags']);
 		}
-
-		if(isset($_args['limit']))
+		elseif($_post_id)
 		{
-			$limit = $_args['limit'];
-		}
-
-		if(isset($_args['id']))
-		{
-			$post_id = $_args['id'];
-		}
-
-		if($tags)
-		{
-
-			$tags_id = self::get_multi_id($tags);
-		}
-		elseif($post_id)
-		{
-			$tags_id = self::get_multi_id(\lib\db\terms::usage($post_id));
+			$tags_id = self::get_multi_id(\lib\db\terms::usage($_post_id));
 		}
 
 		$where = [];
