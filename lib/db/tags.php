@@ -249,7 +249,7 @@ class tags
 				$where
 			GROUP BY termusage_id
 			ORDER BY termusage_id DESC
-			LIMIT 0,$limit
+			LIMIT 0,$_options[limit]
 		";
 		$result = \lib\db::get($query);
 		return $result;
