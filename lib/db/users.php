@@ -87,7 +87,7 @@ class users
 			$args =
 			[
 				'user_mobile'      => $_mobile,
-				'user_pass'        => $_pass,
+				'user_pass'        => \lib\utility::hasher($_pass),
 				'user_displayname' => $_name,
 				'user_permission'  => $_perm,
 				'user_createdate'  => date('Y-m-d H:i:s')
