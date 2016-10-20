@@ -66,22 +66,25 @@ trait template
 		{
 			// save name of current module as name of social
 			$social_name = $mymodule;
-			// declare list of shortkey for socials
-			$social_list =
-			[
-				'@'        => 'twitter',
-				'~'        => 'github',
-				'+'        => 'googleplus',
-				'f'        => 'facebook',
-				'fb'       => 'facebook',
-				'in'       => 'linkedin',
-				'tg'       => 'telegram',
-			];
-
-			// if name of current module is exist then save complete name of it
-			if(isset($social_list[$mymodule]))
+			if($this->option('socialy'))
 			{
-				$social_name = $social_list[$mymodule];
+				// declare list of shortkey for socials
+				$social_list =
+				[
+					'@'        => 'twitter',
+					'~'        => 'github',
+					'+'        => 'googleplus',
+					'f'        => 'facebook',
+					'fb'       => 'facebook',
+					'in'       => 'linkedin',
+					'tg'       => 'telegram',
+				];
+
+				// if name of current module is exist then save complete name of it
+				if(isset($social_list[$mymodule]))
+				{
+					$social_name = $social_list[$mymodule];
+				}
 			}
 
 			// declare address of social networks
