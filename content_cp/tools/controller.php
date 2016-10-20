@@ -6,7 +6,10 @@ class controller extends \addons\content_cp\home\controller
 	function _route()
 	{
 		// check permission to access to cp
-		parent::_permission('cp');
+		if(Tld !== 'dev')
+		{
+			parent::_permission('cp');
+		}
 
 		// // Restrict unwanted module
 		// if(!$this->cpModlueList())
@@ -182,7 +185,7 @@ class controller extends \addons\content_cp\home\controller
 				break;
 		}
 
-		$this->get()->ALL();
+		// $this->get()->ALL();
 		if($exist)
 		{
 			$this->model()->_processor(object(array("force_json" => false, "force_stop" => true)));
