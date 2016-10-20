@@ -35,6 +35,12 @@ class exec extends tg
 			}
 			unset($_data['method']);
 		}
+		$response_callback = null;
+		if(array_key_exists('response_callback', $_data))
+		{
+			$response_callback = $_data['response_callback'];
+			unset($_data['response_callback']);
+		}
 		// if api key is not set get it from options
 		if(!self::$api_key)
 		{
@@ -88,6 +94,10 @@ class exec extends tg
 		}
 
 		$result = curl_exec($ch);
+		if(is_object($response_callback))
+		{
+			call_user_func_array($response_callback, [json_decode($result, true), $_data]);
+		}
 		if ($result === false)
 		{
 			return curl_error($ch). ':'. curl_errno($ch);

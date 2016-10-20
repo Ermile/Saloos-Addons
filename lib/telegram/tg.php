@@ -182,8 +182,8 @@ class tg
 			case 'editMessageText':
 			case 'editMessageCaption':
 			case 'editMessageReplyMarkup':
-				$_prop['chat_id']    = self::response('chat');
-				$_prop['message_id'] = self::response('message_id');
+				$_prop['chat_id']    = array_key_exists('chat_id', $_prop) ? $_prop['chat_id'] : self::response('chat');
+				$_prop['message_id'] = array_key_exists('message_id', $_prop) ? $_prop['message_id'] : self::response('message_id');
 				break;
 
 			case 'getUserProfilePhotos':
