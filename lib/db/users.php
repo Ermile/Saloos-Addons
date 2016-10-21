@@ -294,7 +294,12 @@ class users
 	 */
 	public static function get_email($_user_id)
 	{
+		if(isset($_SESSION['user']['email']))
+		{
+			return $_SESSION['user']['email'];
+		}
 		$result = self::get_user_data($_user_id, "user_email");
+		$_SESSION['user']['email'] = $result["user_email"];
 		return isset($result["user_email"]) ? $result["user_email"]: null;
 	}
 
@@ -309,7 +314,16 @@ class users
 	 */
 	public static function set_email($_user_id, $_email)
 	{
-		return self::set_user_data($_user_id, "user_email", $_email);
+		if(isset($_SESSION['user']['email']) && $_SESSION['user']['email'] == $_email )
+		{
+			return true;
+		}
+		$result = self::set_user_data($_user_id, "user_email", $_email);
+		if($result)
+		{
+			$_SESSION['user']['email'] = $_email;
+		}
+		return $result;
 	}
 
 
