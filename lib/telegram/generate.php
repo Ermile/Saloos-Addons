@@ -60,7 +60,7 @@ class generate extends tg
 				$answer = ['text' => self::$defaultText];
 				if(self::$defaultMenu && is_object(self::$defaultMenu))
 				{
-					$answer['reply_markup'] = self::$defaultMenu();
+					$answer['reply_markup'] = call_user_func(self::$defaultMenu);
 				}
 			}
 		}
