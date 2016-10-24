@@ -134,6 +134,12 @@ class options
 		foreach ($_args as $field => $value) {
 			$query[] = "$field = '$value'";
 		}
+
+		if(empty($query))
+		{
+			return true;
+		}
+
 		$query = join($query, ",");
 
 		// make update query

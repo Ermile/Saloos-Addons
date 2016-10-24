@@ -11,6 +11,37 @@ class users
 
 	public static $user_id;
 
+	/**
+	 * get users data in users table
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 */
+	public static function get($_user_id, $_field = null)
+	{
+		$field = "*";
+		if(is_array($_field))
+		{
+			$field = join($_field, " , ");
+		}
+		elseif($_field && is_string($_field))
+		{
+			$field = $_field;
+		}
+
+		$query =
+		"
+			SELECT
+				$field
+			FROM
+				users
+			WHERE
+				users.id = $_user_id
+			LIMIT 1
+			-- users::get()
+		";
+		$result = \lib\db::get($query, null, true);
+	}
+
 
 	/**
 	 * insert new recrod in users table
@@ -40,6 +71,41 @@ class users
 		";
 		return \lib\db::query($query);
 	}
+
+
+
+	/**
+	 * update field from users table
+	 * get fields and value to update
+	 * @param array $_args fields data
+	 * @param string || int $_id record id
+	 * @return mysql result
+	 */
+	public static function update($_args, $_id) {
+
+		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
+		$query = [];
+		foreach ($_args as $field => $value) {
+			$query[] = "$field = '$value'";
+		}
+
+		if(empty($query))
+		{
+			return true;
+		}
+
+		$query = join($query, ",");
+
+		// make update query
+		$query = "
+				UPDATE users
+				SET $query
+				WHERE users.id = $_id;
+				";
+
+		return \lib\db::query($query);
+	}
+
 
 	/**
 	 * check signup and if can add new user
