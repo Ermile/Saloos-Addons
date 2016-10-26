@@ -41,7 +41,9 @@ class tg
 	public static function run($_allowSample = false)
 	{
 		// run hook and save it on $hook value
-		self::hook();
+		if(!self::$hook){
+			self::hook();
+		}
 
 		// generate response from defined commands
 		$ans    = generate::answer();
