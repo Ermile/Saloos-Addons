@@ -96,7 +96,7 @@ class exec extends tg
 		$result = curl_exec($ch);
 		if(is_object($response_callback))
 		{
-			call_user_func_array($response_callback, [json_decode($result, true), $_data]);
+			call_user_func_array($response_callback, [json_decode($result), $_data]);
 		}
 		if ($result === false)
 		{
