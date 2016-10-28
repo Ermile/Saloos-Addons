@@ -18,14 +18,17 @@ class users
 	 */
 	public static function get($_user_id, $_field = null)
 	{
-		$field = "*";
+		$field     = '*';
+		$get_field = null;
 		if(is_array($_field))
 		{
-			$field = join($_field, " , ");
+			$field     = '`'. join($_field, '`, `'). '`';
+			$get_field = null;
 		}
 		elseif($_field && is_string($_field))
 		{
-			$field = $_field;
+			$field     = '`'. $_field. '`';
+			$get_field = $_field;
 		}
 
 		$query =
@@ -39,7 +42,8 @@ class users
 			LIMIT 1
 			-- users::get()
 		";
-		$result = \lib\db::get($query, null, true);
+		$result = \lib\db::get($query, $get_field, true);
+		return $result;
 	}
 
 
