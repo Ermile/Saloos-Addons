@@ -9,6 +9,7 @@ class controller extends \lib\controller
 	use \lib\mvc\controllers\tools;
 	use \lib\mvc\controllers\url;
 	use \lib\mvc\controllers\pagnation;
+	use \lib\mvc\controllers\ref;
 
 
 	/**
@@ -65,6 +66,8 @@ class controller extends \lib\controller
 		}
 
 		$this->pagnation_config();
+
+		$this->save_ref();
 	}
 }
 ?>

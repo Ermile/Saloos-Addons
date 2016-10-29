@@ -153,6 +153,13 @@ class users
 		}
 		else
 		{
+			$ref = null;
+			// get the ref and set in users_parent
+			if(isset($_SESSION['user']['ref']))
+			{
+				$ref = $_SESSION['user']['ref'];
+			}
+
 			// signup up users
 			$args =
 			[
@@ -160,6 +167,7 @@ class users
 				'user_pass'        => \lib\utility::hasher($_pass),
 				'user_displayname' => $_name,
 				'user_permission'  => $_perm,
+				'user_parent'      => $ref,
 				'user_createdate'  => date('Y-m-d H:i:s')
 			];
 			$insert_new = self::insert($args);
