@@ -22,6 +22,7 @@ class tg
 	public static $defaultMenu = null;
 	public static $skipText    = null;
 	public static $once_log    = null;
+	public static $methods	   = [];
 	public static $saveDest    = root.'public_html/files/telegram/';
 	public static $priority    =
 	[
@@ -239,10 +240,9 @@ class tg
 		// replace values of text and markup
 		$_prop = generate::replaceFill($_prop);
 		// decode markup if exist
-		if(isset($_prop['reply_markup']))
+		if(isset($_prop['is_json']) && $_prop['is_json'] == false && isset($_prop['reply_markup']))
 		{
 			$_prop['reply_markup'] = json_encode($_prop['reply_markup'], JSON_UNESCAPED_UNICODE);
-			// self::$answer['force_reply'] = true;
 		}
 		// markdown is enable by default
 		if(isset($_prop['text']) && !isset($_prop['parse_mode']))
@@ -533,7 +533,28 @@ class tg
 		{
 			$_args = $_args[0];
 		}
-		return exec::send($_name, $_args);
+		if(!array_key_exists('before', self::$methods))
+		{
+			self::$methods['before'] = [];
+		}
+		foreach (self::$methods['before'] as $key => $value) {
+			if(preg_match($key, $_name, $name))
+			{
+				$value($_name, $_args);
+			}
+		}
+		$return = exec::send($_name, $_args);
+		if(!array_key_exists('after', self::$methods))
+		{
+			self::$methods['after'] = [];
+		}
+		foreach (self::$methods['after'] as $key => $value) {
+			if(preg_match($key, $_name, $name))
+			{
+				$value($_name, $_args, $return);
+			}
+		}
+		return $return;
 	}
 }
 ?>

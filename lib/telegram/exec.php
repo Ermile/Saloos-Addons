@@ -16,7 +16,15 @@ class exec extends tg
 	 */
 	public static function send($_method = null, array $_data = null, $_output = null)
 	{
-		$is_json = false;
+		if(!isset($_data['is_json']))
+		{
+			$is_json = true;
+		}
+		else
+		{
+			$is_json = $_data['is_json'];
+			unset($_data['is_json']);
+		}
 		// if telegram is off then do not run
 		if(!\lib\utility\option::get('telegram', 'status'))
 		{
