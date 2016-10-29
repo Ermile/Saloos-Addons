@@ -115,7 +115,7 @@ class users
 	 * check signup and if can add new user
 	 * @return [type] [description]
 	 */
-	public static function signup($_mobile, $_pass, $_perm = null, $_name = null)
+	public static function signup($_mobile, $_pass, $_perm = null, $_name = null, $_ref = null)
 	{
 		// first if perm is true get default permission from db
 		if($_perm === true)
@@ -158,6 +158,10 @@ class users
 			if(isset($_SESSION['user']['ref']))
 			{
 				$ref = $_SESSION['user']['ref'];
+			}
+			elseif($_ref)
+			{
+				$ref = $_ref;
 			}
 
 			// signup up users
