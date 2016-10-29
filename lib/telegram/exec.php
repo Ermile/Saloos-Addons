@@ -94,9 +94,18 @@ class exec extends tg
 		}
 
 		$result = curl_exec($ch);
-		if(is_object($response_callback))
+		if($response_callback)
 		{
-			call_user_func_array($response_callback, [json_decode($result), $_data]);
+			if(is_object($response_callback))
+			{
+				call_user_func_array($response_callback, [json_decode($result), $_data]);
+			}
+			elseif(is_array($response_callback))
+			{
+				$args = array_splice($response_callback, 1);
+				array_unshift($args, json_decode($result), $_data);
+				call_user_func_array($response_callback[0], $args);
+			}
 		}
 		if ($result === false)
 		{
