@@ -505,7 +505,17 @@ class users
 	{
 		if($_user_id)
 		{
-			$user_data = self::get_user_data($_user_id);
+			$session_fields =
+				[
+					'id',
+					'user_displayname',
+					'user_mobile',
+					'user_meta',
+					'user_status',
+					'user_permission'
+				];
+
+			$user_data = self::get_user_data($_user_id, $session_fields);
 			if(is_array($user_data))
 			{
 				$_fields = array_keys($user_data);
