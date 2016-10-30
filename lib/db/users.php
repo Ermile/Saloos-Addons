@@ -510,6 +510,7 @@ class users
 					'id',
 					'user_displayname',
 					'user_mobile',
+					'user_email',
 					'user_meta',
 					'user_status',
 					'user_permission'
