@@ -106,9 +106,16 @@ class cats
 	}
 
 
-	public static function get($_term_type)
+	/**
+	 * Gets the multi record of cats
+	 *
+	 * @param      <type>  $_term_type  The term type
+	 *
+	 * @return     <type>  The multi.
+	 */
+	public static function get_multi($_term_type)
 	{
-		return \lib\db\terms::get(['term_type' => $_term_type]);
+		return \lib\db\terms::get_multi(['term_type' => $_term_type]);
 	}
 }
 ?>

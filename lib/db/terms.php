@@ -208,7 +208,53 @@ class terms
 	}
 
 
-	public static function get($_args = [])
+	/**
+	 * get the terms by id
+	 *
+	 * @param      <type>  $_term_id  The term identifier
+	 * @param      string  $_field    The field
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function get($_term_id, $_field = null)
+	{
+		$field     = '*';
+		$get_field = null;
+		if(is_array($_field))
+		{
+			$field     = '`'. join($_field, '`, `'). '`';
+			$get_field = null;
+		}
+		elseif($_field && is_string($_field))
+		{
+			$field     = '`'. $_field. '`';
+			$get_field = $_field;
+		}
+
+		$query =
+		"
+			SELECT
+				$field
+			FROM
+				terms
+			WHERE
+				terms.id = $_term_id
+			LIMIT 1
+			-- terms::get()
+		";
+		$result = \lib\db::get($query, $get_field, true);
+		return $result;
+	}
+
+
+	/**
+	 * Gets the multi record of terms table
+	 *
+	 * @param      array    $_args  The arguments
+	 *
+	 * @return     boolean  The multi.
+	 */
+	public static function get_multi($_args = [])
 	{
 		$where = [];
 		foreach ($_args as $key => $value) {
@@ -230,6 +276,95 @@ class terms
 				$where
 		";
 		return self::select($query, "get");
+	}
+
+
+	/**
+	 * get some id of terms table to insert in termusages table
+	 *
+	 * @param      <type>   $_terms  The terms
+	 * @param      <type>   $_type   The type
+	 *
+	 * @return     boolean  The multi identifier.
+	 */
+	public static function get_multi_id($_terms, $_type = null)
+	{
+				//split terms
+		if(is_array($_terms))
+		{
+			$terms = $_terms;
+		}
+		else
+		{
+			$terms = preg_split("/\,/", $_terms);
+		}
+		if(!is_array($terms))
+		{
+			return false;
+		}
+		// trim all value
+		foreach ($terms as $key => $value) {
+			$terms[$key] = trim($value);
+		}
+		// remove empty terms
+		$terms = array_filter($terms);
+
+		if(empty($terms))
+		{
+			return null;
+		}
+
+		$condition = [];
+		foreach ($terms as $key => $value)
+		{
+			$condition[] = " term_title = '" . $value . "' ";
+		}
+
+		$condition = join($condition, " OR ");
+
+		$type = null;
+		if($_type)
+		{
+			$type = " term_type = '$_type' AND ";
+		}
+
+		$query = "
+			SELECT
+				id
+			FROM
+				terms
+			WHERE
+				$type
+				($condition)
+			";
+
+		$result = \lib\db::get($query, "id");
+		return $result;
+	}
+
+
+	/**
+	 * Gets the identifier of terms table
+	 *
+	 * @param      <type>  $_term_title  The term title
+	 *
+	 * @return     <type>  The identifier.
+	 */
+	public static function get_id($_term_title)
+	{
+
+		$query = "
+			SELECT
+				id
+			FROM
+				terms
+			WHERE
+				term_title = '$_term_title'
+			LIMIT 1
+			";
+
+		$result = \lib\db::get($query, "id", true);
+		return $result;
 	}
 }
 ?>

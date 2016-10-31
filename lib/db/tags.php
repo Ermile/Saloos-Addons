@@ -100,51 +100,7 @@ class tags
 	 */
 	public static function get_multi_id($_tags)
 	{
-		//split tags
-		if(is_array($_tags))
-		{
-			$tags = $_tags;
-		}
-		else
-		{
-			$tags = preg_split("/\,/", $_tags);
-		}
-		if(!is_array($tags))
-		{
-			return false;
-		}
-		// trim all value
-		foreach ($tags as $key => $value) {
-			$tags[$key] = trim($value);
-		}
-		// remove empty tags
-		$tags = array_filter($tags);
-
-		if(empty($tags))
-		{
-			return null;
-		}
-
-		$condition = [];
-		foreach ($tags as $key => $value)
-		{
-			$condition[] = " term_title = '" . $value . "' ";
-		}
-
-		$condition = join($condition, " OR ");
-
-		$query = "
-			SELECT
-				id
-			FROM
-				terms
-			WHERE
-				term_type = 'tag' AND
-				($condition)
-			";
-
-		$result = \lib\db::get($query, "id");
-		return $result;
+		return \lib\db\terms::get_multi_id($_tags, 'tag');
 	}
 
 
