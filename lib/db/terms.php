@@ -350,8 +350,14 @@ class terms
 	 *
 	 * @return     <type>  The identifier.
 	 */
-	public static function get_id($_term_title)
+	public static function get_id($_term_title, $_type = null)
 	{
+
+		$type = null;
+		if($_type)
+		{
+			$type = " term_type = '$_type' AND ";
+		}
 
 		$query = "
 			SELECT
@@ -359,6 +365,7 @@ class terms
 			FROM
 				terms
 			WHERE
+				$type
 				term_title = '$_term_title'
 			LIMIT 1
 			";

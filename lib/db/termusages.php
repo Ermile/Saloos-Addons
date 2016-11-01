@@ -42,19 +42,19 @@ class termusages
 	}
 
 
-	public static function update($_args)
+	public static function update($_old, $_new)
 	{
-		if(!isset($_args['term_id']))
+		if(!isset($_old['term_id']) || !isset($_new['term_id']))
 		{
 			return false;
 		}
 
-		if(!isset($_args['termusage_foreign']))
+		if(!isset($_old['termusage_foreign']) || !isset($_new['termusage_foreign']))
 		{
 			return false;
 		}
 
-		if(!isset($_args['termusage_id']))
+		if(!isset($_old['termusage_id']) || !isset($_new['termusage_id']))
 		{
 			return false;
 		}
@@ -64,13 +64,13 @@ class termusages
 			UPDATE
 				termusages
 			SET
-				term_id           = $_args[term_id],
-				termusage_id      = $_args[termusage_id],
-				termusage_foreign = '$_args[termusage_foreign]'
+				term_id           = $_new[term_id],
+				termusage_id      = $_new[termusage_id],
+				termusage_foreign = '$_new[termusage_foreign]'
 			WHERE
-				term_id           = $_args[term_id] AND
-				termusage_id      = $_args[termusage_id] AND
-				termusage_foreign = '$_args[termusage_foreign]'
+				term_id           = $_old[term_id] AND
+				termusage_id      = $_old[termusage_id] AND
+				termusage_foreign = '$_old[termusage_foreign]'
 			LIMIT 1
 		";
 		return \lib\db::query($query);
@@ -84,7 +84,6 @@ class termusages
 	 */
 	public static function insert_multi($_args)
 	{
-
 		if (empty($_args)){
 			return ;
 		}
