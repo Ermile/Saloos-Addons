@@ -150,9 +150,9 @@ trait template
 					$my_special_url = 'home';
 				}
 				$my_special_url = $mymodule. '/'. $my_special_url;
-				if(is_file(root.'content/template/'. $my_special_url. '.html'))
+				if(is_file(root.'content/template/static/'. $my_special_url. '.html'))
 				{
-					$this->display_name = 'content/template/'. $my_special_url. '.html';
+					$this->display_name = 'content/template/static/'. $my_special_url. '.html';
 					$route_check_true   = true;
 				}
 			}
