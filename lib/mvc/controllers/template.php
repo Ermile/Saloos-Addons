@@ -120,19 +120,36 @@ trait template
 			$myurl = null;
 		}
 		// set post type, get before underscope
-		$post_type = strtok($myurl['type'], '_');
+		$post_type        = strtok($myurl['type'], '_');
 		$route_check_true = false;
 		// if url does not exist show 404 error
 		if(!$myurl || ($myurl['table'] != 'terms' && \lib\router::get_storage("pagenation")))
 		{
 			// if user entered url contain one of our site language
-
-			$currentPath = $this->url('path', '_');
+			$current_path = $this->url('path', '_');
 			// if custom template exist show this template
-			if( is_file(root.'content/template/static_'. $currentPath. '.html') )
+			if( is_file(root.'content/template/static_'. $current_path. '.html') )
 			{
-				$this->display_name	= 'content\template\static_'. $currentPath. '.html';
-				$route_check_true = true;
+				$this->display_name = 'content\template\static_'. $current_path. '.html';
+				$route_check_true   = true;
+			}
+			else
+			{
+				// create special url for handle special type of syntax
+				// for example see below example
+				// ermile.com/legal			 	-> content/template/legal/home.html
+				// ermile.com/legal/privacy		-> content/template/legal/privacy.html
+				$my_special_url = substr($current_path, strlen($mymodule)+1);
+				if(!$my_special_url)
+				{
+					$my_special_url = 'home';
+				}
+				$my_special_url = $mymodule. '/'. $my_special_url;
+				if(is_file(root.'content/template/'. $my_special_url. '.html'))
+				{
+					$this->display_name = 'content/template/'. $my_special_url. '.html';
+					$route_check_true   = true;
+				}
 			}
 			// // elseif 404 template exist show it
 			// elseif( is_file(root.'content/template/404.html') )
