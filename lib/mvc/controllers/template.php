@@ -133,6 +133,11 @@ trait template
 				$this->display_name = 'content\template\static_'. $current_path. '.html';
 				$route_check_true   = true;
 			}
+			elseif( is_file(root.'content/template/static/'. $current_path. '.html') )
+			{
+				$this->display_name = 'content\template\static\\'. $current_path. '.html';
+				$route_check_true   = true;
+			}
 			else
 			{
 				// create special url for handle special type of syntax
