@@ -373,5 +373,32 @@ class terms
 		$result = \lib\db::get($query, "id", true);
 		return $result;
 	}
+
+
+	/**
+	 * Searches for the first match.
+	 *
+	 * @param      <type>  $_title  The title
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function search($_title, $_term_type = 'tag')
+	{
+		$query =
+		"
+			SELECT
+				terms.id,
+				terms.term_title,
+				terms.term_count,
+				terms.term_url
+			FROM
+				terms
+			WHERE
+				terms.term_type = '$_term_type' AND
+				terms.term_title LIKE '%$_title%'
+			LIMIT 0,20
+		";
+		return \lib\db::get($query);
+	}
 }
 ?>

@@ -177,8 +177,54 @@ class users
 			$insert_new = self::insert($args);
 			$insert_id = \lib\db::insert_id();
 			self::$user_id = $insert_id;
+			// save ref in dashboard
+			if($ref && $insert_id)
+			{
+				self::dashboard_ref($ref, "user_referred");
+			}
 			return $insert_id;
 		}
+	}
+
+
+	/**
+	 * Saves a reference in dashboard.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 * @param      <type>  $_ref      The reference
+	 */
+	public static function dashboard_ref($_user_id, $_type)
+	{
+		$query =
+		"
+			UPDATE
+				options
+			SET
+				options.option_value =  options.option_value + 1
+			WHERE
+				options.post_id    IS NULL AND
+				options.user_id    = $_user_id	AND
+				options.option_cat = 'user_dashboard_$_user_id' AND
+				options.option_key = '$_type'
+		";
+		$result = \lib\db::query($query);
+		$update_rows = mysqli_affected_rows(\lib\db::$link);
+		if(!$update_rows)
+		{
+			$insert_options =
+			"
+				INSERT INTO
+					options
+				SET
+					options.post_id      = NULL,
+					options.user_id      = $_user_id,
+					options.option_cat   = 'user_dashboard_$_user_id',
+					options.option_key   = '$_type',
+					options.option_value = 1
+			";
+			$result = \lib\db::query($insert_options);
+		}
+		return $result;
 	}
 
 
@@ -209,6 +255,16 @@ class users
 	}
 
 
+	/**
+	 * { function_description }
+	 *
+	 * @param      <type>  $_user   The user
+	 * @param      <type>  $_type   The type
+	 * @param      <type>  $_value  The value
+	 * @param      <type>  $_args   The arguments
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
 	public static function updateDetail($_user, $_type, $_value, $_args)
 	{
 		$changeDate = date('Y-m-d H:i:s');
@@ -227,7 +283,16 @@ class users
 	}
 
 
-
+	/**
+	 * Gets the detail.
+	 *
+	 * @param      <type>  $_user   The user
+	 * @param      string  $_field  The field
+	 * @param      <type>  $_cat    The cat
+	 * @param      <type>  $_key    The key
+	 *
+	 * @return     <type>  The detail.
+	 */
 	public static function getDetail($_user, $_field = '*', $_cat = null, $_key = null)
 	{
 		$qry =
@@ -364,6 +429,49 @@ class users
 			$_SESSION['user']['displayname'] = $_displayname;
 		}
 		return $result;
+	}
+
+
+	/**
+	 * Sets the displayname.
+	 *
+	 * @param      <type>   $_user_id      The user identifier
+	 * @param      <type>   $_displayname  The displayname
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function set_mobile($_user_id, $_mobile)
+	{
+		// check new display name vs old display name
+		if(isset($_SESSION['user']['mobile']) && $_SESSION['user']['mobile'] == $_mobile )
+		{
+			return true;
+		}
+		$result = self::set_user_data($_user_id, "user_mobile", $_mobile);
+		if($result)
+		{
+			$_SESSION['user']['mobile'] = $_mobile;
+		}
+		return $result;
+	}
+
+
+	/**
+	 * Gets the email.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 *
+	 * @return     <type>  The email.
+	 */
+	public static function get_mobile($_user_id)
+	{
+		if(isset($_SESSION['user']['mobile']))
+		{
+			return $_SESSION['user']['mobile'];
+		}
+		$result = self::get_user_data($_user_id, "user_mobile");
+		$_SESSION['user']['mobile'] = $result["user_mobile"];
+		return isset($result["user_mobile"]) ? $result["user_mobile"]: null;
 	}
 
 
