@@ -38,6 +38,9 @@ class controller extends \addons\content_cp\home\controller
 				{
 					$result = \lib\db::backup(true);
 				}
+				echo '<pre>';
+				print_r($result);
+				echo '</pre>';
 				break;
 
 			case 'twigtrans':
