@@ -27,7 +27,7 @@
  <link rel="author"           href="{{url.static}}humans.txt"/>
  <link rel="shortcut icon"    href="{{url.static}}images/favicon.png"/>
  <link rel="apple-touch-icon" href="{{url.static}}images/favicon.png">
- <link rel="alternate"        href="{{url.root}}/feed/" title="{{site.title}} RSS feed" type="application/rss+xml"/>
+ <link rel="alternate"        href="{{url.root}}/feed" title="{{site.title}} RSS feed" type="application/rss+xml"/>
 {%for key, lang in site.langlist if site.langlist|length >1 and not url.SubDomain%}
  <link rel="alternate"        href="{{url.root}}{%if site.defaultLang != key|slice(0, 2) %}/{{key|slice(0, 2)}}{%endif%}{%if url.path%}/{{url.path}}{%endif%}" hreflang="{{key|slice(0, 2)}}"/>
 {%endfor%}
