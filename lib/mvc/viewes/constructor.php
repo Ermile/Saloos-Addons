@@ -20,7 +20,7 @@ trait constructor
 		$this->url->tld              = $this->url('tld');        // domain ltd like 'com'
 		$this->url->raw              = Service;                  // domain name except subdomain like 'ermile.com'
 		$this->url->root             = $this->url('root');
-		$this->url->static           = $this->url->root. 'static/';
+		$this->url->static           = $this->url->root. '/'.'static/';
 		$this->url->protocol         = Protocol;
 		$this->url->account          = $this->url('account');
 		$this->url->MainStatic       = $this->url('MainService'). '/'.'static/';

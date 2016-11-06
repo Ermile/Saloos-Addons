@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.4.0: fix urls
  * Version 7.3.0: upgrade template to handle folder to categorize pages
  * Version 7.2.7: attachments addons start and some other fix
  * Version 7.2.6: complete pagination and some other fix
