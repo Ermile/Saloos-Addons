@@ -9,6 +9,50 @@ class termusages
 	 * v1.0
 	 */
 
+
+	/**
+	 * insert new tag in termusages table
+	 * @param array $_args fields data
+	 * @return mysql result
+	 */
+	public static function insert($_args)
+	{
+
+		if(empty($_args))
+		{
+			return null;
+		}
+		$set = [];
+		foreach ($_args as $key => $value) {
+			if($value === null)
+			{
+				$set[] = " `$key` = NULL ";
+			}
+			else
+			{
+				$set[] = " `$key` = '$value' ";
+			}
+		}
+		$set = join($set, ',');
+
+		$query =
+		"
+			INSERT INTO
+				termusages
+			SET
+				$set
+		";
+		return \lib\db::query($query);
+	}
+
+
+	/**
+	 * { function_description }
+	 *
+	 * @param      <type>   $_args  The arguments
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
 	public static function check($_args)
 	{
 		if(!isset($_args['term_id']))
@@ -42,6 +86,14 @@ class termusages
 	}
 
 
+	/**
+	 * { function_description }
+	 *
+	 * @param      <type>   $_old   The old
+	 * @param      <type>   $_new   The new
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
 	public static function update($_old, $_new)
 	{
 		if(!isset($_old['term_id']) || !isset($_new['term_id']))
