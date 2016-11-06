@@ -195,5 +195,164 @@ class comments
 		";
 		return self::select($query,"get");
 	}
+
+
+	/**
+	 * Determines if rate.
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 * @param      <type>  $_post_id  The post identifier
+	 */
+	public static function is_rate($_user_id, $_post_id)
+	{
+		$query =
+		"
+			SELECT
+				id
+			FROM
+				comments
+			WHERE
+				user_id = $_user_id AND
+				post_id = $_post_id AND
+				comment_type = 'rate'
+			LIMIT 1;
+		";
+		$rate = \lib\db::get($query, 'id', true);
+		return $rate;
+	}
+
+
+	/**
+	 * save rate to poll
+	 *
+	 * @param      <type>   $_user_id  The user identifier
+	 * @param      <type>   $_post_id  The post identifier
+	 * @param      integer  $_rate     The rate
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function rate($_user_id, $_post_id, $_rate)
+	{
+		// $is_rate = self::is_rate($_user_id, $_post_id);
+		// if($is_rate)
+		// {
+		// 	return true;
+		// }
+
+		if(intval($_rate) < 0)
+		{
+			return false;
+		}
+
+		if(intval($_rate) > 5)
+		{
+			$_rate = 5;
+		}
+
+		$args =
+		[
+			'comment_content' => $_rate,
+			'comment_type'    => 'rate',
+			'comment_status'  => 'approved',
+			'user_id'         => $_user_id,
+			'post_id'         => $_post_id
+		];
+		// insert comments
+		$result = self::insert($args);
+
+		if($result)
+		{
+
+			$total_rate = self::get_total_rate($_post_id);
+			if(!$total_rate)
+			{
+				// insert new value
+				$first_meta =
+				[
+					'total' =>
+					[
+						'count' => 1,
+						'sum'   => $_rate,
+						'avg'   => round($_rate / 1, 1)
+					],
+					"rate$_rate" =>
+					[
+						'count' => 1,
+						'sum'   => $_rate,
+						'avg'   => round($_rate / 1, 1)
+					]
+				];
+				$first_meta = json_encode($first_meta, JSON_UNESCAPED_UNICODE);
+
+				$arg =
+				[
+					'post_id'      => $_post_id,
+					'option_cat'   => "poll_$_post_id",
+					'option_key'   => 'comment',
+					'option_value' => 'rate',
+					'option_meta'  => $first_meta
+				];
+				return \lib\db\options::insert($arg);
+			}
+			else
+			{
+				$option_id = $total_rate['id'];
+				$meta      = json_decode($total_rate['meta'], true);
+
+				if(!is_array($meta))
+				{
+					return false;
+				}
+
+				foreach ($meta as $key => $value) {
+					if($key == 'total' || $key == "rate$_rate")
+					{
+						$meta[$key]['count'] = $meta[$key]['count'] + 1;
+						$meta[$key]['sum']   = $meta[$key]['sum'] + $_rate;
+						$meta[$key]['avg']   = round(floatval($meta[$key]['sum']) / floatval($meta[$key]['count']), 1);
+					}
+				}
+				if(!isset($meta["rate$_rate"]))
+				{
+					$meta["rate$_rate"] =
+					[
+						'count' => 1,
+						'sum'   => $_rate,
+						'avg'   => round($_rate / 1, 1)
+					];
+				}
+				return \lib\db\options::update(['option_meta' => json_encode($meta, JSON_UNESCAPED_UNICODE)], $option_id);
+			}
+		}
+	}
+
+
+	/**
+	 * Gets the total rate.
+	 *
+	 * @param      <type>  $_post_id  The post identifier
+	 *
+	 * @return     <type>  The total rate.
+	 */
+	public static function get_total_rate($_post_id)
+	{
+		$query =
+		"
+			SELECT
+				id,
+				option_meta AS 'meta'
+			FROM
+				options
+			WHERE
+				user_id IS NULL AND
+				post_id      = $_post_id AND
+				option_cat   = 'poll_$_post_id' AND
+				option_key   = 'comment' AND
+				option_value = 'rate'
+			LIMIT 1;
+		";
+		$result = \lib\db::get($query, null, true);
+		return $result;
+	}
 }
 ?>
