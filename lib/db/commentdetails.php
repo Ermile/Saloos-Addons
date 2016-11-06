@@ -121,9 +121,9 @@ class commentdetails
 		}
 		else
 		{
-			$result =  self::update($_user_id, $_comment_id, $old_type, $_type);
 			if($_type != $old_type)
 			{
+				$result =  self::update($_user_id, $_comment_id, $old_type, $_type);
 				$update_comment = self::set_comment_data($_comment_id, $_type, true);
 			}
 		}
