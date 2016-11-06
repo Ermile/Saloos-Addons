@@ -206,7 +206,8 @@ class posts
 				options.post_id = $_post_id AND
 				options.option_cat = 'poll_$_post_id'
 		";
-		return \lib\db\options::select($query, "get");
+		$result = \lib\db\options::select($query, "get");
+		return \lib\utility\filter::meta_decode($result);
 	}
 }
 ?>

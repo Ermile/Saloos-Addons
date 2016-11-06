@@ -233,11 +233,11 @@ class comments
 	 */
 	public static function rate($_user_id, $_post_id, $_rate)
 	{
-		// $is_rate = self::is_rate($_user_id, $_post_id);
-		// if($is_rate)
-		// {
-		// 	return true;
-		// }
+		$is_rate = self::is_rate($_user_id, $_post_id);
+		if($is_rate)
+		{
+			return true;
+		}
 
 		if(intval($_rate) < 0)
 		{
