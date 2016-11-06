@@ -40,7 +40,7 @@
 
          <td class="col_{{value.value}}">
 {%if dtperm.edit%}
-          <a href='{{url.base}}{{module}}/edit={{d.id}}'>{{myvalue}}</a>
+          <a href='{{url.base}}/{{module}}/edit={{d.id}}'>{{myvalue}}</a>
 {%else%}
           {{myvalue}}
 {%endif%}
@@ -58,12 +58,12 @@
          <td class="col_actions">
 {%if dtperm.edit%}
           <span class="fa-stack">
-            <a class="fa fa-pencil fa-stack-1x label-default" href="{{url.base}}{{module}}/edit={{d.id}}" ></a>
+            <a class="fa fa-pencil fa-stack-1x label-default" href="{{url.base}}/{{module}}/edit={{d.id}}" ></a>
           </span>
 {%endif%}
 {%if dtperm.delete%}
           <span class="fa-stack">
-            <a class="fa fa-times fa-stack-1x label-danger" href="{{url.base}}{{module}}/delete={{d.id}}" data-data='{"id": {{d.id}}}' data-method="post" data-modal="delete-confirm"></a>
+            <a class="fa fa-times fa-stack-1x label-danger" href="{{url.base}}/{{module}}/delete={{d.id}}" data-data='{"id": {{d.id}}}' data-method="post" data-modal="delete-confirm"></a>
           </span>
 {%endif%}
          </td>
@@ -81,7 +81,7 @@
      </div>
 {%if page.haschild and child!='add'%}
      <div class="panel-footer">
-      <a class="float-right label label-info" href="{{url.base}}{{module}}/add">{%trans%}Add New Record{%endtrans%}</a>
+      <a class="float-right label label-info" href="{{url.base}}/{{module}}/add">{%trans%}Add New Record{%endtrans%}</a>
        {{page.desc}}
      </div>
 {%endif%}

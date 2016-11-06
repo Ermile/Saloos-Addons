@@ -26,9 +26,9 @@
      <i class="fa fa-language fa-lg fa-2x"></i>
      <nav class="vertical-menu">
 {%for key, value in saloos.langlist%}{%if key == global.lang%}
-      <a href="{{url.base}}{{url.path}}?lang={{key}}" class="default not-active">{{value}}</a>
+      <a href="{{url.base}}/{{url.path}}?lang={{key}}" class="default not-active">{{value}}</a>
 {%else%}
-      <a href="{{url.base}}{{url.path}}?lang={{key}}">{{value}}</a>
+      <a href="{{url.base}}/{{url.path}}?lang={{key}}">{{value}}</a>
 {%endif%}{% endfor %}
      </nav>
     </li>
@@ -40,9 +40,9 @@
      </span>
 
     <nav class="vertical-menu">
-     <a id="profile-me" href="{{url.base}}profile"><i class="fa fa-user"></i> {%trans "My Profile"%}</a>
+     <a id="profile-me" href="{{url.base}}/profile"><i class="fa fa-user"></i> {%trans "My Profile"%}</a>
      <a id="profile-changepass" href="{{url.root}}account/changepass?cp=1&from=cp" target="_blank"><i class="fa fa-exchange"></i> {%trans "Change Password"%}</a>
-     <!-- <a id="profile-lock" href="{{url.base}}lock"><i class="fa fa-lock"></i> {%trans "Lock Screen"%}</a> -->
+     <!-- <a id="profile-lock" href="{{url.base}}/lock"><i class="fa fa-lock"></i> {%trans "Lock Screen"%}</a> -->
      <a id="profile-logout" href="http://{{url.raw}}/logout" data-direct><i class="fa fa-sign-out"></i> {%trans "Logout"%}</a>
     </nav>
    </div>
@@ -57,7 +57,7 @@
   <header id="page-title">
    <h2>{{page.title}} {%if page.desc%}<small>{{page.desc}}</small>{%endif%}</h2>
 {%if page.haschild and child!='add'%}
-   <a class="label label-info label-form" href="{{url.base}}{{module}}/add">{%trans%}Add New Record{%endtrans%}</a>
+   <a class="label label-info label-form" href="{{url.base}}/{{module}}/add">{%trans%}Add New Record{%endtrans%}</a>
 {%endif%}
   </header>
 {%endif%}
