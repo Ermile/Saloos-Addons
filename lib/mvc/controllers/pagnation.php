@@ -66,7 +66,8 @@ trait pagnation
 		$this->pagnation_set('next', ($next <= $total_pages) ? $next : false);
 		$this->pagnation_set('prev', ($prev >= 1) ? $prev : false);
 		$this->pagnation_set('count_link', 7);
-		$current_url = $this->url('base');
+		$path = \lib\router::get_url()? '/'.\lib\router::get_url(): null;
+		$current_url = $this->url('base').$path;
 		$this->pagnation_set('current_url', $this->pagnation_get('custom_length') ? $current_url."/length=$length" : $current_url);
 		$this->pagnation_set('length', $length);
 	}
