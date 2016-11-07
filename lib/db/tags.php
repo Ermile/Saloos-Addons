@@ -157,38 +157,11 @@ class tags
 	 *
 	 * @return     <type>  The post similar.
 	 */
-	public static function get_post_similar($_post_id = null, $_options = [])
+	public static function get_post_similar($_post_id, $_limit = 5)
 	{
-
-		$default_options =
-		[
-			"limit" => 5,
-			"tags"  => []
-		];
-
-		$_options = array_merge($default_options, $_options);
-		$tags_id = [];
-		if($_options['tags'])
+		if(!is_numeric($_limit))
 		{
-			$tags_id = self::get_multi_id($_options['tags']);
-		}
-		elseif($_post_id)
-		{
-			$tags_id = self::get_multi_id(\lib\db\terms::usage($_post_id));
-		}
-
-		$where = [];
-		foreach ($tags_id as $key => $value) {
-			$where[] = "termusages.term_id = $value";
-		}
-
-		if(empty($where))
-		{
-			return null;
-		}
-		else
-		{
-			$where = 'AND  ('. join($where, " OR "). ')';
+			$_limit = 5;
 		}
 
 		$query =
@@ -198,14 +171,22 @@ class tags
 				posts.post_url AS 'url'
 			FROM
 				termusages
-			INNER JOIN posts
-				ON posts.id = termusages.termusage_id
+			INNER JOIN posts ON posts.id = termusages.termusage_id
 			WHERE
-				termusages.termusage_foreign = 'posts'
-				$where
-			GROUP BY termusage_id
+				termusages.termusage_foreign  = 'posts' AND
+				termusages.termusage_id      != $_post_id AND
+				termusages.term_id IN
+				(
+					SELECT
+						term_id
+					FROM
+						termusages
+					WHERE
+						termusages.termusage_foreign = 'posts' AND
+						termusages.termusage_id      = $_post_id
+				)
 			ORDER BY termusage_id DESC
-			LIMIT 0,$_options[limit]
+			LIMIT $_limit
 		";
 		$result = \lib\db::get($query);
 		return $result;

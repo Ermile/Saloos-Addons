@@ -181,18 +181,52 @@ class comments
 	}
 
 
-	public static function get_post_comment($_post_id)
+	public static function get_post_comment($_post_id, $_limit = 6, $_user_id = false)
 	{
+		if(!is_numeric($_limit))
+		{
+			$_limit = 6;
+		}
+
+		if($_user_id)
+		{
+			$_limit = $_limit - 1;
+		}
+
 		$query =
 		"
+		(
 			SELECT
 				*
 			FROM
 				comments
 			WHERE
-				comments.post_id = $_post_id
-			LIMIT 10;
+				comments.post_id        = $_post_id AND
+				comments.comment_status = 'approved' AND
+				comments.comment_type   = 'comment'
+			ORDER BY RAND()
+			LIMIT $_limit
+		)
 		";
+		if($_user_id)
+		{
+			$query .=
+			"
+			UNION ALL (
+			SELECT
+				*
+			FROM
+				comments
+			WHERE
+				comments.post_id      = $_post_id AND
+				comments.user_id      = $_user_id AND
+				comments.comment_type = 'comment'
+			ORDER BY comments.id DESC
+			LIMIT 1
+			)
+			";
+		}
+
 		return self::select($query,"get");
 	}
 
