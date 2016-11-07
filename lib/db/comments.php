@@ -388,5 +388,26 @@ class comments
 		$result = \lib\db::get($query, null, true);
 		return $result;
 	}
+
+	public static function get_all($_limit = 50)
+	{
+		if(!is_numeric($_limit))
+		{
+			$_limit = 50;
+		}
+		$query =
+		"
+			SELECT
+				*
+			FROM
+				comments
+			WHERE
+				comments.comment_type = 'comment' AND
+				comments.comment_status = 'unapproved'
+			ORDER BY id DESC
+			LIMIT $_limit
+		";
+		return \lib\db::get($query);
+	}
 }
 ?>

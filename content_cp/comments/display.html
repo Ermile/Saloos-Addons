@@ -1,0 +1,100 @@
+{%extends display.cp%}
+{%block content%}
+{%for key, value in comments%}
+<div class="show-comments">
+
+id              : {{value.id}}
+<br>
+post_id         : {{value.post_id}}
+<br>
+comment_author  : {{value.comment_author}}
+<br>
+comment_email   : {{value.comment_email}}
+<br>
+comment_url     : {{value.comment_url}}
+<br>
+comment_content : {{value.comment_content}}
+<br>
+comment_meta    : {{value.comment_meta}}
+<br>
+comment_status  : {{value.comment_status}}
+<br>
+comment_parent  : {{value.comment_parent}}
+<br>
+user_id         : {{value.user_id}}
+<br>
+comment_type    : {{value.comment_type}}
+<br>
+comment_rate    : {{value.comment_rate}}
+<br>
+comment_minus   : {{value.comment_minus}}
+<br>
+comment_plus    : {{value.comment_plus}}
+<br>
+visitor_id      : {{value.visitor_id}}
+<br>
+date_modified   : {{value.date_modified}}
+<br>
+
+<div data-id="{{value.id}}" class="approved save-status">approved</div>
+<div data-id="{{value.id}}" class="unapproved save-status">unapproved</div>
+<hr>
+</div>
+{%endfor%}
+{%block foot_js%}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.save-status').click(function (){
+		status = $(this).html();
+		id = $(this).attr('data-id');
+		$(this).ajaxify(
+      {
+        ajax:
+        {
+          method: 'post',
+          data:
+          {
+            'status'  :status,
+            'id'  	  : id
+          },
+          abort: true,
+          success: function(e, data, x)
+          {
+
+          }
+        }
+      });
+	});
+
+});
+</script>
+{%endblock%}
+<style type="text/css">
+	.show-comments
+	{
+		color:black;
+	}
+	.approved
+	{
+		height: 10%;
+		widows: 10%;
+		border-radius: 30px;
+		background: green;
+		text-align: center;
+		font-size: 20px;
+		cursor: pointer;
+
+	}
+	.unapproved
+	{
+		height: 10%;
+		widows: 10%;
+		border-radius: 30px;
+		background: red;
+		text-align: center;
+		font-size: 20px;
+		cursor: pointer;
+
+	}
+</style>
+{%endblock%}
