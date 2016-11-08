@@ -41,34 +41,6 @@ date_modified   : {{value.date_modified}}
 <hr>
 </div>
 {%endfor%}
-{%block foot_js%}
-<script type="text/javascript">
-$(document).ready(function(){
-	$('.save-status').click(function (){
-		status = $(this).html();
-		id = $(this).attr('data-id');
-		$(this).ajaxify(
-      {
-        ajax:
-        {
-          method: 'post',
-          data:
-          {
-            'status'  :status,
-            'id'  	  : id
-          },
-          abort: true,
-          success: function(e, data, x)
-          {
-
-          }
-        }
-      });
-	});
-
-});
-</script>
-{%endblock%}
 <style type="text/css">
 	.show-comments
 	{
@@ -97,4 +69,32 @@ $(document).ready(function(){
 
 	}
 </style>
+{%endblock%}
+{%block foot_js%}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.save-status').click(function (){
+		status = $(this).html();
+		id = $(this).attr('data-id');
+		$(this).ajaxify(
+      {
+        ajax:
+        {
+          method: 'post',
+          data:
+          {
+            'status'  :status,
+            'id'  	  : id
+          },
+          abort: true,
+          success: function(e, data, x)
+          {
+
+          }
+        }
+      });
+	});
+
+});
+</script>
 {%endblock%}
