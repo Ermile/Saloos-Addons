@@ -325,7 +325,7 @@ class model extends \mvc\model
 			$param_start = 0;
 		if(!$param_length)
 		{
-			if($total>100)
+			if($total>500)
 				$param_length = 10;
 			else
 				$param_length = $total - $param_start;
