@@ -58,16 +58,33 @@ trait template
 			{
 				$post_status = " AND post_status = 'publish' ";
 			}
-			$qry = "
+
+			$qry =
+			"
 				SELECT
-					*
+					posts.id					as 'id',
+					posts.post_language 		as 'language',
+					posts.post_title 			as 'title',
+					posts.post_slug 			as 'slug',
+					posts.post_url 				as 'url',
+					posts.post_content 			as 'content',
+					posts.post_type 			as 'type',
+					posts.post_comment 			as 'comment',
+					posts.post_meta 			as 'meta',
+					posts.post_count 			as 'count',
+					posts.post_order 			as 'order',
+					posts.post_status 			as 'status',
+					posts.post_parent 			as 'parent',
+					posts.post_publishdate 		as 'publishdate',
+					posts.filter_id 			as 'filter_id',
+					posts.date_modified  	    as 'date_modified'
 				FROM
 					posts
 				WHERE
 					post_url = '$url'
 					$post_status
 				LIMIT 1
-				";
+			";
 
 			$datarow = \lib\db::get($qry, null, true);
 			// we have more than one record
@@ -92,13 +109,13 @@ trait template
 		{
 
 
-			if($_forcheck && isset($datarow['post_type']) && isset($datarow['post_slug']))
+			if($_forcheck && isset($datarow['type']) && isset($datarow['slug']))
 			{
 				return
 				[
 					'table' => 'posts',
-					'type' => $datarow['post_type'],
-					'slug' => $datarow['post_slug']
+					'type' => $datarow['type'],
+					'slug' => $datarow['slug']
 				];
 			}
 			else
@@ -117,7 +134,7 @@ trait template
 
 				// get meta of this post
 				$meta = \lib\db\posts::get_post_meta($post_id);
-				$datarow['meta'] = $meta;
+				$datarow['postmeta'] = $meta;
 
 				return $datarow;
 			}
