@@ -62,21 +62,7 @@ trait template
 			$qry =
 			"
 				SELECT
-					posts.id					as 'id',
-					posts.post_language 		as 'language',
-					posts.post_title 			as 'title',
-					posts.post_slug 			as 'slug',
-					posts.post_url 				as 'url',
-					posts.post_content 			as 'content',
-					posts.post_type 			as 'type',
-					posts.post_comment 			as 'comment',
-					posts.post_meta 			as 'meta',
-					posts.post_count 			as 'count',
-					posts.post_order 			as 'order',
-					posts.post_status 			as 'status',
-					posts.post_parent 			as 'parent',
-					posts.post_publishdate 		as 'publishdate',
-					posts.date_modified  	    as 'date_modified'
+					*
 				FROM
 					posts
 				WHERE
@@ -108,13 +94,13 @@ trait template
 		{
 
 
-			if($_forcheck && isset($datarow['type']) && isset($datarow['slug']))
+			if($_forcheck && isset($datarow['post_type']) && isset($datarow['post_slug']))
 			{
 				return
 				[
 					'table' => 'posts',
-					'type' => $datarow['type'],
-					'slug' => $datarow['slug']
+					'type' => $datarow['post_type'],
+					'slug' => $datarow['post_slug']
 				];
 			}
 			else
