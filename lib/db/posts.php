@@ -23,6 +23,10 @@ class posts
 			{
 				$set[] = " `$key` = NULL ";
 			}
+			elseif(is_int($value))
+			{
+				$set[] = " `$key` = $value ";
+			}
 			else
 			{
 				$set[] = " `$key` = '$value' ";
