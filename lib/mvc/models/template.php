@@ -76,7 +76,6 @@ trait template
 					posts.post_status 			as 'status',
 					posts.post_parent 			as 'parent',
 					posts.post_publishdate 		as 'publishdate',
-					posts.filter_id 			as 'filter_id',
 					posts.date_modified  	    as 'date_modified'
 				FROM
 					posts

@@ -110,12 +110,7 @@ trait template
 			}
 		}
 
-		$myurl =
-		[
-			'type'  => null,
-			'slug'  => null,
-			'table' => null
-		];
+		$myurl = null;
 
 		if(!empty(db_name))
 		{
@@ -128,18 +123,6 @@ trait template
 		{
 			$post_type        = strtok($myurl['type'], '_');
 		}
-
-		if(!isset($myurl['table']))
-		{
-			$myurl['table'] = null;
-		}
-
-		if(!isset($myurl['slug']))
-		{
-			$myurl['slug'] = null;
-		}
-
-
 		$route_check_true = false;
 		// if url does not exist show 404 error
 		if(!$myurl || ($myurl['table'] != 'terms' && \lib\router::get_storage("pagenation")))
