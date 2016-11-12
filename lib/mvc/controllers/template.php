@@ -123,7 +123,23 @@ trait template
 		}
 
 		// set post type, get before underscope
-		$post_type        = strtok($myurl['type'], '_');
+		$post_type = null;
+		if(isset($myurl['type']))
+		{
+			$post_type        = strtok($myurl['type'], '_');
+		}
+
+		if(!isset($myurl['table']))
+		{
+			$myurl['table'] = null;
+		}
+
+		if(!isset($myurl['slug']))
+		{
+			$myurl['slug'] = null;
+		}
+
+
 		$route_check_true = false;
 		// if url does not exist show 404 error
 		if(!$myurl || ($myurl['table'] != 'terms' && \lib\router::get_storage("pagenation")))
