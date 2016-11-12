@@ -36,8 +36,8 @@ trait constructor
 		$this->data->site['desc']        = T_("Another Project with Saloos");
 		$this->data->site['slogan']      = T_("Saloos is an artichokes for PHP programming!!");
 		$this->data->site['langlist']    = \lib\utility\option::languages();
-		$this->data->site['currentlang'] = substr(\lib\router::get_storage('language'), 0, 2);
-		$this->data->site['defaultLang'] = substr(\lib\router::get_storage('defaultLanguage'), 0, 2);
+		$this->data->site['currentlang'] = \lib\define::get_language();
+		$this->data->site['defaultLang'] = \lib\define::get_language('default');
 
 		// if allow to use social then get social network account list
 		if(\lib\utility\option::get('social', 'status'))
@@ -60,8 +60,8 @@ trait constructor
 		$this->global->title         = null;
 		$this->global->login         = $this->login();
 
-		$this->global->lang          = \lib\router::get_storage('language');
-		$this->global->direction     = \lib\router::get_storage('direction');
+		$this->global->lang          = $this->data->site['currentlang'];
+		$this->global->direction     = \lib\define::get_language('direction');
 		$this->global->id            = $this->url('path','_');
 
 		// add special pages to display array to use without name

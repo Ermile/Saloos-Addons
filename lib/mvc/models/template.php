@@ -50,7 +50,7 @@ trait template
 				return false;
 			}
 
-			$language = substr(\lib\router::get_storage('language'), 0, 2);
+			$language = \lib\define::get_language();
 			$preview  = \lib\utility::get('preview');
 			// search in url field if exist return row data
 			$post_status = "";

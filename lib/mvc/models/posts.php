@@ -38,7 +38,7 @@ trait posts
 		else
 		{
 			$qry = $qry->groupOpen('g_language');
-			$qry = $qry->and('post_language', substr(\lib\router::get_storage('language'), 0, 2));
+			$qry = $qry->and('post_language', \lib\define::get_language());
 			$qry = $qry->or('post_language', 'IS', 'NULL');
 			$qry = $qry->groupClose('g_language');
 		}

@@ -10,8 +10,8 @@ trait template
 	function s_template_finder()
 	{
 		// if lang exist in module or subdomain remove it and continue
-		$currentLang = substr(\lib\router::get_storage('language'), 0, 2);
-		$defaultLang = substr(\lib\router::get_storage('defaultLanguage'), 0, 2);
+		$currentLang = \lib\define::get_language();
+		$defaultLang = substr(\lib\define::get_language('default'), 0, 2);
 
 		if($currentLang === SubDomain && $currentLang !== $defaultLang)
 		{

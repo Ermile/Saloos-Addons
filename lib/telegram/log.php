@@ -136,17 +136,9 @@ class log extends tg
 
 
 		// change language if needede
-		if(\lib\router::get_storage('language') !== self::$language)
+		if(\lib\define::get_language('iso') !== self::$language)
 		{
-			\lib\router::set_storage('language', self::$language );
-			// use saloos php gettext function
-			require_once(lib.'utility/gettext/gettext.inc');
-			// gettext setup
-			T_setlocale(LC_MESSAGES, \lib\router::get_storage('language'));
-			// Set the text domain as 'messages'
-			T_bindtextdomain('messages', root.'includes/languages');
-			T_bind_textdomain_codeset('messages', 'UTF-8');
-			T_textdomain('messages');
+			\lib\define::set_language(self::$language);
 		}
 		return true;
 	}
