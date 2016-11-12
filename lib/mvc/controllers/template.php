@@ -110,15 +110,18 @@ trait template
 			}
 		}
 
-		$myurl = null;
+		$myurl =
+		[
+			'type'  => null,
+			'slug'  => null,
+			'table' => null
+		];
+
 		if(!empty(db_name))
 		{
 			$myurl = $this->model()->s_template_finder();
 		}
-		else
-		{
-			$myurl = null;
-		}
+
 		// set post type, get before underscope
 		$post_type        = strtok($myurl['type'], '_');
 		$route_check_true = false;
