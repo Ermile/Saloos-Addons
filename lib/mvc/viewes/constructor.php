@@ -12,6 +12,7 @@ trait constructor
 		array_push($this->twig_include_path, addons);
 
 		// define default value for url
+		$this->url->fakesub     	 = $this->url('fakesub');// the $_SERVER[REQUEST_URI]
 		$this->url->full             = $this->url('full');       // full url except get parameter with http[s]
 		$this->url->path             = $this->url('path');       // full path except parameter and domain name
 		$this->url->breadcrumb       = $this->url('breadcrumb'); // full path in array for using in breadcrumb
