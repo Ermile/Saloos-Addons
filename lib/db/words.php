@@ -77,6 +77,11 @@ class words
 
 		$exist_word = self::get($words, true);
 
+		if(!$exist_word)
+		{
+			$exist_word = [];
+		}
+
 		$new_word   = array_diff($words, $exist_word);
 		if(!empty($new_word))
 		{
@@ -95,7 +100,7 @@ class words
 	{
 		if(!$_words)
 		{
-			return false;
+			return [];
 		}
 
 		$_words = self::to_array($_words);
