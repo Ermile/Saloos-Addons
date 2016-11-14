@@ -79,7 +79,6 @@ class config extends \lib\api\config
 					break;
 
 				case 'profile':
-				case 'comments':
 					$myblock   = false;
 					break;
 
