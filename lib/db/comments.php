@@ -393,23 +393,45 @@ class comments
 		return $result;
 	}
 
-	public static function get_all($_limit = 50)
+
+	/**
+	 * Gets all comments for  admin accept
+	 *
+	 * @param      integer  $_limit  The limit
+	 *
+	 * @return     <type>   All.
+	 */
+	public static function admin_get($_limit = 50)
 	{
 		if(!is_numeric($_limit))
 		{
 			$_limit = 50;
 		}
+
+		$pagenation_query =
+		"SELECT	id	FROM comments WHERE	comments.comment_type = 'comment' AND comments.comment_status = 'unapproved'
+		 -- comments::admin_get() for pagenation ";
+		list($limit_start, $_limit) = \lib\db::pagnation($pagenation_query, $_limit);
+		$limit = " LIMIT $limit_start, $_limit ";
+
 		$query =
 		"
 			SELECT
-				*
+				comments.*,
+				posts.post_title AS 'title',
+				posts.post_url  AS 'url',
+				users.user_status AS 'status',
+				users.user_email AS 'email'
 			FROM
 				comments
+			INNER JOIN posts ON posts.id = comments.post_id
+			INNER JOIN users ON users.id = comments.user_id
 			WHERE
 				comments.comment_type = 'comment' AND
 				comments.comment_status = 'unapproved'
-			ORDER BY id DESC
-			LIMIT $_limit
+			ORDER BY id ASC
+			$limit
+			-- comments::admin_get()
 		";
 		return \lib\db::get($query);
 	}
