@@ -8,7 +8,8 @@ class words
 	 * this library work with words table
 	 * v1.0
 	 */
-
+	public static $spam  = [];
+	public static $words = [];
 
 	/**
 	 * insert new recrod in words table
@@ -183,11 +184,14 @@ class words
 			}
 		}
 
+		self::$spam  = $spam_words;
+		self::$words = array_column($db_words, 'status', 'word');
+
 		if($_return_result)
 		{
 			if(empty($spam_words))
 			{
-				return array_column($db_words, 'status', 'word');
+				return self::$words;
 			}
 			return $spam_words;
 		}
@@ -216,7 +220,7 @@ class words
 
 
 	/**
-	 * Returns a array by explode the string
+	 * Returns a array by split the string
 	 *
 	 * @param      <type>  $_string  The string
 	 *
@@ -224,6 +228,7 @@ class words
 	 */
 	private static function to_array($_string)
 	{
+		$req = "/\s|\,|\n|\\.|\t|\-|\=|\:|\;|\'|\"|\?|\>|\<|\!|\@|\#|\%|\^|\&|\*|\(|\)|\+|\/|\||\{|\}|\[|\]|\`|\~|\،|\؛|\_/";
 		$words = [];
 		if(is_array($_string))
 		{
@@ -239,8 +244,8 @@ class words
 				}
 				else
 				{
-					$explode = explode(' ', $value);
-					foreach ($explode as $k => $text)
+					$split = preg_split($req, $value);
+					foreach ($split as $k => $text)
 					{
 						array_push($words, $text);
 					}
@@ -250,9 +255,10 @@ class words
 		}
 		else
 		{
-			$words = explode(' ', $_string);
+			$words = preg_split($req, $_string);
 		}
 		$words = array_filter($words);
+		$words = array_unique($words);
 		return $words;
 	}
 }
