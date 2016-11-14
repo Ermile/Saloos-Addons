@@ -33,13 +33,7 @@ class words
 			}
 		}
 		$set = join($set, ',');
-		$query =
-		"
-			INSERT INTO
-				words
-			SET
-				$set
-		";
+		$query = "INSERT INTO words	SET	$set ";
 		return \lib\db::query($query);
 	}
 
@@ -58,16 +52,9 @@ class words
 			return false;
 		}
 
-		$_words = "('". join($_words, "'),('"). "')";
+		$_words = join($_words, "'),('");
 
-		$query =
-		"
-			INSERT INTO
-				words
-			(words.word)
-			VALUES
-			$_words
-		";
+		$query = "INSERT INTO words	(words.word) VALUES	('$_words')	";
 
 		return \lib\db::query($query);
 	}
@@ -78,7 +65,7 @@ class words
 	 *
 	 * @param      <type>  $_string  The string
 	 */
-	public static function set($_string)
+	public static function save($_string)
 	{
 		if(!$_string)
 		{
@@ -110,15 +97,12 @@ class words
 			return false;
 		}
 
-		if(!is_array($_words))
-		{
-			$_words = [$_words];
-		}
+		$_words = self::to_array($_words);
 
 		$where = [];
 		foreach ($_words as $key => $value)
 		{
-			$where[] = ' words.word = \''. $value. '\' ';
+			$where[] = " words.word = '". $value. "' ";
 		}
 
 		$where = join($where, "OR");
@@ -154,10 +138,7 @@ class words
 			return false;
 		}
 
-		if(!is_array($_words))
-		{
-			$_words = [$_words];
-		}
+		$_words = self::to_array($_words);
 
 		$where = [];
 		foreach ($_words as $key => $value)
@@ -226,12 +207,13 @@ class words
 	 *
 	 * @return     <type>  ( description_of_the_return_value )
 	 */
-	public static function set_and_check()
+	public static function save_and_check()
 	{
 		$args = func_get_args();
-		self::set(...$args);
+		self::save(...$args);
 		return self::check(...$args);
 	}
+
 
 	/**
 	 * Returns a array by explode the string
@@ -247,17 +229,30 @@ class words
 		{
 			foreach ($_string as $key => $value)
 			{
-				$explode = explode(' ', $value);
-				foreach ($explode as $k => $text)
+				if(is_array($value))
 				{
-					array_push($words, $text);
+					$array = self::to_array($value);
+					foreach ($array as $k => $v)
+					{
+						array_push($words, $v);
+					}
 				}
+				else
+				{
+					$explode = explode(' ', $value);
+					foreach ($explode as $k => $text)
+					{
+						array_push($words, $text);
+					}
+				}
+
 			}
 		}
 		else
 		{
 			$words = explode(' ', $_string);
 		}
+		$words = array_filter($words);
 		return $words;
 	}
 }
