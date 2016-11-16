@@ -60,8 +60,20 @@ class posts
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
-		foreach ($_args as $field => $value) {
-			$query[] = "$field = '$value'";
+		foreach ($_args as $field => $value)
+		{
+			if(is_numeric($value))
+			{
+				$query[] = " $field = $value ";
+			}
+			elseif ($value === null)
+			{
+				$query[] = " $field = NULL ";
+			}
+			else
+			{
+				$query[] = " $field = '$value' ";
+			}
 		}
 		$query = join($query, ",");
 

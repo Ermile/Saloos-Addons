@@ -206,5 +206,47 @@ class termusages
 		";
 		return \lib\db::get($query);
 	}
+
+
+	/**
+	 * remove record
+	 *
+	 * @param      <type>  $_args  The arguments
+	 */
+	public static function remove($_args)
+	{
+		if(!is_array($_args))
+		{
+			return false;
+		}
+
+		$default_args =
+		[
+			'term_id'           => false,
+			'termusage_id'      => false,
+			'termusage_foreign' => false
+		];
+
+		$_args = array_merge($default_args, $_args);
+
+		if(!$_args['termusage_foreign'] || !$_args['termusage_id'])
+		{
+			return false;
+		}
+
+		$query =
+		"
+			DELETE FROM termusages
+			WHERE
+				termusage_foreign = '$_args[termusage_foreign]' AND
+				termusage_id = $_args[termusage_id]
+		";
+
+		if($_args['term_id'])
+		{
+			$query .= " AND term_id = $_args[term_id] ";
+		}
+		return \lib\db::query($query);
+	}
 }
 ?>

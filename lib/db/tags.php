@@ -191,5 +191,21 @@ class tags
 		$result = \lib\db::get($query);
 		return $result;
 	}
+
+
+	/**
+	 * remove tags from post
+	 *
+	 * @param      <type>  $_post_id  The post identifier
+	 */
+	public static function remove($_post_id)
+	{
+		$args =
+		[
+			'termusage_id'      => $_post_id,
+			'termusage_foreign' => 'posts'
+		];
+		return \lib\db\termusages::remove($args);
+	}
 }
 ?>
