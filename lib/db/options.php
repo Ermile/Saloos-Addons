@@ -93,18 +93,19 @@ class options
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function update_on_error($_args)
+	public static function update_on_error($_args, $_where)
 	{
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$fields = [];
-		$where = [];
-		foreach ($_args as $field => $value) {
+		$where  = [];
+		foreach ($_args as $field => $value)
+		{
 			$fields[] = "$field = '$value'";
+		}
 
-			if($field != 'option_meta')
-			{
-				$where[] = "$field = '$value'";
-			}
+		foreach ($_where as $field => $value)
+		{
+			$where[] = "$field = '$value'";
 		}
 
 		$set_fields = join($fields, ",");
@@ -215,7 +216,8 @@ class options
 				option_cat AS 'cat',
 				option_key AS 'key',
 				option_value AS 'value',
-				option_meta AS 'meta'
+				option_meta AS 'meta',
+				option_status AS 'status'
 			FROM
 				options
 			$where

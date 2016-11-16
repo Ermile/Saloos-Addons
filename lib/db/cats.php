@@ -117,5 +117,17 @@ class cats
 	{
 		return \lib\db\terms::get_multi(['term_type' => $_term_type]);
 	}
+
+
+	public static function set($_cats_id, $_post_id)
+	{
+		$args =
+		[
+			'term_id'           => $_cats_id,
+			'termusage_id'      => $_post_id,
+			'termusage_foreign' => 'posts'
+		];
+		return \lib\db\termusages::insert($args);
+	}
 }
 ?>

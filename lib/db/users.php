@@ -554,7 +554,13 @@ class users
 		$result = \lib\db\options::insert($arg);
 		if(!$result && $_options['update_on_duplicate'])
 		{
-			$result = \lib\db\options::update_on_error($arg);
+			$where =
+			[
+				'user_id'    => $_options['user_id'],
+				'option_cat' => 'user_detail_'. $_options['user_id'],
+				'option_key' => 'language'
+			];
+			$result = \lib\db\options::update_on_error($arg, $where);
 		}
 		return $result;
 	}
