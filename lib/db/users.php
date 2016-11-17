@@ -48,6 +48,30 @@ class users
 
 
 	/**
+	 * get all data by mobile
+	 *
+	 * @param      <type>  $_mobile  The mobile
+	 *
+	 * @return     <type>  The identifier.
+	 */
+	public static function get_by_mobile($_mobile)
+	{
+		$query =
+		"
+			SELECT
+				*
+			FROM
+				users
+			WHERE
+				users.user_mobile = $_mobile
+			LIMIT 1
+			-- users::get_id()
+		";
+		return \lib\db::get($query, null, true);
+	}
+
+
+	/**
 	 * insert new recrod in users table
 	 * @param array $_args fields data
 	 * @return mysql result
