@@ -167,6 +167,7 @@ class tags
 		$query =
 		"
 			SELECT
+				posts.id AS 'id',
 				posts.post_title AS 'title',
 				posts.post_url AS 'url'
 			FROM
@@ -185,7 +186,8 @@ class tags
 						termusages.termusage_foreign = 'posts' AND
 						termusages.termusage_id      = $_post_id
 				)
-			ORDER BY termusage_id DESC
+			GROUP BY title,url,id
+			ORDER BY id DESC
 			LIMIT $_limit
 		";
 		$result = \lib\db::get($query);
