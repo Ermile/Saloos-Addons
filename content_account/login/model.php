@@ -12,7 +12,14 @@ class model extends \addons\content_account\home\model
 		$mypass     = utility::post('password');
 
 		// check for mobile exist
-		$tmp_result =  $this->sql()->tableUsers()->whereUser_mobile($mymobile)->and('user_status','active')->select();
+		$tmp_result =  $this->sql()->tableUsers()->whereUser_mobile($mymobile)
+			->groupOpen()
+			->and('user_status','active')
+			->or('user_status', 'removed')
+			->groupClose()
+			->select();
+		// or user status == 'removed' and set the user status on old user status in user meta if password is ok
+		//
 		// $tmp_result =  $this->sql()->tableUsers()->select();
 
 		// if exist
@@ -29,6 +36,21 @@ class model extends \addons\content_account\home\model
 				// 				->whereId               ($tmp_result['id']);
 				// $sql		= $qry->update();
 
+				// if the user has removed account and try to login
+				// we set the user_status of this user to old status befor remove account
+				if($tmp_result['user_status'] == 'removed')
+				{
+					$update_status = 'awaiting';
+					if(isset($tmp_result['user_meta']))
+					{
+						$meta = json_decode($tmp_result['user_meta'], true);
+						if($meta && isset($meta['old_status']))
+						{
+							$update_status = $meta['old_status'];
+						}
+					}
+					\lib\db\users::update(['user_status' => $update_status], $tmp_result['id']);
+				}
 
 				$myfields = array('id',
 										'user_displayname',
