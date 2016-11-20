@@ -204,7 +204,14 @@ class options
 
 		$where = [];
 		foreach ($_args as $key => $value) {
-			$where[] = "`$key` = '$value'";
+			if(preg_match("/\%/", $value))
+			{
+				$where[] = "`$key` LIKE '$value'";
+			}
+			else
+			{
+				$where[] = "`$key` = '$value'";
+			}
 		}
 		$where = "WHERE ". join($where, " AND ");
 
