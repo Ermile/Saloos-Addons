@@ -165,7 +165,7 @@ class tg
 			// create send message format
 			case 'sendMessage':
 				// if chat id is not set then set it
-				if(!isset($_prop['chat_id']))
+				if(!isset($_prop['chat_id']) && !isset($_prop['inline_message_id']))
 				{
 					// require chat id
 					$_prop['chat_id']    = self::response('chat');
