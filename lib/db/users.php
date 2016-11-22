@@ -205,54 +205,8 @@ class users
 			$insert_new = self::insert($args);
 			$insert_id = \lib\db::insert_id();
 			self::$user_id = $insert_id;
-			// save ref in dashboard
-			if($ref && $insert_id)
-			{
-				self::dashboard_ref($ref, "user_referred");
-			}
 			return $insert_id;
 		}
-	}
-
-
-	/**
-	 * Saves a reference in dashboard.
-	 *
-	 * @param      <type>  $_user_id  The user identifier
-	 * @param      <type>  $_ref      The reference
-	 */
-	public static function dashboard_ref($_user_id, $_type)
-	{
-		$query =
-		"
-			UPDATE
-				options
-			SET
-				options.option_value =  options.option_value + 1
-			WHERE
-				options.post_id    IS NULL AND
-				options.user_id    = $_user_id	AND
-				options.option_cat = 'user_dashboard_$_user_id' AND
-				options.option_key = '$_type'
-		";
-		$result = \lib\db::query($query);
-		$update_rows = mysqli_affected_rows(\lib\db::$link);
-		if(!$update_rows)
-		{
-			$insert_options =
-			"
-				INSERT INTO
-					options
-				SET
-					options.post_id      = NULL,
-					options.user_id      = $_user_id,
-					options.option_cat   = 'user_dashboard_$_user_id',
-					options.option_key   = '$_type',
-					options.option_value = 1
-			";
-			$result = \lib\db::query($insert_options);
-		}
-		return $result;
 	}
 
 
