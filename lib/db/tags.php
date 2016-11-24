@@ -173,6 +173,7 @@ class tags
 			FROM
 				termusages
 			INNER JOIN posts ON posts.id = termusages.termusage_id
+			INNER JOIN terms ON terms.id = termusages.term_id AND terms.term_type = 'tag'
 			WHERE
 				termusages.termusage_foreign  = 'posts' AND
 				termusages.termusage_id      != $_post_id AND
@@ -187,7 +188,7 @@ class tags
 						termusages.termusage_id      = $_post_id
 				)
 			GROUP BY title,url,id
-			ORDER BY id DESC
+			ORDER BY rand()
 			LIMIT $_limit
 		";
 		$result = \lib\db::get($query);
