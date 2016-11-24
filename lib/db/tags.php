@@ -188,7 +188,7 @@ class tags
 						termusages.termusage_id      = $_post_id
 				)
 			GROUP BY title,url,id
-			ORDER BY rand()
+			ORDER BY id DESC
 			LIMIT $_limit
 		";
 		$result = \lib\db::get($query);
