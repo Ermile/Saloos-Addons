@@ -182,12 +182,21 @@ class words
 		$db_words   = self::get($words);
 		$spam_words = [];
 
-		foreach ($db_words as $key => $value) {
-			if($value['status'] != $_status)
+		if($db_words && is_array($db_words))
+		{
+			foreach ($db_words as $key => $value)
 			{
-				$spam_words[$value['word']] = $value['status'];
+				if($value['status'] != $_status)
+				{
+					$spam_words[$value['word']] = $value['status'];
+				}
 			}
 		}
+		else
+		{
+			$db_words = [];
+		}
+
 
 		self::$spam  = $spam_words;
 		self::$words = array_column($db_words, 'status', 'word');

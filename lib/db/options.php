@@ -219,12 +219,13 @@ class options
 		"
 			SELECT
 				id,
-				user_id AS 'user_id',
-				option_cat AS 'cat',
-				option_key AS 'key',
-				option_value AS 'value',
-				option_meta AS 'meta',
-				option_status AS 'status'
+				user_id 		AS 'user_id',
+				post_id 		AS 'post_id',
+				option_cat 		AS 'cat',
+				option_key 		AS 'key',
+				option_value 	AS 'value',
+				option_meta 	AS 'meta',
+				option_status 	AS 'status'
 			FROM
 				options
 			$where
@@ -233,5 +234,59 @@ class options
 		return \lib\utility\filter::meta_decode(self::select($query, "get"));
 	}
 
+
+	/**
+	 * update the option record  option_value++
+	 *
+	 * @param      <type>  $_where  The where
+	 * @param      string  $_field  The field
+	 */
+	public static function plus($_where, $_plus = 1)
+	{
+		if(!is_array($_where))
+		{
+			return false;
+		}
+
+		$where = [];
+		foreach ($_where as $key => $value)
+		{
+			if($value === null)
+			{
+				$where[] = " $key IS NULL ";
+			}
+			else
+			{
+				$where[] = " $key  = '$value' ";
+			}
+		}
+
+		if(empty($where))
+		{
+			return false;
+		}
+
+		$where = join($where, " AND ");
+
+		$query =
+		"
+			UPDATE
+				options
+			SET
+				options.option_value =  options.option_value + $_plus
+			WHERE
+				$where
+			LIMIT 1
+			-- profiles::set_dashboard_data()
+		";
+		$result = \lib\db::query($query);
+		$update_rows = mysqli_affected_rows(\lib\db::$link);
+		if(!$update_rows)
+		{
+			$_where['option_value'] = $_plus;
+			$result = self::insert($_where);
+		}
+		return $result;
+	}
 }
 ?>
