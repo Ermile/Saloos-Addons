@@ -25,6 +25,10 @@ class exec extends tg
 			$is_json = $_data['is_json'];
 			unset($_data['is_json']);
 		}
+		if(isset($_data['storage']))
+		{
+			unset($_data['storage']);
+		}
 		// if telegram is off then do not run
 		if(!\lib\utility\option::get('telegram', 'status'))
 		{
