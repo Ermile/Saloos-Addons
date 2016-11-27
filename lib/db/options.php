@@ -105,7 +105,14 @@ class options
 
 		foreach ($_where as $field => $value)
 		{
-			$where[] = "$field = '$value'";
+			if(preg_match("/\%/", $value))
+			{
+				$where[] = "$field LIKE '$value'";
+			}
+			else
+			{
+				$where[] = "$field = '$value'";
+			}
 		}
 
 		$set_fields = join($fields, ",");
@@ -136,8 +143,16 @@ class options
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
-		foreach ($_args as $field => $value) {
-			$query[] = "$field = '$value'";
+		foreach ($_args as $field => $value)
+		{
+			if(preg_match("/\%/", $value))
+			{
+				$query[] = "$field LIKE '$value'";
+			}
+			else
+			{
+				$query[] = "$field = '$value'";
+			}
 		}
 
 		if(empty($query))
@@ -186,6 +201,13 @@ class options
 	}
 
 
+	/**
+	 * get the record of option table
+	 *
+	 * @param      <type>   $_args  The arguments
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
 	public static function get($_args)
 	{
 		if(empty($_args) || !is_array($_args))
