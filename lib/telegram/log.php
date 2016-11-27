@@ -297,8 +297,8 @@ class log extends tg
 		$qry = "SELECT `user_id`
 			FROM options
 			WHERE
-				`option_cat` LIKE 'telegram\_%' AND
-				`option_key` LIKE 'user\_%' AND
+				`option_cat` = 'telegram' AND
+				`option_key` = 'id' AND
 				`option_value` = $_telegram_id
 		";
 		$my_user_id = \lib\db::get($qry, 'user_id', true);
@@ -322,10 +322,10 @@ class log extends tg
 			// save telegram user detail like name and username into options
 			$userDetail =
 			[
-				'cat'    => 'telegram_'.self::$user_id,
-				'key'    => 'user_'.self::response('from', 'username'),
-				'value'  => $_telegram_id,
-				'meta'   => $_fromDetail,
+				'cat'    	=> 'telegram',
+				'key'    	=> 'id',
+				'value'  	=> $_telegram_id,
+				'meta'   	=> $_fromDetail,
 			];
 			if(isset(self::$user_id))
 			{
@@ -380,11 +380,7 @@ class log extends tg
 					// if this is for current user
 					if($from == $contact)
 					{
-						\lib\db\users::updateMobile(self::$user_id, $mobile);
-						// if user send contact detail then save all of his/her profile photos
-						self::sendResponse(['method' => 'getUserProfilePhotos']);
-						self::sendResponse(['text' => T_('Your phone number registered successfully;)')]);
-
+						\lib\storage::set_user_sync(['mobile' => $mobile]);
 					}
 					// else ask real contact detail
 					else
