@@ -452,8 +452,8 @@ class users
 			return $_SESSION['user']['mobile'];
 		}
 		$result = self::get_user_data($_user_id, "user_mobile");
-		$_SESSION['user']['mobile'] = $result["user_mobile"];
-		return isset($result["user_mobile"]) ? $result["user_mobile"]: null;
+		$_SESSION['user']['mobile'] = isset($result["user_mobile"]) ? $result["user_mobile"]: null;
+		return $_SESSION['user']['mobile'];
 	}
 
 
@@ -471,8 +471,8 @@ class users
 			return $_SESSION['user']['email'];
 		}
 		$result = self::get_user_data($_user_id, "user_email");
-		$_SESSION['user']['email'] = $result["user_email"];
-		return isset($result["user_email"]) ? $result["user_email"]: null;
+		$_SESSION['user']['email'] = isset($result["user_email"]) ? $result["user_email"]: null;
+		return $_SESSION['user']['email'];
 	}
 
 
