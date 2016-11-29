@@ -508,6 +508,8 @@ class users
 	 */
 	public static function set_language($_language, $_options = [])
 	{
+		$return = new \lib\db\db_return();
+		$result = null;
 		$default_options =
 		[
 			"update_on_duplicate" => true,
@@ -519,7 +521,7 @@ class users
 		// set user id
 		if($_options['user_id'] == null)
 		{
-			return false;
+			return $return->set_ok(false)->set_error_code(2000);
 		}
 
 		$arg =
@@ -529,17 +531,54 @@ class users
 			'option_key'   => 'language',
 			'option_value' => $_language
 		];
-		$result = \lib\db\options::insert($arg);
-		if(!$result && $_options['update_on_duplicate'])
+
+		$where =
+		[
+			'user_id'    => $_options['user_id'],
+			'option_cat' => 'user_detail_'. $_options['user_id'],
+			'option_key' => 'language'
+		];
+
+		$get_language = self::get_language($_options['user_id']);
+
+		if($get_language)
 		{
-			$where =
-			[
-				'user_id'    => $_options['user_id'],
-				'option_cat' => 'user_detail_'. $_options['user_id'],
-				'option_key' => 'language'
-			];
-			$result = \lib\db\options::update_on_error($arg, $where);
+			if($get_language == $_language)
+			{
+				return $return->set_ok(true)
+						->set_error_code(2001)
+						->set_old_language($get_language)
+						->set_new_language($_language);
+			}
+
+			if($_options['update_on_duplicate'])
+			{
+				$result = \lib\db\options::update_on_error($arg, $where);
+				return $return->set_ok(true)
+						->set_error_code(2002)
+						->set_old_language($get_language)
+						->set_new_language($_language);
+			}
 		}
+		else
+		{
+			$result = \lib\db\options::insert($arg);
+		}
+		if($result)
+		{
+			return $return->set_ok(true)
+						->set_error_code(2003)
+						->set_old_language($get_language)
+						->set_new_language($_language);
+		}
+		else
+		{
+			return $return->set_ok(false)
+						->set_error_code(2004)
+						->set_old_language($get_language)
+						->set_new_language($_language);
+		}
+
 		return $result;
 	}
 
