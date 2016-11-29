@@ -316,10 +316,16 @@ class log extends tg
 			$mobile = 'tg_'. $_telegram_id;
 			// generate password
 			$password = \lib\utility\filter::temp_password();
-			\lib\db\users::signup($mobile, $password, true, $fullName);
+			\lib\db\users::signup($mobile, $password, true, utf8_encode($fullName));
 			self::$user_id = \lib\db\users::$user_id;
+			echo self::$user_id;
+			echo "\n";
+			echo "$_telegram_id\n";
+			exit();
 
 			// save telegram user detail like name and username into options
+			$_fromDetail['first_name'] = utf8_encode($_fromDetail['first_name']);
+			$_fromDetail['last_name'] = utf8_encode($_fromDetail['last_name']);
 			$userDetail =
 			[
 				'cat'    	=> 'telegram',

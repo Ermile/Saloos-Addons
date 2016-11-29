@@ -308,13 +308,13 @@ class tg
 				break;
 
 			case 'from':
-				if(isset(self::$hook['message']['from']))
-				{
-					$data = self::$hook['message']['from'];
-				}
-				elseif(isset(self::$hook['callback_query']['from']))
+				if(isset(self::$hook['callback_query']['from']))
 				{
 					$data = self::$hook['callback_query']['from'];
+				}
+				elseif(isset(self::$hook['message']['from']))
+				{
+					$data = self::$hook['message']['from'];
 				}
 				elseif(array_key_exists("chosen_inline_result", self::$hook))
 				{
