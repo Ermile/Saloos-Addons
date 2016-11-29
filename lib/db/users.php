@@ -385,8 +385,8 @@ class users
 			return $_SESSION['user']['displayname'];
 		}
 		$result = self::get_user_data($_user_id, "user_displayname");
-		$_SESSION['user']['displayname'] = $result["user_displayname"];
-		return $result;
+		$_SESSION['user']['displayname'] = isset($result["user_displayname"]) ? $result["user_displayname"] : null;
+		return $_SESSION['user']['displayname'];
 	}
 
 
