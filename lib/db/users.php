@@ -63,7 +63,7 @@ class users
 			FROM
 				users
 			WHERE
-				users.user_mobile = $_mobile
+				users.user_mobile = '$_mobile'
 			LIMIT 1
 			-- users::get_id()
 		";
