@@ -19,6 +19,7 @@ trait constructor
 		$this->url->base             = $this->url('base');
 		$this->url->baseRaw          = $this->url('baseRaw');
 		$this->url->content          = $this->url('content');
+		$this->url->baseLang         = $this->url('baseLang');
 		$this->url->tld              = $this->url('tld');        // domain ltd like 'com'
 		$this->url->raw              = Service;                  // domain name except subdomain like 'ermile.com'
 		$this->url->root             = $this->url('root');
