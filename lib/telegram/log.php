@@ -314,10 +314,18 @@ class log extends tg
 			$fullName = trim(self::response('from','first_name'). ' '. self::response('from','last_name'));
 
 			$mobile = 'tg_'. $_telegram_id;
-			// generate password
-			$password = \lib\utility\filter::temp_password();
-			\lib\db\users::signup($mobile, $password, true, utf8_encode($fullName));
-			self::$user_id = \lib\db\users::$user_id;
+			$user = \lib\db\users::get_by_mobile($mobile);
+			if(empty($user))
+			{
+				// generate password
+				$password = \lib\utility\filter::temp_password();
+				\lib\db\users::signup($mobile, $password, true, utf8_encode($fullName));
+				self::$user_id = \lib\db\users::$user_id;
+			}
+			else
+			{
+				self::$user_id = $user['id'];
+			}
 
 			// save telegram user detail like name and username into options
 			$_fromDetail['first_name'] = utf8_encode($_fromDetail['first_name']);
