@@ -71,7 +71,7 @@ trait pagnation
 		{
 			$path = preg_replace("/\/page\=\d+/", "", $_SERVER['REQUEST_URI']);
 		}
-		$current_url = $this->url('base').$path;
+		$current_url = $this->url('baseContent').$path;
 		$this->pagnation_set('current_url', $this->pagnation_get('custom_length') ? $current_url."/length=$length" : $current_url);
 		$this->pagnation_set('length', $length);
 	}
