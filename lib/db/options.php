@@ -15,10 +15,17 @@ class options
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
+		if(!is_array($_args))
+		{
+			return false;
+		}
 
 		$set = [];
-		foreach ($_args as $key => $value) {
+
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
@@ -44,31 +51,49 @@ class options
 	}
 
 
-	public static function insert_multi($_args){
+	/**
+	 * insert multi record in one query
+	 *
+	 * @param      <type>   $_args  The arguments
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function insert_multi($_args)
+	{
+		if(!is_array($_args))
+		{
+			return false;
+		}
 		// marge all input array to creat list of field to be insert
 		$fields = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			$fields = array_merge($fields, $value);
-		}
-
-		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
-		$values = [];
-		$together = [];
-		foreach ($_args	 as $key => $value) {
-			foreach ($fields as $field_name => $vain) {
-				if(array_key_exists($field_name, $value)){
-					$values[] = "'" . $value[$field_name] . "'";
-				}else{
-					$values[] = "NULL";
-				}
-			}
-			$together[] = join($values, ",");
-			$values = [];
 		}
 		// empty record not inserted
 		if(empty($fields))
 		{
 			return true;
+		}
+
+		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
+		$values = [];
+		$together = [];
+		foreach ($_args	 as $key => $value)
+		{
+			foreach ($fields as $field_name => $vain)
+			{
+				if(array_key_exists($field_name, $value))
+				{
+					$values[] = "'" . $value[$field_name] . "'";
+				}
+				else
+				{
+					$values[] = "NULL";
+				}
+			}
+			$together[] = join($values, ",");
+			$values     = [];
 		}
 
 		$fields = join(array_keys($fields), ",");
@@ -87,15 +112,21 @@ class options
 
 	}
 
+
 	/**
 	 * update record in options table if we have error in insert
-	 * get fields and value to update  WHERE fields = $value :|
+	 * get fields and value to update  WHERE fields = $value
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
 	public static function update_on_error($_args, $_where)
 	{
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
+		if(!is_array($_args) || !is_array($_where))
+		{
+			return false;
+		}
+
 		$fields = [];
 		$where  = [];
 		foreach ($_args as $field => $value)
@@ -139,7 +170,8 @@ class options
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id)
+	{
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
@@ -179,7 +211,8 @@ class options
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id) {
+	public static function delete($_id)
+	{
 		// get id
 		$query = "
 				UPDATE FROM options
@@ -196,7 +229,8 @@ class options
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query')
+	{
 		return \lib\db::$_type($_query);
 	}
 
@@ -225,7 +259,8 @@ class options
 		}
 
 		$where = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if(preg_match("/\%/", $value))
 			{
 				$where[] = "`$key` LIKE '$value'";

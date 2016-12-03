@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.6.0: bugfix in insert options
  * Version 7.5.0: add abort as default value to pushstate navigate and some minor fix
  * Version 7.4.1: bugfix on fix urls
  * Version 7.4.0: fix urls
