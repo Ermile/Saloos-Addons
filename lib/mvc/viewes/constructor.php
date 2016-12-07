@@ -18,6 +18,7 @@ trait constructor
 		$this->url->domain           = $this->url('domain');     // domain name like 'ermile'
 		$this->url->base             = $this->url('base');
 		$this->url->baseRaw          = $this->url('baseRaw');
+		$this->url->prefix           = $this->url('prefix');
 		$this->url->content          = $this->url('content');
 		$this->url->baseContent      = $this->url('baseContent');
 		$this->url->tld              = $this->url('tld');        // domain ltd like 'com'

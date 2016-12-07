@@ -386,21 +386,49 @@ class terms
 	 *
 	 * @return     <type>  ( description_of_the_return_value )
 	 */
-	public static function search($_title, $_term_type = 'tag')
+	public static function search($_title, $_options = [])
 	{
+		$default_options =
+		[
+			'term_type'   => 'tag',
+			'start_limit' => 0,
+			'end_limit'   => 10,
+			'limit'       => 10,
+			'pagenation'  => false
+		];
+
+		$_options = array_merge($default_options, $_options);
+
+		$start_limit = $_options['start_limit'];
+		$end_limit   = $_options['end_limit'];
+
+		if($_options['pagenation'] === true)
+		{
+			$pagenation_query =
+			"SELECT	id FROM terms WHERE
+			terms.term_type = '$_options[term_type]' AND
+			terms.term_title LIKE '%$_title%' ";
+			list($limit_start, $limit) = \lib\db::pagnation($pagenation_query, $_options['limit']);
+			$limit = " LIMIT $limit_start, $limit ";
+		}
+		else
+		{
+			$limit = " LIMIT $start_limit, $end_limit ";
+		}
+
 		$query =
 		"
 			SELECT
-				terms.id,
-				terms.term_title,
-				terms.term_count,
-				terms.term_url
+				terms.id AS 'id',
+				terms.term_title AS 'title',
+				IFNULL(terms.term_count, 0) AS 'count',
+				terms.term_url AS 'url'
 			FROM
 				terms
 			WHERE
-				terms.term_type = '$_term_type' AND
+				terms.term_type = '$_options[term_type]' AND
 				terms.term_title LIKE '%$_title%'
-			LIMIT 0,20
+			$limit
 		";
 		return \lib\db::get($query);
 	}
