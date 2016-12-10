@@ -59,8 +59,9 @@ trait terms
 	{
 		$url = $this->url('path');
 		if(substr($url, 0, 4) === 'tag/')
-			$url = substr($url, 4, $url);
-
+		{
+			$url = substr($url, 4, (int) $url);
+		}
 
 		if(substr($url, 0, 11) === 'book-index/')
 		{

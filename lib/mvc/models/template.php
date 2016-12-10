@@ -22,6 +22,15 @@ trait template
 		{
 			return $tmp_result;
 		}
+
+		// if url not exist in terms table then analyze the url to load similar
+		// tag/(.*) || cat/(.*)
+		// this url get from term type
+		$tmp_result = $this->get_terms_type(true, $_args);
+		if($tmp_result)
+		{
+			return $tmp_result;
+		}
 		// else retun false
 		return false;
 	}
@@ -66,8 +75,12 @@ trait template
 				FROM
 					posts
 				WHERE
-					post_url = '$url'
-					$post_status
+				(
+					post_language IS NULL OR
+					post_language = '$language'
+				) AND
+				post_url = '$url'
+				$post_status
 				LIMIT 1
 			";
 
@@ -125,6 +138,58 @@ trait template
 			}
 		}
 		return false;
+	}
+
+
+	/**
+	 * Gets the terms type.
+	 * by url
+	 *
+	 * @param      boolean  $_forcheck  The forcheck
+	 * @param      <type>   $_args      The arguments
+	 */
+	public function get_terms_type($_forcheck = false, $_args = null)
+	{
+		$url        = $this->url('path');
+		$split_url  = preg_split("/\//", $url);
+		$started_by = null;
+		if(isset($split_url[0]))
+		{
+			$started_by = $split_url[0];
+		}
+
+		$search = null;
+		if(isset($split_url[1]))
+		{
+			$search = $split_url[1];
+		}
+
+		$term_type = null;
+		switch ($started_by)
+		{
+			case 'tag':
+			case 'cat':
+				$term_type = $started_by;
+				break;
+
+			default:
+				return false;
+				break;
+		}
+		$datarow = \lib\db\terms::search($search, ['term_type' => $term_type]);
+		if($_forcheck)
+		{
+			return
+			[
+				'table' => 'terms',
+				'type' => $term_type,
+				'slug' => $term_type,
+			];
+		}
+		else
+		{
+			return $datarow;
+		}
 	}
 }
 ?>
