@@ -158,12 +158,23 @@ trait template
 			$started_by = $split_url[0];
 		}
 
-		$search = null;
-		if(isset($split_url[1]))
+		$search     = null;
+		$lenght     = 10;
+		$lenght_max = 50;
+
+		if(\lib\utility::get("q") != '')
 		{
-			$search = $split_url[1];
+			$search = \lib\utility::get("q");
 		}
 
+		$get_lenght = \lib\utility::get("lenght");
+		if($get_lenght != '')
+		{
+			if(intval($get_lenght) < $lenght_max)
+			{
+				$lenght = $get_lenght;
+			}
+		}
 		$term_type = null;
 		switch ($started_by)
 		{
@@ -176,7 +187,9 @@ trait template
 				return false;
 				break;
 		}
-		$datarow = \lib\db\terms::search($search, ['term_type' => $term_type]);
+		$datarow = \lib\db\terms::search($search,
+				['term_type' => $term_type, 'end_limit' => $lenght]);
+
 		if($_forcheck)
 		{
 			return
