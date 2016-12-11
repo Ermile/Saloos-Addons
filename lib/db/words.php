@@ -16,10 +16,12 @@ class words
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
 
 		$set = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
@@ -35,7 +37,7 @@ class words
 		}
 		$set = join($set, ',');
 		$query = "INSERT INTO words	SET	$set ";
-		return \lib\db::query($query);
+		return \lib\db::query($query, '[tools]');
 	}
 
 
@@ -57,7 +59,7 @@ class words
 
 		$query = "INSERT INTO words	(words.word) VALUES	('$_words')	";
 
-		return \lib\db::query($query);
+		return \lib\db::query($query, '[tools]');
 	}
 
 
@@ -121,11 +123,11 @@ class words
 		$query = "SELECT $fields FROM words WHERE $where";
 		if($_only_words)
 		{
-			$result = \lib\db::get($query,'word');
+			$result = \lib\db::get($query,'word', false, '[tools]');
 		}
 		else
 		{
-			$result = \lib\db::get($query);
+			$result = \lib\db::get($query, null, false, '[tools]');
 		}
 		return $result;
 	}
@@ -155,7 +157,7 @@ class words
 		$where = join($where, "OR");
 
 		$query = "UPDATE words SET words.status = '$_status' WHERE $where";
-		return \lib\db::query($query);
+		return \lib\db::query($query, '[tools]');
 	}
 
 
