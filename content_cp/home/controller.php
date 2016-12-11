@@ -42,7 +42,7 @@ class controller extends \mvc\controller
 		// run if get is set and no database exist
 		if($this->cpModule('raw') == 'install'
 			&& \lib\utility::get('time') == 'first_time'
-			&& !\lib\db::exist()
+			&& !\lib\db::count_table()
 		)
 		{
 			require_once(lib."install.php");
