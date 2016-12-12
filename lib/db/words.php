@@ -244,7 +244,8 @@ class words
 	 */
 	private static function to_array($_string)
 	{
-		$req = "/\s|\,|\n|\\.|\t|\-|\=|\:|\;|\'|\"|\?|\>|\<|\!|\@|\#|\%|\^|\&|\*|\(|\)|\+|\/|\||\{|\}|\[|\]|\`|\~|\،|\؛|\_/";
+		// $req = "/\s|\,|\n|\\.|\t|\-|\=|\:|\;|\'|\"|\?|\>|\<|\!|\@|\#|\%|\^|\&|\*|\(|\)|\+|\/|\||\{|\}|\[|\]|\`|\~|\،|\؛|\_/";
+
 		$words = [];
 		if(is_array($_string))
 		{
@@ -260,18 +261,17 @@ class words
 				}
 				else
 				{
-					$split = preg_split($req, $value);
+					$split = explode(" ", $value);
 					foreach ($split as $k => $text)
 					{
 						array_push($words, $text);
 					}
 				}
-
 			}
 		}
 		else
 		{
-			$words = preg_split($req, $_string);
+			$words = explode(" ", $_string);
 		}
 		$words = array_filter($words);
 		$words = array_unique($words);
