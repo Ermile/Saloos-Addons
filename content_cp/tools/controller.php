@@ -32,7 +32,7 @@ class controller extends \addons\content_cp\home\controller
 				if(\lib\utility::get('upgrade'))
 				{
 					// do upgrade
-					$result = \lib\db::install(true);
+					$result = \lib\db::install(true, true);
 				}
 				elseif(\lib\utility::get('backup'))
 				{
