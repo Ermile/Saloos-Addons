@@ -187,8 +187,6 @@ trait template
 				return false;
 				break;
 		}
-		$datarow = \lib\db\terms::search($search,
-				['term_type' => $term_type, 'end_limit' => $lenght]);
 
 		if($_forcheck)
 		{
@@ -201,6 +199,7 @@ trait template
 		}
 		else
 		{
+			$datarow = \lib\db\terms::search($search, ['term_type' => $term_type, 'end_limit' => $lenght]);
 			return $datarow;
 		}
 	}

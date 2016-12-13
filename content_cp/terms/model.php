@@ -52,7 +52,9 @@ class model extends \addons\content_cp\home\model
 	function cp_create_query($_id = null)
 	{
 		if(!$_id)
+		{
 			$_id  = $this->childparam('edit');
+		}
 
 		$cpModule          = $this->cpModule();
 		$mymodule          = $this->cpModule('raw');
@@ -62,7 +64,9 @@ class model extends \addons\content_cp\home\model
 		$datarow['parent'] = utility::post('parent');
 
 		if(!$datarow['slug'])
+		{
 			$datarow['slug'] = utility\filter::slug(utility::post('title'));
+		}
 
 		if($datarow['parent'])
 		{
@@ -77,7 +81,15 @@ class model extends \addons\content_cp\home\model
 		}
 
 		if($cpModule['raw'] === 'bookcategories')
+		{
 			$datarow['url'] = 'book-index/' . preg_replace("#^(book-index\/)+#", "", $datarow['url']);
+		}
+		elseif($cpModule['raw'] === 'helpcategories')
+		{
+			$datarow['url'] = trim($datarow['url'], 'help/');
+			$datarow['url'] = 'help/'. $datarow['url'];
+			var_dump($cpModule['type']);
+		}
 
 		// var_dump($datarow['slug']);exit();
 
@@ -97,7 +109,6 @@ class model extends \addons\content_cp\home\model
 			debug::error(T_("Please enter title!"));
 			return false;
 		}
-
 
 		$post_new_id = null;
 		if($_id)
@@ -147,9 +158,10 @@ class model extends \addons\content_cp\home\model
 	 */
 	public function sp_category_list($_type = 'cat', $_select = true)
 	{
-
+		$lang = \lib\define::get_language('name');
 		$qry = $this->sql()->table('terms')->where('term_type', $_type)
 			->and('term_parent', "IS", "NULL")
+			->and('term_language', $lang)
 			->order('term_parent','ASC')->order('id','ASC');
 
 		if($_select)
@@ -181,6 +193,5 @@ class model extends \addons\content_cp\home\model
 
 		return $result;
 	}
-
 }
 ?>

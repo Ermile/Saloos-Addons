@@ -55,6 +55,10 @@ class model extends \mvc\model
 				$qry = $qry->table('posts')->where('post_type', 'page');
 				break;
 
+			case 'helps':
+				$qry = $qry->table('posts')->where('post_type', 'help');
+				break;
+
 			case 'attachments':
 				$qry = $qry->table('posts')->where('post_type', 'attachment');
 				break;
@@ -206,6 +210,7 @@ class model extends \mvc\model
 			case 'pollcategories':
 			case 'filecategories':
 			case 'bookcategories':
+			case 'helpcategories':
 			case 'tags':
 				$tmp_columns      = \lib\sql\getTable::get('terms');
 				unset($tmp_columns['term_type'] );
@@ -214,6 +219,7 @@ class model extends \mvc\model
 
 			case 'posts':
 			case 'polls':
+			case 'helps':
 			case 'pages':
 			case 'books':
 			case 'twitter':
@@ -262,11 +268,13 @@ class model extends \mvc\model
 			case 'filecategories':
 			case 'pollcategories':
 			case 'bookcategories':
+			case 'helpcategories':
 			case 'tags':
 			case 'books':
 			case 'posts':
 			case 'polls':
 			case 'pages':
+			case 'helps':
 			case 'attachments':
 			case 'socialnetwork':
 				$mytype = [$cpModule['prefix'].'_type' => $cpModule['type']];

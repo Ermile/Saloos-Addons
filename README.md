@@ -13,6 +13,7 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ * Version 7.8.0: many bugfix on cp and add helpcenter
  * Version 7.7.0: check database version when upgrade
  * Version 7.6.2: get the prefix url
  * Version 7.6.1: get count users

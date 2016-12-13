@@ -22,9 +22,8 @@
     <div class="panel-body">
      <input name="slug" id="sp-slug" class="input" placeholder='{%trans "Enter slug here"%}' value='{{datarow.term_slug}}'/>
       <select name="language" id="sp-language" class="input">
-       <option value="" {%if not datarow.term_language%} selected="selected"{%endif%}>{%trans "All Languages"%}</option>
 {%for key, value in site.langlist%}
-       <option value="{{key}}" {%if datarow.term_language in key%}selected="selected"{%endif%}>{{value}}</option>
+       <option value="{{key}}" {%if child == 'edit'%}{%if datarow.post_language in key%}selected{%endif%}{%elseif key == site.currentlang%}selected{%endif%}>{{value}}</option>
 {% endfor %}
       </select>
       <button type="submit" value="submit" class="button positive">{{page.title}}</button>

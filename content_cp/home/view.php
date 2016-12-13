@@ -17,7 +17,7 @@ class view extends \mvc\view
 		$this->include->editor        = true;
 		$this->include->cp            = true;
 		$this->include->uploader      = true;
-		$this->global->js             = array();
+		$this->global->js             = [];
 
 		$this->data->display['cp_posts'] = "content_cp/posts/layout.html";;
 
@@ -188,10 +188,14 @@ class view extends \mvc\view
 						$this->data->parentList = $this->model()->sp_parent_list();
 						break;
 
+					case 'helps':
+						$this->data->parentList = $this->model()->sp_parent_list(true, 'help');
+						$this->data->catList    = $this->model()->sp_cats('cat_help');
+						break;
+
 					case 'polls':
 						$this->data->parentList = $this->model()->sp_parent_list(true, 'poll');
 						$this->data->catList = $this->model()->sp_cats('cat_poll');
-
 						break;
 
 					case 'attachments':
@@ -199,12 +203,12 @@ class view extends \mvc\view
 						// $this->include->uploader      = true;
 						// array_push($this->global->js, $this->url->myStatic.'js/cp/uploader.js');
 						$this->data->catList = $this->model()->sp_cats('filecat');
-						$this->data->catListSelected = $this->model()->sp_cats('filecat', true);
+						$this->data->catListSelected = $this->model()->sp_cats('cat_file', true);
 						break;
 
 					case 'books':
 						$this->data->catList = $this->model()->sp_cats('bookcat');
-						$this->data->catListSelected = $this->model()->sp_cats('bookcat', true);
+						$this->data->catListSelected = $this->model()->sp_cats('cat_book', true);
 						$this->data->parentList = $this->model()->sp_parent_list(true, 'book');
 
 						break;

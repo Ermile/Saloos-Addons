@@ -59,7 +59,9 @@ class controller extends \mvc\controller
 
 		// Restrict unwanted module
 		if(!$this->cpModlueList())
+		{
 			\lib\error::page(T_("Not found!"));
+		}
 
 
 		// Restrict unwanted child
@@ -202,9 +204,13 @@ class controller extends \mvc\controller
 
 		$_module 	= $_module? $_module: $this->module();
 		if(in_array($_module, $mylist))
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 
 	public function cpModule($_resultType = null, $_module = null)
@@ -222,15 +228,19 @@ class controller extends \mvc\controller
 				$result['cat']    = 'cat';
 			case 'pages':
 				$result['type']   = $result['type']? $result['type']: 'page';
+				$result['cat']    = $result['cat']?  $result['cat']:  'cat';
+			case 'helps':
+				$result['type']   = $result['type']? $result['type']: 'help';
+				$result['cat']    = $result['cat']?  $result['cat']:  'cat_help';
 			case 'attachments':
 				$result['type']   = $result['type']? $result['type']: 'attachment';
-				$result['cat']    = $result['cat']?  $result['cat']:  'filecat';
+				$result['cat']    = $result['cat']?  $result['cat']:  'cat_file';
 			case 'polls':
 				$result['type']   = $result['type']? $result['type']: 'poll';
 				$result['cat']    = $result['cat']?  $result['cat']:  'cat_poll';
 			case 'books':
 				$result['type']   = $result['type']? $result['type']: 'book';
-				$result['cat']    = $result['cat']?  $result['cat']:  'bookcat';
+				$result['cat']    = $result['cat']?  $result['cat']:  'cat_book';
 
 			case 'socialnetwork':
 				$result['type']   = $result['type']? $result['type']: 'socialnetwork';
@@ -242,11 +252,13 @@ class controller extends \mvc\controller
 			case 'categories':
 				$result['type']   = 'cat';
 			case 'filecategories':
-				$result['type']   = $result['type']? $result['type']: 'filecat';
+				$result['type']   = $result['type']? $result['type']: 'cat_file';
+			case 'helpcategories':
+				$result['type']   = $result['type']? $result['type']: 'cat_help';
 			case 'pollcategories':
 				$result['type']   = $result['type']? $result['type']: 'cat_poll';
 			case 'bookcategories':
-				$result['type']   = $result['type']? $result['type']: 'bookcat';
+				$result['type']   = $result['type']? $result['type']: 'cat_book';
 			case 'tags':
 				$result['type']   = $result['type']? $result['type']: 'tag';
 

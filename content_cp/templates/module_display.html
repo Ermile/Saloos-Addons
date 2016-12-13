@@ -46,7 +46,7 @@
 {%endif%}
          </td>
 {% elseif value.value == 'url'%}
-         <td class="col_{{value.value}}"><a target='_blank' href='{{url.root}}{{myvalue}}?preview=yes'>{{myvalue}}</a></td>
+         <td class="col_{{value.value}}"><a target='_blank' href='{{url.baseLanguage}}{{myvalue}}?preview=yes'>{{myvalue}}</a></td>
 {% elseif (value.value == 'publishdate' or value.value == 'createdate' ) and global.lang == 'fa_IR'%}
          <td class="col_{{value.value}}">{{myvalue|jdate('Y/m/d h:m')}}</td>
 {% elseif value.value == 'filetype'%}

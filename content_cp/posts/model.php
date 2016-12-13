@@ -217,6 +217,11 @@ class model extends \addons\content_cp\home\model
 				{
 					$datarow['type'] = 'poll_sarshomar';
 				}
+				elseif($cpModule['raw'] === 'helps')
+				{
+					$url_prefix = 'help/';
+					$url_body   = trim($url_body, $url_prefix);
+				}
 				break;
 		}
 		// generate posturl
@@ -759,7 +764,9 @@ class model extends \addons\content_cp\home\model
 	 */
 	public function sp_cats($_type = 'cat', $_all = true)
 	{
-		$id = $this->childparam('edit');
+		$id   = $this->childparam('edit');
+		$lang = \lib\define::get_language('name');
+
 		if($id && $this->cpModule('raw') === 'books')
 		{
 			// get the list of cats
@@ -768,6 +775,7 @@ class model extends \addons\content_cp\home\model
 			$myslug_exist = $this->sql()->table('terms')
 				->where('term_type', $_type)
 				->and('term_url', 'LIKE', "'book-index/$myslug%'")
+				->and('term_language', $lang)
 				->select()->num();
 		}
 
@@ -778,6 +786,7 @@ class model extends \addons\content_cp\home\model
 			$datatable = $this->sql()->table('terms')
 				->where('term_type', $_type)
 				->and('term_parent', 'IS', 'NULL')
+				->and('term_language', $lang)
 				->field('id', 'term_title', 'term_url', 'term_parent')
 				->order('term_parent','ASC')->order('id','ASC');
 		}
@@ -786,23 +795,20 @@ class model extends \addons\content_cp\home\model
 			// get the list of cats
 			$datatable = $this->sql()->table('terms')
 				->where('term_type', $_type)
+				->and('term_language', $lang)
 				->field('id', 'term_title', 'term_url', 'term_parent')
 				->order('term_parent','ASC')->order('id','ASC');
 		}
-
-
 
 		// show related category of books if exist
 		if(isset($myslug) && isset($myslug_exist) && $myslug_exist)
 		{
 			// $datatable = $datatable->and('term_slug', $myslug);
 			$datatable = $datatable->and('term_url', 'LIKE', "'book-index/$myslug%'");
-
 		}
 
 		// get the list of cats
 		$datatable = $datatable->select()->allassoc();
-
 
 		// if in edit continue else return raw list
 		if($id)
@@ -815,10 +821,7 @@ class model extends \addons\content_cp\home\model
 				->allassoc('term_id');
 		}
 
-
-
-		$result = array();
-
+		$result = [];
 		foreach ($datatable as $id => $row)
 		{
 			$result[$row['id']] = array();
@@ -844,9 +847,7 @@ class model extends \addons\content_cp\home\model
 			{
 				$result[$row['id']]['title'] = $row['term_title'];
 			}
-
 		}
-
 		return $result;
 	}
 
@@ -891,9 +892,10 @@ class model extends \addons\content_cp\home\model
 	 */
 	public function sp_parent_list($_select = true, $_type = 'page')
 	{
-
+		$lang = \lib\define::get_language('name');
 		$qry = $this->sql()->table('posts')->where('post_type', $_type)->and('post_status', 'publish')
 			->and('post_parent', 'IS', 'NULL')
+			->and('post_language', $lang)
 			->order('post_parent','ASC')->order('id','ASC');
 
 		if($_select)
