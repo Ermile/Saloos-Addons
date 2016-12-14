@@ -24,13 +24,7 @@
     </li>
     <li id="languages" data-step='2' data-intro='{%trans "You can work with control panel in your language"%}' data-position='bottom'>
      <i class="fa fa-language fa-lg fa-2x"></i>
-     <nav class="vertical-menu">
-{%for key, value in saloos.langlist%}{%if key == global.lang%}
-      <a href="{{url.base}}/{{url.path}}?lang={{key}}" class="default not-active">{{value}}</a>
-{%else%}
-      <a href="{{url.base}}/{{url.path}}?lang={{key}}">{{value}}</a>
-{%endif%}{% endfor %}
-     </nav>
+     {{langList({'html':true, 'class':"vertical-menu", 'all': true})}}
     </li>
    </ul>
 
