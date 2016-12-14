@@ -88,7 +88,6 @@ class model extends \addons\content_cp\home\model
 		{
 			$datarow['url'] = trim($datarow['url'], 'help/');
 			$datarow['url'] = 'help/'. $datarow['url'];
-			var_dump($cpModule['type']);
 		}
 
 		// var_dump($datarow['slug']);exit();
