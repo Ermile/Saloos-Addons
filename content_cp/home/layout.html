@@ -6,7 +6,7 @@
  <aside id="page-sidebar" class='unselectable'>
   <h1 id="page-logo"><a href="{{url.root}}" title="{{site.desc}}" style='font-size:calc(1.1vw - {{(site.title|length)/10}}px)' target="_blank">{{site.title}}</a></h1>
   <nav class="sidebar-items" data-step='1' data-intro='{%trans "Use this menu for navigating to all part of control panel"%}' data-position="{{dir.right}}">
-   <a href="{{url.base}}"><i class="fa fa-lg fa-desktop"></i> <span>{%trans "Dashboard"%}</span></a>
+   <a href="{{url.baseFull}}"><i class="fa fa-lg fa-desktop"></i> <span>{%trans "Dashboard"%}</span></a>
    {% include 'content_cp/home/sidemenu.html' %}
   </nav>
  </aside>
