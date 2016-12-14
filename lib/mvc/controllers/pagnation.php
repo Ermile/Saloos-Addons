@@ -67,11 +67,11 @@ trait pagnation
 		$this->pagnation_set('prev', ($prev >= 1) ? $prev : false);
 		$this->pagnation_set('count_link', 7);
 		$path = \lib\router::get_url()? '/'.\lib\router::get_url(): null;
-		if($path === null)
-		{
-			$path = preg_replace("/\/page\=\d+/", "", $_SERVER['REQUEST_URI']);
-		}
-		$current_url = $this->url('baseContent').$path;
+		// if($path === null)
+		// {
+		// 	$path = preg_replace("/\/page\=\d+/", "", $_SERVER['REQUEST_URI']);
+		// }
+		$current_url = $this->url('baseFull').$path;
 		$this->pagnation_set('current_url', $this->pagnation_get('custom_length') ? $current_url."/length=$length" : $current_url);
 		$this->pagnation_set('length', $length);
 	}
