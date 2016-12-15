@@ -14,7 +14,7 @@ trait pagnation
 			\lib\router::remove_url_property('page');
 			if($page == 1)
 			{
-				$redirect = new \lib\redirector(null, true);
+				$redirect = new \lib\redirector($_SERVER['REQUEST_URI'], true);
 				$redirect->url = preg_replace("/\/page=1/", "", $redirect->url);
 				$redirect->redirect();
 			}
