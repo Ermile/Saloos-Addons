@@ -10,7 +10,6 @@ class controller extends \addons\content_cp\home\controller
 		// find best display
 		parent::cpFindDisplay();
 
-
 	}
 }
 ?>

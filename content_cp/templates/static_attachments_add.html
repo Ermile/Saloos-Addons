@@ -2,7 +2,7 @@
 
 
 {%block content%}
- <form method="post" id="form_uploader" action="attachments/add" enctype="multipart/form-data" class="unselectable">
+ <form method="post" id="form_uploader"  enctype="multipart/form-data" class="unselectable">
   <div id="drop">{%trans "Drag & Drop Files Here"%}<br />{%trans "or"%}<a>{%trans "Choose File"%}</a>
     <input type="file" name="upfile" multiple />
     <small>{%trans "Maximum size allowed"%} {{maxSize}}</small>

@@ -6,9 +6,11 @@ class controller extends \mvc\controller
 	 * check login and permission
 	 * @return [type] [description]
 	 */
-	function __construct(){
+	function __construct()
+	{
 		parent::__construct();
 	}
+
 	function _permission($_content = null, $_login = true)
 	{
 		// if user is not login then redirect
@@ -83,11 +85,13 @@ class controller extends \mvc\controller
 		$mypath   = $this->url('path','_');
 
 		if( is_file(addons.'content_cp/'.$cpModule.'/model.php') && !$this->model_name)
+		{
 			$this->model_name = '\\addons\\content_cp\\'.$cpModule.'\model';
-
+		}
 		elseif( is_file(addons.'content_cp/'.$mymodule.'/model.php')  && !$this->model_name)
+		{
 			$this->model_name = '\\addons\\content_cp\\'.$mymodule.'\model';
-
+		}
 
 		switch ($cpModule)
 		{
@@ -114,9 +118,13 @@ class controller extends \mvc\controller
 
 			default:
 				if( is_file(addons.'content_cp/templates/module_'.$mymodule.'.html') )
+				{
 					$this->display_name	= 'content_cp/templates/module_'.$mymodule.'.html';
+				}
 				else
+				{
 					$this->display_name	= 'content_cp/templates/module_display.html';
+				}
 
 				$this->get(null, 'datatable')->ALL('/^[^\/]*$/');
 
@@ -124,12 +132,14 @@ class controller extends \mvc\controller
 				if($mychild)
 				{
 					if( is_file(addons.'content_cp/templates/child_'.$mymodule.'.html') )
+					{
 						$this->display_name	= 'content_cp/templates/child_'.$mymodule.'.html';
+					}
 					else
+					{
 						$this->display_name	= 'content_cp/templates/child_display.html';
+					}
 					//all("edit=.*")
-
-
 
 					// $this->route_check_true = true;
 
