@@ -141,11 +141,12 @@
         title: { text: '' },
         xAxis: { categories: [{%for datarow in visitors%}'{%if global.lang=="fa_IR"%}{{datarow.date|jdate("y/m/j")}} {%else%} {{datarow.date |date("j F")}}{%endif%}', {%endfor%}] ,crosshair: true},
         yAxis: { title: {text: ''}, floor: 0, allowDecimals: false,},
+
         tooltip: {
           shared:true,
           useHTML: true,
 
-          headerFormat: '<table><thead><tr><td colspan="3">{%if global.lang=="fa_IR"%}{point.key} {%else%} {{point.key | date("l j F Y")}} {%endif%}</td></tr></thead>',
+          headerFormat: '<table><thead><tr><td colspan="3">{%if global.lang=="fa"%}{point.key} {%else%} {point.key}{%endif%}</td></tr></thead>',
           pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' + '<td><b>{point.y:0.0f} {%trans "Visit"%}</b></td></tr>',
           footerFormat: '</table>',
 

@@ -5,7 +5,7 @@
   <header id="page-title">
    <h2>{{page.title}} {%if page.desc%}<small>{{page.desc}}</small>{%endif%}</h2>
 {%if page.haschild and child!='add'%}
-   <a class="label label-info label-form" href="{{url.base}}/{{module}}/add">{%trans%}Add New Record{%endtrans%}</a>
+   <a class="label label-info label-form" href="{{url.baseFull}}/{{module}}/add">{%trans%}Add New Record{%endtrans%}</a>
 {%endif%}
   </header>
 {%endif%}
