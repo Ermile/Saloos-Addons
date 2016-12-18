@@ -319,7 +319,13 @@ class log extends tg
 			{
 				// generate password
 				$password = \lib\utility\filter::temp_password();
-				\lib\db\users::signup($mobile, $password, true, utf8_encode($fullName));
+				preg_match("#/start ref_([^\s\t-]+)([\s\t\n-]+.*)?$#Ui", self::response('text'), $_ref);
+				$ref = null;
+				if(is_array($_ref) && isset($_ref[1]))
+				{
+					$ref = \lib\utility\shortURL::decode($ref[1]);
+				}
+				\lib\db\users::signup($mobile, $password, true, utf8_encode($fullName), $ref);
 				self::$user_id = \lib\db\users::$user_id;
 			}
 			else
