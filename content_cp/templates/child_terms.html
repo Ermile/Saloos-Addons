@@ -21,7 +21,7 @@
     <div class="panel-heading">{%trans "Publish"%}</div>
     <div class="panel-body">
      <input name="slug" id="sp-slug" class="input" placeholder='{%trans "Enter slug here"%}' value='{{datarow.term_slug}}'/>
-      <select name="language" id="sp-language" class="input">
+      <select name="language" id="sp-language" class="input" disabled="">
 {%for key, value in site.langlist%}
        <option value="{{key}}" {%if child == 'edit'%}{%if datarow.term_language in key%}selected{%endif%}{%elseif key == site.currentlang%}selected{%endif%}>{{value}}</option>
 {% endfor %}

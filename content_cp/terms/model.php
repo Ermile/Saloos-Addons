@@ -59,7 +59,7 @@ class model extends \addons\content_cp\home\model
 		$cpModule          = $this->cpModule();
 		$mymodule          = $this->cpModule('raw');
 		$qry               = $this->sql();
-		$datarow           = array();
+		$datarow           = [];
 		$datarow['slug']   = utility::post('slug', 'filter');
 		$datarow['parent'] = utility::post('parent');
 
@@ -86,17 +86,23 @@ class model extends \addons\content_cp\home\model
 		}
 		elseif($cpModule['raw'] === 'helpcategories')
 		{
-			$datarow['url'] = trim($datarow['url'], 'help/');
+			if(substr($datarow['url'], 0, 5) === 'help/')
+			{
+				$datarow['url'] = substr($datarow['url'], 5);
+			}
 			$datarow['url'] = 'help/'. $datarow['url'];
 		}
-
-		// var_dump($datarow['slug']);exit();
+		$lang = utility::post('language');
+		if(!$lang)
+		{
+			$lang = \lib\define::get_language();
+		}
 
 		if(utility::post('title'))
 		{
 			$qry = $qry->table('terms')
 						->set('term_type',     $cpModule['type'])
-						->set('term_language', utility::post('language'))
+						->set('term_language', $lang)
 						->set('term_title',    utility::post('title'))
 						->set('term_slug',     $datarow['slug'])
 						->set('term_desc',     utility::post('desc'))
