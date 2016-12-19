@@ -288,8 +288,11 @@ class model extends \mvc\model
 				$mytype = null;
 				break;
 		}
-		$lang = \lib\define::get_language('name');
-		$qry  = $qry->and($cpModule['prefix'].'_language', $lang);
+		if($cpModule['prefix'] === 'post' || $cpModule['prefix'] === 'term')
+		{
+			$lang = \lib\define::get_language('name');
+			$qry  = $qry->and($cpModule['prefix'].'_language', $lang);
+		}
 
 		if(is_array($mytype))
 		{

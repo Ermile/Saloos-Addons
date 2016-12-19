@@ -114,7 +114,6 @@ class model extends \addons\content_cp\home\model
 			debug::error(T_("Please enter title!"));
 			return false;
 		}
-
 		$post_new_id = null;
 		if($_id)
 		{
