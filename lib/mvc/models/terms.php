@@ -22,11 +22,25 @@ trait terms
 
 			if($_forcheck)
 			{
+				// set type of terms and remove prefix from it
+				$mytype = $datarow['term_type'];
+				if(substr($mytype, 0, 4) === 'cat_')
+				{
+					$mytype = substr($mytype, 4);
+				}
+				// set cat of this term and remove prefix
+				$cat = $datarow['term_url'];
+				if($mytype === substr($cat, 0, strlen($mytype)))
+				{
+					$cat = substr($cat, strlen($mytype)+1);
+				}
+
 				return
 				[
 					'table' => 'terms',
-					'type' => $datarow['term_type'],
-					'slug' => $datarow['term_slug']
+					'type' => $mytype,
+					'cat'  => $cat,
+					'slug' => $datarow['term_slug'],
 				];
 			}
 			else

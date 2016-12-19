@@ -78,7 +78,7 @@
 {%block post_language%}
 {%if module != 'attachments'%}
     <div class='hint--left hint100' data-hint='{%trans "Language"%}'>
-    <select name="language" class="input" id='sp-language' data-step='11' data-intro='{%trans "Set language of your content to show only in this language"%}'>
+    <select name="language" class="input" id='sp-language' data-step='11' data-intro='{%trans "Set language of your content to show only in this language"%}' disabled="">
      <!-- <option value="" {%if not datarow.post_language%} selected="selected"{%endif%}>{%trans "All Languages"%}</option> -->
 {%for key, value in site.langlist%}
      <option value="{{key}}" {%if child == 'edit'%}{%if datarow.post_language in key%}selected{%endif%}{%elseif key == site.currentlang%}selected{%endif%}>{{value}}</option>

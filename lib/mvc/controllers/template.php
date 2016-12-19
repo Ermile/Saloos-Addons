@@ -121,24 +121,34 @@ trait template
 		$post_type = null;
 		if(isset($myurl['type']))
 		{
-			$post_type        = strtok($myurl['type'], '_');
+			$post_type = strtok($myurl['type'], '_');
 		}
+		$post_cat = null;
+		if(isset($myurl['cat']))
+		{
+			$post_cat = $myurl['cat'];
+			$post_cat = str_replace('/', '_', $post_cat);
+			if($myurl['table'] === 'terms')
+			{
+				$post_cat .= '_home';
+			}
+		}
+
 		$route_check_true = false;
+		$file_ext         = '.html';
 		// if url does not exist show 404 error
-		if(!$myurl || ($myurl['table'] != 'terms' && \lib\router::get_storage("pagenation")))
+		if(!$myurl)
 		{
 			// if user entered url contain one of our site language
 			$current_path = $this->url('path', '_');
 			// if custom template exist show this template
-			if( is_file(root.'content/template/static_'. $current_path. '.html') )
+			if( is_file(root.'content/template/static_'. $current_path. $file_ext) )
 			{
-				$this->display_name = 'content\template\static_'. $current_path. '.html';
-				$route_check_true   = true;
+				$this->display_name = 'content\template\static_'. $current_path. $file_ext;
 			}
-			elseif( is_file(root.'content/template/static/'. $current_path. '.html') )
+			elseif( is_file(root.'content/template/static/'. $current_path. $file_ext) )
 			{
-				$this->display_name = 'content\template\static\\'. $current_path. '.html';
-				$route_check_true   = true;
+				$this->display_name = 'content\template\static\\'. $current_path. $file_ext;
 			}
 			else
 			{
@@ -152,10 +162,9 @@ trait template
 					$my_special_url = 'home';
 				}
 				$my_special_url = $mymodule. '/'. $my_special_url;
-				if(is_file(root.'content/template/static/'. $my_special_url. '.html'))
+				if(is_file(root.'content/template/static/'. $my_special_url. $file_ext))
 				{
-					$this->display_name = 'content/template/static/'. $my_special_url. '.html';
-					$route_check_true   = true;
+					$this->display_name = 'content/template/static/'. $my_special_url. $file_ext;
 				}
 			}
 			// // elseif 404 template exist show it
@@ -173,31 +182,48 @@ trait template
 		}
 
 		// elseif template type exist show it
-		elseif( is_file(root.'content/template/'.$post_type.'-'.$myurl['slug'].'.html') )
+		elseif( is_file(root.'content/template/'.$post_type.'-'.$myurl['slug'].$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$post_type.'-'.$myurl['slug'].'.html';
-			$route_check_true = true;
+			$this->display_name	= 'content\template\\'.$post_type.'-'.$myurl['slug'].$file_ext;
 		}
 		// elseif template type exist show it
-		elseif( is_file(root.'content/template/'.$post_type.'.html') )
+		elseif( is_file(root.'content/template/'.$post_type.$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$post_type.'.html';
-			$route_check_true = true;
+			$this->display_name	= 'content\template\\'.$post_type.$file_ext;
+		}
+		// elseif template cat exist show it
+		elseif( is_file(root.'content/template/'.$post_cat.$file_ext) )
+		{
+			$this->display_name	= 'content\template\\'.$post_cat.$file_ext;
 		}
 
 		// elseif template type exist show it
-		elseif( is_file(root.'content/template/'.$myurl['table'].'.html') )
+		elseif( is_file(root.'content/template/'.$myurl['table'].$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$myurl['table'].'.html';
-			$route_check_true = true;
+			$this->display_name	= 'content\template\\'.$myurl['table'].$file_ext;
 		}
 
 		// elseif default template exist show it else use homepage!
-		elseif( is_file(root.'content/template/dafault.html') )
+		elseif( is_file(root.'content/template/dafault'. $file_ext) )
 		{
-			$this->display_name	= 'content\template\dafault.html';
+			$this->display_name	= 'content\template\dafault'. $file_ext;
+		}
+
+		// if find template for this url
+		// then if template for current lang is exist, set it
+		if($this->display_name)
+		{
+			$current_lang          = \lib\define::get_language('name');
+			$current_lang_template = substr($this->display_name, 0, -(strlen($file_ext)));
+			$current_lang_template .= '-'.$current_lang . $file_ext;
+			if(is_file(root.$current_lang_template))
+			{
+				$this->display_name	= $current_lang_template;
+			}
 			$route_check_true = true;
 		}
+
+
 		if($route_check_true)
 		{
 			$this->route_check_true = $route_check_true;

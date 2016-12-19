@@ -60,7 +60,7 @@ class controller extends \lib\controller
 		$myrep = router::get_repository_name();
 
 		// running template base module for homepage
-		if(\lib\router::get_storage('CMS') && $myrep === 'content' && method_exists($this, 's_template_finder') && get_class($this) === 'content\home\controller')
+		if(\lib\router::get_storage('CMS') && $myrep === 'content' && method_exists($this, 's_template_finder'))
 		{
 			$this->s_template_finder();
 		}

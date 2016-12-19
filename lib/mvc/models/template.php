@@ -109,11 +109,19 @@ trait template
 
 			if($_forcheck && isset($datarow['post_type']) && isset($datarow['post_slug']))
 			{
+				// get cat from url until last slash
+				$cat = substr($datarow['post_url'], 0, strrpos($datarow['post_url'], '/'));
+				// if type of post exist in cat, remove it
+				if($datarow['post_type'] === substr($cat, 0, strlen($datarow['post_type'])))
+				{
+					$cat = substr($cat, strlen($datarow['post_type'])+1);
+				}
 				return
 				[
 					'table' => 'posts',
 					'type' => $datarow['post_type'],
-					'slug' => $datarow['post_slug']
+					'cat'  => $cat,
+					'slug' => $datarow['post_slug'],
 				];
 			}
 			else
