@@ -288,6 +288,8 @@ class model extends \mvc\model
 				$mytype = null;
 				break;
 		}
+		$lang = \lib\define::get_language('name');
+		$qry  = $qry->and($cpModule['prefix'].'_language', $lang);
 
 		if(is_array($mytype))
 		{
@@ -305,17 +307,16 @@ class model extends \mvc\model
 		}
 		$param_draw   = \lib\utility::get('draw');
 		if(!$param_draw)
+		{
 			$param_draw = 1;
+		}
 
 		if($param_search)
 		{
 			$qry = $qry->groupOpen('g_search');
 			$qry = $qry->and($cpModule['prefix']."_title", 'LIKE', "'%$param_search%'");
-
 			$qry = $qry->or($cpModule['prefix']."_slug", 'LIKE', "'%$param_search%'");
-
 			$qry = $qry->or($cpModule['prefix']."_url", 'LIKE', "'%$param_search%'");
-
 			$qry = $qry->groupClose('g_search');
 
 
@@ -330,19 +331,29 @@ class model extends \mvc\model
 
 
 		if(!$param_start)
+		{
 			$param_start = 0;
+		}
 		if(!$param_length)
 		{
 			if($total>500)
+			{
 				$param_length = 10;
+			}
 			else
+			{
 				$param_length = $total - $param_start;
+			}
 		}
 
 		if(!$param_sortby)
+		{
 			$param_sortby = 'id';
+		}
 		if(!$param_order)
+		{
 			$param_order = 'DESC';
+		}
 
 
 		$qry = $qry->limit($param_start, $param_length);
@@ -353,7 +364,9 @@ class model extends \mvc\model
 		// get only datatable fields on sql for optimizing size of json
 		$col = array('id');
 		if(!$tmp_columns)
+		{
 			return;
+		}
 		foreach ($tmp_columns as $field => $attr)
 		{
 			if($attr['table'])

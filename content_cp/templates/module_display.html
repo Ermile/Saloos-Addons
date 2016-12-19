@@ -40,13 +40,13 @@
 
          <td class="col_{{value.value}}">
 {%if dtperm.edit%}
-          <a href='{{url.base}}/{{module}}/edit={{d.id}}'>{{myvalue}}</a>
+          <a href='{{url.baseFull}}/{{module}}/edit={{d.id}}'>{{myvalue}}</a>
 {%else%}
           {{myvalue}}
 {%endif%}
          </td>
 {% elseif value.value == 'url'%}
-         <td class="col_{{value.value}}"><a target='_blank' href='{{url.base}}{{myvalue}}?preview=yes'>{{myvalue}}</a></td>
+         <td class="col_{{value.value}}"><a target='_blank' href='{{url.base}}/{{myvalue}}?preview=yes'>{{myvalue}}</a></td>
 {% elseif (value.value == 'publishdate' or value.value == 'createdate' ) and global.lang == 'fa_IR'%}
          <td class="col_{{value.value}}">{{myvalue|jdate('Y/m/d h:m')}}</td>
 {% elseif value.value == 'filetype'%}
@@ -58,12 +58,12 @@
          <td class="col_actions">
 {%if dtperm.edit%}
           <span class="fa-stack">
-            <a class="fa fa-pencil fa-stack-1x label-default" href="{{url.base}}/{{module}}/edit={{d.id}}" ></a>
+            <a class="fa fa-pencil fa-stack-1x label-default" href="{{url.baseFull}}/{{module}}/edit={{d.id}}" ></a>
           </span>
 {%endif%}
 {%if dtperm.delete%}
           <span class="fa-stack">
-            <a class="fa fa-times fa-stack-1x label-danger" href="{{url.base}}/{{module}}/delete={{d.id}}" data-data='{"id": {{d.id}}}' data-method="post" data-modal="delete-confirm"></a>
+            <a class="fa fa-times fa-stack-1x label-danger" href="{{url.baseFull}}/{{module}}/delete={{d.id}}" data-data='{"id": {{d.id}}}' data-method="post" data-modal="delete-confirm"></a>
           </span>
 {%endif%}
          </td>

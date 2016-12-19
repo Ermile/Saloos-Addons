@@ -46,7 +46,7 @@
     <input type="button" id="tag-add-btn" class='button' value='{%trans "Add"%}' tabindex="-1" />
     <div id="tag-list"></div>
    </div>
-   <div class="panel-footer">{% trans "Normally, tags are ad-hoc keywords that identify important information in your post (names, subjects, etc) that may or may not recur in other posts, while categories are pre-determined sections." %} <a href='{{url.base}}/tags' target="_blank">{%trans "View list of tags"%}</a></div>
+   <div class="panel-footer">{% trans "Normally, tags are ad-hoc keywords that identify important information in your post (names, subjects, etc) that may or may not recur in other posts, while categories are pre-determined sections." %} <a href='{{url.baseFull}}/tags' target="_blank">{%trans "View list of tags"%}</a></div>
   </div>
 {%endblock%}
 
@@ -144,17 +144,17 @@
     </div>
    </div>
 {%if module == 'posts'%}
-   <div class="panel-footer"><a href='{{url.base}}/categories/add' target="_blank">{%trans "Add New Category"%}</a></div>
+   <div class="panel-footer"><a href='{{url.baseFull}}/categories/add' target="_blank">{%trans "Add New Category"%}</a></div>
 {%elseif module == 'books'%}
-   <div class="panel-footer"><a href='{{url.base}}/bookcategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
+   <div class="panel-footer"><a href='{{url.baseFull}}/bookcategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
 {%elseif module == 'helps'%}
-   <div class="panel-footer"><a href='{{url.base}}/helpcategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
+   <div class="panel-footer"><a href='{{url.baseFull}}/helpcategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
 {%elseif module == 'attachments'%}
-   <div class="panel-footer"><a href='{{url.base}}/filecategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
+   <div class="panel-footer"><a href='{{url.baseFull}}/filecategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
 {%elseif module == 'polls'%}
-   <div class="panel-footer"><a href='{{url.base}}/pollcategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
+   <div class="panel-footer"><a href='{{url.baseFull}}/pollcategories/add' target="_blank">{%trans "Add New Category"%}</a></div>
 {%else%}
-   <div class="panel-footer"><a href='{{url.base}}/categories/add' target="_blank">{%trans "Add New Category"%}</a></div>
+   <div class="panel-footer"><a href='{{url.baseFull}}/categories/add' target="_blank">{%trans "Add New Category"%}</a></div>
 {%endif%}
   </div>
 {%endif%}

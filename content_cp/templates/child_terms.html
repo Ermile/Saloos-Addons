@@ -8,7 +8,7 @@
    <span class="required"></span>
    <input type="text" name="title" id="sp-title" class="input" placeholder='{%trans "Enter title here"%}' value='{{datarow.term_title}}' />
    <div id='url-box' data-xhr='url-box' {%if child == 'add'%}class='hidden'{%endif%}>
-    <a href="{{url.root}}{{datarow.term_url}}" target="_blank" class="hint--left" data-hint='{%trans "Click to check result"%}'><span id='url-site'>{{url.root}}</span><span id='url-slug'>{{datarow.term_url}}</span></a>
+    <a href="{{url.base}}/{{datarow.term_url}}" target="_blank" class="hint--left" data-hint='{%trans "Click to check result"%}'><span id='url-site'>{{url.base}}/</span><span id='url-slug'>{{datarow.term_url}}</span></a>
    </div>
    <textarea name="desc" class="sp-content editor" data-placeholder='{%trans "Write your post content here"%}'>{{datarow.term_desc | raw}} </textarea>
 {%if module == 'categories' or module == 'tags'%}
@@ -23,7 +23,7 @@
      <input name="slug" id="sp-slug" class="input" placeholder='{%trans "Enter slug here"%}' value='{{datarow.term_slug}}'/>
       <select name="language" id="sp-language" class="input">
 {%for key, value in site.langlist%}
-       <option value="{{key}}" {%if child == 'edit'%}{%if datarow.post_language in key%}selected{%endif%}{%elseif key == site.currentlang%}selected{%endif%}>{{value}}</option>
+       <option value="{{key}}" {%if child == 'edit'%}{%if datarow.term_language in key%}selected{%endif%}{%elseif key == site.currentlang%}selected{%endif%}>{{value}}</option>
 {% endfor %}
       </select>
       <button type="submit" value="submit" class="button positive">{{page.title}}</button>

@@ -168,8 +168,7 @@ class model extends \addons\content_cp\home\model
 
 
 		$datatable = $qry->select()->allassoc();
-		// var_dump($datatable);
-		$result = array();
+		$result    = [];
 
 		foreach ($datatable as $id => $row)
 		{
@@ -179,7 +178,6 @@ class model extends \addons\content_cp\home\model
 				if($parent_title)
 				{
 					// if not exist search in all of array and find a parent
-					// var_dump($parent_title);
 				}
 
 				$result[$row['id']] = $parent_title . " &gt; " . $row['term_title'];

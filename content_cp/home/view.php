@@ -228,6 +228,7 @@ class view extends \mvc\view
 				switch ($this->cpModule('raw'))
 				{
 					case 'categories':
+					case 'helpcategories':
 					case 'pollcategories':
 					case 'filecategories':
 					case 'bookcategories':
