@@ -2,6 +2,11 @@
 private function transtext()
 {
 
+	//-------------------------------------saloos-addons\addons\attachments\panel.html
+	echo T_("Write your tag and press enter to add new keyword to content");          // Line 41
+	echo T_("attachments");                                                           // Line 2
+	echo T_("Search");                                                                // Line 110 Seperate
+
 	//----------------------------------saloos-addons\content_account\home\layout.html
 	echo T_("Work with Ermile in your own language");                                 // Line 40
 
@@ -49,7 +54,7 @@ private function transtext()
 
 	//-----------------------------------saloos-addons\content_cp\home\layout-xhr.html
 	echo T_("Add New Record");                                                        // Line 87 Seperate
-	echo T_("View your current location and navigate to parent of it");               // Line 51
+	echo T_("View your current location and navigate to parent of it");               // Line 45
 
 	//---------------------------------------saloos-addons\content_cp\home\layout.html
 	echo T_("Use this menu for navigating to all part of control panel");             // Line 8
@@ -61,17 +66,17 @@ private function transtext()
 	echo T_("Done");                                                                  // Line 21
 	echo T_("Help");                                                                  // Line 23
 	echo T_("You can work with control panel in your language");                      // Line 25
-	echo T_("Go to your profile, change password or logout from conrtol panel");      // Line 37
+	echo T_("Go to your profile, change password or logout from conrtol panel");      // Line 31
 	echo T_("My Profile");                                                            // Line 100 Seperate
 	echo T_("Change Password");                                                       // Line 333 Seperate
 	echo T_("Lock Screen");                                                           // Line 102 Seperate
 	echo T_("Logout");                                                                // Line 103 Seperate
-	echo T_("We glad to working for you and hope you enjoy using our system");        // Line 67
-	echo T_("Some right reserved");                                                   // Line 69
-	echo T_("Powered by");                                                            // Line 69
+	echo T_("We glad to working for you and hope you enjoy using our system");        // Line 61
+	echo T_("Some right reserved");                                                   // Line 63
+	echo T_("Powered by");                                                            // Line 63
 	echo T_("Saloos");                                                                // Line 7 Seperate
-	echo T_("Last update on");                                                        // Line 71
-	echo T_("wait for next version!");                                                // Line 71
+	echo T_("Last update on");                                                        // Line 65
+	echo T_("wait for next version!");                                                // Line 65
 	echo T_("Version");                                                               // Line 106 Seperate
 
 	//-------------------------------------saloos-addons\content_cp\home\sidemenu.html
@@ -135,7 +140,6 @@ private function transtext()
 	echo T_("Excerpt");                                                               // Line 24
 	echo T_("If excerpt is empty we get it automatically from content");              // Line 26
 	echo T_("Summaries of your content that can be used as page description.");       // Line 28
-	echo T_("Write your tag and press enter to add new keyword to content");          // Line 41
 	echo T_("Enter Tags here");                                                       // Line 44
 	echo T_("Enter Tags");                                                            // Line 45
 	echo T_("Normally, tags are ad-hoc keywords that identify important information in your post (names, subjects, etc) that may or may not recur in other posts, while categories are pre-determined sections.");// Line 15
@@ -157,23 +161,23 @@ private function transtext()
 	echo T_("Update");                                                                // Line 150 Seperate
 	echo T_("Publish");                                                               // Line 85
 	echo T_("Page Attributes");                                                       // Line 91
-	echo T_("Parent Page");                                                           // Line 38
-	echo T_("Select parent page to create a group of pages");                         // Line 39
-	echo T_("Without parent");                                                        // Line 40
+	echo T_("Parent Page");                                                           // Line 37
+	echo T_("Select parent page to create a group of pages");                         // Line 38
+	echo T_("Without parent");                                                        // Line 39
 	echo T_("You can nest Pages under other Pages by making one the “Parent” of the other, creating a group of Pages.");// Line 56
 	echo T_("Select a category of your content");                                     // Line 133
 	echo T_("Enter cat here");                                                        // Line 137
-	echo T_("Add New Category");                                                      // Line 153
-	echo T_("Featured Image");                                                        // Line 162
-	echo T_("This allows you to associate an image with your content.");              // Line 164
-	echo T_("Enter thumb id");                                                        // Line 165
-	echo T_("Set featured image");                                                    // Line 166
-	echo T_("You can see type of your file and click on image to direct access to file");// Line 175
-	echo T_("Click to view");                                                         // Line 183
-	echo T_("Height");                                                                // Line 181
-	echo T_("Width");                                                                 // Line 181
-	echo T_("Define poll");                                                           // Line 197
-	echo T_("Define poll conditions");                                                // Line 224
+	echo T_("Add New Category");                                                      // Line 157
+	echo T_("Featured Image");                                                        // Line 166
+	echo T_("This allows you to associate an image with your content.");              // Line 168
+	echo T_("Enter thumb id");                                                        // Line 169
+	echo T_("Set featured image");                                                    // Line 170
+	echo T_("You can see type of your file and click on image to direct access to file");// Line 179
+	echo T_("Click to view");                                                         // Line 187
+	echo T_("Height");                                                                // Line 185
+	echo T_("Width");                                                                 // Line 185
+	echo T_("Define poll");                                                           // Line 201
+	echo T_("Define poll conditions");                                                // Line 228
 
 	//---------------------------saloos-addons\content_cp\templates\child_display.html
 	echo T_("Options");                                                               // Line 84 Seperate
@@ -184,7 +188,7 @@ private function transtext()
 	echo T_("Click to check result");                                                 // Line 11
 	echo T_("What’s the difference between categories and tags?");                  // Line 15
 	echo T_("If you think of your site like a book, the categories are like the Table of Contents and the tags are like the terms in the index.");// Line 15
-	echo T_("You can nest category under other category by making one the “Parent” of the other.");// Line 46
+	echo T_("You can nest category under other category by making one the “Parent” of the other.");// Line 45
 
 	//--------------------------saloos-addons\content_cp\templates\module_display.html
 	echo T_("Actions");                                                               // Line 86 Seperate
@@ -313,7 +317,6 @@ private function transtext()
 	echo T_("Comming Soon");                                                          // Line 107 Seperate
 	echo T_("Fantastic");                                                             // Line 108 Seperate
 	echo T_("Copy");                                                                  // Line 109 Seperate
-	echo T_("Search");                                                                // Line 110 Seperate
 	echo T_("Cut");                                                                   // Line 111 Seperate
 	echo T_("Successfully");                                                          // Line 112 Seperate
 	echo T_("Key");                                                                   // Line 113 Seperate
@@ -528,6 +531,8 @@ private function transtext()
 
 	//-----------------------------------------saloos-addons\includes\macro\forms.html
 	echo T_("Select");                                                                // Line 80
+
+	//-----------------------------------------saloos-addons\includes\mvc\display.html
 
 }
 ?>

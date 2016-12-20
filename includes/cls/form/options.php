@@ -42,6 +42,13 @@ class options extends \lib\form
 			// ->desc(T_("Explain site and porpose of it in a few words"))
 			;
 
+		$this->tabColor = $this->make('text')->name('site-tabColor')
+			->label(T_('Site'). ' '.T_('Tab Color'))
+			->maxlength(160)
+			->pl(T_('Site Tab Color in Mobile'))
+			// ->desc(T_("Explain site and porpose of it in a few words"));
+			;
+
 		// $this->url = $this->make('url')->name('site-url')
 		// 	->label(T_('Site'). ' '.T_('main URL'))
 		// 	->maxlength(50)

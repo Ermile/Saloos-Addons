@@ -172,10 +172,11 @@ class model extends \addons\content_cp\home\model
 		[
 			'general' =>
 			[
-				'title' => utility::post('site-title'),
-				'desc'  => utility::post('site-desc'),
-				'email' => utility::post('site-email'),
-				'url'   => utility::post('site-url'),
+				'title'    => utility::post('site-title'),
+				'desc'     => utility::post('site-desc'),
+				'email'    => utility::post('site-email'),
+				'url'      => utility::post('site-url'),
+				'tabColor' => utility::post('site-tabColor'),
 			],
 			'config' =>
 			[

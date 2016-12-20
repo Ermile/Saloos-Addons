@@ -9,24 +9,27 @@ trait posts
 	 */
 	function view_posts()
 	{
-		$this->data->post = array();
+		$this->data->post = [];
 		$tmp_result       = $this->model()->get_posts();
-		$tmp_fields       = array(	'id'               =>'id',
-									'post_language'    =>'language',
-									'post_title'       =>'title',
-									'post_slug'        =>'slug',
-									'post_content'     =>'content',
-									'post_meta'        =>'meta',
-									'post_type'        =>'type',
-									'post_url'         =>'url',
-									'post_comment'     =>'comment',
-									'post_count'       =>'count',
-									'post_status'      =>'status',
-									'post_parent'      =>'parent',
-									'user_id'          =>'user',
-									'post_publishdate' =>'publishdate',
-									'date_modified'    =>'modified'
-								);
+		$tmp_fields       =
+		[
+			'id'               =>'id',
+			'post_language'    =>'language',
+			'post_title'       =>'title',
+			'post_slug'        =>'slug',
+			'post_content'     =>'content',
+			'post_meta'        =>'meta',
+			'post_type'        =>'type',
+			'post_url'         =>'url',
+			'post_comment'     =>'comment',
+			'post_count'       =>'count',
+			'post_status'      =>'status',
+			'post_parent'      =>'parent',
+			'user_id'          =>'user',
+			'post_publishdate' =>'publishdate',
+			'date_modified'    =>'modified'
+		];
+
 		foreach ($tmp_fields as $key => $value)
 		{
 			if(is_array($tmp_result[$key]))

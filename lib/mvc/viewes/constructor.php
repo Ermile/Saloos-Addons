@@ -49,6 +49,8 @@ trait constructor
 		{
 			$this->data->social = \lib\utility\option::get('social', 'meta');
 		}
+		// save all options to use in display
+		$this->data->options = \lib\utility\option::get(true);
 
 		$this->data->page['title']   = null;
 		$this->data->page['desc']    = null;
@@ -60,6 +62,10 @@ trait constructor
 		$this->data->login           = $this->login('all');
 		$this->data->perm            = $this->access(null, 'all');
 		$this->data->permContent     = $this->access('all');
+
+		// set detail of browser
+		$this->data->browser         = \lib\utility\browserDetection::browser_detection('full_assoc');
+		$this->data->visitor         = 'not ready!';
 
 		// define default value for global
 		$this->global->title         = null;

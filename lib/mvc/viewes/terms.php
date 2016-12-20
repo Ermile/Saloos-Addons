@@ -24,7 +24,7 @@ trait terms
 			'term_title'    =>'title',
 			'term_slug'     =>'slug',
 			'term_url'      =>'url',
-			'term_desc'     =>'desc',
+			'term_desc'     =>'content',
 			'term_parent'   =>'parent',
 			'date_modified' =>'modified'
 		];
