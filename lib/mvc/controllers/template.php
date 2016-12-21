@@ -114,7 +114,7 @@ trait template
 
 		if(!empty(db_name))
 		{
-			// $myurl = $this->model()->s_template_finder();
+			$myurl = $this->model()->s_template_finder();
 		}
 
 		// set post type, get before underscope
