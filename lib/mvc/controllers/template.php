@@ -136,6 +136,7 @@ trait template
 
 		$route_check_true = false;
 		$file_ext         = '.html';
+		$display_prefix   = 'content\template\\';
 		// if url does not exist show 404 error
 		if(!$myurl)
 		{
@@ -144,11 +145,11 @@ trait template
 			// if custom template exist show this template
 			if( is_file(root.'content/template/static_'. $current_path. $file_ext) )
 			{
-				$this->display_name = 'content\template\static_'. $current_path. $file_ext;
+				$this->display_name = 'static_'. $current_path. $file_ext;
 			}
 			elseif( is_file(root.'content/template/static/'. $current_path. $file_ext) )
 			{
-				$this->display_name = 'content\template\static\\'. $current_path. $file_ext;
+				$this->display_name = 'static\\'. $current_path. $file_ext;
 			}
 			else
 			{
@@ -164,14 +165,14 @@ trait template
 				$my_special_url = $mymodule. '/'. $my_special_url;
 				if(is_file(root.'content/template/static/'. $my_special_url. $file_ext))
 				{
-					$this->display_name = 'content/template/static/'. $my_special_url. $file_ext;
+					$this->display_name = 'static\\'. $my_special_url. $file_ext;
 				}
 			}
 			// // elseif 404 template exist show it
 			// elseif( is_file(root.'content/template/404.html') )
 			// {
 			// 	header("HTTP/1.1 404 NOT FOUND");
-			// 	$this->display_name	= 'content\template\404.html';
+			// 	$this->display_name	= '404.html';
 			// }
 			// // else show saloos default error page
 			// else
@@ -181,38 +182,50 @@ trait template
 			// }
 		}
 
-		// elseif template type exist show it
+		// elseif template type with specefic slug exist show it
 		elseif( is_file(root.'content/template/'.$post_type.'-'.$myurl['slug'].$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$post_type.'-'.$myurl['slug'].$file_ext;
+			$this->display_name	= $post_type.'-'.$myurl['slug'].$file_ext;
 		}
-		// elseif template type exist show it
+		// elseif template type with name of table exist in module folder then show it
+		elseif( is_file(root.'content/'.$post_type.'/'.$myurl['table'].$file_ext) )
+		{
+			$this->display_name = $post_type.'/'.$myurl['table'].$file_ext;
+			$display_prefix     = 'content\\';
+		}
+		// elseif template type with name of table exist show it
+		elseif( is_file(root.'content/template/'.$post_type.'-'.$myurl['table'].$file_ext) )
+		{
+			$this->display_name	= $post_type.'-'.$myurl['table'].$file_ext;
+		}
+		// elseif template type exist show it like posts or terms
 		elseif( is_file(root.'content/template/'.$post_type.$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$post_type.$file_ext;
+			$this->display_name	= $post_type.$file_ext;
 		}
 		// elseif template cat exist show it
 		elseif( is_file(root.'content/template/'.$post_cat.$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$post_cat.$file_ext;
+			$this->display_name	= $post_cat.$file_ext;
 		}
 
 		// elseif template type exist show it
 		elseif( is_file(root.'content/template/'.$myurl['table'].$file_ext) )
 		{
-			$this->display_name	= 'content\template\\'.$myurl['table'].$file_ext;
+			$this->display_name	= $myurl['table'].$file_ext;
 		}
 
 		// elseif default template exist show it else use homepage!
 		elseif( is_file(root.'content/template/dafault'. $file_ext) )
 		{
-			$this->display_name	= 'content\template\dafault'. $file_ext;
+			$this->display_name	= 'dafault'. $file_ext;
 		}
-
 		// if find template for this url
 		// then if template for current lang is exist, set it
 		if($this->display_name)
 		{
+
+			$this->display_name    = $display_prefix. $this->display_name;
 			$current_lang          = \lib\define::get_language('name');
 			$current_lang_template = substr($this->display_name, 0, -(strlen($file_ext)));
 			$current_lang_template .= '-'.$current_lang . $file_ext;
