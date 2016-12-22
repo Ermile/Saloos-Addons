@@ -15,10 +15,16 @@ class posts
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
+		if(!is_array($_args))
+		{
+			return false;
+		}
 
 		$set = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
@@ -26,6 +32,10 @@ class posts
 			elseif(is_int($value))
 			{
 				$set[] = " `$key` = $value ";
+			}
+			elseif(is_array($value))
+			{
+				$set[] = " `$key` = '".json_encode($value, JSON_UNESCAPED_UNICODE)."' ";
 			}
 			else
 			{
@@ -51,14 +61,14 @@ class posts
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id)
+	{
 
-		// // get slug field from slugify library
-		// if(isset($_args['term_slug'])){
-		// 	$_args['term_slug'] = \lib\utility\filter::slug($_args['term_slug']);
-		// }
+		if(!is_array($_args))
+		{
+			return false;
+		}
 
-		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
 		foreach ($_args as $field => $value)
 		{
@@ -94,7 +104,8 @@ class posts
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id) {
+	public static function delete($_id)
+	{
 		// get id
 		$query = "
 				UPDATE  posts
@@ -111,7 +122,8 @@ class posts
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query')
+	{
 		return \lib\db::$_type($_query);
 	}
 
