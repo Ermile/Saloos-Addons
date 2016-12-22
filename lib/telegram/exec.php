@@ -45,6 +45,7 @@ class exec extends tg
 			{
 				$is_json = true;
 			}
+			$_method = $_data['method'];
 			unset($_data['method']);
 		}
 		$response_callback = null;
