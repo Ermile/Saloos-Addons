@@ -494,18 +494,17 @@ class model extends \addons\content_cp\home\model
 				self::sp_savePoll($_postId);
 			}
 
-			$url = \lib\define::get_current_language_string(). '/'. $_module.'/edit='.$_postId;
+			$url = $this->url('prefix'). '/'. $_module.'/edit='.$_postId;
 			$url = trim($url, '/');
-
 			if($_edit)
 			{
 				debug::true(T_("Update Successfully"));
-				$this->redirector()->set_url($url);
+				$this->redirector($url);
 			}
 			else
 			{
 				debug::true(T_("Insert Successfully"));
-				$this->redirector()->set_url($url);
+				$this->redirector($url);
 			}
 		}, $post_new_id, $_id );
 
