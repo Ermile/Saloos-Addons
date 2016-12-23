@@ -208,7 +208,7 @@ class tags
 			'termusage_id'      => $_post_id,
 			'termusage_foreign' => 'posts'
 		];
-		return \lib\db\termusages::remove($args);
+		return \lib\db\termusages::remove($args, 'tag');
 	}
 }
 ?>

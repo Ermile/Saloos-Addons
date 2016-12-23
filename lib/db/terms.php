@@ -23,7 +23,8 @@ class terms
 			return null;
 		}
 		$set = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
@@ -61,15 +62,18 @@ class terms
 	{
 		// marge all input array to creat list of field to be insert
 		$fields = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			$fields = array_merge($fields, $value);
 		}
 
 		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
 		$values = [];
 		$together = [];
-		foreach ($_args	 as $key => $value) {
-			foreach ($fields as $field_name => $vain) {
+		foreach ($_args	 as $key => $value)
+		{
+			foreach ($fields as $field_name => $vain)
+			{
 				if(array_key_exists($field_name, $value)){
 					$values[] = "'" . trim($value[$field_name]) . "'";
 				}else{
@@ -181,17 +185,26 @@ class terms
 		{
 			$_foreign = 'posts';
 		}
+
 		if($_type === null)
 		{
 			$_type = 'tag';
 		}
+
+		$type_query = " terms.term_type = '$_type' ";
+
+		if(preg_match("/\%/", $_type))
+		{
+			$type_query = " terms.term_type LIKE '$_type' ";
+		}
+
 		$qry ="SELECT * FROM terms
 		INNER JOIN termusages
 			ON termusages.term_id = terms.id
 			WHERE
 				termusages.termusage_foreign = '$_foreign' AND
 				termusages.termusage_id = $_usageid AND
-				terms.term_type = '$_type'
+				$type_query
 		";
 		// run query
 		if($_return && $_return !== true)
@@ -261,7 +274,8 @@ class terms
 	public static function get_multi($_args = [])
 	{
 		$where = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			$where[] = " terms.$key = '". $value. "' ";
 		}
 		if(empty($where))
@@ -307,7 +321,8 @@ class terms
 			return false;
 		}
 		// trim all value
-		foreach ($terms as $key => $value) {
+		foreach ($terms as $key => $value)
+		{
 			$terms[$key] = trim($value);
 		}
 		// remove empty terms
@@ -431,6 +446,26 @@ class terms
 			$limit
 		";
 		return \lib\db::get($query);
+	}
+
+
+	/**
+	 * get the terms by caller field
+	 *
+	 * @param      <type>   $_caller  The caller
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function caller($_caller)
+	{
+		$query = "SELECT * FROM terms WHERE term_caller = '$_caller' LIMIT 1";
+		$result = \lib\db::get($query, null, true);
+		if(!$result || empty($result))
+		{
+			return false;
+		}
+		return $result;
+
 	}
 }
 ?>

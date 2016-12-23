@@ -23,7 +23,8 @@ class termusages
 			return null;
 		}
 		$set = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
@@ -136,24 +137,31 @@ class termusages
 	 */
 	public static function insert_multi($_args)
 	{
-		if (empty($_args)){
-			return ;
+		if(empty($_args))
+		{
+			return false;
 		}
 
 		// marge all input array to creat list of field to be insert
 		$fields = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			$fields = array_merge($fields, $value);
 		}
 
 		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
-		$values = [];
+		$values   = [];
 		$together = [];
-		foreach ($_args	 as $key => $value) {
-			foreach ($fields as $field_name => $vain) {
-				if(array_key_exists($field_name, $value)){
+		foreach ($_args	 as $key => $value)
+		{
+			foreach ($fields as $field_name => $vain)
+			{
+				if(array_key_exists($field_name, $value))
+				{
 					$values[] = "'" . $value[$field_name] . "'";
-				}else{
+				}
+				else
+				{
 					$values[] = "NULL";
 				}
 			}
@@ -213,7 +221,7 @@ class termusages
 	 *
 	 * @param      <type>  $_args  The arguments
 	 */
-	public static function remove($_args)
+	public static function remove($_args, $_term_type = 'tag')
 	{
 		if(!is_array($_args))
 		{
@@ -237,14 +245,16 @@ class termusages
 		$query =
 		"
 			DELETE FROM termusages
+			INNER JOIN terms ON terms.id = termusages.term_id
 			WHERE
-				termusage_foreign = '$_args[termusage_foreign]' AND
-				termusage_id = $_args[termusage_id]
+				termusages.termusage_foreign = '$_args[termusage_foreign]' AND
+				termusages.termusage_id = $_args[termusage_id] AND
+				terms.term_type = '$_term_type'
 		";
 
 		if($_args['term_id'])
 		{
-			$query .= " AND term_id = $_args[term_id] ";
+			$query .= " AND termusages.term_id = $_args[term_id] ";
 		}
 		return \lib\db::query($query);
 	}

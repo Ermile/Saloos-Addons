@@ -222,6 +222,13 @@ class posts
 	}
 
 
+	/**
+	 * Gets the post meta.
+	 *
+	 * @param      <type>  $_post_id  The post identifier
+	 *
+	 * @return     <type>  The post meta.
+	 */
 	public static function get_post_meta($_post_id)
 	{
 		$query =
