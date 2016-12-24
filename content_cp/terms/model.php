@@ -134,18 +134,19 @@ class model extends \addons\content_cp\home\model
 		// if query run without error means commit
 		$this->commit(function($_module, $_postId, $_edit = null)
 		{
-			$url = $this->url('prefix'). '/' . $_module.'/edit='.$_postId;
-			$url = trim($url, '/');
 
 			if($_edit)
 			{
-
+				$url = $this->url('prefix'). '/' . $_module.'/edit='.$_postId;
+				$url = trim($url, '/');
 				debug::true(T_("Update Successfully"));
 				$this->redirector($url);
 			}
 			else
 			{
 				debug::true(T_("Insert Successfully"));
+				$url = $this->url('prefix'). '/' . $_module.'/add';
+				$url = trim($url, '/');
 				$this->redirector($url);
 			}
 
