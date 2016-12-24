@@ -12,10 +12,10 @@
    <div id='url-box' data-xhr='url-box' data-step='6' data-intro='{%trans "Url of your content appear here, click on it to view"%}'>
 
     <a class="hint--left light-gallery" data-hint='{%trans "Check result"%}'>
-     <span data-iframe="true" data-src="{{url.base}}/{{datarow.post_url}}?preview=yes">{{url.base}}/{{datarow.post_url}}</span>
+     <span data-iframe="true" data-src="{{url.root}}/{{datarow.post_url}}?preview=yes">{{url.root}}/{{datarow.post_url}}</span>
     </a>
 
-    <a href="{{url.base}}/{{datarow.post_url}}{%if datarow.post_status != 'publish'%}?preview=yes{%endif%}" target="_blank" id='link-external' class="hint--right" data-hint='{%trans "Show in new tab"%}'><i class="fa fa-external-link"></i></a>
+    <a href="{{url.root}}/{{datarow.post_url}}{%if datarow.post_status != 'publish'%}?preview=yes{%endif%}" target="_blank" id='link-external' class="hint--right" data-hint='{%trans "Show in new tab"%}'><i class="fa fa-external-link"></i></a>
    </div>
 {%endif%}
 {%endblock%}
@@ -61,7 +61,7 @@
 {%block post_shortURL%}
 {%if shortURL%}
     <div class='hint--left hint100' data-hint='{%trans "ShortURL"%}' data-step='10' data-intro='{%trans "show short URL of this content"%}'>
-      <input name="shortURL" id="shortURL" class="input" placeholder='{%trans "Enter shortURL here"%}' value='{{url.base}}/{{shortURL}}' data-xhr='shortURL' disabled="disabled"/>
+      <input name="shortURL" id="shortURL" class="input" placeholder='{%trans "Enter shortURL here"%}' value='{{url.root}}/{{shortURL}}' data-xhr='shortURL' disabled="disabled"/>
     </div>
 {%endif%}
 {%endblock%}
