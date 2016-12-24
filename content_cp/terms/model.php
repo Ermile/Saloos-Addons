@@ -134,17 +134,21 @@ class model extends \addons\content_cp\home\model
 		// if query run without error means commit
 		$this->commit(function($_module, $_postId, $_edit = null)
 		{
+			$url = $this->url('prefix'). '/' . $_module.'/edit='.$_postId;
+			$url = trim($url, '/');
+
 			if($_edit)
 			{
+
 				debug::true(T_("Update Successfully"));
-				// $this->redirector()->set_url($_module.'/edit='.$_postId);
+				$this->redirector($url);
 			}
 			else
 			{
 				debug::true(T_("Insert Successfully"));
-				$this->redirector()->set_url($_module.'/add');
-				// $this->redirector()->set_url($_module.'/edit='.$_postId);
+				$this->redirector($url);
 			}
+
 		}, $mymodule, $post_new_id, $_id );
 
 		// if a query has error or any error occour in any part of codes, run roolback
