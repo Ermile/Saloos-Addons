@@ -137,9 +137,9 @@
   {
     $(function () {
       $('#chart').highcharts({
-        chart: { type: '{{chart_type}}' {%if global.lang=='fa_IR'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
+        chart: { type: '{{chart_type}}' {%if global.lang=='fa'%}, style: {fontFamily: 'IRANSans'}{%endif%} },
         title: { text: '' },
-        xAxis: { categories: [{%for datarow in visitors%}'{%if global.lang=="fa_IR"%}{{datarow.date|jdate("y/m/j")}} {%else%} {{datarow.date |date("j F")}}{%endif%}', {%endfor%}] ,crosshair: true},
+        xAxis: { categories: [{%for datarow in visitors%}'{%if global.lang=="fa"%}{{datarow.date|jdate("y/m/j")}} {%else%} {{datarow.date |date("j F")}}{%endif%}', {%endfor%}] ,crosshair: true},
         yAxis: { title: {text: ''}, floor: 0, allowDecimals: false,},
 
         tooltip: {
