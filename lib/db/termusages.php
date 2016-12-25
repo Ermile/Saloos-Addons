@@ -17,7 +17,6 @@ class termusages
 	 */
 	public static function insert($_args)
 	{
-
 		if(empty($_args))
 		{
 			return null;
@@ -29,7 +28,7 @@ class termusages
 			{
 				$set[] = " `$key` = NULL ";
 			}
-			else
+			elseif(is_string($value))
 			{
 				$set[] = " `$key` = '$value' ";
 			}

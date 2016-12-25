@@ -7,4 +7,5 @@ ALTER TABLE `logitems` ADD `logitem_type` VARCHAR(64) NULL AFTER `id`;
 ALTER TABLE `logitems` ADD `logitem_caller` VARCHAR(500) NOT NULL AFTER `logitem_type`;
 
 ALTER TABLE `terms` DROP INDEX `termurl_unique`;
-ALTER TABLE `terms` ADD UNIQUE `termurl_unique` (`term_language`, `term_url`);
+-- ALTER TABLE `terms` ADD UNIQUE `termurl_unique` (`term_language`, `term_url`);
+ALTER TABLE `terms` ADD UNIQUE `termurl_unique` (`term_url`);

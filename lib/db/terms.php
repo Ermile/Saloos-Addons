@@ -42,7 +42,7 @@ class terms
 
 		$query =
 		"
-			INSERT IGNORE INTO
+			INSERT INTO
 				terms
 			SET
 				$set
