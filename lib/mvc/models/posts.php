@@ -11,7 +11,6 @@ trait posts
 	public function posts(...$args)
 	{
 		$qry = $this->sql()->tablePosts();
-		$qry = $qry->andPost_type('post');
 
 		// check passed value for exist and use it ----------------------------- number of post and offset
 		// if pass number of records needed in first param
@@ -27,6 +26,21 @@ trait posts
 		// if dont pass through function use default value
 		else
 			$qry = $qry->limit(10);
+
+		// check passed value for exist and use it ----------------------------- posttype
+		$post_type = array_column($args, 'type');
+		if( $post_type && count($post_type) === 1)
+		{
+			$post_type = $post_type[0];
+			// do nothing
+		}
+		// if dont pass through function use default value
+		else
+		{
+			$post_type = 'post';
+		}
+		$qry = $qry->andPost_type($post_type);
+
 
 		// check passed value for exist and use it ----------------------------- Language
 		$post_language = array_column($args, 'language');
@@ -159,7 +173,7 @@ trait posts
 			// 						->fieldUser_firstname("firstname")
 		}
 
-		// var_dump($qry);
+		// var_dump($qry->selectString());
 		$qry = $qry->select('DISTINCT');
 		// echo $qry->string();
 		$result = $qry->allassoc();
