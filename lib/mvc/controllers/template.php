@@ -229,6 +229,10 @@ trait template
 			$current_lang          = \lib\define::get_language('name');
 			$current_lang_template = substr($this->display_name, 0, -(strlen($file_ext)));
 			$current_lang_template .= '-'.$current_lang . $file_ext;
+
+			$current_lang_template = str_replace("\\", DIRECTORY_SEPARATOR, $current_lang_template);
+			$current_lang_template = str_replace("/", DIRECTORY_SEPARATOR, $current_lang_template);
+
 			if(is_file(root.$current_lang_template))
 			{
 				$this->display_name	= $current_lang_template;
