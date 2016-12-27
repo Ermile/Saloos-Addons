@@ -76,19 +76,21 @@ class users
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
 
 		$set = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
 			}
-			elseif(is_int($value))
+			elseif(is_numeric($value))
 			{
 				$set[] = " `$key` = $value ";
 			}
-			else
+			elseif(is_string($value))
 			{
 				$set[] = " `$key` = '$value' ";
 			}
@@ -113,12 +115,25 @@ class users
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id)
+	{
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
-		foreach ($_args as $field => $value) {
-			$query[] = "$field = '$value'";
+		foreach ($_args as $field => $value)
+		{
+			if($value === null)
+			{
+				$query[] = " `$field` = NULL ";
+			}
+			elseif(is_numeric($value))
+			{
+				$query[] = " `$field` = $value ";
+			}
+			elseif(is_string($value))
+			{
+				$query[] = " `$field` = '$value' ";
+			}
 		}
 
 		if(empty($query))
@@ -319,7 +334,8 @@ class users
 		elseif(is_array($_field))
 		{
 			$field = [];
-			foreach ($_field as $key => $value) {
+			foreach ($_field as $key => $value)
+			{
 				$field[] = " users.$value ";
 			}
 			$_field = join($field, ",");
