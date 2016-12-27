@@ -7,7 +7,7 @@
    <div class="panel panel-default">
     <div class="panel-heading">{%trans "Define new permission"%}</div>
     <div class="panel-body">
-     <form class="ajx form row inline autostyle" method="post" action="{{url.base}}/permissions/add">
+     <form class="ajx form row inline autostyle" method="post" action="{{url.prefix}}/permissions/add">
       <div class="field">
        <label for="pName">{%trans "Permission Name"%}</label><input type="text" name="pName" id="pName" maxlength="50" placeholder='{%trans "Permission Name"%}' autocomplete="off">
       </div>
@@ -25,13 +25,13 @@
     <h3>{%trans "list of permissions"%}</h3>
 {% for key, value in datarow%}
      <span>
-      <a href="{{url.base}}/permissions/{{key}}">{%trans key%}
+      <a href="{{url.prefix}}/permissions/{{key}}">{%trans key%}
       </a>
-       <a class="fa fa-times" href="{{url.base}}/permissions/delete={{key}}" data-data='{"id": "{{key}}" }' data-method="post" data-modal="delete-confirm"></a></span>
+       <a class="fa fa-times" href="{{url.prefix}}/permissions/delete={{key}}" data-data='{"id": "{{key}}" }' data-method="post" data-modal="delete-confirm"></a></span>
 {%endfor%}
     </div>
     <div class="panel-footer">
-    <a class="float-right label label-info" href="{{url.base}}/">{%trans%}Back to{%endtrans%} {%trans "Dashboard"%}</a>
+    <a class="float-right label label-info" href="{{url.prefix}}/">{%trans%}Back to{%endtrans%} {%trans "Dashboard"%}</a>
     {%trans "list of current permissions is listed here, for edit click on it"%}.</div>
    </div>
 
