@@ -12,20 +12,31 @@ class model extends \addons\content_account\home\model
 		$mypass     = utility::post('password');
 
 		// check for mobile exist
-		$tmp_result =  $this->sql()->tableUsers()->whereUser_mobile($mymobile)
-			->groupOpen()
-			->and('user_status','active')
-			->or('user_status', 'removed')
-			->groupClose()
-			->select();
+		$query =
+		"
+			SELECT *
+			FROM  users
+			WHERE
+				users.user_mobile = '$mymobile' AND
+				users.user_status IN ('active', 'removed')
+			LIMIT 1
+		";
+		$tmp_result = \lib\db::get($query, null, true);
+
+		// $tmp_result =  $this->sql()->tableUsers()->whereUser_mobile($mymobile)
+		// 	->groupOpen()
+		// 	->and('user_status','active')
+		// 	->or('user_status', 'removed')
+		// 	->groupClose()
+		// 	->select();
 		// or user status == 'removed' and set the user status on old user status in user meta if password is ok
 		//
 		// $tmp_result =  $this->sql()->tableUsers()->select();
 
 		// if exist
-		if($tmp_result->num() == 1)
+		if(isset($tmp_result['id']))
 		{
-			$tmp_result       = $tmp_result->assoc();
+			// $tmp_result       = $tmp_result->assoc();
 			$myhashedPassword = $tmp_result['user_pass'];
 			// if password is correct. go for login:)
 			if (isset($myhashedPassword) && utility::hasher($mypass, $myhashedPassword))
@@ -58,6 +69,7 @@ class model extends \addons\content_account\home\model
 										'user_meta',
 										'user_status',
 										);
+
 				$this->setLoginSession($tmp_result, $myfields);
 
 				// ======================================================
@@ -97,17 +109,22 @@ class model extends \addons\content_account\home\model
 
 				$this->rollback(function() { debug::error(T_("Login failed!")); });
 			}
-				// password is incorrect:(
+			// password is incorrect:(
 			else
+			{
 				debug::error(T_("Mobile or password is incorrect"));
+			}
 		}
 		// mobile does not exits
 		elseif($tmp_result->num() == 0 )
+		{
 			debug::error(T_("Mobile or password is incorrect"));
-
+		}
 		// mobile exist more than 2 times!
 		else
+		{
 			debug::error(T_("Please forward this message to administrator"));
+		}
 		// sleep(0.1);
 	}
 }
