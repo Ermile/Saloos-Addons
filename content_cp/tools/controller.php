@@ -92,9 +92,9 @@ class controller extends \addons\content_cp\home\controller
 			case 'sitemap':
 				$exist    = true;
 				$site_url = \lib\router::get_storage('url_site');
+				echo "<pre>";
+				echo $site_url.'<br/>';
 				$sitemap  = new \lib\utility\sitemap($site_url , root.'public_html/', 'sitemap' );
-				// echo "<pre>";
-
 				// add posts
 				foreach ($this->model()->sitemap('posts', 'post') as $row)
 					$sitemap->addItem($row['post_url'], '0.8', 'daily', $row['post_publishdate']);
@@ -103,20 +103,25 @@ class controller extends \addons\content_cp\home\controller
 				foreach ($this->model()->sitemap('posts', 'page') as $row)
 					$sitemap->addItem($row['post_url'], '0.6', 'weekly', $row['post_publishdate']);
 
+				// add helps
+				foreach ($this->model()->sitemap('posts', 'helps') as $row)
+					$sitemap->addItem($row['post_url'], '0.3', 'monthly', $row['post_publishdate']);
+
 				// add attachments
 				foreach ($this->model()->sitemap('posts', 'attachment') as $row)
 					$sitemap->addItem($row['post_url'], '0.2', 'weekly', $row['post_publishdate']);
 
-				// add books
-				foreach ($this->model()->sitemap('posts', 'book') as $row)
-					$sitemap->addItem($row['post_url'], '0.6', 'yearly', $row['post_publishdate']);
+				// add other type of post
+				foreach ($this->model()->sitemap('posts', false) as $row)
+					$sitemap->addItem($row['post_url'], '0.5', 'weekly', $row['post_publishdate']);
 
 				// add cats and tags
 				foreach ($this->model()->sitemap('terms') as $row)
 					$sitemap->addItem($row['term_url'], '0.4', 'weekly', $row['date_modified']);
 
 				$sitemap->createSitemapIndex();
-				echo "<p class='alert alert-success'>Create sitemap Successfully!</p>";
+				echo "</pre>";
+				echo "<p class='alert alert-success'>". T_('Create sitemap Successfully!')."</p>";
 
 
 				// echo "Create Successful";

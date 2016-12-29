@@ -145,10 +145,19 @@ class model extends \mvc\model
 		$date   = $_table === 'posts'? 'post_publishdate': 'date_modified';
 		$qry    = $this->sql()->table($_table)->where($prefix.'_status', $status);
 		if($_type)
-			$qry    = $qry->and($prefix.'_type', $_type);
+		{
+			$qry = $qry->and($prefix.'_type', $_type);
+		}
+		elseif($_type === false && $_table === 'posts')
+		{
+			$qry = $qry->and($prefix.'_type', '<>', "'post'");
+			$qry = $qry->and($prefix.'_type', '<>', "'page'");
+			$qry = $qry->and($prefix.'_type', '<>', "'help'");
+			$qry = $qry->and($prefix.'_type', '<>', "'attachments'");
+		}
+
 
 		$qry    = $qry->field($prefix.'_url', $date)->order('id','DESC');
-
 		return $qry->select()->allassoc();
 	}
 
