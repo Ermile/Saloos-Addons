@@ -138,7 +138,7 @@ trait constructor
 
 		// check main  ********************************************* CHECK FOR ONLY IN FIRST PAGE IN RIGHT PLACE
 		// in all page like ajax request must be run
-		if(AccountService === MainService)
+		if(AccountService === MainService && false)
 		{
 			$this->model()->checkMainAccount();
 			$this->controller()->checkSession();

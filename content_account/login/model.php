@@ -116,7 +116,7 @@ class model extends \addons\content_account\home\model
 			}
 		}
 		// mobile does not exits
-		elseif($tmp_result->num() == 0 )
+		elseif(is_array($tmp_result))
 		{
 			debug::error(T_("Mobile or password is incorrect"));
 		}
