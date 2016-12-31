@@ -129,6 +129,26 @@ class posts
 
 
 	/**
+	 * Gets one record of post
+	 *
+	 * @param      <type>  $_post_id  The post identifier
+	 *
+	 * @return     <type>  One.
+	 */
+	public static function get_one($_post_id)
+	{
+		$query = "SELECT * FROM posts WHERE id = $_post_id LIMIT 1";
+		$result = \lib\db::get($query);
+		$result = \lib\utility\filter::meta_decode($result);
+		if(isset($result[0]))
+		{
+			$result = $result[0];
+		}
+		return $result;
+	}
+
+
+	/**
 	 * get list of polls
 	 * @param  [type] $_user_id set userid
 	 * @param  [type] $_return  set return field value
