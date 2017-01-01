@@ -2,64 +2,70 @@
 namespace lib\model;
 use \lib\utility;
 
-trait api_engine
+class api_engine
 {
-	public function ae_construct()
+	public function __construct($_options = array())
 	{
-
-		if(!isset($this->ae_method))
+		$options = [
+			'request' 		=> [],
+			'dynamic_debug'	=> false
+		];
+		$options = array_merge($options, $_options);
+		if(!isset($options['method']))
 		{
-			if($_SERVER['CONTENT_TYPE'] == 'application/json')
+			if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json')
 			{
-				$this->ae_method 		= 'input_json_to_object';
+				$this->method 		= 'input_json_to_array';
 			}
 			else
 			{
-				$this->ae_method 		= 'post';
+				$this->method 		= 'post';
 			}
 		}
-		if(!isset($this->ae_request))
-		{
-			$this->ae_request 		= [];
-		}
-		if(!isset($this->ae_dynamic_debug))
-		{
-			$this->ae_dynamic_debug 		= false;
-		}
+		$this->request 		= $options['request'];
+		$this->dynamic_debug 	= $options['dynamic_debug'];
 
-		switch ($this->ae_method) {
+		if($this->dynamic_debug)
+		{
+			$this->debug = new \lib\debug();
+		}
+		else
+		{
+			$this->debug = '\lib\debug';
+		}
+		switch ($this->method) {
 			case 'get':
-				$this->ae_request = utility::get();
+				$this->request = utility::get();
 				break;
 
 			case 'array':
-				$this->ae_request = utility\safe::safe($this->ae_request);
+				$this->request = utility\safe::safe($this->request);
 				break;
 
 			case 'object':
-				$this->ae_request = utility\safe::safe($this->ae_request);
+				$this->request = utility\safe::safe($this->request);
 				break;
 
 			case 'input_json_to_array':
 				$array = json_decode(file_get_contents('php://input'), true);
-				$this->ae_request = utility\safe::safe($array);
+				$this->request = utility\safe::safe($array);
 				break;
 
 			case 'input_json_to_object':
 				$object = json_decode(file_get_contents('php://input'));
-				$this->ae_request = utility\safe::safe($object);
+				$this->request = utility\safe::safe($object);
 				break;
 
 			default:
-				$this->ae_request = utility::post();
+				$this->request = utility::post();
 				break;
 		}
 	}
 
-	public function ae_request()
+	public function request()
 	{
 		$args = func_get_args();
-		$request = $this->ae_request;
+		$request = $this->request;
 		if(empty($args))
 		{
 			return $request;
@@ -88,6 +94,31 @@ trait api_engine
 			}
 		}
 		return $request;
+	}
+
+	public function debug()
+	{
+		$args = func_get_args();
+		if($this->dynamic_debug)
+		{
+			return call_user_func_array([$this->debug, $args[0]], array_splice($args, 1));
+		}
+		else
+		{
+			return call_user_func_array(['\lib\debug', $args[0]], array_splice($args, 1));
+		}
+	}
+
+	public function return()
+	{
+		if($this->dynamic_debug)
+		{
+			return $this->debug->compile();
+		}
+		else
+		{
+			return \lib\debug::compile();
+		}
 	}
 }
 ?>
