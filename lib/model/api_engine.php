@@ -6,9 +6,17 @@ trait api_engine
 {
 	public function ae_construct()
 	{
+
 		if(!isset($this->ae_method))
 		{
-			$this->ae_method 		= 'post';
+			if($_SERVER['CONTENT_TYPE'] == 'application/json')
+			{
+				$this->ae_method 		= 'input_json_to_object';
+			}
+			else
+			{
+				$this->ae_method 		= 'post';
+			}
 		}
 		if(!isset($this->ae_request))
 		{
