@@ -7,10 +7,9 @@ class model extends \mvc\model
 {
 	function post_changepass()
 	{
-		$myid = $this->login('id');
-		$newpass   = utility::post('password-new', 'hash');
-
-		$oldpass   = utility::post('password-old');
+		$myid    = $this->login('id');
+		$newpass = utility::post('password-new');
+		$oldpass = utility::post('password-old');
 
 		$tmp_result =  $this->sql()->tableUsers()->where('id', $myid)->and('user_status','active')->select();
 		// if exist
@@ -22,9 +21,11 @@ class model extends \mvc\model
 			if (isset($myhashedPassword) && utility::hasher($oldpass, $myhashedPassword))
 			{
 				$newpass   = utility::post('password-new', 'hash');
-
-				$qry      = $this->sql()->table('users')->where('id', $myid)->set('user_pass', $newpass);
-				$sql      = $qry->update();
+				if(\lib\debug::$status)
+				{
+					$qry      = $this->sql()->table('users')->where('id', $myid)->set('user_pass', $newpass);
+					$sql      = $qry->update();
+				}
 
 				$this->commit(function()
 				{
@@ -35,20 +36,25 @@ class model extends \mvc\model
 
 				// if a query has error or any error occour in any part of codes, run roolback
 				$this->rollback(function() { debug::error(T_("change password failed!")); } );
-
 			}
 
 			// password is incorrect:(
 			else
+			{
 				debug::error(T_("Password is incorrect"));
+			}
 		}
 		// mobile does not exits
 		elseif($tmp_result->num() == 0 )
+		{
 			debug::error(T_("user is incorrect"));
+		}
 
 		// mobile exist more than 2 times!
 		else
+		{
 			debug::error(T_("Please forward this message to administrator"));
+		}
 		// sleep(0.1);
 	}
 }
