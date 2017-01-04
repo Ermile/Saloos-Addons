@@ -15,6 +15,9 @@ class model extends \lib\model
 	use \lib\mvc\models\terms;
 	use \lib\mvc\models\tools;
 
+	use \lib\mvc\controllers\login;
+	use \lib\mvc\controllers\tools;
+	
 	public function __construct($object = false)
 	{
 		parent::__construct($object);
