@@ -14,6 +14,9 @@ class view extends \lib\view
 	{
 		if($this->data->page['title'])
 		{
+			// replace title of page
+			$this->data->page['title'] = ucwords(str_replace('-', ' ', $this->data->page['title']));
+
 			// for child page set the
 			if($this->data->child && SubDomain === 'cp')
 			{
@@ -53,13 +56,22 @@ class view extends \lib\view
 				$this->data->parentList = $this->model()->sp_books_nav();
 			}
 
+			// translate all title at last step
+			$this->data->page['title'] = T_($this->data->page['title']);
+
 			if($this->data->page['special'])
+			{
 				$this->global->title = $this->data->page['title'];
+			}
 			else
+			{
 				$this->global->title = $this->data->page['title'].' | '.$this->data->site['title'];
+			}
 		}
 		else
+		{
 			$this->global->title = $this->data->site['title'];
+		}
 
 		$this->global->short_title = substr($this->global->title, 0, strrpos(substr($this->global->title, 0, 120), ' ')) . '...';
 	}
