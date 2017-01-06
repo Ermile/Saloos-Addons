@@ -12,8 +12,15 @@ class view extends \lib\view
 	 */
 	public function set_title()
 	{
-		if($this->data->page['title'])
+		if($page_title = $this->data->page['title'])
 		{
+			// set title of locations if exist in breadcrumb
+			if(isset($this->data->breadcrumb[$page_title]))
+			{
+				$page_title = $this->data->breadcrumb[$page_title];
+			}
+			// replace title of page
+			$page_title = ucwords(str_replace('-', ' ', $page_title));
 			// for child page set the
 			if($this->data->child && SubDomain === 'cp')
 			{
@@ -33,7 +40,7 @@ class view extends \lib\view
 				$childName = $this->child(true);
 				if($childName)
 				{
-					$this->data->page['title'] = T_($childName).' '.T_($moduleName);
+					$page_title = T_($childName).' '.T_($moduleName);
 				}
 			}
 
@@ -41,25 +48,34 @@ class view extends \lib\view
 			if($this->module() === 'book')
 			{
 				$breadcrumb = $this->model()->breadcrumb();
-				$this->data->page['title'] = $breadcrumb[0] . ' ';
+				$page_title = $breadcrumb[0] . ' ';
 				array_shift($breadcrumb);
 
 				foreach ($breadcrumb as $value)
 				{
-					$this->data->page['title'] .= $value . ' - ';
+					$page_title .= $value . ' - ';
 				}
-				$this->data->page['title'] = substr($this->data->page['title'], 0, -3);
-
+				$page_title = substr($page_title, 0, -3);
 				$this->data->parentList = $this->model()->sp_books_nav();
 			}
 
+			// translate all title at last step
+			$page_title = T_($page_title);
+			$this->data->page['title'] = $page_title;
+
 			if($this->data->page['special'])
-				$this->global->title = $this->data->page['title'];
+			{
+				$this->global->title = $page_title;
+			}
 			else
-				$this->global->title = $this->data->page['title'].' | '.$this->data->site['title'];
+			{
+				$this->global->title = $page_title.' | '.$this->data->site['title'];
+			}
 		}
 		else
+		{
 			$this->global->title = $this->data->site['title'];
+		}
 
 		$this->global->short_title = substr($this->global->title, 0, strrpos(substr($this->global->title, 0, 120), ' ')) . '...';
 	}
