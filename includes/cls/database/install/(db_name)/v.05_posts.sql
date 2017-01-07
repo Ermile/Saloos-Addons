@@ -46,14 +46,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`id`, `post_language`, `post_title`, `post_slug`, `post_url`, `post_content`, `post_meta`, `post_type`, `post_comment`, `post_count`, `post_order`, `post_status`, `post_parent`, `user_id`, `post_publishdate`, `date_modified`) VALUES
-(1, 'fa', 'درباره ما', 'about', 'about', '&amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;font-size: 1.35rem;&amp;quot;&amp;gt;این صفحه برای معرفی ما طراحی شده است!&amp;lt;/span&amp;gt;&amp;lt;br&amp;gt;&amp;lt;/p&amp;gt;', '{&quot;thumbid&quot;:&quot;&quot;,&quot;slug&quot;:&quot;about&quot;}', 'page', NULL, NULL, NULL, 'publish', NULL, 1, '2015-10-31 18:45:55', NULL),
-(2, 'fa', 'سلام:)', 'hi', 'news/hi', '&amp;lt;p&amp;gt;سلام کهکشان!&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;اگر شما بازدید کننده هستید: این سایت تازه راه&zwnj;اندازی شده و به امید خدا به زودی مطالب جدید در اون منتشر خواهد شد.&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;اگر مدیر وب&zwnj;سایت هستید: برای انتشار می&zwnj;تونید همین مطلب رو ویرایش کرده و یا یک نوشته جدید منتشر کنید.&amp;lt;/p&amp;gt;', '{&quot;thumbid&quot;:&quot;&quot;,&quot;slug&quot;:&quot;hi&quot;}', 'post', NULL, NULL, NULL, 'publish', NULL, 1, '2015-10-31 20:45:54', NULL);
-
---
 -- Indexes for dumped tables
 --
 
