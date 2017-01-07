@@ -36,7 +36,7 @@ class words
 			}
 		}
 		$set = join($set, ',');
-		$query = "INSERT INTO words	SET	$set ";
+		$query = "INSERT IGNORE INTO words	SET	$set ";
 		return \lib\db::query($query, '[tools]');
 	}
 
@@ -57,7 +57,7 @@ class words
 
 		$_words = join($_words, "'),('");
 
-		$query = "INSERT INTO words	(words.word) VALUES	('$_words')	";
+		$query = "INSERT IGNORE INTO words	(words.word) VALUES	('$_words')	";
 
 		return \lib\db::query($query, '[tools]');
 	}
