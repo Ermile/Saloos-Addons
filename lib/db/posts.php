@@ -29,7 +29,7 @@ class posts
 			{
 				$set[] = " `$key` = NULL ";
 			}
-			elseif(is_int($value))
+			elseif(is_numeric($value))
 			{
 				$set[] = " `$key` = $value ";
 			}
@@ -37,7 +37,7 @@ class posts
 			{
 				$set[] = " `$key` = '".json_encode($value, JSON_UNESCAPED_UNICODE)."' ";
 			}
-			else
+			elseif(is_string($value))
 			{
 				$set[] = " `$key` = '$value' ";
 			}
