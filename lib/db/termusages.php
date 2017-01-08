@@ -243,7 +243,7 @@ class termusages
 
 		$query =
 		"
-			DELETE FROM termusages
+			DELETE termusages.* FROM termusages
 			INNER JOIN terms ON terms.id = termusages.term_id
 			WHERE
 				termusages.termusage_foreign = '$_args[termusage_foreign]' AND
