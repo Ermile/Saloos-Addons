@@ -29,6 +29,8 @@ class controller extends \addons\content_cp\home\controller
 
 			case 'db':
 				$exist    = true;
+				\lib\db::$debug_error = false;
+				
 				if(\lib\utility::get('upgrade'))
 				{
 					// do upgrade
