@@ -48,7 +48,7 @@ trait breadcrumb
 			}
 			else
 			{
-				$br[] = T_($_addr[$key]);
+				$br[] = $_addr[$key];
 			}
 		}
 		return $br;
@@ -62,7 +62,7 @@ trait breadcrumb
 		{
 			if ($value != $qry[$key]['post_url'])
 			{
-				$br[] = T_($_addr[$key]);
+				$br[] = $_addr[$key];
 				array_unshift($qry, '');
 			}
 			else
