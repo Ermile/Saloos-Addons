@@ -62,19 +62,18 @@ class view extends \lib\view
 			// translate all title at last step
 			$page_title = T_($page_title);
 			$this->data->page['title'] = $page_title;
-
 			if($this->data->page['special'])
 			{
 				$this->global->title = $page_title;
 			}
 			else
 			{
-				$this->global->title = $page_title.' | '.$this->data->site['title'];
+				$this->global->title = $page_title.' | '.T_($this->data->site['title']);
 			}
 		}
 		else
 		{
-			$this->global->title = $this->data->site['title'];
+			$this->global->title = T_($this->data->site['title']);
 		}
 
 		$this->global->short_title = substr($this->global->title, 0, strrpos(substr($this->global->title, 0, 120), ' ')) . '...';
