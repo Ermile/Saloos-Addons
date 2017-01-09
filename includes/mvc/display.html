@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{global.lang|replace({'_': '-'}) }}" dir="{{global.direction}}">
+<html lang="{{global.lang|replace({'_': '-'}) }}" dir="{{global.direction}}"{%if url.tld == 'dev'%} data-develop{%endif%}>
 <head>
 {%block head_def%}
  <meta charset="UTF-8"/>
