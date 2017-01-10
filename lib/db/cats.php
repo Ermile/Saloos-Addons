@@ -15,15 +15,20 @@ class cats
 	 * @param string $_cats
 	 * @return string
 	 */
-	private static function check($_cats = null){
+	private static function check($_cats = null)
+	{
 
-		if($_cats === null) {
+		if($_cats === null) 
+		{
 			$return = 'cat';
 		}
 
-		if(preg_match("/^cat_(.*)/", $_cats)){
+		if(preg_match("/^cat_(.*)/", $_cats))
+		{
 			$return = $_cats;
-		}else{
+		}
+		else
+		{
 			$return = 'cat_' . $_cats;
 		}
 		return $return;
@@ -37,7 +42,8 @@ class cats
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
 		// jost cat can insert
 		$_args['term_type']	= self::check($_args['term_type']);
 
@@ -52,7 +58,8 @@ class cats
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id) 
+	{
 
 		// jost cat can insert
 		$_args['term_type']	= self::check($_args['term_type']);
@@ -67,7 +74,8 @@ class cats
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id) {
+	public static function delete($_id) 
+	{
 		return terms::delete($_id);
 	}
 
@@ -77,7 +85,8 @@ class cats
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query') 
+	{
 		return terms::select($query, $_type);
 	}
 
@@ -118,16 +127,43 @@ class cats
 		return \lib\db\terms::get_multi(['term_type' => $_term_type]);
 	}
 
-
-	public static function set($_cats_id, $_post_id)
+	/**
+	 * set cats to a poll
+	 *
+	 * @param      <type>  $_cats_id  The cats identifier
+	 * @param      <type>  $_post_id  The post identifier
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function set($_cats, $_post_id)
 	{
-		$args =
-		[
-			'term_id'           => $_cats_id,
-			'termusage_id'      => $_post_id,
-			'termusage_foreign' => 'posts'
-		];
-		return \lib\db\termusages::insert($args);
+		if(!is_array($_cats))
+		{
+			$_cats = [$_cats];
+		}
+		$insert_cats = [];
+
+		foreach ($_cats as $key => $value) 
+		{
+			$id = \lib\db\terms::get_id($value, 'cat');
+			if($id)
+			{	
+				$insert_cats[] =
+				[
+					'term_id'           => $id,
+					'termusage_id'      => $_post_id,
+					'termusage_foreign' => 'posts'
+				];
+			}	
+		}
+		$result = true;
+
+		if(!empty($insert_cats))
+		{
+			$result = \lib\db\termusages::insert_multi($insert_cats);
+		}
+		
+		return $result;
 	}
 }
 ?>
