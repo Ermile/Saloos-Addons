@@ -3,7 +3,7 @@
 <head>
 {%block head_def%}
 {%set pageTitle%}{%spaceless%}{%if pageTitle%}{{pageTitle}}{%else%}{{global.title}}{%endif%}{%endspaceless%}{%endset%}
-{%set pageDesc%}{%spaceless%}{%if not ageDesc%}{{pageDesc}}{%else%}{{page.desc}}{%endif%}{%endspaceless%}{%endset%}
+{%set pageDesc%}{%spaceless%}{%if ageDesc%}{{pageDesc}}{%else%}{{page.desc}}{%endif%}{%endspaceless%}{%endset%}
  <meta charset="UTF-8"/>
  <base href="{{url.baseRaw}}"/>
  <title>{{pageTitle}}</title>
