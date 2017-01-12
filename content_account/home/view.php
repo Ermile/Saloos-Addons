@@ -9,6 +9,7 @@ class view extends \mvc\view
 		$this->include->css            = false;
 		$this->include->js             = false;
 		// $this->include->telinput       = true;
+		$this->include->css_ermile     = true;
 		$this->include->fontawesome    = true;
 		$this->data->bodyclass         = 'unselectable';
 		$this->data->myform            = 'account';
