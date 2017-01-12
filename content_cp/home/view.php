@@ -7,6 +7,7 @@ class view extends \mvc\view
 	{
 		// $this->data->list             = $this->cpModlueList('all');
 		$this->data->bodyclass        = 'fixed unselectable';
+		$this->include->css_ermile    = true;
 		$this->include->css           = false;
 		$this->include->js            = false;
 		$this->include->fontawesome   = true;
