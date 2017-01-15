@@ -14,14 +14,17 @@ class controller extends \mvc\controller
 		// var_dump();
 		$mymodule = $this->module();
 		$referer  = \lib\router::urlParser('referer', 'domain');
-		$from     = \lib\utility\cookie::read('from');
-		$from     = $from ? $from : \lib\utility::get('from');
+		$from     = isset($_SESSION['tmp']['verify_mobile_time']) ? $_SESSION['tmp']['verify_mobile_time'] : null;
+		if(time() >= $from)
+		{
+			$from = null;
+		}
 		$islogin  = $this->login();
 		// set referrer in cookie
 		if($referer !== Domain)
 			\lib\utility\cookie::write('referer', $referer, 60*15);
 		// check permission for changepass
-		if($mymodule === 'changepass' && $from !== 'verification' && !$islogin)
+		if($mymodule === 'changepass' && !$from && !$islogin)
 			\lib\error::access(T_("you can't access to this page!"));
 
 		switch ($mymodule)
@@ -33,12 +36,12 @@ class controller extends \mvc\controller
 
 			case 'verification':
 			case 'verificationsms':
-				if($from && $from !== 'recovery' && $from !== 'signup' && $from !== 'verification')
+				if(!$from)
 					\lib\error::access(T_("you can't access to this page!"));
 				$this->model_name   = '\addons\content_account\\'.$mymodule.'\model';
 				$this->display_name = 'content_account\\'.$mymodule.'\display.html';
 				$this->post($mymodule)->ALL($mymodule);
-				$this->get()          ->ALL($mymodule);
+				$this->get()->ALL($mymodule);
 				break;
 
 			case 'signup':

@@ -10,27 +10,47 @@ class model extends \mvc\model
 		// get parameters and set to local variables
 		$mymobile   = utility::post('mobile','filter');
 		// check for mobile exist
-		$tmp_result = $this->sql()->table('users')->where('user_mobile', $mymobile)->select();
-
-		if($tmp_result->num() == 1)
+		$query =
+		"
+			SELECT *
+			FROM  users
+			WHERE
+				users.user_mobile = '$mymobile' AND
+				users.user_status IN ('active', 'removed', 'awaiting')
+			LIMIT 1
+		";
+		$tmp_result = \lib\db::get($query, null, true);
+		if($tmp_result)
 		{
-			$myuserid  = $tmp_result->assoc('id');
-			$mylogitem = $this->sql()->table('logitems')->field('id')->where('logitem_title', 'account/recovery')->select()->assoc('id');
-			if(!isset($mylogitem))
+			$myuserid  = $tmp_result['id'];
+			$query ="SELECT id FROM logitems WHERE logitems.logitem_title = 'account/recovery' LIMIT 0,1";
+			$mylogitem = \lib\db::get($query, null, true);
+			if(!$mylogitem)
 				return;
-			$mycode    = utility::randomCode();
+			$mylogitem = $mylogitem['id'];
 
-			$qry       = $this->sql()->table('logs')
-							 ->set          ('logitem_id'    , $mylogitem)
-							 ->set          ('user_id'       , $myuserid)
-							 ->set          ('log_data'      , $mycode)
-							 ->set          ('log_status'    , 'enable')
-							 ->set          ('log_createdate', date('Y-m-d H:i:s'));
+			$query ="SELECT log_data FROM logs WHERE
+			logitem_id 		= '$mylogitem' AND
+			user_id 		= '$myuserid' AND
+			log_status 		= 'enable' LIMIT 0,1";
+			$is_loged = \lib\db::get($query, null, true);
 
-			// var_dump($qry->insertString());
-			// return;
-			$sql      = $qry->insert();
-
+			if($is_loged)
+			{
+				$mycode = $is_loged['log_data'];
+			}
+			else
+			{
+				$mycode    = utility::randomCode();
+				$date = date('Y-m-d H:i:s');
+				$query ="INSERT INTO logs SET
+				logitem_id 		= '$mylogitem',
+				user_id 		= '$myuserid',
+				log_data 		= '$mycode',
+				log_status 		= 'enable',
+				log_createdate 	= '$date'";
+				\lib\db::query($query);
+			}
 
 			// ======================================================
 			// you can manage next event with one of these variables,
@@ -41,13 +61,15 @@ class model extends \mvc\model
 			{
 				$myreferer = utility\cookie::read('referer');
 				//Send SMS
-				\lib\utility\sms::send($_mobile, 'recovery', $_code);
+				\lib\utility\sms::send(['mobile' => $_mobile, 'msg'=> 'recovery', 'arg' =>$_code]);
 				debug::true(T_("we send a verification code for you"));
 				$myreferer = utility\cookie::write('mobile', $_mobile, 60*5);
 				$myreferer = utility\cookie::write('from', 'recovery', 60*5);
+				$this->redirector()->set_url('verification');
+				$_SESSION['tmp']['verify_mobile'] = $_mobile;
+				$_SESSION['tmp']['verify_mobile_time'] = time() + (5*60);
+				$_SESSION['tmp']['verify_mobile_referer'] = 'changepass';
 
-
-				$this->redirector()->set_url('verification?from=recovery&mobile='.$_mobile.'&referer='.$myreferer );
 			}, $mymobile, $mycode);
 
 			// if a query has error or any error occour in any part of codes, run roolback

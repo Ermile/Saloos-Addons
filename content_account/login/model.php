@@ -12,13 +12,11 @@ class model extends \addons\content_account\home\model
 		$mypass     = utility::post('password');
 
 		// check for mobile exist
-		$query =
-		"
-			SELECT *
+		$query ="SELECT *
 			FROM  users
 			WHERE
 				users.user_mobile = '$mymobile' AND
-				users.user_status IN ('active', 'removed')
+				users.user_status IN ('active', 'removed', 'awaiting')
 			LIMIT 1
 		";
 		$tmp_result = \lib\db::get($query, null, true);

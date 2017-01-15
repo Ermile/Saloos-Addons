@@ -17,7 +17,7 @@ trait constructor
 		$this->url->breadcrumb       = $this->url('breadcrumb'); // full path in array for using in breadcrumb
 		$this->url->domain           = $this->url('domain');     // domain name like 'ermile'
 		$this->url->base             = $this->url('base');
-		$this->url->baseRaw          = $this->url('baseRaw');
+		$this->url->baseRaw          = rtrim($this->url('baseRaw'), '/') . '/';
 		$this->url->prefix           = $this->url('prefix');
 		$this->url->content          = $this->url('content');
 		$this->url->baseContent      = $this->url('baseContent');

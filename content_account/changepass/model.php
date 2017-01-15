@@ -10,28 +10,69 @@ class model extends \mvc\model
 		$myid    = $this->login('id');
 		$newpass = utility::post('password-new');
 		$oldpass = utility::post('password-old');
-
-		$tmp_result =  $this->sql()->tableUsers()->where('id', $myid)->and('user_status','active')->select();
-		// if exist
-		if($tmp_result->num() == 1)
+		$tmp_result = false;
+		$force_change = false;
+		if($myid)
 		{
-			$tmp_result       = $tmp_result->assoc();
+			$query =
+			"
+				SELECT *
+				FROM users
+				WHERE
+					users.id = '$myid' AND
+					users.user_status IN ('active', 'awaiting')
+				LIMIT 1
+			";
+			$tmp_result = \lib\db::get($query, null, true);
+		}
+		elseif(isset($_SESSION['tmp']['verify_mobile']))
+		{
+			$force_change = true;
+			$mobile = $_SESSION['tmp']['verify_mobile'];
+			$query =
+			"
+				SELECT *
+				FROM users
+				WHERE
+					users.user_mobile = '$mobile' AND
+					users.user_status IN ('active', 'awaiting')
+				LIMIT 1
+			";
+			$tmp_result = \lib\db::get($query, null, true);
+			$myid = $tmp_result['id'];
+		}
+		// if exist
+		if($tmp_result)
+		{
 			$myhashedPassword = $tmp_result['user_pass'];
 			// if password is correct. go for login:)
-			if (isset($myhashedPassword) && utility::hasher($oldpass, $myhashedPassword))
+			if (
+				(isset($myhashedPassword) && utility::hasher($oldpass, $myhashedPassword))
+				|| $force_change
+				)
 			{
 				$newpass   = utility::post('password-new', 'hash');
 				if(\lib\debug::$status)
 				{
-					$qry      = $this->sql()->table('users')->where('id', $myid)->set('user_pass', $newpass);
-					$sql      = $qry->update();
+					$query ="UPDATE users SET user_pass = '$newpass' WHERE id = $myid";
+					\lib\db::query($query);
 				}
 
 				$this->commit(function()
 				{
 					debug::true(T_("change password successfully"));
-					$this->redirector()->set_domain()->set_url();
-					// \lib\utility\sms::send($_mobile, 'changepass');
+					if(isset($_SESSION['tmp']['verify_mobile_referer']))
+					{
+						unset($_SESSION['tmp']['verify_mobile']);
+						unset($_SESSION['tmp']['verify_mobile_time']);
+						unset($_SESSION['tmp']['verify_mobile_referer']);
+						$this->redirector()->set_url('login');
+					}
+					else
+					{
+						debug::msg('direct', true);
+						$this->redirector()->set_domain()->set_url();
+					}
 				});
 
 				// if a query has error or any error occour in any part of codes, run roolback
@@ -45,7 +86,7 @@ class model extends \mvc\model
 			}
 		}
 		// mobile does not exits
-		elseif($tmp_result->num() == 0 )
+		elseif(!$tmp_result)
 		{
 			debug::error(T_("user is incorrect"));
 		}
