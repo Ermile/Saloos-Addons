@@ -35,8 +35,15 @@ class account extends \lib\form
 
 	private function verification()
 	{
-		$this->mobile	= $this->make('#mobile')->label(null)->readonly('readonly')->tabindex('-1')
-							->value(((isset($_COOKIE["mobile"]))?htmlspecialchars('+'.$_COOKIE["mobile"]):null));
+		if(isset($_SESSION['tmp']['verify_mobile']))
+		{
+			$this->mobile	= $this->make('#mobile')->label(null)->readonly('readonly')->tabindex('-1')->value($_SESSION['tmp']['verify_mobile']);
+		}
+		else
+		{
+			$this->mobile	= $this->make('#mobile')->label(null);
+
+		}
 		$this->code		= $this->make('code')->label(null)->pl(T_('Code'))->maxlength(4)->autofocus()->autocomplete('off')
 							->required()->pattern('[0-9]{4}')->title(T_('input 4 number'))
 							->pos('hint--bottom')->desc(T_("Check your mobile and enter the code"));
@@ -52,7 +59,10 @@ class account extends \lib\form
 
 	private function changepass()
 	{
-		$this->old      = $this->make('#password')->name('password-old')->autofocus()->label(null)->pl(T_('Current Password'));
+		if(!isset($_SESSION['tmp']['verify_mobile_referer']))
+		{
+			$this->old      = $this->make('#password')->name('password-old')->autofocus()->label(null)->pl(T_('Current Password'));
+		}
 		$this->password = $this->make('#password')->name('password-new')->label(null)->pl(T_('New Password'));
 		$this->submit	= $this->make('submit')->value(T_('Change it'))->title(T_('Change my password'))->class('button primary row-clear');
 	}
