@@ -91,9 +91,12 @@ class controller extends \mvc\controller
 
 			// logout user from system then redirect to ermile
 			case 'logout':
+
 				$this->model_name	= '\lib\mvc\model';
 				$this->model()->put_logout();
-				$this->redirector()->set_domain()->set_url()->redirect();
+				$url = $this->url("root") . '/'. \lib\define::get_language();
+				$url = trim($url, '/');
+				$this->redirector($url)->redirect();
 				break;
 
 
