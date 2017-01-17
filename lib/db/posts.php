@@ -259,7 +259,9 @@ class posts
 				options
 			WHERE
 				options.post_id = $_post_id AND
-				options.option_cat = 'poll_$_post_id'
+				options.option_cat = 'poll_$_post_id' AND
+				options.user_id IS NULL
+
 		";
 		$result = \lib\db\options::select($query, "get");
 		return \lib\utility\filter::meta_decode($result);

@@ -5,6 +5,8 @@ use \lib\debug;
 
 class model extends \addons\content_account\home\model
 {
+	private $user_id = 0;
+
 	public function post_login()
 	{
 		// get parameters and set to local variables
@@ -12,28 +14,25 @@ class model extends \addons\content_account\home\model
 		$mypass     = utility::post('password');
 
 		// check for mobile exist
-		$query ="SELECT *
-			FROM  users
+		$query =
+		"
+			SELECT 
+				*
+			FROM  
+				users
 			WHERE
 				users.user_mobile = '$mymobile' AND
 				users.user_status IN ('active', 'removed', 'awaiting')
 			LIMIT 1
 		";
-		$tmp_result = \lib\db::get($query, null, true);
 
-		// $tmp_result =  $this->sql()->tableUsers()->whereUser_mobile($mymobile)
-		// 	->groupOpen()
-		// 	->and('user_status','active')
-		// 	->or('user_status', 'removed')
-		// 	->groupClose()
-		// 	->select();
-		// or user status == 'removed' and set the user status on old user status in user meta if password is ok
-		//
-		// $tmp_result =  $this->sql()->tableUsers()->select();
+		$tmp_result = \lib\db::get($query, null, true);
 
 		// if exist
 		if(isset($tmp_result['id']))
 		{
+			$this->user_id = $tmp_result['id'];
+
 			// $tmp_result       = $tmp_result->assoc();
 			$myhashedPassword = $tmp_result['user_pass'];
 			// if password is correct. go for login:)
@@ -61,12 +60,14 @@ class model extends \addons\content_account\home\model
 					\lib\db\users::update(['user_status' => $update_status], $tmp_result['id']);
 				}
 
-				$myfields = array('id',
-										'user_displayname',
-										'user_mobile',
-										'user_meta',
-										'user_status',
-										);
+				$myfields = 
+				[
+					'id',
+					'user_displayname',
+					'user_mobile',
+					'user_meta',
+					'user_status',
+				];
 
 				$this->setLoginSession($tmp_result, $myfields);
 
@@ -83,24 +84,32 @@ class model extends \addons\content_account\home\model
 
 					$referer  = \lib\router::urlParser('referer', 'host');
 
-					// set redirect to homepage
-					$this->redirector()->set_domain()->set_url();
+					$url = $this->url("root");
 
+					$user_language = \lib\db\users::get_language($this->user_id);
+					if($user_language && \lib\utility\location\languages::check($user_language))
+					{
+						$url .= \lib\define::get_current_language_string($user_language);
+					}
+					// set redirect to homepage
 					if(\lib\utility\option::get('account', 'status'))
 					{
 						$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
 						if($_redirect_sub !== 'home')
 						{
-							if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
-							{
-								$this->redirector()->set_url($_redirect_sub);
-							}
-							else
-							{
-								$this->redirector()->set_sub_domain($_redirect_sub);
-							}
+							$url .= '/'. $_redirect_sub;
+							// if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
+							// {
+							// 	$this->redirector()->set_url($_redirect_sub);
+							// }
+							// else
+							// {
+							// 	$this->redirector()->set_sub_domain($_redirect_sub);
+							// }
 						}
 					}
+					$url = trim($url, '/');
+					$this->redirector($url);
 					// do not use pushstate and run link direct
 					debug::msg('direct', true);
 				});
