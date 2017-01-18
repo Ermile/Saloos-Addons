@@ -442,7 +442,11 @@ class terms
 				terms
 			WHERE
 				terms.term_type = '$_options[term_type]' AND
-				terms.term_title LIKE '%$_title%'
+				(
+					terms.term_title LIKE '%$_title%' OR
+					terms.term_meta LIKE '%$_title%' OR
+					terms.term_desc LIKE '%$_title%'
+				)
 			$limit
 		";
 		return \lib\db::get($query);

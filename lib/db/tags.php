@@ -39,7 +39,8 @@ class tags
 		//split tags
 		$tags = preg_split("/\,/", $_tags);
 		// trim all value
-		foreach ($tags as $key => $value) {
+		foreach ($tags as $key => $value)
+		{
 			$tags[$key] = trim($value);
 		}
 		// remove empty tags
@@ -51,7 +52,8 @@ class tags
 		}
 
 		$result = [];
-		foreach ($tags as $key => $value) {
+		foreach ($tags as $key => $value)
+		{
 			$result[] =
 			[
 				'term_type'  => 'tag',
