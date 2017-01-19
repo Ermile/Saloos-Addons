@@ -311,6 +311,13 @@ class options
 		}
 		$where = "WHERE ". join($where, " AND ");
 
+		$parent_id = null;
+
+		if(\lib\db::check_version('>=', '1.1.0', 'addons'))
+		{
+			$parent_id = ", parent_id";
+		}
+
 		$query =
 		"
 			SELECT
@@ -322,6 +329,7 @@ class options
 				option_value 	AS 'value',
 				option_meta 	AS 'meta',
 				option_status 	AS 'status'
+				$parent_id
 			FROM
 				options
 			$where
