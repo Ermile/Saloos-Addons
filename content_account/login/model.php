@@ -16,9 +16,9 @@ class model extends \addons\content_account\home\model
 		// check for mobile exist
 		$query =
 		"
-			SELECT 
+			SELECT
 				*
-			FROM  
+			FROM
 				users
 			WHERE
 				users.user_mobile = '$mymobile' AND
@@ -60,7 +60,7 @@ class model extends \addons\content_account\home\model
 					\lib\db\users::update(['user_status' => $update_status], $tmp_result['id']);
 				}
 
-				$myfields = 
+				$myfields =
 				[
 					'id',
 					'user_displayname',

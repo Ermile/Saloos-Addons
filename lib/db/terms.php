@@ -434,10 +434,11 @@ class terms
 		$query =
 		"
 			SELECT
-				terms.id AS 'id',
-				terms.term_title AS 'title',
-				IFNULL(terms.term_count, 0) AS 'count',
-				terms.term_url AS 'url'
+				terms.id AS `id`,
+				terms.term_title AS `title`,
+				IFNULL(terms.term_count, 0) AS `count`,
+				terms.term_url AS `url`,
+				terms.term_desc AS `desc`
 			FROM
 				terms
 			WHERE
