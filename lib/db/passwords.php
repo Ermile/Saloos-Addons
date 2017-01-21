@@ -24,7 +24,7 @@ class passwords
 		}
 		else
 		{
-			$_creat_date = " `createdate` = '$_creat_date' ";
+			$_creat_date = " `createdate` = '". date("Y-m-d H:i:s") ."' ";
 		}
 
 		$query = "INSERT IGNORE INTO passwords SET `password` = '$_password', `status` = '$_status', $_creat_date ";
@@ -63,7 +63,7 @@ class passwords
 		}
 		else
 		{
-			return isset($password['status']) ? $password['status'] : 'cre';
+			return isset($password['status']) ? $password['status'] : 'crazy';
 		}
 	}
 
