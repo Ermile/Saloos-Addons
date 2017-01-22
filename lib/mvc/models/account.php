@@ -75,7 +75,7 @@ trait account
 	 * [setPermissionSession description]
 	 * @param [type] $_permID [description]
 	 */
-	public function setPermissionSession($_permID = null)
+	public function setPermissionSession($_permID = null, $_save_session = true)
 	{
 		// if permission is set for this user,
 		// get permission detail and set in permission session
@@ -104,7 +104,14 @@ trait account
 				{
 					$myMeta = json_decode($myMeta, true);
 				}
-				$_SESSION['permission'] = $myMeta;
+				if($_save_session)
+				{
+					$_SESSION['permission'] = $myMeta;
+				}
+				else
+				{
+					return $myMeta;
+				}
 			}
 			else
 			{
