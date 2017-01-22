@@ -77,41 +77,8 @@ class model extends \addons\content_account\home\model
 				// if query run without error means commit
 				$this->commit(function()
 				{
-					// $this->logger('login');
 					// create code for pass with get to service home page
-					debug::true(T_("Login Successfully"));
-					\lib\utility\session::save();
-
-					$referer  = \lib\router::urlParser('referer', 'host');
-
-					$url = $this->url("root");
-
-					$user_language = \lib\db\users::get_language($this->user_id);
-					if($user_language && \lib\utility\location\languages::check($user_language))
-					{
-						$url .= \lib\define::get_current_language_string($user_language);
-					}
-					// set redirect to homepage
-					if(\lib\utility\option::get('account', 'status'))
-					{
-						$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
-						if($_redirect_sub !== 'home')
-						{
-							$url .= '/'. $_redirect_sub;
-							// if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
-							// {
-							// 	$this->redirector()->set_url($_redirect_sub);
-							// }
-							// else
-							// {
-							// 	$this->redirector()->set_sub_domain($_redirect_sub);
-							// }
-						}
-					}
-					$url = trim($url, '/');
-					$this->redirector($url);
-					// do not use pushstate and run link direct
-					debug::msg('direct', true);
+					$this->referer();
 				});
 
 				$this->rollback(function() { debug::error(T_("Login failed!")); });

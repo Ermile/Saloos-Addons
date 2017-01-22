@@ -70,8 +70,15 @@ class model extends \mvc\model
 					}
 					else
 					{
-						debug::msg('direct', true);
-						$this->redirector()->set_domain()->set_url();
+						if(\lib\utility::get('referer'))
+						{
+							$this->referer();
+						}
+						else
+						{
+							debug::msg('direct', true);
+							$this->redirector()->set_domain()->set_url();
+						}
 					}
 				});
 

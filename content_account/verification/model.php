@@ -57,8 +57,15 @@ class model extends \mvc\model
 				else
 				{
 					$this->model()->setLogin($_userid, false);
-					$this->redirector(Protocol .'://'. Service .'/'. \lib\router::$prefix_base);
-					\lib\debug::msg('direct', true);
+					if(\lib\utility::get('referer'))
+					{
+						$this->referer();
+					}
+					else
+					{
+						$this->redirector(Protocol .'://'. Service .'/'. \lib\router::$prefix_base);
+						\lib\debug::msg('direct', true);
+					}
 					unset($_SESSION['tmp']['verify_mobile']);
 					unset($_SESSION['tmp']['verify_mobile_time']);
 				}
