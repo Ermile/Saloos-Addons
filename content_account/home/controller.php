@@ -9,9 +9,6 @@ class controller extends \mvc\controller
 	 */
 	function _route()
 	{
-		// exit();
-		// \lib\debug::true("check", 'hi');
-		// var_dump();
 		$mymodule = $this->module();
 		$referer  = \lib\router::urlParser('referer', 'domain');
 		$from     = isset($_SESSION['tmp']['verify_mobile_time']) ? $_SESSION['tmp']['verify_mobile_time'] : null;
@@ -58,8 +55,11 @@ class controller extends \mvc\controller
 					\lib\debug::true(T_("you are logined to system!"));
 					$myreferer = \lib\router::urlParser('referer', 'host');
 					$myssid    = isset($_SESSION['ssid'])? '?ssid='.$_SESSION['ssid']: null;
-
-					if(\lib\router::get_storage('CMS'))
+					if(\lib\utility::get('referer'))
+					{
+						$this->referer();
+					}
+					elseif(\lib\router::get_storage('CMS'))
 					{
 						$this->redirector()->set_domain()->set_sub_domain(\lib\router::get_storage('CMS') )->set_url()->redirect();
 					}
@@ -105,6 +105,30 @@ class controller extends \mvc\controller
 				break;
 		}
 		// $this->route_check_true = true;
+	}
+
+	public function referer()
+	{
+		if(\lib\utility::get('referer'))
+		{
+			$url = $this->url("root");
+			if(\lib\router::$prefix_base)
+			{
+				$url .= '/'.\lib\router::$prefix_base;
+			}
+			// set redirect to homepage
+			if(\lib\utility\option::get('account', 'status'))
+			{
+				$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
+				if($_redirect_sub !== 'home')
+				{
+					$url .= '/'. $_redirect_sub;
+				}
+			}
+			$url .= 'referer?to=' . \lib\utility::get('referer');
+			$this->redirector($url);
+			\lib\debug::msg('direct', true);
+		}
 	}
 }
 ?>

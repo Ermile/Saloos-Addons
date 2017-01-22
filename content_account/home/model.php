@@ -72,7 +72,6 @@ class model extends \mvc\model
 				}
 			}
 		}
-
 	}
 }
 ?>
