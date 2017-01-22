@@ -42,6 +42,11 @@ class controller extends \mvc\controller
 				break;
 
 			case 'signup':
+				if($islogin)
+				{
+					\lib\debug::true(T_("you are logined to system!"));
+					$this->referer();
+				}
 				return;
 				/**
 
@@ -53,18 +58,7 @@ class controller extends \mvc\controller
 				if($islogin)
 				{
 					\lib\debug::true(T_("you are logined to system!"));
-					$myreferer = \lib\router::urlParser('referer', 'host');
-					$myssid    = isset($_SESSION['ssid'])? '?ssid='.$_SESSION['ssid']: null;
-					if(\lib\utility::get('referer'))
-					{
-						$this->referer();
-					}
-					elseif(\lib\router::get_storage('CMS'))
-					{
-						$this->redirector()->set_domain()->set_sub_domain(\lib\router::get_storage('CMS') )->set_url()->redirect();
-					}
-					else
-						$this->redirector()->set_domain()->set_url()->redirect();
+					$this->referer();
 				}
 			case 'changepass':
 				$this->model_name   = '\addons\content_account\\'.$mymodule.'\model';
@@ -109,26 +103,34 @@ class controller extends \mvc\controller
 
 	public function referer()
 	{
+		\lib\debug::msg('direct', true);
+		$url = $this->url("root");
+		if(\lib\router::$prefix_base)
+		{
+			$url .= '/'.\lib\router::$prefix_base;
+		}
+
 		if(\lib\utility::get('referer'))
 		{
-			$url = $this->url("root");
-			if(\lib\router::$prefix_base)
+			$url .= '/referer?to=' . \lib\utility::get('referer');
+			$this->redirector($url)->redirect();
+		}
+		elseif(\lib\utility\option::get('account', 'status'))
+		{
+			$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
+			if($_redirect_sub !== 'home')
 			{
-				$url .= '/'.\lib\router::$prefix_base;
-			}
-			// set redirect to homepage
-			if(\lib\utility\option::get('account', 'status'))
-			{
-				$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
-				if($_redirect_sub !== 'home')
+				if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
 				{
-					$url .= '/'. $_redirect_sub;
+					echo $this->redirector()->set_url($_redirect_sub)->redirect();
+				}
+				else
+				{
+					$this->redirector($url . '/' .$_redirect_sub)->redirect();
 				}
 			}
-			$url .= 'referer?to=' . \lib\utility::get('referer');
-			$this->redirector($url);
-			\lib\debug::msg('direct', true);
 		}
+		$this->redirector()->set_domain()->set_url()->redirect();
 	}
 }
 ?>
