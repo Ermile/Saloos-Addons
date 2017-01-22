@@ -5,6 +5,11 @@ class controller extends \addons\content_account\home\controller
 {
 	function _route()
 	{
+		if($this->login())
+		{
+			\lib\debug::true(T_("you are logined to system!"));
+			$this->referer();
+		}
 		$canAccess = $this->option('account', 'meta', 'register');
 		if($canAccess)
 		{
