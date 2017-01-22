@@ -283,12 +283,20 @@ class options
 	 */
 	public static function get($_args)
 	{
+		$only_one_recort = false;
+
 		if(empty($_args) || !is_array($_args))
 		{
 			return false;
 		}
+
 		if(isset($_args['limit']))
 		{
+			if($_args['limit'] == 1)
+			{
+				$only_one_recort = true;
+			}
+
 			$limit = "LIMIT ". $_args['limit'];
 			unset($_args['limit']);
 		}
@@ -335,7 +343,12 @@ class options
 			$where
 			$limit
 		";
-		return \lib\utility\filter::meta_decode(self::select($query, "get"));
+		$result = \lib\db::get($query, null, $only_one_recort);
+		if(isset($result['meta']))
+		{
+			$result['meta'] = json_decode($result['meta'], true);
+		}
+		return $result;
 	}
 
 
