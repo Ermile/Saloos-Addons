@@ -344,7 +344,7 @@ class options
 			$limit
 		";
 		$result = \lib\db::get($query, null, $only_one_recort);
-		if(isset($result['meta']))
+		if(isset($result['meta']) && substr($result['meta'], 0, 1) == '{')
 		{
 			$result['meta'] = json_decode($result['meta'], true);
 		}

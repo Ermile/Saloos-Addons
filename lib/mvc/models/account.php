@@ -75,7 +75,7 @@ trait account
 	 * [setPermissionSession description]
 	 * @param [type] $_permID [description]
 	 */
-	public function setPermissionSession($_permID = null, $_save_session = true)
+	public function setPermissionSession($_permID = null, $_return = false)
 	{
 		// if permission is set for this user,
 		// get permission detail and set in permission session
@@ -86,7 +86,6 @@ trait account
 
 		if(is_numeric($_permID))
 		{
-			$_SESSION['user']['permission'] = $_permID;
 			$qry = $this->sql()->table('options')
 				->where('option_cat',  'permissions')
 				->and('option_key',    $_permID)
@@ -104,13 +103,15 @@ trait account
 				{
 					$myMeta = json_decode($myMeta, true);
 				}
-				if($_save_session)
+
+				if($_return)
 				{
-					$_SESSION['permission'] = $myMeta;
+					return $myMeta;
 				}
 				else
 				{
-					return $myMeta;
+					$_SESSION['user']['permission'] = $_permID;
+					$_SESSION['permission'] = $myMeta;
 				}
 			}
 			else
