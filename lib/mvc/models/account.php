@@ -86,6 +86,11 @@ trait account
 
 		if(is_numeric($_permID))
 		{
+			if(!$_return)
+			{
+				$_SESSION['user']['permission'] = $_permID;
+			}
+
 			$qry = $this->sql()->table('options')
 				->where('option_cat',  'permissions')
 				->and('option_key',    $_permID)
@@ -110,7 +115,6 @@ trait account
 				}
 				else
 				{
-					$_SESSION['user']['permission'] = $_permID;
 					$_SESSION['permission'] = $myMeta;
 				}
 			}
