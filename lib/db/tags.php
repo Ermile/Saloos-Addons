@@ -36,8 +36,20 @@ class tags
 
 	public static function insert_multi($_tags)
 	{
+
+		if(is_string($_tags))
+		{
+			$tags = preg_split("/\,/", $_tags);
+		}
+		elseif(is_array($_tags))
+		{
+			$tags = $_tags;
+		}
+		else
+		{
+			return false;
+		}
 		//split tags
-		$tags = preg_split("/\,/", $_tags);
 		// trim all value
 		foreach ($tags as $key => $value)
 		{
