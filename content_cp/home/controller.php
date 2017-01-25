@@ -236,18 +236,23 @@ class controller extends \mvc\controller
 			case 'posts':
 				$result['type']   = 'post';
 				$result['cat']    = 'cat';
+
 			case 'pages':
 				$result['type']   = $result['type']? $result['type']: 'page';
 				$result['cat']    = $result['cat']?  $result['cat']:  'cat';
+
 			case 'helps':
 				$result['type']   = $result['type']? $result['type']: 'help';
 				$result['cat']    = $result['cat']?  $result['cat']:  'cat_help';
+
 			case 'attachments':
 				$result['type']   = $result['type']? $result['type']: 'attachment';
 				$result['cat']    = $result['cat']?  $result['cat']:  'cat_file';
+
 			case 'polls':
 				$result['type']   = $result['type']? $result['type']: 'poll';
 				$result['cat']    = $result['cat']?  $result['cat']:  'cat_poll';
+
 			case 'books':
 				$result['type']   = $result['type']? $result['type']: 'book';
 				$result['cat']    = $result['cat']?  $result['cat']:  'cat_book';
@@ -293,7 +298,9 @@ class controller extends \mvc\controller
 			return $result[$_resultType];
 		}
 		else
+		{
 			return $result;
+		}
 	}
 
 
