@@ -1,5 +1,6 @@
 <?php
 namespace lib\db;
+use \lib\utility\location\languages;
 
 /** terms managing **/
 class terms
@@ -15,13 +16,86 @@ class terms
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args)
+	public static function insert($_args, $_multi_insert = false)
 	{
+		if(!is_array($_args))
+		{
+			return false;
+		}
+
+		if($_multi_insert)
+		{
+			foreach ($_args as $key => $value)
+			{
+				self::insert($value);
+			}
+			return true;
+		}
+
+		$title = null;
+		if(isset($_args['term_title']))
+		{
+			$title = $_args['term_title'];
+		}
+
+		$url = null;
+		if(isset($_args['term_url']))
+		{
+			$url = $_args['term_url'];
+		}
+
+		$slug = null;
+		if(isset($_args['term_slug']))
+		{
+			$slug = $_args['term_slug'];
+		}
+		else
+		{
+			$slug = \lib\utility\filter::slug($title);
+		}
+
+		if(!$slug)
+		{
+			\lib\debug::error(T_("term_slug not found"), 'term_slug', 'arguments');
+			return false;
+		}
+		else
+		{
+			$_args['term_slug'] = $slug;
+		}
+
+		if(!$url)
+		{
+			\lib\debug::error(T_("term_url not found"), 'term_url', 'arguments');
+			return false;
+		}
+
+		$language    = null;
+		$must_insert = [];
+
+		if(isset($_args['term_language']))
+		{
+			if(languages::check($_args['term_language']))
+			{
+				$language = $_args['term_language'];
+			}
+			else
+			{
+				unset($_args['term_language']);
+			}
+		}
+
+		if(self::exists($url, $language))
+		{
+			return false;
+		}
 
 		if(empty($_args))
 		{
 			return null;
 		}
+
+
 		$set = [];
 		foreach ($_args as $key => $value)
 		{
@@ -47,7 +121,31 @@ class terms
 			SET
 				$set
 		";
+
 		return \lib\db::query($query);
+	}
+
+
+	/**
+	 * check terms url and lnguage
+	 *
+	 * @param      <type>  $_url       The url
+	 * @param      <type>  $_language  The language
+	 */
+	private static function exists($_url, $_language)
+	{
+		if($_language === null)
+		{
+			$language = "term_language IS NULL";
+		}
+		else
+		{
+			$language = "term_language = '$_language' ";
+		}
+
+		$query  = "SELECT id FROM terms WHERE term_url = '$_url' AND $language LIMIT 1";
+		$result = \lib\db::get($query, 'id', true);
+		return $result;
 	}
 
 
@@ -60,48 +158,50 @@ class terms
 	 */
 	public static function insert_multi($_args)
 	{
-		// marge all input array to creat list of field to be insert
-		$fields = [];
-		foreach ($_args as $key => $value)
-		{
-			$fields = array_merge($fields, $value);
-		}
+		return self::insert($_args, true);
 
-		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
-		$values = [];
-		$together = [];
-		foreach ($_args	 as $key => $value)
-		{
-			foreach ($fields as $field_name => $vain)
-			{
-				if(array_key_exists($field_name, $value)){
-					$values[] = "'" . trim($value[$field_name]) . "'";
-				}else{
-					$values[] = "NULL";
-				}
-			}
-			$together[] = join($values, ",");
-			$values = [];
-		}
+		// // marge all input array to creat list of field to be insert
+		// $fields = [];
+		// foreach ($_args as $key => $value)
+		// {
+		// 	$fields = array_merge($fields, $value);
+		// }
 
-		if(empty($fields))
-		{
-			return null;
-		}
+		// // creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
+		// $values   = [];
+		// $together = [];
+		// foreach ($_args	 as $key => $value)
+		// {
+		// 	foreach ($fields as $field_name => $vain)
+		// 	{
+		// 		if(array_key_exists($field_name, $value)){
+		// 			$values[] = "'" . trim($value[$field_name]) . "'";
+		// 		}else{
+		// 			$values[] = "NULL";
+		// 		}
+		// 	}
+		// 	$together[] = join($values, ",");
+		// 	$values = [];
+		// }
 
-		$fields = join(array_keys($fields), ",");
+		// if(empty($fields))
+		// {
+		// 	return null;
+		// }
 
-		$values = join($together, "),(");
+		// $fields = join(array_keys($fields), ",");
 
-		// crate string query
-		$query = "
-				INSERT IGNORE INTO terms
-				($fields)
-				VALUES
-				($values)
-				";
+		// $values = join($together, "),(");
 
-		return \lib\db::query($query);
+		// // crate string query
+		// $query = "
+		// 		INSERT IGNORE INTO terms
+		// 		($fields)
+		// 		VALUES
+		// 		($values)
+		// 		";
+
+		// return \lib\db::query($query);
 	}
 
 

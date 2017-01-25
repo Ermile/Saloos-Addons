@@ -421,22 +421,36 @@ class model extends \addons\content_cp\home\model
 
 		// ------------------------------------------------- if user enter new tag
 		$tags_id = array();
+
 		if(count($mytags)>0)
 		{
-			$qry_tag = $this->sql()->table('terms');
-			// add each tag to sql syntax
-			foreach ($mytags as $value)
+			$insert_tags = [];
+			foreach ($mytags as $key => $value)
 			{
-				if($value)
-				{
-					$qry_tag = $qry_tag
-						->set('term_type',  'tag')
-						->set('term_title',  $value)
-						->set('term_slug',   $value)
-						->set('term_url',    $value);
-				}
+				$insert_tags[] =
+				[
+					'term_type'  => 'tag',
+					'term_title' => $value,
+					'term_slug'  => $value,
+					'term_url'   => $value,
+				];
 			}
-			$qry_tag->insert('IGNORE');
+			\lib\db\terms::insert_multi($insert_tags);
+
+			// $qry_tag = $this->sql()->table('terms');
+			// // add each tag to sql syntax
+			// foreach ($mytags as $value)
+			// {
+			// 	if($value)
+			// 	{
+			// 		$qry_tag = $qry_tag
+			// 			->set('term_type',  'tag')
+			// 			->set('term_title',  $value)
+			// 			->set('term_slug',   $value)
+			// 			->set('term_url',    $value);
+			// 	}
+			// }
+			// $qry_tag->insert('IGNORE');
 
 
 			// get the list of tags id
@@ -449,11 +463,17 @@ class model extends \addons\content_cp\home\model
 		// add selected tag to term usages table
 		// on pages dont need cats and only add tags
 		if($cpModule['raw'] === 'pages')
+		{
 			$myterms = $tags_id;
+		}
 		elseif(is_array($mycats) && count($mycats))
+		{
 			$myterms = array_merge($tags_id, $mycats);
+		}
 		else
+		{
 			$myterms = $tags_id;
+		}
 
 
 
@@ -720,39 +740,35 @@ class model extends \addons\content_cp\home\model
 	function cp_tag_id($_list, $_string = true )
 	{
 		// get the list of tags
-		$qry_tags  = $this->sql()->table('terms')->where('term_type', 'tag');
-		$_list     = array_filter($_list);
+		// $qry_tags  = $this->sql()->table('terms')->where('term_type', 'tag');
+		// $_list     = array_filter($_list);
 
-		if(is_array($_list))
-		{
-			if(count($_list) === 1)
-			{
-				// use =
-				$qry_tags = $qry_tags->and('term_title', '=', "'".array_pop($_list)."'");
-			}
-			else
-			{
-				// use IN
-				$_list = implode("','", $_list);
-				$_list = "'" . $_list."'";
+		// if(is_array($_list))
+		// {
+		// 	if(count($_list) === 1)
+		// 	{
+		// 		// use =
+		// 		$qry_tags = $qry_tags->and('term_title', '=', "'".array_pop($_list)."'");
+		// 	}
+		// 	else
+		// 	{
+		// 		// use IN
+		// 		$_list = implode("','", $_list);
+		// 		$_list = "'" . $_list."'";
 
-				$qry_tags = $qry_tags->and('term_title', 'IN', "(". $_list . ")");
-			}
-		}
+		// 		$qry_tags = $qry_tags->and('term_title', 'IN', "(". $_list . ")");
+		// 	}
+		// }
 
-		// set field name and assoc all rows
-		$qry_tags = $qry_tags->field('id')->select()->allassoc('id');
-
+		// // set field name and assoc all rows
+		// $qry_tags = $qry_tags->field('id')->select()->allassoc('id');
+		$qry_tags = \lib\db\terms::get_multi_id($_list);
 		if($qry_tags)
 		{
 			if($_string)
 			{
-				if(count($qry_tags) === 1 && isset($qry_tags[0]))
-					return $qry_tags[0];
-				else
-					return implode(",", $qry_tags);
+				return implode(",", $qry_tags);
 			}
-
 			return $qry_tags;
 		}
 		return null;
