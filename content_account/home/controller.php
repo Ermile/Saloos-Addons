@@ -120,14 +120,15 @@ class controller extends \mvc\controller
 			$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
 			if($_redirect_sub !== 'home')
 			{
-				if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
-				{
-					echo $this->redirector()->set_url($_redirect_sub)->redirect();
-				}
-				else
-				{
-					$this->redirector($url . '/' .$_redirect_sub)->redirect();
-				}
+				// if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
+				// {
+				// 	echo $this->redirector()->set_subdomain()->set_url($_redirect_sub)->redirect();
+				// }
+				// else
+				// {
+				//
+				// }
+				$this->redirector($url . '/' .$_redirect_sub)->redirect();
 			}
 		}
 		$this->redirector()->set_domain()->set_url()->redirect();
