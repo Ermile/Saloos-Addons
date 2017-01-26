@@ -152,8 +152,9 @@ class controller extends \addons\content_cp\home\controller
 						break;
 
 					default:
-						$exist = false;
-						return;
+						$location .= $name;
+						// $exist = false;
+						// return;
 						break;
 				}
 				// change location to address of requested
@@ -161,7 +162,7 @@ class controller extends \addons\content_cp\home\controller
 				// start show result
 				$output   = "<pre>";
 				$output  .= 'Repository address: '. getcwd(). '<br/>';
-				$output  .= 'Remote address:     '. $rep. '<hr/>';
+				$output  .= 'Remote address:     '. $location. '<hr/>';
 				// $command  = 'git pull '.$rep.' 2>&1';
 				$command  = 'git pull origin master 2>&1';
 
