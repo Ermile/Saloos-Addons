@@ -30,7 +30,7 @@ class controller extends \addons\content_cp\home\controller
 			case 'db':
 				$exist    = true;
 				\lib\db::$debug_error = false;
-				
+
 				if(\lib\utility::get('upgrade'))
 				{
 					// do upgrade
@@ -162,7 +162,9 @@ class controller extends \addons\content_cp\home\controller
 				$output   = "<pre>";
 				$output  .= 'Repository address: '. getcwd(). '<br/>';
 				$output  .= 'Remote address:     '. $rep. '<hr/>';
-				$command  = 'git pull '.$rep.' 2>&1';
+				// $command  = 'git pull '.$rep.' 2>&1';
+				$command  = 'git pull origin master 2>&1';
+
 
 				// Print the exec output inside of a pre element
 				exec($command, $result);
