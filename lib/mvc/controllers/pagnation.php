@@ -61,6 +61,7 @@ trait pagnation
 		{
 			$this->pagnation_error();
 		}
+
 		$this->pagnation_set('total_pages', $total_pages);
 		$this->pagnation_set('current', $current);
 		$this->pagnation_set('next', ($next <= $total_pages) ? $next : false);
@@ -70,6 +71,8 @@ trait pagnation
 		$current_url = $this->url('baseFull').$path;
 		$this->pagnation_set('current_url', $this->pagnation_get('custom_length') ? $current_url."/length=$length" : $current_url);
 		$this->pagnation_set('length', $length);
+
+		\lib\storage::set_pagnation($this->pagnation_get());
 	}
 
 	public function pagnation_get($_name = null)
