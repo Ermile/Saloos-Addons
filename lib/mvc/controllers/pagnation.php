@@ -88,7 +88,7 @@ trait pagnation
 	{
 		if(!\lib\saloos::is_ajax())
 		{
-			header("HTTP/1.1 404 NOT FOUND");
+			// header("HTTP/1.1 404 NOT FOUND");
 		}
 	}
 }
