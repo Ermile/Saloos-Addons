@@ -28,18 +28,23 @@ class controller extends \addons\content_cp\home\controller
 				break;
 
 			case 'db':
-				$exist    = true;
+				\lib\db::$db_user     = \lib\utility::post("username");
+				\lib\db::$db_pass     = \lib\utility::post("password");
 				\lib\db::$debug_error = false;
 
-				if(\lib\utility::get('upgrade'))
+				$result = null;
+				$exist  = true;
+
+				if(\lib\utility::post('type') == 'upgrade')
 				{
 					// do upgrade
 					$result = \lib\db::install(true, true);
 				}
-				elseif(\lib\utility::get('backup'))
+				elseif(\lib\utility::post('type') == 'backup')
 				{
 					$result = \lib\db::backup(true);
 				}
+
 				echo '<pre>';
 				print_r($result);
 				echo '</pre>';
