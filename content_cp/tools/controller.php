@@ -29,6 +29,9 @@ class controller extends \addons\content_cp\home\controller
 
 
 			case 'db':
+
+				\lib\db::$link_open    = [];
+				\lib\db::$link_default = null;
 				\lib\db::$db_user     = \lib\utility::post("username");
 				\lib\db::$db_pass     = \lib\utility::post("password");
 				\lib\db::$debug_error = false;
