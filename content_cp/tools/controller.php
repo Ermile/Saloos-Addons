@@ -204,6 +204,8 @@ class controller extends \addons\content_cp\home\controller
 				$exist      = true;
 				$output     = '<html>';
 				$name       = \lib\utility::get('name');
+				$isClear    = \lib\utility::get('clear');
+				$clearURL   = '';
 				$page       = \lib\utility::get('p')*50000;
 				if($page< 0)
 				{
@@ -220,11 +222,13 @@ class controller extends \addons\content_cp\home\controller
 				switch ($name)
 				{
 					case 'sql':
+						$clearURL = database.'log/backup/log_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_error':
+						$clearURL = database.'log/backup/error_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';
 						break;
@@ -232,6 +236,12 @@ class controller extends \addons\content_cp\home\controller
 					default:
 						$output .= 'Do you wanna something here!?';
 						break;
+				}
+				// if wanna clear this file, transfer it to new address and clear it
+				if($isClear)
+				{
+					\lib\utility\file::rename($filepath, $clearURL);
+					$this->redirector('?name='. $name)->redirect();
 				}
 				// read file data
 				$fileData = @file_get_contents($filepath, FILE_USE_INCLUDE_PATH, null, $page, $lenght);
@@ -245,7 +255,8 @@ class controller extends \addons\content_cp\home\controller
 					$output .= ' <script src="'. $myURL. '/js/lib/highlight/highlight.min.js"></script>';
 					$output .= ' <link rel="stylesheet" href="'. $myURL. '/css/lib/highlight/atom-one-dark.css">';
 					$output .= ' <script>$(document).ready(function() {$("pre").each(function(i, block) {hljs.highlightBlock(block);}); });</script>';
-					$output .= "</head>";
+					$output .= "</head><body>";
+					$output .= '<a href="?name='. $name. '&clear=true">Clear it!</a>';
 					$output .= "<pre class='$lang'>";
 					$output .= $fileData;
 					$output .= "</pre>";
