@@ -19,8 +19,17 @@
    <a target='_blank' href="{{url.baseFull}}/tools/git?name=saloos">{%trans "Update"%} {%trans "Saloos Repository"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/git?name=addons">{%trans "Update"%} {%trans "Saloos Addons Repository"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/git?name={{site.title | lower}}">{%trans "Update"%} {%trans "Current Project Repository"%}</a>
-
+   <br>
    <a target='_blank' href="{{url.baseFull}}/tools/db?backup=true">{%trans "Backup"%} {%trans "Project Database"%}</a>
+
+   <form method="post" action="{{url.baseFull}}/tools/db">
+     <input type="text" name="username" placeholder="db username">
+     <input type="password" name="password" placeholder="db password">
+     <input type="hidden" name="type" value="upgrade">
+     <input type="submit">
+   </form>
+
    <a target='_blank' href="{{url.baseFull}}/tools/db?upgrade=true">{%trans "Upgrade"%} {%trans "Project Database"%}</a>
   </div>
 {%endblock%}
+
