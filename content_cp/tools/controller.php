@@ -27,6 +27,7 @@ class controller extends \addons\content_cp\home\controller
 				echo \lib\utility\dbTables::create();
 				break;
 
+
 			case 'db':
 				\lib\db::$db_user     = \lib\utility::post("username");
 				\lib\db::$db_pass     = \lib\utility::post("password");
@@ -37,6 +38,7 @@ class controller extends \addons\content_cp\home\controller
 
 				if(\lib\utility::post('type') == 'upgrade')
 				{
+
 					// do upgrade
 					$result = \lib\db::install(true, true);
 				}
@@ -50,6 +52,7 @@ class controller extends \addons\content_cp\home\controller
 				echo '</pre>';
 				break;
 
+
 			case 'twigtrans':
 				$exist    = true;
 				$mypath   = \lib\utility::get('path');
@@ -57,13 +60,15 @@ class controller extends \addons\content_cp\home\controller
 				echo \lib\utility\twigTrans::extract($mypath, $myupdate);
 				break;
 
+
 			case 'phpinfo':
 				$exist    = true;
 				phpinfo();
 				break;
 
+
 			case 'server':
-				$exist    = true;
+				$exist = true;
 				if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && !class_exists("COM"))
 				{
 					ob_start();
@@ -79,13 +84,15 @@ class controller extends \addons\content_cp\home\controller
 
 				break;
 
+
 			case 'twitter':
 				$a = \lib\utility\socialNetwork::twitter('hello! test #api');
 				// var_dump($a);
 				break;
 
+
 			case 'mergefiles':
-				$exist    = true;
+				$exist = true;
 				echo \lib\utility\tools::mergefiles('merged-project.php');
 				if(\lib\utility::get('type') === 'all')
 				{
@@ -95,6 +102,7 @@ class controller extends \addons\content_cp\home\controller
 					echo \lib\utility\tools::mergefiles('merged-saloos-includes.php', addons.'includes/');
 				}
 				break;
+
 
 			case 'sitemap':
 				$exist    = true;
@@ -134,10 +142,11 @@ class controller extends \addons\content_cp\home\controller
 				// echo "Create Successful";
 				break;
 
+
 			case 'git':
 				// declare variables
 				$exist    = true;
-				$rep  = null;
+				$rep      = null;
 				$result   = [];
 				$location = '../../';
 				$name     = \lib\utility::get('name');
@@ -186,6 +195,67 @@ class controller extends \addons\content_cp\home\controller
 
 				echo $output;
 				break;
+
+
+			case 'log':
+				$exist      = true;
+				$output     = '<html>';
+				$name       = \lib\utility::get('name');
+				$page       = \lib\utility::get('p')*50000;
+				if($page< 0)
+				{
+					$page = 0;
+				}
+				$lenght      = \lib\utility::get('lenght');
+				if($lenght< 50000)
+				{
+					$lenght = 50000;
+				}
+				$filepath   = '';
+				$fileFormat = 'sql';
+
+				switch ($name)
+				{
+					case 'sql':
+						$filepath = database.'log/log.sql';
+						$lang     = 'sql';
+						break;
+
+					case 'sql_error':
+						$filepath = database.'log/error.sql';
+						$lang     = 'sql';
+						break;
+
+					default:
+						$output .= 'Do you wanna something here!?';
+						break;
+				}
+				// read file data
+				$fileData = @file_get_contents($filepath, FILE_USE_INCLUDE_PATH, null, $page, $lenght);
+				if($fileData)
+				{
+					$myURL    = Protocol."://". \lib\router::get_root_domain().'/static';
+					$myCommon = Protocol."://ermile.".Tld.'/static/js/common.js';
+					$output .= "<head>";
+					$output .= ' <title>Log | '. $name. '</title>';
+					$output .= ' <script src="'. $myCommon. '"></script>';
+					$output .= ' <script src="'. $myURL. '/js/lib/highlight/highlight.min.js"></script>';
+					$output .= ' <link rel="stylesheet" href="'. $myURL. '/css/lib/highlight/atom-one-dark.css">';
+					$output .= ' <script>$(document).ready(function() {$("pre").each(function(i, block) {hljs.highlightBlock(block);}); });</script>';
+					$output .= "</head>";
+					$output .= "<pre class='$lang'>";
+					$output .= $fileData;
+					$output .= "</pre>";
+				}
+				else
+				{
+					$output .= 'File does not exist!';
+				}
+
+				$output .= "</body></html>";
+				echo $output;
+				break;
+
 
 			case null:
 				$mypath = $this->url('path','_');
