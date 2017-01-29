@@ -1,4 +1,4 @@
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (1, '17041987', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (2, '16101987', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (3, '16031990', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -858,7 +858,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (857, '16091987', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (858, '16071991', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (859, '16071987', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (860, '15111989', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (861, '15031990', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (862, '14041986', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -1704,7 +1704,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (1702, '17121987', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (1703, '17091985', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (1704, '17071990', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (1705, '17051983', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (1706, '16091990', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (1707, '15081989', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -2632,7 +2632,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (2660, 'howard', 'crazy', NULL, 0, 0, 0, NULL, NULL),
 (2661, 'franklin', 'crazy', NULL, 0, 0, 0, NULL, NULL),
 (2662, 'bigred', 'crazy', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (2663, 'assman', 'crazy', NULL, 0, 0, 0, NULL, NULL),
 (2664, 'alexander', 'crazy', NULL, 0, 0, 0, NULL, NULL),
 (2665, 'homer', 'crazy', NULL, 0, 0, 0, NULL, NULL),
@@ -3510,7 +3510,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (4531, 'warlock', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (4532, 'tyler', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (4533, 'goddess', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (4534, 'fatcat', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (4535, 'energy', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (4536, 'david1', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -4364,7 +4364,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (5386, 'dixie', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (5387, 'claude', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (5388, 'caliente', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (5389, 'amazon', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (5390, 'abcde', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (5391, '1221', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -5217,7 +5217,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (6246, 'nancy', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (6247, 'mikemike', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (6248, 'michaela', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (6249, 'memorex', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (6250, 'marlene', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (6251, 'kristy', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -6071,7 +6071,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (7104, 'loco', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7105, 'laurel', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7106, 'lamont', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (7107, 'karma', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7108, 'journey', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7109, 'johannes', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -6926,7 +6926,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (7965, 'tricia', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7966, 'tottenham', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7967, 'tiberius', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (7968, 'teddybear', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7969, 'spinner', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (7970, 'spice', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -7779,7 +7779,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (8827, 'nygiants', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (8828, 'nikitos', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (8829, 'nigga', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (8830, 'nextel', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (8831, 'moses', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (8832, 'moonbeam', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -8629,7 +8629,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (9686, 'playa', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (9687, 'notused', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (9688, 'noname123', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (9689, 'newcastle', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (9690, 'never', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (9691, 'nana', 'very_common', NULL, 0, 0, 0, NULL, NULL),
@@ -9468,7 +9468,7 @@ INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`
 (10535, 'timosha', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (10536, 'timeout', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (10537, 'tenchi', 'very_common', NULL, 0, 0, 0, NULL, NULL);
-INSERT INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
+INSERT IGNORE INTO `passwords` (`id`, `password`, `status`, `substatus`, `try`, `wrong`, `used`, `createdate`, `datemodified`) VALUES
 (10538, 'tabasco', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (10539, 'sunny1', 'very_common', NULL, 0, 0, 0, NULL, NULL),
 (10540, 'suckmydick', 'very_common', NULL, 0, 0, 0, NULL, NULL),
