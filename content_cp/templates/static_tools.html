@@ -22,7 +22,7 @@
    <br>
    <a target='_blank' href="{{url.baseFull}}/tools/db?backup=true">{%trans "Backup"%} {%trans "Project Database"%}</a>
 
-   <form method="post" action="{{url.baseFull}}/tools/db">
+   <form method="post" action="{{url.baseFull}}/tools/db" data-action>
      <input type="text" name="username" placeholder="db username">
      <input type="password" name="password" placeholder="db password">
      <input type="hidden" name="type" value="upgrade">
