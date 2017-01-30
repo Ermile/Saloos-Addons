@@ -138,11 +138,15 @@ class options
 		{
 			if(preg_match("/\%/", $value))
 			{
-				$where[] = "$field LIKE '$value'";
+				$where[] = " $field LIKE '$value' ";
+			}
+			elseif($value === null)
+			{
+				$where[] = " $field IS NULL ";
 			}
 			else
 			{
-				$where[] = "$field = '$value'";
+				$where[] = " $field = '$value' ";
 			}
 		}
 
