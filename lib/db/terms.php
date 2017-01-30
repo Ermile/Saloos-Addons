@@ -509,7 +509,8 @@ class terms
 			'start_limit' => 0,
 			'end_limit'   => 10,
 			'limit'       => 10,
-			'pagenation'  => false
+			'pagenation'  => false,
+			'parent'      => null,
 		];
 
 		$_options = array_merge($default_options, $_options);
@@ -531,23 +532,32 @@ class terms
 			$limit = " LIMIT $start_limit, $end_limit ";
 		}
 
+		$parent_condition = " IS NULL ";
+		if($_options['parent'])
+		{
+			$parent_condition = " = ". (int) $_options['parent'];
+		}
+
 		$query =
 		"
 			SELECT
-				terms.id AS `id`,
-				terms.term_title AS `title`,
+				terms.id 					AS `id`,
+				terms.term_title 			AS `title`,
 				IFNULL(terms.term_count, 0) AS `count`,
-				terms.term_url AS `url`,
-				terms.term_desc AS `desc`
+				terms.term_url 				AS `url`,
+				terms.term_desc 			AS `desc`,
+				terms.term_parent 			AS `parent`
 			FROM
 				terms
 			WHERE
+				terms.term_parent $parent_condition 	 AND
 				terms.term_type = '$_options[term_type]' AND
 				(
 					terms.term_title LIKE '%$_title%' OR
-					terms.term_meta LIKE '%$_title%' OR
-					terms.term_desc LIKE '%$_title%'
+					terms.term_meta  LIKE '%$_title%' OR
+					terms.term_desc  LIKE '%$_title%'
 				)
+
 			$limit
 		";
 		return \lib\db::get($query);
