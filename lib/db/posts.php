@@ -263,7 +263,8 @@ class posts
 			WHERE
 				options.post_id = $_post_id AND
 				options.option_cat = 'poll_$_post_id' AND
-				options.user_id IS NULL
+				options.user_id IS NULL AND
+				options.option_status = 'enable'
 
 		";
 		$result = \lib\db\options::select($query, "get");

@@ -61,18 +61,18 @@ trait pagnation
 		{
 			$this->pagnation_error();
 		}
-
 		$this->pagnation_set('total_pages', $total_pages);
 		$this->pagnation_set('current', $current);
 		$this->pagnation_set('next', ($next <= $total_pages) ? $next : false);
 		$this->pagnation_set('prev', ($prev >= 1) ? $prev : false);
 		$this->pagnation_set('count_link', 7);
+		$this->pagnation_set('total_records', (int) $_total_records);
 		$path = \lib\router::get_url()? '/'.\lib\router::get_url(): null;
 		$current_url = $this->url('baseFull').$path;
 		$this->pagnation_set('current_url', $this->pagnation_get('custom_length') ? $current_url."/length=$length" : $current_url);
 		$this->pagnation_set('length', $length);
-
 		\lib\storage::set_pagnation($this->pagnation_get());
+
 	}
 
 	public function pagnation_get($_name = null)

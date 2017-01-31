@@ -1,5 +1,7 @@
 <?php
 namespace lib\db;
+use \lib\debug;
+use \lib\utility;
 
 /** terms managing **/
 class cats
@@ -18,7 +20,7 @@ class cats
 	private static function check($_cats = null)
 	{
 
-		if($_cats === null) 
+		if($_cats === null)
 		{
 			$return = 'cat';
 		}
@@ -58,7 +60,7 @@ class cats
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) 
+	public static function update($_args, $_id)
 	{
 
 		// jost cat can insert
@@ -74,7 +76,7 @@ class cats
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id) 
+	public static function delete($_id)
 	{
 		return terms::delete($_id);
 	}
@@ -85,7 +87,7 @@ class cats
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') 
+	public static function select($_query, $_type = 'query')
 	{
 		return terms::select($query, $_type);
 	}
@@ -143,18 +145,26 @@ class cats
 		}
 		$insert_cats = [];
 
-		foreach ($_cats as $key => $value) 
+		foreach ($_cats as $key => $term_id)
 		{
-			$id = \lib\db\terms::get_id($value, 'cat');
-			if($id)
-			{	
-				$insert_cats[] =
-				[
-					'term_id'           => $id,
-					'termusage_id'      => $_post_id,
-					'termusage_foreign' => 'posts'
-				];
-			}	
+			$check = \lib\db\terms::get($term_id, 'term_type');
+			if(!$check)
+			{
+				return debug::error(T_("Cats not found"), 'cats', 'arguments');
+			}
+
+			if(!preg_match("/^cat/", $check))
+			{
+				return debug::error(T_("Invalid cat"), 'cat', 'arguments');
+			}
+
+			$insert_cats[] =
+			[
+				'term_id'           => $term_id,
+				'termusage_id'      => $_post_id,
+				'termusage_foreign' => 'posts'
+			];
+
 		}
 		$result = true;
 
@@ -162,7 +172,7 @@ class cats
 		{
 			$result = \lib\db\termusages::insert_multi($insert_cats);
 		}
-		
+
 		return $result;
 	}
 }
