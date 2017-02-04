@@ -53,6 +53,7 @@ class controller extends \addons\content_cp\home\controller
 				echo '<pre>';
 				print_r($result);
 				echo '</pre>';
+				exit();
 				break;
 
 
