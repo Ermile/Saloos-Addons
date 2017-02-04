@@ -77,7 +77,7 @@ class model extends \addons\content_cp\home\model
 					return;
 				}
 				// check permission exist or not
-				$qryExist = $this->qryCreator($_type);
+				$qryExist = $this->qryCreator($_type, $newPerm)->and('option_status', 'enable');
 				$qryExist = $qryExist->select()->num();
 				// if exist show related message
 				if($qryExist)
@@ -95,13 +95,24 @@ class model extends \addons\content_cp\home\model
 				// permission id start from 2 because id 1 used for superuser
 				$qryMaxID += $qryMaxID == 0? 2: 1;
 
-				$qryAdd = $this->qryCreator();
+				$qryAdd = $this->qryCreator('add', $newPerm);
+
+				$check = $qryAdd->select()->num();
+
 				$qryAdd = $qryAdd
 					->set('option_cat',    'permissions')
 					->set('option_key',    $qryMaxID)
 					->set('option_value',  $newPerm)
-					->set('option_status', 'enable')
-					->insert();
+					->set('option_status', 'enable');
+
+				if($check)
+				{
+					$qryAdd->update();
+				}
+				else
+				{
+					$qryAdd->insert();
+				}
 
 				$qryAdd = $qryAdd;
 				break;
@@ -114,7 +125,7 @@ class model extends \addons\content_cp\home\model
 				{
 					$qryDel = $this->qryCreator($_type, $delParam);
 					$qryDel = $qryDel->set('option_status', 'disable')->update();
-					\lib\utility\session::deleteByPerm($editParam);
+					\lib\utility\session::deleteByPerm($delParam);
 				}
 				break;
 
@@ -268,8 +279,8 @@ class model extends \addons\content_cp\home\model
 			// 3.3 get modules list of specefic content and fill it with db values
 			foreach (\lib\utility\permission::moduleList($myContent) as $myLoc => $value)
 			{
-				if(isset($datarow[$myContent]['modules'][$myLoc])
-					&& is_array($datarow[$myContent]['modules'][$myLoc]))
+
+				if(isset($datarow[$myContent]['modules'][$myLoc]) && is_array($datarow[$myContent]['modules'][$myLoc]))
 				{
 					$permResult[$myContent]['modules'][$myLoc] = $datarow[$myContent]['modules'][$myLoc];
 					// if user set specefic value for this location add it to db values
@@ -279,9 +290,12 @@ class model extends \addons\content_cp\home\model
 					}
 				}
 				else
+				{
 					$permResult[$myContent]['modules'][$myLoc] = $value;
+				}
 			}
 		}
+
 		return $permResult;
 	}
 }

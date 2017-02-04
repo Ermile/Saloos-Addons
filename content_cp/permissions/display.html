@@ -25,9 +25,9 @@
     <h3>{%trans "list of permissions"%}</h3>
 {% for key, value in datarow%}
      <span>
-      <a href="{{url.prefix}}/permissions/{{key}}">{%trans key%}
+      <a href="permissions/{{key}}">{%trans key%}
       </a>
-       <a class="fa fa-times" href="{{url.prefix}}/permissions/delete={{key}}" data-data='{"id": "{{key}}" }' data-method="post" data-modal="delete-confirm"></a></span>
+       <a class="fa fa-times" href="permissions/delete={{key}}" data-data='{"id": "{{key}}" }' data-method="post" data-modal="delete-confirm"></a></span>
 {%endfor%}
     </div>
     <div class="panel-footer">

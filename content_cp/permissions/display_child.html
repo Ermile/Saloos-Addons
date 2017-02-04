@@ -30,11 +30,9 @@
   <div class="panel-footer">{%trans "You are change this type of permission"%}: <b>{%trans child%}</b></div>
  </div>
 
-
-
 {% for myContent, myPerm in permissions%}
 {% if myPerm is iterable and myPerm%}
- <div class="panel panel-default unselectable sensetive permission-detail {%if myPerm.enable != true%}display-none{%endif%}" id="content-{{myContent}}-detail">
+ <div class="panel panel-default unselectable sensetive permission-detail {%if not myPerm.enable %}display-none{%endif%}" id="content-{{myContent}}-detail">
   <div class="panel-heading">{%trans "Edit permission of"%} {%trans myContent%}</div>
   <div class="panel-body">
 
@@ -58,26 +56,27 @@
     <div class="span1">
 {%if permAccess.view%}
      <input type="checkbox" name="{{field}}-view" id="{{field}}-view" class="checkbox" {%if permAccess.view == 'on'%}checked{%endif%}>
+
      <label for="{{field}}-view"><span></span></label>
 {%endif%}
     </div>
 
     <div class="span1">
-{%if permAccess.add is same as('show')%}
+{%if permAccess.add %}
      <input type="checkbox" name="{{field}}-add" id="{{field}}-add" class="checkbox" {%if permAccess.add == 'on'%}checked{%endif%}>
      <label for="{{field}}-add"><span></span></label>
 {%endif%}
     </div>
 
     <div class="span1">
-{%if permAccess.edit is same as('show')%}
+{%if permAccess.edit %}
      <input type="checkbox" name="{{field}}-edit" id="{{field}}-edit" class="checkbox" {%if permAccess.edit == 'on'%}checked{%endif%}>
      <label for="{{field}}-edit"><span></span></label>
 {%endif%}
     </div>
 
     <div class="span1">
-{%if permAccess.delete is same as('show')%}
+{%if permAccess.delete %}
      <input type="checkbox" name="{{field}}-delete" id="{{field}}-delete" class="checkbox" {%if permAccess.delete == 'on'%}checked{%endif%}>
      <label for="{{field}}-delete"><span></span></label>
 {%endif%}
@@ -85,7 +84,7 @@
 
     <div class="span1"></div>
     <div class="span1 adminCheck">
-{%if permAccess.admin is same as('show')%}
+{%if permAccess.admin %}
      <input type="checkbox" name="{{field}}-admin" id="{{field}}-admin" class="checkbox" {%if permAccess.admin == 'on'%}checked{%endif%}>
      <label for="{{field}}-admin"><span></span></label>
 {%endif%}
