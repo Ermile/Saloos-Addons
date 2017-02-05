@@ -85,9 +85,10 @@ class terms
 			}
 		}
 
-		if(self::exists($url, $language))
+		$check_exist = self::exists($url, $language);
+		if($check_exist)
 		{
-			return false;
+			return $check_exist;
 		}
 
 		if(empty($_args))
@@ -122,7 +123,8 @@ class terms
 				$set
 		";
 
-		return \lib\db::query($query);
+		\lib\db::query($query);
+		return \lib\db::insert_id();
 	}
 
 
