@@ -517,6 +517,13 @@ class terms
 
 		$_options = array_merge($default_options, $_options);
 
+		$term_type = " terms.term_type = '$_options[term_type]' ";
+
+		if(preg_match("/\%/", $_options['term_type']))
+		{
+			$term_type = " terms.term_type LIKE '$_options[term_type]' ";
+		}
+
 		$start_limit = $_options['start_limit'];
 		$end_limit   = $_options['end_limit'];
 
@@ -553,7 +560,7 @@ class terms
 				terms
 			WHERE
 				terms.term_parent $parent_condition 	 AND
-				terms.term_type = '$_options[term_type]' AND
+				$term_type AND
 				(
 					terms.term_title LIKE '%$_title%' OR
 					terms.term_meta  LIKE '%$_title%' OR
