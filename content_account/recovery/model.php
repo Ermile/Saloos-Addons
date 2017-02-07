@@ -77,12 +77,16 @@ class model extends \mvc\model
 		}
 
 		// mobile does not exits
-		elseif($tmp_result->num() == 0 )
-			debug::error(T_("Mobile number is incorrect"));
+		// elseif($tmp_result->num() == 0 )
+		// {
+		// 	debug::error(T_("Mobile number is incorrect"));
+		// }
 
 		// mobile exist more than 2 times!
 		else
+		{
 			debug::error(T_("please forward this message to administrator"));
+		}
 	}
 }
 ?>
