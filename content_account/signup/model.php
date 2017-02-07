@@ -14,6 +14,11 @@ class model extends \mvc\model
 		// get parameters and set to local variables
 		$mymobile   = utility::post('mobile', 'filter');
 		$mypass     = utility::post('password');
+		if(trim($mypass) == '')
+		{
+			debug::error(T_("Please set password!"));
+			return ;
+		}
 		$myperm     = $this->option('account');
 		if(!$myperm)
 		{

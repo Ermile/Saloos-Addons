@@ -12,6 +12,11 @@ class model extends \mvc\model
 		$oldpass = utility::post('password-old');
 		$tmp_result = false;
 		$force_change = false;
+		if(trim($newpass) == '' || trim($oldpass) == '')
+		{
+			debug::error(T_("Please set password!"));
+			return ;
+		}
 		if($myid)
 		{
 			$query =
