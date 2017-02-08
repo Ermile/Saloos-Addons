@@ -38,11 +38,11 @@ trait breadcrumb
 		{
 			$post_key = array_search($value, $post_urls);
 			$term_key = array_search($value, $term_urls);
-			if($post_key !== false)
+			if($post_key !== false && isset($post_titles[$post_key]))
 			{
 				$br[] = $post_titles[$post_key];
 			}
-			elseif($term_key !== false)
+			elseif($term_key !== false && isset($term_titles[$term_key]))
 			{
 				$br[] = $term_titles[$term_key];
 			}
