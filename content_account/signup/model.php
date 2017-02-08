@@ -14,11 +14,25 @@ class model extends \mvc\model
 		// get parameters and set to local variables
 		$mymobile   = utility::post('mobile', 'filter');
 		$mypass     = utility::post('password');
-		if(trim($mypass) == '')
+
+		if(!$mymobile)
 		{
-			debug::error(T_("Please set password!"));
+			\lib\debug::error(T_("Is not valid mobile"));
 			return ;
 		}
+
+		$passlen 	= strlen(trim($mypass));
+
+		if($passlen < 5)
+		{
+			debug::error(T_("Password length must be over five characters!"));
+			return ;
+		}elseif($passlen > 100)
+		{
+			debug::error(T_("Password length must be less 50 characters!"));
+			return ;
+		}
+
 		$myperm     = $this->option('account');
 		if(!$myperm)
 		{
@@ -33,11 +47,13 @@ class model extends \mvc\model
 			$code = \lib\utility\filter::generate_verification_code($user_id, $mymobile);
 			if($code)
 			{
+				$service_name = \lib\router::get_domain(count(\lib\router::get_domain(-1))-2);
 				\lib\utility\sms::send([
-					'mobile' 	=> $mymobile,
-					'template' 	=> 'Verify-fa',
-					'token'		=> $code,
-					'type'		=> 'call'
+					'mobile' 		=> $mymobile,
+					'template' 		=> $service_name . '-' . $this->module() . '-' . \lib\define::get_language(),
+					'template2' 	=> \lib\db\users::get_count(),
+					'token'			=> $code,
+					'type'			=> 'call'
 					], 'verify');
 				debug::true(T_("Register successfully"));
 				$_SESSION['tmp']['verify_mobile'] = $mymobile;
