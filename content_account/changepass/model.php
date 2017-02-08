@@ -12,9 +12,14 @@ class model extends \mvc\model
 		$oldpass = utility::post('password-old');
 		$tmp_result = false;
 		$force_change = false;
-		if(trim($newpass) == '' || trim($oldpass) == '')
+		$passlen 	= strlen(trim($oldpass));
+		if($passlen < 5)
 		{
-			debug::error(T_("Please set password!"));
+			debug::error(T_("Password length must be over five characters!"));
+			return ;
+		}elseif($passlen > 100)
+		{
+			debug::error(T_("Password length must be less 50 characters!"));
 			return ;
 		}
 		if($myid)

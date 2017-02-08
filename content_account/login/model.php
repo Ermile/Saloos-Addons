@@ -13,6 +13,23 @@ class model extends \addons\content_account\home\model
 		$mymobile   = utility::post('mobile','filter');
 		$mypass     = utility::post('password');
 
+		if(!$mymobile)
+		{
+			\lib\debug::error(T_("Is not valid mobile"));
+			return ;
+		}
+
+		$passlen 	= strlen(trim($mypass));
+		if($passlen < 5)
+		{
+			debug::error(T_("Password length must be over five characters!"));
+			return ;
+		}elseif($passlen > 100)
+		{
+			debug::error(T_("Password length must be less 50 characters!"));
+			return ;
+		}
+
 		// check for mobile exist
 		$query =
 		"
