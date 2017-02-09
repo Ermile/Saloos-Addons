@@ -92,18 +92,11 @@ class model extends \addons\content_account\home\model
 					$user_id = (int) $tmp_result['id'];
 					if(\lib\utility::cookie('remember_me'))
 					{
-						$get = \lib\db\options::get([
-						'user_id' 		=> $user_id,
+						\lib\db\options::hard_delete([
 						'option_cat'	=> 'session',
 						'option_key'	=> 'rememberme',
-						'option_status'	=> 'enable',
 						'option_value'	=> \lib\utility::cookie('remember_me'),
-						'limit'			=> 1
 						]);
-						if($get)
-						{
-							\lib\db\options::delete($get['id']);
-						}
 					}
 
 					$uniq_id = urlencode(\lib\utility::hasher(time() . $user_id)) . rand(701, 1301);

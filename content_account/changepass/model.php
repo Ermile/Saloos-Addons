@@ -66,6 +66,11 @@ class model extends \mvc\model
 				{
 					$query ="UPDATE users SET user_pass = '$newpass' WHERE id = $myid";
 					\lib\db::query($query);
+					\lib\db\options::hard_delete([
+						'user_id' 		=> $myid,
+						'option_cat'	=> 'session',
+						'option_key'	=> 'rememberme',
+						]);
 				}
 
 				$this->commit(function()

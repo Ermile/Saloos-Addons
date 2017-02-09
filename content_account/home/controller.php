@@ -16,7 +16,7 @@ class controller extends \mvc\controller
 		{
 			$from = null;
 		}
-		if(\lib\utility::cookie('remember_me'))
+		if(\lib\utility::cookie('remember_me') && !$this->login())
 		{
 			$get = \lib\db\options::get([
 			'option_cat'	=> 'session',
@@ -113,6 +113,14 @@ class controller extends \mvc\controller
 
 				$this->model_name	= '\lib\mvc\model';
 				$this->model()->put_logout();
+				if(\lib\utility::cookie('remember_me'))
+				{
+					\lib\db\options::hard_delete([
+					'option_cat'	=> 'session',
+					'option_key'	=> 'rememberme',
+					'option_value'	=> \lib\utility::cookie('remember_me'),
+					]);
+				}
 				$url = $this->url("root") . '/'. \lib\define::get_language();
 				$url = trim($url, '/');
 				$this->redirector($url)->redirect();
