@@ -16,6 +16,31 @@ class controller extends \mvc\controller
 		{
 			$from = null;
 		}
+		if(\lib\utility::cookie('remember_me'))
+		{
+			$get = \lib\db\options::get([
+			'option_cat'	=> 'session',
+			'option_key'	=> 'rememberme',
+			'option_status'	=> 'enable',
+			'option_value'	=> \lib\utility::cookie('remember_me'),
+			'limit'			=> 1
+			]);
+			if($get)
+			{
+				$get_user = \lib\db\users::get($get['user_id']);
+				$myfields =
+				[
+					'id',
+					'user_displayname',
+					'user_mobile',
+					'user_meta',
+					'user_status',
+				];
+				$this->model();
+				$this->model()->remember_me($get_user, $myfields);
+				$this->referer();
+			}
+		}
 		$islogin  = $this->login();
 		// set referrer in cookie
 		if($referer !== Domain)

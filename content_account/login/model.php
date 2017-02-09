@@ -87,7 +87,38 @@ class model extends \addons\content_account\home\model
 				];
 
 				$this->setLoginSession($tmp_result, $myfields);
+				if(utility::post('remember_me'))
+				{
+					$user_id = (int) $tmp_result['id'];
+					if(\lib\utility::cookie('remember_me'))
+					{
+						$get = \lib\db\options::get([
+						'user_id' 		=> $user_id,
+						'option_cat'	=> 'session',
+						'option_key'	=> 'rememberme',
+						'option_status'	=> 'enable',
+						'option_value'	=> \lib\utility::cookie('remember_me'),
+						'limit'			=> 1
+						]);
+						if($get)
+						{
+							\lib\db\options::delete($get['id']);
+						}
+					}
 
+					$uniq_id = urlencode(\lib\utility::hasher(time() . $user_id)) . rand(701, 1301);
+					$insert = \lib\db\options::insert([
+						'user_id' 		=> $user_id,
+						'option_cat'	=> 'session',
+						'option_key'	=> 'rememberme',
+						'option_value'	=> $uniq_id,
+						'date_modified'	=> date("Y-m-d H:i:s", time())
+						]);
+					$service_name = '.' . \lib\router::get_domain(count(\lib\router::get_domain(-1))-2);
+					$tld = \lib\router::get_domain(-1);
+					$service_name .= '.' . end($tld);
+					setcookie("remember_me", $uniq_id, time() + (60*60*24*365), '/', $service_name);
+				}
 				// ======================================================
 				// you can manage next event with one of these variables,
 				// commit for successfull and rollback for failed

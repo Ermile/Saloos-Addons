@@ -22,6 +22,7 @@ class account extends \lib\form
 		$this->mobile	 = $this->make('#mobile')->label(null)->desc(T_("Enter your registered mobile"))
 							 ->value(((isset($_COOKIE["mobile"]))?htmlspecialchars('+'.$_COOKIE["mobile"]):null))->autocomplete('off');
 		$this->password = $this->make('#password')->name('password')->label(null)->pl(T_('Password'))->desc(T_("Enter your password"));
+		$this->remember_me = $this->make('checkbox')->name('remember_me')->label(T_('Remember me'));
 		$this->submit	 = $this->make('submit')->value(T_('Login'))->title(T_('Login'))->class('button primary row-clear');
 	}
 

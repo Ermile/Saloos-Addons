@@ -48,13 +48,19 @@ class model extends \mvc\model
 			if($code)
 			{
 				$service_name = \lib\router::get_domain(count(\lib\router::get_domain(-1))-2);
-				\lib\utility\sms::send([
+				$request = [
 					'mobile' 		=> $mymobile,
-					'template' 		=> $service_name . '-' . $this->module() . '-' . \lib\define::get_language(),
-					'template2' 	=> \lib\db\users::get_count(),
+					'template' 		=> $service_name . '-' . \lib\define::get_language(),
 					'token'			=> $code,
 					'type'			=> 'call'
-					], 'verify');
+					];
+					$users_count = \lib\db\users::get_count();
+					if($users_count > 1000)
+					{
+						$request['template'] =  $service_name . '-' . $this->module() . '-' . \lib\define::get_language()
+						$request['token2'] 	= $users_count;
+					}
+				\lib\utility\sms::send($request, 'verify');
 				debug::true(T_("Register successfully"));
 				$_SESSION['tmp']['verify_mobile'] = $mymobile;
 				$_SESSION['tmp']['verify_mobile_time'] = time() + (5*60);
