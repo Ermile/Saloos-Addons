@@ -73,5 +73,10 @@ class model extends \mvc\model
 			}
 		}
 	}
+
+	public function remember_me($_tmp_result, $_myfields)
+	{
+		$this->setLoginSession($_tmp_result, $_myfields);
+	}
 }
 ?>

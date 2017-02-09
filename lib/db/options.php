@@ -219,7 +219,7 @@ class options
 	{
 		// get id
 		$query = "
-				UPDATE FROM options
+				UPDATE options
 				SET options.option_status = 'disable'
 				WHERE options.id = $_id
 				";
