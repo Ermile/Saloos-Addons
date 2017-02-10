@@ -55,9 +55,9 @@ class model extends \mvc\model
 					'type'			=> 'call'
 					];
 					$users_count = \lib\db\users::get_count();
-					if($users_count > 1000)
+					if(is_int($users_count) && $users_count > 1000)
 					{
-						$request['template'] =  $service_name . '-' . $this->module() . '-' . \lib\define::get_language()
+						$request['template'] =  $service_name . '-' . $this->module() . '-' . \lib\define::get_language();
 						$request['token2'] 	= $users_count;
 					}
 				\lib\utility\sms::send($request, 'verify');
