@@ -555,7 +555,8 @@ class terms
 				IFNULL(terms.term_count, 0) AS `count`,
 				terms.term_url 				AS `url`,
 				terms.term_desc 			AS `desc`,
-				terms.term_parent 			AS `parent`
+				terms.term_parent 			AS `parent`,
+				terms.term_meta 			AS `meta`
 			FROM
 				terms
 			WHERE
