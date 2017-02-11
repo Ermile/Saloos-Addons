@@ -171,25 +171,34 @@ class tags
 	 *
 	 * @return     <type>  The post similar.
 	 */
-	public static function get_post_similar($_post_id, $_limit = 5)
+	public static function get_post_similar($_post_id, $_options = [])
 	{
-		if(!is_numeric($_limit))
+		$default_options =
+		[
+			'limit'             => 5,
+			'term_type'         => 'tag',
+			'termusage_foreign' => 'posts',
+		];
+
+		$_options = array_merge($default_options, $_options);
+
+		if(!is_numeric($_options['limit']))
 		{
-			$_limit = 5;
+			$_options['limit'] = 5;
 		}
 
 		$query =
 		"
 			SELECT
-				posts.id AS 'id',
-				posts.post_title AS 'title',
-				posts.post_url AS 'url'
+				posts.id 			AS 'id',
+				posts.post_title 	AS 'title',
+				posts.post_url 		AS 'url'
 			FROM
 				termusages
 			INNER JOIN posts ON posts.id = termusages.termusage_id
-			INNER JOIN terms ON terms.id = termusages.term_id AND terms.term_type = 'tag'
+			INNER JOIN terms ON terms.id = termusages.term_id AND terms.term_type LIKE '$_options[term_type]'
 			WHERE
-				termusages.termusage_foreign  = 'posts' AND
+				termusages.termusage_foreign  = '$_options[termusage_foreign]' AND
 				termusages.termusage_id      != $_post_id AND
 				termusages.term_id IN
 				(
@@ -198,12 +207,12 @@ class tags
 					FROM
 						termusages
 					WHERE
-						termusages.termusage_foreign = 'posts' AND
+						termusages.termusage_foreign = '$_options[termusage_foreign]' AND
 						termusages.termusage_id      = $_post_id
 				)
 			GROUP BY title,url,id
 			ORDER BY id DESC
-			LIMIT $_limit
+			LIMIT $_options[limit]
 		";
 		$result = \lib\db::get($query);
 		return $result;
