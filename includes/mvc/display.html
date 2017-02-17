@@ -69,7 +69,7 @@
   {% import macro.forms as forms %}
 {% endif %}
 
-<body data-xhr="body" id="{{global.id}}" class="{{global.direction}} {{bodyclass}}" {{bodyel|raw}}>
+<body data-xhr="body" id="{{global.id}}" class="{{global.direction}} {{bodyclass}}" data-page="{{global.id}}" {{bodyel|raw}}>
 {%block body%}
 {%block header%}{%endblock%}
 {%block content%}
