@@ -61,12 +61,13 @@ trait template
 
 			$language = \lib\define::get_language();
 			$preview  = \lib\utility::get('preview');
+
 			// search in url field if exist return row data
-			$post_status = "";
-			if(!$preview)
-			{
-				$post_status = " AND post_status = 'publish' ";
-			}
+			// $post_status = "";
+			// if(!$preview)
+			// {
+			// 	$post_status = " AND post_status = 'publish' ";
+			// }
 
 			$qry =
 			"
@@ -76,15 +77,37 @@ trait template
 					posts
 				WHERE
 				(
-					post_language IS NULL OR
-					post_language = '$language'
+					posts.post_language IS NULL OR
+					posts.post_language = '$language'
 				) AND
-				post_url = '$url'
-				$post_status
+				posts.post_url = '$url'
 				LIMIT 1
 			";
 
 			$datarow = \lib\db::get($qry, null, true);
+			if(isset($datarow['user_id']) && (int) $datarow['user_id'] === (int) $this->login('id'))
+			{
+				// no problem to load this post
+			}
+			else
+			{
+				if($preview)
+				{
+					// no problem to load this post
+				}
+				else
+				{
+					if(isset($datarow['post_status']) && $datarow['post_status'] == 'publish')
+					{
+						// no problem to load this poll
+					}
+					else
+					{
+						$datarow = false;
+					}
+				}
+			}
+
 			// we have more than one record
 			if(isset($datarow[0]))
 			{
@@ -116,13 +139,15 @@ trait template
 				{
 					$cat = substr($cat, strlen($datarow['post_type'])+1);
 				}
-				return
+
+				$return =
 				[
 					'table' => 'posts',
 					'type' => $datarow['post_type'],
 					'cat'  => $cat,
 					'slug' => $datarow['post_slug'],
 				];
+				return $return;
 			}
 			else
 			{
@@ -132,16 +157,16 @@ trait template
 					if(substr($value, 0, 1) == '{')
 					{
 						$datarow[$key] = json_decode($value, true);
-						if(is_null($datarow[$key]) && preg_match("/meta$/", $key)){
+						if(is_null($datarow[$key]) && preg_match("/meta$/", $key))
+						{
 							$datarow[$key] = json_decode(html_entity_decode($value), true);
 						}
 					}
 				}
 
 				// get meta of this post
-				$meta = \lib\db\posts::get_post_meta($post_id);
-				$datarow['postmeta'] = $meta;
-
+				// $meta = \lib\db\posts::get_post_meta($post_id);
+				// $datarow['postmeta'] = $meta;
 				return $datarow;
 			}
 		}
