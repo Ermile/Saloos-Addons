@@ -376,7 +376,7 @@ class options
 			{
 				$where[] = " $key IS NULL ";
 			}
-			else
+			elseif(is_string($value))
 			{
 				$where[] = " $key  = '$value' ";
 			}
@@ -394,11 +394,10 @@ class options
 			UPDATE
 				options
 			SET
-				options.option_value =  options.option_value + $_plus
+				options.option_value = IF(options.option_value IS NULL OR options.option_value = '', $_plus, options.option_value + $_plus)
 			WHERE
 				$where
 			LIMIT 1
-			-- profiles::set_dashboard_data()
 		";
 		$result = \lib\db::query($query);
 		$update_rows = mysqli_affected_rows(\lib\db::$link);
