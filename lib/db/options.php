@@ -316,7 +316,15 @@ class options
 			{
 				$where[] = "`$key` LIKE '$value'";
 			}
-			else
+			elseif($value === null)
+			{
+				$where[] = "`$key` IS NULL";
+			}
+			elseif(is_numeric($value))
+			{
+				$where[] = "`$key` = $value ";
+			}
+			elseif(is_string($value))
 			{
 				$where[] = "`$key` = '$value'";
 			}
