@@ -7,7 +7,7 @@
 
 {%block header%}
 <header>
- <a href="{{url.root}}" title="{{site.slogan}}" tabindex="-1" id='logo'>
+ <a href="{{url.root}}" title="{{site.slogan}}" tabindex="-1" id='logo' data-direct>
   <img src="{{url.static}}images/logo.png" alt='{{site.title}}'/>
  </a>
  <h1>{{site.title}}</h1>
@@ -35,7 +35,7 @@
 <footer>
   <div class="container">
     <div class="hint--right" data-hint='{{site.desc}}'>
-      <span>&copy; {{'now'|date('Y')}}</span> <a href="{{url.root}}" class="roll-link"><span data-title="{{site.title}}">{{site.title}}</span></a>
+      <span>&copy; {{'now'|date('Y')}}</span> <a href="{{url.root}}" class="roll-link" data-direct><span data-title="{{site.title}}">{{site.title}}</span></a>
     </div>
     <div id="langList" data-xhr="langList" class="hint--left float-right" data-hint='{%trans "Work with Ermile in your own language"%}'>
 {%for key, lang in site.langlist if site.langlist|length >1 and site.currentlang != key|slice(0, 2)%}
