@@ -15,10 +15,12 @@ class logs
 	 * @param array $_args fields data
 	 * @return mysql result
 	 */
-	public static function insert($_args){
+	public static function insert($_args)
+	{
 
 		$set = [];
-		foreach ($_args as $key => $value) {
+		foreach ($_args as $key => $value)
+		{
 			if($value === null)
 			{
 				$set[] = " `$key` = NULL ";
@@ -51,11 +53,13 @@ class logs
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function update($_args, $_id) {
+	public static function update($_args, $_id)
+	{
 
 		// ready fields and values to update syntax query [update table set field = 'value' , field = 'value' , .....]
 		$query = [];
-		foreach ($_args as $field => $value) {
+		foreach ($_args as $field => $value)
+		{
 			$query[] = "$field = '$value'";
 		}
 		$query = join($query, ",");
@@ -77,7 +81,8 @@ class logs
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id) {
+	public static function delete($_id)
+	{
 		// get id
 		$query = "
 				UPDATE FROM logs
@@ -94,9 +99,47 @@ class logs
 	 * @param string $_query string query
 	 * @return mysql result
 	 */
-	public static function select($_query, $_type = 'query') {
+	public static function select($_query, $_type = 'query')
+	{
 		return \lib\db::$_type($_query);
 	}
 
+
+	/**
+	 * { function_description }
+	 *
+	 * @param      <type>  $_user_id  The user identifier
+	 * @param      <type>  $_caller   The caller
+	 * @param      array   $_options  The options
+	 */
+	public static function set($_user_id, $_caller, $_options = [])
+	{
+
+		$log_item_id = \lib\db\logitems::caller($_caller);
+
+		if(!$log_item_id)
+		{
+			return false;
+		}
+
+		$default_options =
+		[
+			'data'   => null,
+			'time'   => date("Y-m-d H:i:s"),
+			'status' => 'enable',
+		];
+
+		$_options = array_merge($default_options, $_options);
+
+		$insert_log =
+		[
+			'logitem_id'     => $log_item_id,
+			'user_id'        => $_user_id,
+			'log_data'       => $_options['data'],
+			'log_status'     => $_options['status'],
+			'log_createdate' => $_options['time'],
+		];
+		return self::insert($insert_log);
+	}
 }
 ?>
