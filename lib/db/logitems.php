@@ -117,19 +117,34 @@ class logitems
 	 *
 	 * @return     <type>  The identifier.
 	 */
-	public static function caller($_caller)
+	public static function caller($_caller, $_options = [])
 	{
+		$default_args =
+		[
+			'all_field' => false,
+		];
+		$_options = array_merge($default_args, $_options);
+
+		$field     = 'id';
+		$get_field = 'id';
+
+		if($_options['all_field'])
+		{
+			$field     = '*';
+			$get_field = null;
+		}
+
 		$query =
 		"
 			SELECT
-				*
+				$field
 			FROM
 				logitems
 			WHERE
 				logitems.logitem_caller = '$_caller'
 			LIMIT 1
 		";
-		$result = \lib\db::get($query,null,true);
+		$result = \lib\db::get($query, $get_field, true);
 		if(!$result || empty($result))
 		{
 			return self::auto_insert($_caller);
@@ -147,33 +162,16 @@ class logitems
 	 */
 	private static function auto_insert($_caller)
 	{
-		$insert_log_items = [];
-
-		// deleted account record of log
-		$insert_log_items['delete_account'] =
+		$insert_log_items =
 		[
-			'logitem_type'     => 'users',
-			'logitem_caller'   => 'delete_account',
-			'logitem_title'    => 'delete user account',
-			'logitem_priority' => 'high'
+			'logitem_caller'   => $_caller,
+			'logitem_title'    => $_caller,
 		];
 
-		// the account verification sms code
-		$insert_log_items['account_verification_sms'] =
-		[
-			'logitem_type'     => 'users',
-			'logitem_caller'   => 'account_verification_sms',
-			'logitem_title'    => 'verification account by sms',
-			'logitem_priority' => 'low'
-		];
-
-		if(isset($insert_log_items[$_caller]))
+		$result = self::insert($insert_log_items);
+		if($result)
 		{
-			$result = self::insert($insert_log_items[$_caller]);
-			if($result)
-			{
-				return (int) \lib\db::insert_id(\lib\db::$link);
-			}
+			return (int) \lib\db::insert_id(\lib\db::$link);
 		}
 		return false;
 	}
