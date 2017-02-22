@@ -546,7 +546,7 @@ class terms
 		{
 			$parent_condition = " = ". (int) $_options['parent'];
 		}
-
+		// terms.term_parent $parent_condition 	 AND
 		$query =
 		"
 			SELECT
@@ -560,12 +560,10 @@ class terms
 			FROM
 				terms
 			WHERE
-				terms.term_parent $parent_condition 	 AND
 				$term_type AND
 				(
 					terms.term_title LIKE '%$_title%' OR
-					terms.term_meta  LIKE '%$_title%' OR
-					terms.term_desc  LIKE '%$_title%'
+					terms.term_meta  LIKE '%$_title%'
 				)
 
 			$limit
