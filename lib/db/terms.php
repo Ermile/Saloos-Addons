@@ -54,6 +54,11 @@ class terms
 			$slug = \lib\utility\filter::slug($title);
 		}
 
+		if($title && !$slug)
+		{
+			$slug = $title;
+		}
+
 		if(!$slug)
 		{
 			\lib\debug::error(T_("term_slug not found"), 'term_slug', 'arguments');
@@ -86,6 +91,7 @@ class terms
 		}
 
 		$check_exist = self::exists($url, $language);
+
 		if($check_exist)
 		{
 			return $check_exist;
