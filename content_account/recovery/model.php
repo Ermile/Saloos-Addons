@@ -12,7 +12,7 @@ class model extends \mvc\model
 
 		if(!$mymobile)
 		{
-			\lib\debug::error(T_("Is not valid mobile"));
+			\lib\debug::error(T_("Please enter a valid mobile phone number"));
 			return ;
 		}
 		// check for mobile exist
