@@ -519,6 +519,7 @@ class terms
 			'limit'       => 10,
 			'pagenation'  => false,
 			'parent'      => null,
+			'order' 	  => "ASC",
 		];
 
 		$_options = array_merge($default_options, $_options);
@@ -571,7 +572,7 @@ class terms
 					terms.term_title LIKE '%$_title%' OR
 					terms.term_meta  LIKE '%$_title%'
 				)
-
+			ORDER BY `id` $_options[order]
 			$limit
 		";
 		return \lib\db::get($query);
