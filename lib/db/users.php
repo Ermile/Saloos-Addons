@@ -731,6 +731,11 @@ class users
 				$query = "SELECT COUNT(users.id) AS 'count' FROM users WHERE users.user_validstatus = '$_type' ";
 				break;
 
+			case 'all':
+				$query = "SELECT COUNT(users.id) AS 'count' FROM users";
+				break;
+
+
 			default:
 				$query = "SELECT
 							users.user_validstatus AS 'valid',
