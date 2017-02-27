@@ -27,13 +27,24 @@ class controller extends \addons\content_cp\home\controller
 				echo \lib\utility\dbTables::create();
 				break;
 
-
 			case 'db':
-
 				\lib\db::$link_open    = [];
 				\lib\db::$link_default = null;
-				\lib\db::$db_user     = \lib\utility::post("username");
-				\lib\db::$db_pass     = \lib\utility::post("password");
+				if(\lib\utility::post('username'))
+				{
+					\lib\db::$db_user = \lib\utility::post("username");
+					\lib\db::$db_pass = \lib\utility::post("password");
+				}
+				elseif(defined('admin_db_user') && defined('admin_db_pass'))
+				{
+					\lib\db::$db_user = constant("admin_db_user");
+					\lib\db::$db_pass = constant("admin_db_pass");
+				}
+				else
+				{
+					\lib\error::access(T_("Permission denide for run upgrade database"));
+				}
+
 				\lib\db::$debug_error = false;
 
 				$result = null;
