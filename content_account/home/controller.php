@@ -134,7 +134,7 @@ class controller extends \mvc\controller
 		// $this->route_check_true = true;
 	}
 
-	public function referer()
+	public function referer($_args = [])
 	{
 		\lib\debug::msg('direct', true);
 		$url = $this->url("root");
@@ -150,7 +150,9 @@ class controller extends \mvc\controller
 		}
 		elseif(\lib\utility\option::get('account', 'status'))
 		{
+			$url = $this->url("root");
 			$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
+
 			if($_redirect_sub !== 'home')
 			{
 				// if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
@@ -161,7 +163,19 @@ class controller extends \mvc\controller
 				// {
 				//
 				// }
-				$this->redirector($url . '/' .$_redirect_sub)->redirect();
+
+				$url .= '/'. $_redirect_sub;
+
+				if(isset($_args['user_id']) && $_args['user_id'])
+				{
+					$user_language = \lib\db\users::get_language($_args['user_id']);
+					if($user_language && \lib\utility\location\languages::check($user_language))
+					{
+						$url .= \lib\define::get_current_language_string($user_language);
+					}
+
+				}
+				$this->redirector($url)->redirect();
 			}
 		}
 		$this->redirector()->set_domain()->set_url()->redirect();

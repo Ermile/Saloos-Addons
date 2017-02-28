@@ -19,15 +19,16 @@ class model extends \addons\content_account\home\model
 			return ;
 		}
 
-		$passlen 	= strlen(trim($mypass));
+		$passlen 	= mb_strlen(trim($mypass));
 		if($passlen < 5)
 		{
 			debug::error(T_("Password length must be over five characters!"));
-			return ;
-		}elseif($passlen > 100)
+			return false;
+		}
+		elseif($passlen > 100)
 		{
 			debug::error(T_("Password length must be less 50 characters!"));
-			return ;
+			return false;
 		}
 
 		// check for mobile exist
@@ -49,7 +50,6 @@ class model extends \addons\content_account\home\model
 		if(isset($tmp_result['id']))
 		{
 			$this->user_id = $tmp_result['id'];
-
 			// $tmp_result       = $tmp_result->assoc();
 			$myhashedPassword = $tmp_result['user_pass'];
 			// if password is correct. go for login:)
@@ -119,7 +119,7 @@ class model extends \addons\content_account\home\model
 				$this->commit(function()
 				{
 					// create code for pass with get to service home page
-					$this->referer();
+					$this->referer(['user_id' => $this->user_id]);
 				});
 
 				$this->rollback(function() { debug::error(T_("Login failed!")); });
