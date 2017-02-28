@@ -16,9 +16,36 @@ trait terms
 		}
 		$qry = $this->sql()->tableTerms()->whereTerm_url($_url)->select();
 
-		if($qry->num() == 1)
+		if($qry->num())
 		{
-			$datarow = $qry->assoc();
+			$datarow             = $qry->allAssoc();
+			$current_language    = \lib\define::get_language();
+			$check_lanuage_terms = false;
+
+			if(is_array($datarow))
+			{
+				foreach ($datarow as $key => $value)
+				{
+					if(array_key_exists('term_language', $value))
+					{
+						if(
+							$value['term_language'] == $current_language ||
+							is_null($value['term_language']) ||
+							$value['term_language'] === ''
+						  )
+						{
+							$datarow             = $value; // to load temp type
+							$check_lanuage_terms = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if(!$check_lanuage_terms)
+			{
+				return false;
+			}
 
 			if($_forcheck)
 			{
@@ -44,7 +71,9 @@ trait terms
 				];
 			}
 			else
+			{
 				return $datarow;
+			}
 		}
 		return false;
 	}
