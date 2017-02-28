@@ -40,6 +40,11 @@ class controller extends \addons\content_cp\home\controller
 					\lib\db::$db_user = constant("admin_db_user");
 					\lib\db::$db_pass = constant("admin_db_pass");
 				}
+				elseif(defined('db_user') && defined('db_pass'))
+				{
+					\lib\db::$db_user = constant("db_user");
+					\lib\db::$db_pass = constant("db_pass");
+				}
 				else
 				{
 					\lib\error::access(T_("Permission denide for run upgrade database"));
