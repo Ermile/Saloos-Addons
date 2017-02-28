@@ -41,8 +41,36 @@ trait template
 	 * @param  boolean $_forcheck [description]
 	 * @return [type]             [description]
 	 */
-	public function get_posts($_forcheck = false, $_args = null)
+	public function get_posts($_forcheck = false, $_args = null, $_options = [])
 	{
+		$default_options =
+		[
+			'check_language' => true,
+			'post_type'      => null,
+		];
+
+		if(!is_array($_options))
+		{
+			$_options = [];
+		}
+
+		$_options = array_merge($default_options, $_options);
+
+		$post_type = null;
+
+		if(isset($_options['post_type']))
+		{
+			if(is_string($_options['post_type']))
+			{
+				$post_type = " posts.post_type = '$_options[post_type]' AND ";
+			}
+			elseif(is_array($_options['post_type']))
+			{
+				$temp_post_type = implode("','", $_options['post_type']);
+				$post_type      = " posts.post_type IN ('$temp_post_type') AND ";
+			}
+		}
+
 		// check shortURL
 		$shortURL = \lib\db\url::checkShortURL();
 		if($shortURL & is_array($shortURL))
@@ -62,12 +90,18 @@ trait template
 			$language = \lib\define::get_language();
 			$preview  = \lib\utility::get('preview');
 
-			// search in url field if exist return row data
-			// $post_status = "";
-			// if(!$preview)
-			// {
-			// 	$post_status = " AND post_status = 'publish' ";
-			// }
+			$check_language = null;
+
+			if($_options['check_language'])
+			{
+				$check_language =
+				"
+					(
+						posts.post_language IS NULL OR
+						posts.post_language = '$language'
+					) AND
+				";
+			}
 
 			$qry =
 			"
@@ -76,10 +110,8 @@ trait template
 				FROM
 					posts
 				WHERE
-				(
-					posts.post_language IS NULL OR
-					posts.post_language = '$language'
-				) AND
+				$check_language
+				$post_type
 				posts.post_url = '$url'
 				LIMIT 1
 			";
