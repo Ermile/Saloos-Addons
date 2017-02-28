@@ -20,7 +20,10 @@ class view extends \lib\view
 				$page_title = $this->data->breadcrumb[$page_title];
 			}
 			// replace title of page
-			$page_title = ucwords(str_replace('-', ' ', $page_title));
+			if(!$this->data->page['special'])
+			{
+				$page_title = ucwords(str_replace('-', ' ', $page_title));
+			}
 			// for child page set the
 			if($this->data->child && SubDomain === 'cp')
 			{
