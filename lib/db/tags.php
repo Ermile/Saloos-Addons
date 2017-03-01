@@ -178,9 +178,31 @@ class tags
 			'limit'             => 5,
 			'term_type'         => 'tag',
 			'termusage_foreign' => 'posts',
+			'post_privacy'      => null,
+			'post_status'       => null,
 		];
 
 		$_options = array_merge($default_options, $_options);
+
+		$where = [];
+		if($_options['post_privacy'])
+		{
+			$where[] = " posts.post_privacy = '$_options[post_privacy]' ";
+		}
+
+		if($_options['post_status'])
+		{
+			$where[] = " posts.post_status = '$_options[post_status]' ";
+		}
+
+		if(!empty($where))
+		{
+			$where = implode(' AND ', $where) . " AND ";
+		}
+		else
+		{
+			$where = null;
+		}
 
 		if(!is_numeric($_options['limit']))
 		{
@@ -198,6 +220,7 @@ class tags
 			INNER JOIN posts ON posts.id = termusages.termusage_id
 			INNER JOIN terms ON terms.id = termusages.term_id AND terms.term_type LIKE '$_options[term_type]'
 			WHERE
+				$where
 				termusages.termusage_foreign  = '$_options[termusage_foreign]' AND
 				termusages.termusage_id      != $_post_id AND
 				termusages.term_id IN
