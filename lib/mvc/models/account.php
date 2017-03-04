@@ -90,38 +90,67 @@ trait account
 			{
 				$_SESSION['user']['permission'] = $_permID;
 			}
+			$where =
+			[
+				'option_cat'    => 'permissions',
+				'option_key'    => $_permID,
+				'post_id'       => null,
+				'user_id'       => null,
+				'option_status' => 'enable',
+				'limit' 		=> 1,
+			];
+			$result = \lib\db\options::get($where);
 
-			$qry = $this->sql()->table('options')
-				->where('option_cat',  'permissions')
-				->and('option_key',    $_permID)
-				// ->and('option_status', 'enable')
-				->and('post_id',       '#NULL')
-				->and('user_id',       '#NULL')
-				->select();
-
-			if($qry->num() == 1)
+			if($result && !empty($result) && is_array($result))
 			{
-				$qry    = $qry->assoc();
-				$myMeta = $qry['option_meta'];
-
-				if(substr($myMeta, 0,1) == '{')
+				if(isset($result['meta']))
 				{
-					$myMeta = json_decode($myMeta, true);
-				}
-
-				if($_return)
-				{
-					return $myMeta;
-				}
-				else
-				{
-					$_SESSION['permission'] = $myMeta;
+					if($_return)
+					{
+						return $result['meta'];
+					}
+					else
+					{
+						$_SESSION['permission'] = $result['meta'];
+					}
 				}
 			}
 			else
 			{
 				// do nothing!
 			}
+
+			// $qry = $this->sql()->table('options')
+			// 	->where('option_cat',  'permissions')
+			// 	->and('option_key',    $_permID)
+			// 	// ->and('option_status', 'enable')
+			// 	->and('post_id',       '#NULL')
+			// 	->and('user_id',       '#NULL')
+			// 	->select();
+
+			// if($qry->num() == 1)
+			// {
+			// 	$qry    = $qry->assoc();
+			// 	$myMeta = $qry['option_meta'];
+
+			// 	if(substr($myMeta, 0,1) == '{')
+			// 	{
+			// 		$myMeta = json_decode($myMeta, true);
+			// 	}
+
+			// 	if($_return)
+			// 	{
+			// 		return $myMeta;
+			// 	}
+			// 	else
+			// 	{
+			// 		$_SESSION['permission'] = $myMeta;
+			// 	}
+			// }
+			// else
+			// {
+			// 	// do nothing!
+			// }
 		}
 	}
 
