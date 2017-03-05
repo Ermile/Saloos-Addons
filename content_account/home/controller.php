@@ -115,7 +115,7 @@ class controller extends \mvc\controller
 				$this->model()->put_logout();
 				if(\lib\utility::cookie('remember_me'))
 				{
-					\lib\db\options::hard_delete([
+					\lib\db\options::delete([
 					'option_cat'	=> 'session',
 					'option_key'	=> 'rememberme',
 					'option_value'	=> \lib\utility::cookie('remember_me'),
