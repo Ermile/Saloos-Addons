@@ -48,8 +48,13 @@
 {%block foot_js%}
 <script type="text/javascript">
 $("form.account").on('ajaxify:send:ajax:start', function(e){
-  $('*', this).attr('disabled', 'disabled');
-  $('*', this).attr('data-disabled', 'disabled');
+  $('*', this).each(function(){
+    if($(this).attr('disabled') == undefined)
+    {
+      $(this).attr('disabled', 'disabled');
+      $(this).attr('data-disabled', 'disabled');
+    }
+  });
   $('button', this).attr('data-beforeText',  $('button', this).html());
   $('button', this).html('{%trans "Pending"%}');
 });
