@@ -68,18 +68,13 @@ class model extends \mvc\model
 				$myreferer = utility\cookie::read('referer');
 				//Send SMS
 
+				$service_name = \lib\router::get_domain(count(\lib\router::get_domain(-1))-2);
 				$request = [
 					'mobile' 		=> $_mobile,
 					'template' 		=> $service_name . '-' . \lib\define::get_language(),
 					'token'			=> $_code,
 					'type'			=> 'call'
 					];
-					$users_count = \lib\db\users::get_count();
-					if(is_int($users_count) && $users_count > 1000)
-					{
-						$request['template'] =  $service_name . '-' . $this->module() . '-' . \lib\define::get_language();
-						$request['token2'] 	= $users_count;
-					}
 				\lib\utility\sms::send($request, 'verify');
 				// \lib\utility\sms::send(['mobile' => $_mobile, 'msg'=> 'recovery', 'arg' =>$_code]);
 				debug::true(T_("we send a verification code for you"));
