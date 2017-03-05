@@ -92,7 +92,7 @@ class model extends \addons\content_account\home\model
 					$user_id = (int) $tmp_result['id'];
 					if(\lib\utility::cookie('remember_me'))
 					{
-						\lib\db\options::hard_delete([
+						\lib\db\options::delete([
 						'option_cat'	=> 'session',
 						'option_key'	=> 'rememberme',
 						'option_value'	=> \lib\utility::cookie('remember_me'),

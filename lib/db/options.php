@@ -215,15 +215,37 @@ class options
 	 * @param string || int $_id record id
 	 * @return mysql result
 	 */
-	public static function delete($_id)
+	public static function delete($_where_or_id)
 	{
-		// get id
-		$query = "
-				UPDATE options
-				SET options.option_status = 'disable'
-				WHERE options.id = $_id
-				";
 
+		if(is_numeric($_where_or_id))
+		{
+			$where = " options.id = $_where_or_id ";
+		}
+		elseif(is_array($_where_or_id))
+		{
+			$tmp = [];
+			foreach ($_where_or_id as $key => $value)
+			{
+				if(preg_match("/\%/", $value))
+				{
+					$tmp[] = " $key LIKE '$value' ";
+				}
+				else
+				{
+					$tmp[] = " $key = '$value' ";
+				}
+			}
+			$where = join($tmp, " AND ");
+		}
+		else
+		{
+			return false;
+		}
+
+		$query = " UPDATE options
+			SET options.option_status = 'disable'
+			WHERE $where -- answers::delete()";
 		return \lib\db::query($query);
 	}
 
