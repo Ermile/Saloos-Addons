@@ -325,7 +325,16 @@ class log extends tg
 				{
 					$ref = \lib\utility\shortURL::decode($ref[1]);
 				}
-				\lib\db\users::signup($mobile, $password, true, utf8_encode($fullName), $ref);
+				\lib\db\users::signup(
+				[
+					'mobile'      => $mobile,
+					'password'    => $password,
+					'permission'  => true,
+					'displayname' => utf8_encode($fullName),
+					'ref'         => $ref,
+					'port'        => 'telegram',
+					'subport'     => null, // bot|inline; the users answer the inline keyboard or in bot
+				]);
 				self::$user_id = \lib\db\users::$user_id;
 			}
 			else
