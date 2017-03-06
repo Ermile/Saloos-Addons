@@ -42,7 +42,6 @@ class model extends \mvc\model
 			$tmp_result = \lib\db::query($query);
 
 
-
 			// ======================================================
 			// you can manage next event with one of these variables,
 			// commit for successfull and rollback for failed
@@ -50,6 +49,17 @@ class model extends \mvc\model
 			// if query run without error means commit
 			$this->commit(function($_mobile, $_userid)
 			{
+				if(method_exists('\lib\utility\users', 'verify'))
+				{
+					$args =
+					[
+						'user_id' => $_userid,
+						'mobile'  => $_mobile,
+						'port'    => 'site',
+					];
+					\lib\utility\users::verify($args);
+				}
+
 				if(isset($_SESSION['tmp']['verify_mobile_referer']))
 				{
 					$this->redirector($_SESSION['tmp']['verify_mobile_referer']);

@@ -158,22 +158,46 @@ class users
 	 * check signup and if can add new user
 	 * @return [type] [description]
 	 */
-	public static function signup($_mobile, $_pass, $_perm = null, $_name = null, $_ref = null)
+	public static function signup($_args = [])
 	{
+		$default_args =
+		[
+			'mobile'      => null,
+			'password'    => null,
+			'permission'  => null,
+			'displayname' => null,
+			'ref'         => null,
+			'type'        => null,
+		];
+
+		if(!is_array($_args))
+		{
+			$_args = [];
+		}
+
+		$_args = array_merge($default_args, $_args);
+
+		if($_args['type'] === 'inspection')
+		{
+			$_args['displayname'] = "Guest Session";
+			$_args['mobile']      = \lib\utility\filter::temp_mobile();
+			$_args['password']    = \lib\utility\filter::temp_password();
+		}
+
 		// first if perm is true get default permission from db
-		if($_perm === true)
+		if($_args['permission'] === true)
 		{
 			// if use true fill it with default value
-			$_perm     = \lib\utility\option::get('account');
+			$_args['permission']     = \lib\utility\option::get('account');
 			// default value not set in database
-			if($_perm == '')
+			if($_args['permission'] == '')
 			{
-				$_perm = null;
+				$_args['permission'] = null;
 			}
 		}
 		else
 		{
-			$_perm = null;
+			$_args['permission'] = null;
 		}
 
 		$query =
@@ -183,7 +207,7 @@ class users
 			FROM
 				users
 			WHERE
-				user_mobile = '$_mobile'
+				user_mobile = '$_args[mobile]'
 			LIMIT 1
 		";
 
@@ -202,24 +226,31 @@ class users
 			{
 				$ref = $_SESSION['user']['ref'];
 			}
-			elseif($_ref)
+			elseif($_args['ref'])
 			{
-				$ref = $_ref;
+				$ref = $_args['ref'];
 			}
 
 			// signup up users
 			$args =
 			[
-				'user_mobile'      => $_mobile,
-				'user_pass'        => \lib\utility::hasher($_pass),
-				'user_displayname' => $_name,
-				'user_permission'  => $_perm,
+				'user_mobile'      => $_args['mobile'],
+				'user_pass'        => \lib\utility::hasher($_args['password']),
+				'user_displayname' => $_args['displayname'],
+				'user_permission'  => $_args['permission'],
 				'user_parent'      => $ref,
 				'user_createdate'  => date('Y-m-d H:i:s')
 			];
+
 			$insert_new = self::insert($args);
 			$insert_id = \lib\db::insert_id();
 			self::$user_id = $insert_id;
+
+			if(method_exists('\lib\utility\users', 'signup'))
+			{
+				$_args['insert_id'] = $insert_id;
+				\lib\utility\users::signup($_args);
+			}
 			return $insert_id;
 		}
 	}
@@ -630,21 +661,6 @@ class users
 		";
 		return \lib\db::get($query, 'language', true);
 	}
-
-
-	/**
-	 * try the sarshomar
-	 * generate mobile and password and register the Guset Session
-	 */
-	public static function signup_inspection()
-	{
-		$displayname = "Guest Session";
-		$mobile      = \lib\utility\filter::temp_mobile();
-		$password    = \lib\utility\filter::temp_password();
-		$user_id     = self::signup($mobile, $password, true, $displayname);
-		return $user_id;
-	}
-
 
 
 	/**
