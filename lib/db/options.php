@@ -392,51 +392,81 @@ class options
 	 * @param      <type>  $_where  The where
 	 * @param      string  $_field  The field
 	 */
-	public static function plus($_where, $_plus = 1)
+	private static function plus_meta($_where, $_plus = 1, $_type = 'plus')
 	{
 		if(!is_array($_where))
 		{
 			return false;
 		}
 
-		$where = [];
+		$args = [];
 		foreach ($_where as $key => $value)
 		{
 			if($value === null)
 			{
-				$where[] = " $key IS NULL ";
+				$args[] = " $key = NULL ";
 			}
 			elseif(is_string($value))
 			{
-				$where[] = " $key  = '$value' ";
+				$args[] = " $key  = '$value' ";
 			}
 		}
 
-		if(empty($where))
+		if(empty($args))
 		{
 			return false;
 		}
 
-		$where = join($where, " AND ");
+
+		$update_meta_query = "IF(options.option_meta IS NULL OR options.option_meta = '', $_plus, options.option_meta + $_plus)";
+		if($_type === 'minus')
+		{
+			$update_meta_query = "IF(options.option_meta IS NULL OR options.option_meta = '' OR options.option_meta = 0, $_plus, options.option_meta - $_plus)";
+		}
+
+		$args = join($args, " , ");
 
 		$query =
 		"
-			UPDATE
-				options
+			INSERT INTO options
 			SET
-				options.option_value = IF(options.option_value IS NULL OR options.option_value = '', $_plus, options.option_value + $_plus)
-			WHERE
-				$where
-			LIMIT 1
+				$args,
+				options.option_meta = $_plus
+			ON DUPLICATE KEY UPDATE
+				options.option_meta = $update_meta_query
+
 		";
 		$result = \lib\db::query($query);
-		$update_rows = mysqli_affected_rows(\lib\db::$link);
-		if(!$update_rows)
-		{
-			$_where['option_value'] = $_plus;
-			$result = self::insert($_where);
-		}
 		return $result;
+	}
+
+
+	/**
+	 * plus options meta
+	 *
+	 * @param      <type>  $_where  The where
+	 * @param      <type>  $_plus   The plus
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function plus($_where, $_plus = 1)
+	{
+		return self::plus_meta($_where, $_plus, 'plus');
+	}
+
+
+
+	/**
+	 * minus the option meta
+	 *
+	 * @param      <type>  $_where  The where
+	 * @param      <type>  $_minus  The minus
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function minus($_where, $_minus = 1)
+	{
+		return self::plus_meta($_where, $_minus, 'minus');
 	}
 }
 ?>
