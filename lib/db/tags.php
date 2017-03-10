@@ -173,6 +173,11 @@ class tags
 	 */
 	public static function get_post_similar($_post_id, $_options = [])
 	{
+		if(!$_post_id)
+		{
+			return false;
+		}
+
 		$default_options =
 		[
 			'limit'             => 5,
