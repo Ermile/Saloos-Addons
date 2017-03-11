@@ -330,7 +330,7 @@ class log extends tg
 					'mobile'      => $mobile,
 					'password'    => $password,
 					'permission'  => true,
-					'displayname' => utf8_encode($fullName),
+					'displayname' => $fullName,
 					'ref'         => $ref,
 					'port'        => 'telegram',
 					'subport'     => null, // bot|inline; the users answer the inline keyboard or in bot
@@ -343,8 +343,8 @@ class log extends tg
 			}
 
 			// save telegram user detail like name and username into options
-			$_fromDetail['first_name'] = utf8_encode($_fromDetail['first_name']);
-			$_fromDetail['last_name'] = utf8_encode($_fromDetail['last_name']);
+			$_fromDetail['first_name'] = $_fromDetail['first_name'];
+			$_fromDetail['last_name'] = $_fromDetail['last_name'];
 			$userDetail =
 			[
 				'cat'    	=> 'telegram',
