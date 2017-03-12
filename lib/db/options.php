@@ -336,19 +336,19 @@ class options
 		{
 			if(preg_match("/\%/", $value))
 			{
-				$where[] = "`$key` LIKE '$value'";
+				$where[] = " options.$key LIKE '$value'";
 			}
 			elseif($value === null)
 			{
-				$where[] = "`$key` IS NULL";
+				$where[] = " options.$key IS NULL";
 			}
 			elseif(is_numeric($value))
 			{
-				$where[] = "`$key` = $value ";
+				$where[] = " options.$key = $value ";
 			}
 			elseif(is_string($value))
 			{
-				$where[] = "`$key` = '$value'";
+				$where[] = " options.$key = '$value'";
 			}
 		}
 		$where = "WHERE ". join($where, " AND ");
@@ -404,11 +404,15 @@ class options
 		{
 			if($value === null)
 			{
-				$args[] = " $key = NULL ";
+				$args[] = " options.$key = NULL ";
 			}
 			elseif(is_string($value))
 			{
-				$args[] = " $key  = '$value' ";
+				$args[] = " options.$key  = '$value' ";
+			}
+			elseif(is_numeric($value))
+			{
+				$args[] = " options.$key  = $value ";
 			}
 		}
 
@@ -431,9 +435,12 @@ class options
 			INSERT INTO options
 			SET
 				$args,
-				options.option_meta = $_plus
+				options.option_meta   = $_plus,
+				options.option_status = 'enable'
 			ON DUPLICATE KEY UPDATE
-				options.option_meta = $update_meta_query
+				$args,
+				options.option_meta   = $update_meta_query,
+				options.option_status = 'enable'
 
 		";
 		$result = \lib\db::query($query);
