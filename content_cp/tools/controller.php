@@ -290,7 +290,7 @@ class controller extends \addons\content_cp\home\controller
 					$output .= ' <script src="'. $myURL. '/js/lib/highlight/highlight.min.js"></script>';
 					$output .= ' <link rel="stylesheet" href="'. $myURL. '/css/lib/highlight/atom-one-dark.css">';
 					$output .= ' <style>';
-					$output .= 'body{margin:0;height:100%;} .clear{position:absolute;top:1em;right:2em;border:1px solid #fff;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .hljs{padding:0;max-height:100%;}';
+					$output .= 'body{margin:0;height:100%;} .clear{position:absolute;top:1em;right:2em;border:1px solid #fff;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .hljs{padding:0;max-height:100%;height:100%;}';
 					$output .= ' </style>';
 
 					$output .= ' <script>$(document).ready(function() {$("pre").each(function(i, block) {hljs.highlightBlock(block);}); });</script>';
