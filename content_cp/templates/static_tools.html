@@ -7,10 +7,12 @@
 
 
   <h2>{%trans "Info"%}</h2>
-  <div class="btns">
+    <div class="btns">
    <a target='_blank' href="{{url.baseFull}}/tools/server">{%trans "Show server info"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/phpinfo">{%trans "Show PHP info"%}</a>
   </div>
+
+{%if perm.tools.admin%}
 
   <h2>{%trans "Translate"%}</h2>
   <div class="btns">
@@ -57,6 +59,7 @@
    <a class="info" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_critical">{%trans "Logs - critical"%}</a>
    <a class="warn" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_error">{%trans "Error Logs"%}</a>
    </div>
+{%endif%}
 
   <h2>{%trans "Telegram Errors"%}</h2>
 

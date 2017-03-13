@@ -11,7 +11,7 @@ class controller extends \mvc\controller
 		parent::__construct();
 	}
 
-	function _permission($_content = null, $_login = true)
+	function _permission($_content = null, $_module = null, $_perm = null,$_login = true)
 	{
 		// if user is not login then redirect
 		if($_login && !$this->login())
@@ -35,7 +35,7 @@ class controller extends \mvc\controller
 		}
 		// Check permission and if user can do this operation
 		// allow to do it, else show related message in notify center
-		$this->access($_content, null, null, 'block');
+		$this->access($_content, $_module, $_perm, 'block');
 	}
 
 

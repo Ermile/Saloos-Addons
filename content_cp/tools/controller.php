@@ -23,11 +23,15 @@ class controller extends \addons\content_cp\home\controller
 		switch ($this->child())
 		{
 			case 'dbtables':
+				parent::_permission('cp', 'tools', 'admin');
+
 				$exist    = true;
 				echo \lib\utility\dbTables::create();
 				break;
 
 			case 'db':
+				parent::_permission('cp', 'tools', 'admin');
+
 				\lib\db::$link_open    = [];
 				\lib\db::$link_default = null;
 				if(\lib\utility::post('username'))
@@ -74,6 +78,8 @@ class controller extends \addons\content_cp\home\controller
 
 
 			case 'twigtrans':
+				parent::_permission('cp', 'tools', 'admin');
+
 				$exist    = true;
 				$mypath   = \lib\utility::get('path');
 				$myupdate = \lib\utility::get('update');
@@ -125,6 +131,8 @@ class controller extends \addons\content_cp\home\controller
 
 
 			case 'sitemap':
+				parent::_permission('cp', 'tools', 'admin');
+
 				$exist    = true;
 				$site_url = \lib\router::get_storage('url_site');
 				echo "<pre>";
@@ -164,6 +172,8 @@ class controller extends \addons\content_cp\home\controller
 
 
 			case 'git':
+				parent::_permission('cp', 'tools', 'admin');
+
 				// declare variables
 				$exist    = true;
 				$rep      = null;
@@ -240,30 +250,36 @@ class controller extends \addons\content_cp\home\controller
 				switch ($name)
 				{
 					case 'sql':
+						parent::_permission('cp', 'tools', 'admin');
+
 						$clearURL = database.'log/backup-db/log_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_check':
+						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/log_check_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-check.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_warn':
+						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/log_warn_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-warn.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_critical':
+						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/log_critical_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-critical.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_error':
+						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/error_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';

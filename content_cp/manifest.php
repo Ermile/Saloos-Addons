@@ -118,7 +118,7 @@ $modules['options'] = array(
 );
 
 $modules['tools'] = array(
-	'permissions'	=> ['view'],
+	'permissions'	=> ['view', 'admin'],
 	'icon'			=> 'wrench'
 );
 if(Tld !== 'dev')
