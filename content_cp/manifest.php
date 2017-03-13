@@ -122,7 +122,7 @@ $modules['tools'] = array(
 	'icon'			=> 'wrench',
 );
 if(Tld !== 'dev')
-	$modules['tools'] = array('parent' => 'admin');
+	$modules['tools']['parent'] = 'post';
 
 $modules['lock'] = array(
 	'parent' => 'profile',
