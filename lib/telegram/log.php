@@ -299,7 +299,7 @@ class log extends tg
 			WHERE
 				`option_cat` = 'telegram' AND
 				`option_key` = 'id' AND
-				`option_value` = $_telegram_id
+				`option_value` = '$_telegram_id'
 		";
 		$my_user_id = \lib\db::get($qry, 'user_id', true);
 		if(is_numeric($my_user_id))
@@ -349,7 +349,7 @@ class log extends tg
 			[
 				'cat'    	=> 'telegram',
 				'key'    	=> 'id',
-				'value'  	=> $_telegram_id,
+				'value'  	=> '$_telegram_id',
 				'meta'   	=> $_fromDetail,
 			];
 			if(isset(self::$user_id))
