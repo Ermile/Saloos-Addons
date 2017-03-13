@@ -119,10 +119,10 @@ $modules['options'] = array(
 
 $modules['tools'] = array(
 	'permissions'	=> ['view', 'admin'],
-	'icon'			=> 'wrench'
+	'icon'			=> 'wrench',
 );
 if(Tld !== 'dev')
-	$modules['tools'] = array('disable' => true);
+	$modules['tools'] = array('parent' => 'admin');
 
 $modules['lock'] = array(
 	'parent' => 'profile',
