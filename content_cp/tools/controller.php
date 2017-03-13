@@ -223,18 +223,19 @@ class controller extends \addons\content_cp\home\controller
 				$name       = \lib\utility::get('name');
 				$isClear    = \lib\utility::get('clear');
 				$clearURL   = '';
-				$page       = \lib\utility::get('p') * 50000;
+				$page       = \lib\utility::get('p') * 100000;
 				if($page< 0)
 				{
 					$page = 0;
 				}
 				$lenght      = \lib\utility::get('lenght');
-				if($lenght< 50000)
+				if($lenght< 100000)
 				{
-					$lenght = 50100;
+					$lenght = 100100;
 				}
 				$filepath   = '';
 				$fileFormat = 'sql';
+
 
 				switch ($name)
 				{
@@ -266,6 +267,18 @@ class controller extends \addons\content_cp\home\controller
 						$clearURL = database.'log/backup/error_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';
+						break;
+
+					case 'telegram':
+						$clearURL = database.'log/backup/telegram_bak_' .date("Ymd_His"). '.json';
+						$filepath = database.'log/telegram.json';
+						$lang     = 'json';
+						break;
+
+					case 'telegram_error':
+						$clearURL = database.'log/backup/telegram_error_bak_' .date("Ymd_His"). '.json';
+						$filepath = database.'log/telegram-error.json';
+						$lang     = 'json';
 						break;
 
 					default:
