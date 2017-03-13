@@ -240,43 +240,43 @@ class controller extends \addons\content_cp\home\controller
 				switch ($name)
 				{
 					case 'sql':
-						$clearURL = database.'log/backup/log_bak_' .date("Ymd_His"). '.sql';
+						$clearURL = database.'log/backup-db/log_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_check':
-						$clearURL = database.'log/backup/log_check_bak_' .date("Ymd_His"). '.sql';
+						$clearURL = database.'log/backup-db/log_check_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-check.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_warn':
-						$clearURL = database.'log/backup/log_warn_bak_' .date("Ymd_His"). '.sql';
+						$clearURL = database.'log/backup-db/log_warn_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-warn.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_critical':
-						$clearURL = database.'log/backup/log_critical_bak_' .date("Ymd_His"). '.sql';
+						$clearURL = database.'log/backup-db/log_critical_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-critical.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_error':
-						$clearURL = database.'log/backup/error_bak_' .date("Ymd_His"). '.sql';
+						$clearURL = database.'log/backup-db/error_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'telegram':
-						$clearURL = database.'log/backup/telegram_bak_' .date("Ymd_His"). '.json';
+						$clearURL = database.'log/backup-tg/telegram_bak_' .date("Ymd_His"). '.json';
 						$filepath = database.'log/telegram.json';
 						$lang     = 'json';
 						break;
 
 					case 'telegram_error':
-						$clearURL = database.'log/backup/telegram_error_bak_' .date("Ymd_His"). '.json';
+						$clearURL = database.'log/backup-tg/telegram_error_bak_' .date("Ymd_His"). '.json';
 						$filepath = database.'log/telegram-error.json';
 						$lang     = 'json';
 						break;
