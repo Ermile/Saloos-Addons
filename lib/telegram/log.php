@@ -325,7 +325,7 @@ class log extends tg
 				{
 					$ref = \lib\utility\shortURL::decode($ref[1]);
 				}
-				$port = substr(self::response('text'), 0, 6) === '/start' ? 'telegram' : 'telagram_guest';
+				$port = substr(self::response('text'), 0, 6) === '/start' ? 'telegram' : 'telegram_guest';
 
 				\lib\db\users::signup(
 				[
