@@ -351,7 +351,7 @@ class log extends tg
 			[
 				'cat'    	=> 'telegram',
 				'key'    	=> 'id',
-				'value'  	=> '$_telegram_id',
+				'value'  	=> $_telegram_id,
 				'meta'   	=> $_fromDetail,
 			];
 			if(isset(self::$user_id))
