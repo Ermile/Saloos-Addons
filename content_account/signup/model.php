@@ -38,7 +38,7 @@ class model extends \mvc\model
 		{
 			$myperm = 'NULL';
 		}
-		$user_id     = \lib\db\users::signup(['mobile' => $mymobile, 'password' =>  $mypass, 'permission' =>  $myperm]);
+		$user_id     = \lib\db\users::signup(['mobile' => $mymobile, 'password' =>  $mypass, 'permission' =>  $myperm, 'port' => 'site']);
 		if($user_id)
 		{
 			// generate verification code
