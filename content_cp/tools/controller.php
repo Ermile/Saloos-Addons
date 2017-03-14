@@ -279,7 +279,7 @@ class controller extends \addons\content_cp\home\controller
 						break;
 
 					case 'sql_error':
-						parent::_permission('cp', 'tools', 'admin');
+						// parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/error_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';
