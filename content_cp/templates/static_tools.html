@@ -50,6 +50,9 @@
    <a target='_blank' href="{{url.baseFull}}/tools/dbtables">{%trans "Automatically read database and create sql files"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/db?backup=true">{%trans "Backup"%} {%trans "Project Database"%}</a>
   </div>
+{%endif%}
+{%if perm.tools.view%}
+
   <h2>{%trans "Database Logs"%}</h2>
 
   <div class="btns">
@@ -59,7 +62,6 @@
    <a class="info" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_critical">{%trans "Logs - critical"%}</a>
    <a class="warn" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_error">{%trans "Error Logs"%}</a>
    </div>
-{%endif%}
 
   <h2>{%trans "Telegram Errors"%}</h2>
 
@@ -68,6 +70,7 @@
    <a class="warn" target='_blank' href="{{url.baseFull}}/tools/log?name=telegram_error">{%trans "telegram - Error Logs"%}</a>
    <br/>
    </div>
+{%endif%}
 
    <br/><br/><br/>
 {%endblock%}

@@ -228,6 +228,7 @@ class controller extends \addons\content_cp\home\controller
 
 
 			case 'log':
+				parent::_permission('cp', 'tools', 'view');
 				$exist      = true;
 				$output     = '<html>';
 				$name       = \lib\utility::get('name');
@@ -250,36 +251,30 @@ class controller extends \addons\content_cp\home\controller
 				switch ($name)
 				{
 					case 'sql':
-						parent::_permission('cp', 'tools', 'admin');
-
 						$clearURL = database.'log/backup-db/log_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_check':
-						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/log_check_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-check.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_warn':
-						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/log_warn_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-warn.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_critical':
-						parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/log_critical_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/log-critical.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_error':
-						// parent::_permission('cp', 'tools', 'admin');
 						$clearURL = database.'log/backup-db/error_bak_' .date("Ymd_His"). '.sql';
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';
