@@ -193,7 +193,10 @@ class tg
 				break;
 
 			case 'getUserProfilePhotos':
-				$_prop['user_id']    = self::response('from');
+				if(!isset($_prop['user_id']))
+				{
+					$_prop['user_id']    = self::response('from');
+				}
 				break;
 
 			case 'sendPhoto':

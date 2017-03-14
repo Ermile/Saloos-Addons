@@ -161,7 +161,7 @@ class log extends tg
 		{
 			return false;
 		}
-
+		return false;
 		// now we are giving photos
 		$count  = $_data['result']['total_count'];
 		$photos = $_data['result']['photos'];
