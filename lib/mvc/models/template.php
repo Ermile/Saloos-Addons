@@ -47,6 +47,7 @@ trait template
 		[
 			'check_language' => true,
 			'post_type'      => null,
+			'check_status'   => true,
 		];
 
 		if(!is_array($_options))
@@ -135,7 +136,15 @@ trait template
 					}
 					else
 					{
-						$datarow = false;
+						if($_options['check_status'])
+						{
+							$datarow = false;
+						}
+						else
+						{
+							// no problem to load this poll
+
+						}
 					}
 				}
 			}
