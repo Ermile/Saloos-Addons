@@ -112,9 +112,8 @@ class logs
 	 * @param      <type>  $_caller   The caller
 	 * @param      array   $_options  The options
 	 */
-	public static function set($_user_id, $_caller, $_options = [])
+	public static function set($_caller, $_user_id = null, $_options = [])
 	{
-
 		$log_item_id = \lib\db\logitems::caller($_caller);
 
 		if(!$log_item_id)
@@ -125,11 +124,17 @@ class logs
 		$default_options =
 		[
 			'data'   => null,
+			'meta'   => null,
 			'time'   => date("Y-m-d H:i:s"),
 			'status' => 'enable',
 		];
 
 		$_options = array_merge($default_options, $_options);
+
+		if(is_array($_options['meta']) || is_object($_options['meta']))
+		{
+			$_options['meta'] = json_encode($_options['meta'], JSON_UNESCAPED_UNICODE);
+		}
 
 		$insert_log =
 		[
@@ -137,6 +142,7 @@ class logs
 			'user_id'        => $_user_id,
 			'log_data'       => $_options['data'],
 			'log_status'     => $_options['status'],
+			'log_meta'       => $_options['meta'],
 			'log_createdate' => $_options['time'],
 		];
 		return self::insert($insert_log);
