@@ -180,7 +180,10 @@ class users
 		if($_args['type'] === 'inspection')
 		{
 			$_args['displayname'] = "Guest Session";
-			$_args['mobile']      = \lib\utility\filter::temp_mobile();
+			if(!$_args['mobile'])
+			{
+				$_args['mobile']      = \lib\utility\filter::temp_mobile();
+			}
 			$_args['password']    = \lib\utility\filter::temp_password();
 		}
 
