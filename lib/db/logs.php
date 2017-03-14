@@ -131,6 +131,8 @@ class logs
 
 		$_options = array_merge($default_options, $_options);
 
+		$_options['meta'] = \lib\utility\safe::safe($_options['meta']);
+
 		if(is_array($_options['meta']) || is_object($_options['meta']))
 		{
 			$_options['meta'] = json_encode($_options['meta'], JSON_UNESCAPED_UNICODE);
