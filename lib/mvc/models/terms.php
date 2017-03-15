@@ -83,13 +83,18 @@ trait terms
 	 * return list of cats in custom term like cat or tag
 	 * @return [type] datarow
 	 */
-	public function sp_catsInTerm()
+	public function sp_catsInTerm($_id)
 	{
 		$url = $this->url('path');
-
-		$qry_id = $this->sql()->table('terms')->where('term_url', $url)->select()->assoc('id');
-		$datatable = $this->sql()->table('terms')->where('term_parent', $qry_id)->select()->allassoc();
-		// var_dump($datatable);
+		if($_id)
+		{
+			$datatable = $this->sql()->table('terms')->where('term_parent', $_id)->select()->allassoc();
+		}
+		else
+		{
+			$qry_id = $this->sql()->table('terms')->where('term_url', $url)->select()->assoc('id');
+			$datatable = $this->sql()->table('terms')->where('term_parent', $qry_id)->select()->allassoc();
+		}
 		return $datatable;
 	}
 
@@ -98,7 +103,7 @@ trait terms
 	 * return list of posts in custom term like cat or tag
 	 * @return [type] datarow
 	 */
-	public function sp_postsInTerm($_limit = null)
+	public function sp_postsInTerm($_id = null ,$_limit = null)
 	{
 		$url = $this->url('path');
 		if(substr($url, 0, 4) === 'tag/')
@@ -131,8 +136,19 @@ trait terms
 		}
 
 		$qry = $this->sql()->table('posts')->where('post_status', 'publish')->order('id', 'DESC');
-		$qry->join('termusages')->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"')->field(false);
-		$qry->join('terms')->on('id', '#termusages.term_id')->and('term_url', $url)->groupby('#posts.id')->field(false);
+		if($_id)
+		{
+			$qry->join('termusages')->on('termusage_id', '#posts.id')
+				// ->and('termusage_foreign', '#"posts"')
+				->and('term_id', $_id)
+				->field(false)->groupby('#posts.id')->field(false);
+		}
+		else
+		{
+			$qry->join('termusages')->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"')->field(false);
+			$qry->join('terms')->on('id', '#termusages.term_id')->and('term_url', $url)->groupby('#posts.id')->field(false);
+		}
+
 		// hasan :|
 		$pagenation = [];
 		if($_limit){
