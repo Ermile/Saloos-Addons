@@ -40,9 +40,15 @@ trait terms
 		{
 			$this->data->page['title'] = $this->data->post['title'];
 		}
+		// get id of term
+		$myId = null;
+		if(isset($this->data->post['id']))
+		{
+			$myId = $this->data->post['id'];
+		}
 
 		// generate datatable
-		$result = $this->model()->sp_postsInTerm();
+		$result = $this->model()->sp_postsInTerm($myId);
 		$this->data->datatable = $result['result'];
 		$this->data->pagenation = $result['pagenation'];
 		if(empty($this->data->datatable))
@@ -51,7 +57,7 @@ trait terms
 			$this->data->tags_list = $tags_list;
 		}
 
-		$this->data->datatable_cats = $this->model()->sp_catsInTerm();
+		$this->data->datatable_cats = $this->model()->sp_catsInTerm($myId);
 		// switch ($this->data->module)
 		// {
 		// 	case 'book-index':
