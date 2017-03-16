@@ -536,7 +536,7 @@ class terms
 		if(!empty($_options['status']))
 		{
 			$status    = implode("','", $_options['status']);
-			$term_type = " terms.term_status IN ('$status') AND ";
+			$status = " terms.term_status IN ('$status') AND ";
 		}
 
 		$start_limit = $_options['start_limit'];
