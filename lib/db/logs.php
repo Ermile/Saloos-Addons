@@ -21,7 +21,7 @@ class logs
 		$set = [];
 		foreach ($_args as $key => $value)
 		{
-			if($value === null)
+			if($value === null || is_null($value) || $value === '' || $value == '')
 			{
 				$set[] = " `$key` = NULL ";
 			}
@@ -65,12 +65,7 @@ class logs
 		$query = join($query, ",");
 
 		// make update query
-		$query = "
-				UPDATE logs
-				SET $query
-				WHERE logs.id = $_id;
-				";
-
+		$query = " UPDATE logs SET $query WHERE logs.id = $_id ";
 		return \lib\db::query($query);
 	}
 
@@ -147,7 +142,72 @@ class logs
 			'log_meta'       => $_options['meta'],
 			'log_createdate' => $_options['time'],
 		];
+
 		return self::insert($insert_log);
+	}
+
+
+	/**
+	 * get log
+	 *
+	 * @param      <type>   $_args  The arguments
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function get($_args)
+	{
+		$only_one_recort = false;
+
+		if(empty($_args) || !is_array($_args))
+		{
+			return false;
+		}
+
+		if(isset($_args['limit']))
+		{
+			if($_args['limit'] == 1)
+			{
+				$only_one_recort = true;
+			}
+
+			$limit = "LIMIT ". $_args['limit'];
+			unset($_args['limit']);
+		}
+		else
+		{
+			$limit = null;
+		}
+
+		$where = [];
+		foreach ($_args as $key => $value)
+		{
+			if(preg_match("/\%/", $value))
+			{
+				$where[] = " logs.$key LIKE '$value'";
+			}
+			elseif($value === null)
+			{
+				$where[] = " logs.$key IS NULL";
+			}
+			elseif(is_numeric($value))
+			{
+				$where[] = " logs.$key = $value ";
+			}
+			elseif(is_string($value))
+			{
+				$where[] = " logs.$key = '$value'";
+			}
+		}
+		$where = "WHERE ". join($where, " AND ");
+
+		$query = " SELECT * FROM logs $where $limit ";
+
+		$result = \lib\db::get($query, null, $only_one_recort);
+		if(isset($result['meta']) && substr($result['meta'], 0, 1) == '{')
+		{
+			$result['meta'] = json_decode($result['meta'], true);
+		}
+		return $result;
 	}
 }
 ?>
