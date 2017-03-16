@@ -520,6 +520,7 @@ class terms
 			'pagenation'  => false,
 			'parent'      => null,
 			'order' 	  => "ASC",
+			'status'      => [],
 		];
 
 		$_options = array_merge($default_options, $_options);
@@ -529,6 +530,13 @@ class terms
 		if(preg_match("/\%/", $_options['term_type']))
 		{
 			$term_type = " terms.term_type LIKE '$_options[term_type]' ";
+		}
+
+		$status = null;
+		if(!empty($_options['status']))
+		{
+			$status    = implode("','", $_options['status']);
+			$term_type = " terms.term_status IN ('$status') AND ";
 		}
 
 		$start_limit = $_options['start_limit'];
@@ -567,6 +575,7 @@ class terms
 			FROM
 				terms
 			WHERE
+				$status
 				$term_type AND
 				(
 					terms.term_title LIKE '%$_title%' OR
