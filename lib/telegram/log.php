@@ -26,25 +26,25 @@ class log extends tg
 		// if dir doesn't exist, make it
 		\lib\utility\file::makeDir($fileAddr, null, true);
 		// set file address
-		$fileAddr .= 'tg_'. self::$name. '.json';
-		if(!self::$once_log){
-			$log_file = file_get_contents($fileAddr);
-			$json_log = json_decode($log_file, true);
-			if(!$json_log)
-			{
-				$json_log = [];
-			}
-			if(count($json_log) > 1000)
-			{
-				rename($fileAddr . '-' . date('Y-m-d-H:i:s') . '.back');
-				$json_log = [];
-			}
-			$json_log[] = ['data' => $_data, 'debug' => $_SESSION, 'http' => apache_request_headers()];
-		}else
-		{
-			$json_log = ['data' => $_data, 'debug' => $_SESSION, 'http' => apache_request_headers()];
-		}
-		file_put_contents($fileAddr, json_encode($json_log, JSON_UNESCAPED_UNICODE));
+		// $fileAddr .= 'tg_'. self::$name. '.json';
+		// if(!self::$once_log){
+		// 	$log_file = file_get_contents($fileAddr);
+		// 	$json_log = json_decode($log_file, true);
+		// 	if(!$json_log)
+		// 	{
+		// 		$json_log = [];
+		// 	}
+		// 	if(count($json_log) > 1000)
+		// 	{
+		// 		rename($fileAddr . '-' . date('Y-m-d-H:i:s') . '.back');
+		// 		$json_log = [];
+		// 	}
+		// 	$json_log[] = ['data' => $_data, 'debug' => $_SESSION, 'http' => apache_request_headers()];
+		// }else
+		// {
+		// 	$json_log = ['data' => $_data, 'debug' => $_SESSION, 'http' => apache_request_headers()];
+		// }
+		// file_put_contents($fileAddr, json_encode($json_log, JSON_UNESCAPED_UNICODE));
 
 		//file_put_contents($fileAddr, json_encode($_data, JSON_UNESCAPED_UNICODE). "\r\n", FILE_APPEND);
 		// add new line for debug
