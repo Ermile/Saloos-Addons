@@ -10,6 +10,20 @@ class logitems
 	 */
 
 
+	public static $fields =
+	"
+			logitems.logitem_type				AS 	`logitem_type`,
+			logitems.logitem_caller				AS 	`logitem_caller`,
+			logitems.logitem_title				AS 	`logitem_title`,
+			logitems.logitem_desc				AS 	`logitem_desc`,
+			logitems.logitem_meta				AS 	`logitem_meta`,
+			IFNULL(logitems.count, 0) 			AS 	`count`,
+			logitems.logitem_priority 			AS 	`priority`,
+			logitems.date_modified 				AS 	`date_modified`
+		FROM
+			logitems
+	";
+
 	/**
 	 * insert new recrod in logitems table
 	 * @param array $_args fields data
@@ -174,6 +188,189 @@ class logitems
 			return (int) \lib\db::insert_id(\lib\db::$link);
 		}
 		return false;
+	}
+
+
+
+	/**
+	 * Searches for the first match.
+	 *
+	 * @param      <type>  $_string   The string
+	 * @param      array   $_options  The options
+	 */
+	public static function search($_string = null, $_options = [])
+	{
+		$where = []; // conditions
+
+		if(!$_string && empty($_options))
+		{
+			// default return of this function 10 last record of poll
+			$_options['get_last'] = true;
+		}
+
+		$default_options =
+		[
+			// just return the count record
+			"get_count"   => false,
+			// enable|disable paignation,
+			"pagenation"  => true,
+			// for example in get_count mode we needless to limit and pagenation
+			// default limit of record is 15
+			// set the limit  = null and pagenation = false to get all record whitout limit
+			"limit"           => 15,
+			// for manual pagenation set the statrt_limit and end limit
+			"start_limit"     => 0,
+			// for manual pagenation set the statrt_limit and end limit
+			"end_limit"       => 10,
+			// the the last record inserted to post table
+			"get_last"        => false,
+			// default order by ASC you can change to DESC
+			"order"           => "ASC",
+			// custom sort by field
+			"sort"			  => null,
+		];
+		$_options = array_merge($default_options, $_options);
+
+		$pagenation = false;
+		if($_options['pagenation'])
+		{
+			// page nation
+			$pagenation = true;
+		}
+
+		// ------------------ get count
+		$only_one_value = false;
+		$get_count      = false;
+
+		if($_options['get_count'] === true)
+		{
+			$get_count      = true;
+			$public_fields  = " COUNT(logitems.id) AS 'logcount' FROM logitems ";
+			$limit          = null;
+			$only_one_value = true;
+		}
+		else
+		{
+			$limit         = null;
+			$public_fields = self::$fields;
+			if($_options['limit'])
+			{
+				$limit = $_options['limit'];
+			}
+		}
+
+		// ------------------ get last
+		$order = null;
+		if($_options['get_last'])
+		{
+			$order = " ORDER BY logitems.id DESC ";
+		}
+		else
+		{
+			$order = " ORDER BY logitems.id $_options[order] ";
+		}
+
+		$start_limit = $_options['start_limit'];
+		$end_limit   = $_options['end_limit'];
+
+
+		unset($_options['pagenation']);
+		unset($_options['get_count']);
+		unset($_options['limit']);
+		unset($_options['start_limit']);
+		unset($_options['end_limit']);
+		unset($_options['get_last']);
+		unset($_options['order']);
+		unset($_options['sort']);
+
+		foreach ($_options as $key => $value)
+		{
+			if(is_array($value))
+			{
+				if(isset($value[0]) && isset($value[1]) && is_string($value[0]) && is_string($value[1]))
+				{
+					// for similar "logitems.`field` LIKE '%valud%'"
+					$where[] = " logitems.`$key` $value[0] $value[1] ";
+				}
+			}
+			elseif($value === null)
+			{
+				$where[] = " logitems.`$key` IS NULL ";
+			}
+			elseif(is_numeric($value))
+			{
+				$where[] = " logitems.`$key` = $value ";
+			}
+			elseif(is_string($value))
+			{
+				$where[] = " logitems.`$key` = '$value' ";
+			}
+		}
+
+		$where = join($where, " AND ");
+		$search = null;
+		if($_string != null)
+		{
+			$search =
+			"(
+				logitems.logitem_type 		LIKE '%$_string%' OR
+				logitems.logitem_caller 	LIKE '%$_string%' OR
+				logitems.logitem_title 		LIKE '%$_string%'
+			)";
+			if($where)
+			{
+				$search = " AND ". $search;
+			}
+		}
+
+		if($where)
+		{
+			$where = "WHERE $where";
+		}
+		elseif($search)
+		{
+			$where = "WHERE";
+		}
+
+		if($pagenation && !$get_count)
+		{
+			$pagenation_query = "SELECT	$public_fields $where $search ";
+			list($limit_start, $limit) = \lib\db::pagnation($pagenation_query, $limit);
+			$limit = " LIMIT $limit_start, $limit ";
+		}
+		else
+		{
+			// in get count mode the $limit is null
+			if($limit)
+			{
+				$limit = " LIMIT $start_limit, $end_limit ";
+			}
+		}
+
+		$json = json_encode(func_get_args());
+		$query =
+		"
+			SELECT SQL_CALC_FOUND_ROWS
+				$public_fields
+				$where
+				$search
+			$order
+			$limit
+			-- logitems::search()
+			-- $json
+		";
+
+		if(!$only_one_value)
+		{
+			$result = \lib\db::get($query);
+			$result = \lib\utility\filter::meta_decode($result);
+		}
+		else
+		{
+			$result = \lib\db::get($query, 'logcount', true);
+		}
+
+		return $result;
 	}
 }
 ?>
