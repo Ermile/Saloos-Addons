@@ -182,9 +182,9 @@ class users
 			$_args['displayname'] = "Guest Session";
 			if(!$_args['mobile'])
 			{
-				$_args['mobile']      = \lib\utility\filter::temp_mobile();
+				$_args['mobile'] = \lib\utility\filter::temp_mobile();
 			}
-			$_args['password']    = \lib\utility\filter::temp_password();
+			$_args['password'] = null;
 		}
 
 		// first if perm is true get default permission from db
@@ -234,11 +234,20 @@ class users
 				$ref = $_args['ref'];
 			}
 
+			if($_args['password'])
+			{
+				$password = \lib\utility::hasher($_args['password']);
+			}
+			else
+			{
+				$password = null;
+			}
+
 			// signup up users
 			$args =
 			[
 				'user_mobile'      => $_args['mobile'],
-				'user_pass'        => \lib\utility::hasher($_args['password']),
+				'user_pass'        => $password,
 				'user_displayname' => $_args['displayname'],
 				'user_permission'  => $_args['permission'],
 				'user_parent'      => $ref,

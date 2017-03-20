@@ -318,7 +318,7 @@ class log extends tg
 			if(empty($user))
 			{
 				// generate password
-				$password = \lib\utility\filter::temp_password();
+				// $password = \lib\utility\filter::temp_password();
 				preg_match("#/start.*ref_([^\s\t-]+)([\s\t\n-]+.*)?$#Ui", self::response('text'), $_ref);
 				$ref = null;
 				if(is_array($_ref) && isset($_ref[1]))
@@ -330,7 +330,7 @@ class log extends tg
 				\lib\db\users::signup(
 				[
 					'mobile'      => $mobile,
-					'password'    => $password,
+					'password'    => null,
 					'permission'  => true,
 					'displayname' => $fullName,
 					'ref'         => $ref,
