@@ -81,7 +81,11 @@ trait template
 		}
 		else
 		{
-			$url      = $this->url('path');
+			$url = $this->url('path');
+			$url = str_replace("'", '', $url);
+			$url = str_replace('"', '', $url);
+			$url = str_replace('`', '', $url);
+			$url = str_replace('%', '', $url);
 
 			if(substr($url, 0, 7) == 'static/')
 			{
@@ -224,7 +228,12 @@ trait template
 	 */
 	public function get_terms_type($_forcheck = false, $_args = null)
 	{
-		$url        = $this->url('path');
+		$url = $this->url('path');
+		$url = str_replace("'", '', $url);
+		$url = str_replace('"', '', $url);
+		$url = str_replace('`', '', $url);
+		$url = str_replace('%', '', $url);
+
 		$split_url  = preg_split("/\//", $url);
 		$started_by = null;
 		if(isset($split_url[0]))
