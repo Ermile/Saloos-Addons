@@ -110,6 +110,8 @@ class exec extends tg
 		}
 
 		$result = curl_exec($ch);
+		\lib\db::log(curl_getinfo($ch), null, 'telegram-error.json', 'json');
+
 		if($response_callback)
 		{
 			if(is_object($response_callback))
