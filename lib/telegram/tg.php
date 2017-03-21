@@ -319,6 +319,10 @@ class tg
 				{
 					$data = self::$hook['message']['from'];
 				}
+				elseif(isset(self::$hook['edited_message']['from']))
+				{
+					$data = self::$hook['edited_message']['from'];
+				}
 				elseif(array_key_exists("chosen_inline_result", self::$hook))
 				{
 					$data = self::$hook['chosen_inline_result']['from'];
