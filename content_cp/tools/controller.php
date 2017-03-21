@@ -286,6 +286,12 @@ class controller extends \addons\content_cp\home\controller
 						$lang     = 'json';
 						break;
 
+					case 'telegram_info':
+						$clearURL = database.'log/backup-tg/telegram_info_bak_' .date("Ymd_His"). '.json';
+						$filepath = database.'log/telegram-info.json';
+						$lang     = 'json';
+						break;
+
 					case 'telegram_error':
 						$clearURL = database.'log/backup-tg/telegram_error_bak_' .date("Ymd_His"). '.json';
 						$filepath = database.'log/telegram-error.json';
