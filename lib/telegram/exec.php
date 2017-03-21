@@ -82,6 +82,7 @@ class exec extends tg
 			CURLOPT_SSL_VERIFYPEER => false,
 		];
 		\lib\db::log($curlConfig, null, 'telegram-error.json', 'json');
+		\lib\db::log($_data, null, 'telegram-error.json', 'json');
 
 		curl_setopt_array($ch, $curlConfig);
 		if (!empty($_data))
