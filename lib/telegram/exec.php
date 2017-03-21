@@ -81,9 +81,6 @@ class exec extends tg
 			CURLOPT_SAFE_UPLOAD    => true,
 			CURLOPT_SSL_VERIFYPEER => false,
 		];
-		\lib\db::log($curlConfig, null, 'telegram-error.json', 'json');
-		\lib\db::log($_data, null, 'telegram-error.json', 'json');
-
 		curl_setopt_array($ch, $curlConfig);
 		if (!empty($_data))
 		{
@@ -110,7 +107,7 @@ class exec extends tg
 		}
 
 		$result = curl_exec($ch);
-		\lib\db::log(curl_getinfo($ch), null, 'telegram-error.json', 'json');
+		\lib\db::log([$curlConfig, curl_getinfo($ch)], null, 'telegram-info.json', 'json');
 
 		if($response_callback)
 		{
