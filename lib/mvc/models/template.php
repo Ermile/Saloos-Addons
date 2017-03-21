@@ -48,6 +48,7 @@ trait template
 			'check_language' => true,
 			'post_type'      => null,
 			'check_status'   => true,
+			'post_status'    => [],
 		];
 
 		if(!is_array($_options))
@@ -122,6 +123,7 @@ trait template
 			";
 
 			$datarow = \lib\db::get($qry, null, true);
+
 			if(isset($datarow['user_id']) && (int) $datarow['user_id'] === (int) $this->login('id'))
 			{
 				// no problem to load this post
@@ -142,12 +144,18 @@ trait template
 					{
 						if($_options['check_status'])
 						{
-							$datarow = false;
+							if(isset($datarow['post_status']) && in_array($datarow['post_status'], $_options['post_status']))
+							{
+								// no problem to load this poll
+							}
+							else
+							{
+								$datarow = false;
+							}
 						}
 						else
 						{
 							// no problem to load this poll
-
 						}
 					}
 				}
