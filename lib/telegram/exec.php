@@ -80,6 +80,10 @@ class exec extends tg
 			// CURLOPT_HEADER         => true, // get header
 			CURLOPT_SAFE_UPLOAD    => true,
 			CURLOPT_SSL_VERIFYPEER => false,
+			// CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_DNS_USE_GLOBAL_CACHE => false,
+			CURLOPT_DNS_CACHE_TIMEOUT => 2,
+			CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
 		];
 		curl_setopt_array($ch, $curlConfig);
 		if (!empty($_data))
