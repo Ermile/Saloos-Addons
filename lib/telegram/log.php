@@ -337,6 +337,7 @@ class log extends tg
 					'port'        => $port, // telegram|telagram_guest; the users answer the inline keyboard or in bot
 					'subport'     => null, // the group code or chanal code
 				]);
+				\lib\storage::set_is_new_user(true);
 				self::$user_id = \lib\db\users::$user_id;
 			}
 			else
