@@ -235,9 +235,13 @@ class logs
 		$query = " SELECT * FROM logs $where $limit ";
 
 		$result = \lib\db::get($query, null, $only_one_recort);
-		if(isset($result['meta']) && substr($result['meta'], 0, 1) == '{')
+		if(isset($result['log_meta']) && substr($result['log_meta'], 0, 1) == '{')
 		{
-			$result['meta'] = json_decode($result['meta'], true);
+			$result['log_meta'] = json_decode($result['log_meta'], true);
+		}
+		else
+		{
+			$result = \lib\utility\filter::meta_decode($result);
 		}
 		return $result;
 	}
