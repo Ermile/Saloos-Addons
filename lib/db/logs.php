@@ -430,5 +430,30 @@ class logs
 
 		return $result;
 	}
+
+	public static function end_log($_condition = [])
+	{
+		$where = [];
+		foreach ($_condition as $key => $value) {
+			if(is_string($value))
+			{
+				$value = "'$value'";
+			}
+			$where[] = "$key = $value";
+		}
+		if(!empty($where))
+		{
+			$where = "WHERE " . join(" AND " , $where);
+		}
+		else
+		{
+			$where = "";
+		}
+		$query = "SELECT logitems.*, logs.* FROM logs
+		INNER JOIN logitems ON logitems.id = logs.logitem_id
+		$where
+		ORDER BY logs.log_createdate DESC LIMIT 0,1";
+		return \lib\db::get($query, null, true);
+	}
 }
 ?>
