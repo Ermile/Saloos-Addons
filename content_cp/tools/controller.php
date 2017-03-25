@@ -233,6 +233,8 @@ class controller extends \addons\content_cp\home\controller
 				$output     = '<html>';
 				$name       = \lib\utility::get('name');
 				$isClear    = \lib\utility::get('clear');
+				$isZip      = \lib\utility::get('zip');
+				$clearName  = '';
 				$clearURL   = '';
 				$page       = \lib\utility::get('p') * 100000;
 				if($page< 0)
@@ -251,49 +253,65 @@ class controller extends \addons\content_cp\home\controller
 				switch ($name)
 				{
 					case 'sql':
-						$clearURL = database.'log/backup-db/log_bak_' .date("Ymd_His"). '.sql';
+						$clearName = 'log_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-db/'. $clearName. $clearExt;
 						$filepath = database.'log/log.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_check':
-						$clearURL = database.'log/backup-db/log_check_bak_' .date("Ymd_His"). '.sql';
+						$clearName = 'log_check_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-db/'. $clearName. $clearExt;
 						$filepath = database.'log/log-check.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_warn':
-						$clearURL = database.'log/backup-db/log_warn_bak_' .date("Ymd_His"). '.sql';
+						$clearName = 'log_warn_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-db/'. $clearName. $clearExt;
 						$filepath = database.'log/log-warn.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_critical':
-						$clearURL = database.'log/backup-db/log_critical_bak_' .date("Ymd_His"). '.sql';
+						$clearName = 'log_critical_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-db/'. $clearName. $clearExt;
 						$filepath = database.'log/log-critical.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'sql_error':
-						$clearURL = database.'log/backup-db/error_bak_' .date("Ymd_His"). '.sql';
+						$clearName = 'error_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-db/'. $clearName. $clearExt;
 						$filepath = database.'log/error.sql';
 						$lang     = 'sql';
 						break;
 
 					case 'telegram':
-						$clearURL = database.'log/backup-tg/telegram_bak_' .date("Ymd_His"). '.json';
+						$clearName = 'telegram_bak_' .date("Ymd_His");
+						$clearExt  = '.json';
+						$clearURL = database.'log/backup-tg/'. $clearName. $clearExt;
 						$filepath = database.'log/telegram.json';
 						$lang     = 'json';
 						break;
 
 					case 'telegram_info':
-						$clearURL = database.'log/backup-tg/telegram_info_bak_' .date("Ymd_His"). '.json';
+						$clearName = 'telegram_info_bak_' .date("Ymd_His");
+						$clearExt  = '.json';
+						$clearURL = database.'log/backup-tg/'. $clearName. $clearExt;
 						$filepath = database.'log/telegram-info.json';
 						$lang     = 'json';
 						break;
 
 					case 'telegram_error':
-						$clearURL = database.'log/backup-tg/telegram_error_bak_' .date("Ymd_His"). '.json';
+						$clearName = 'telegram_error_bak_' .date("Ymd_His");
+						$clearExt  = '.json';
+						$clearURL = database.'log/backup-tg/'. $clearName. $clearExt;
 						$filepath = database.'log/telegram-error.json';
 						$lang     = 'json';
 						break;
@@ -308,6 +326,30 @@ class controller extends \addons\content_cp\home\controller
 					\lib\utility\file::rename($filepath, $clearURL);
 					$this->redirector('?name='. $name)->redirect();
 				}
+				if($isZip)
+				{
+					$newZipAddr = database.'log/dl.zip';
+					$zip = new \ZipArchive();
+
+					if ($zip->open($newZipAddr, \ZIPARCHIVE::OVERWRITE) !== TRUE)
+					{
+						// if file not exist, add to existing file
+						if ($zip->open($newZipAddr, \ZipArchive::CREATE) !== TRUE)
+						{
+							exit("cannot open <$newZipAddr>\n");
+						}
+					}
+
+					// add file to zip archive
+					$zip->addFile($filepath, $clearName. $clearExt);
+					$zip->close();
+
+					\lib\utility\file::download($newZipAddr, $clearName. '.zip', 'archive/zip');
+
+					exit();
+					// $this->redirector('?name='. $name)->redirect();
+				}
+
 				// read file data
 				$fileData = @file_get_contents($filepath, FILE_USE_INCLUDE_PATH, null, $page, $lenght);
 				if($fileData)
@@ -320,12 +362,13 @@ class controller extends \addons\content_cp\home\controller
 					$output .= ' <script src="'. $myURL. '/js/lib/highlight/highlight.min.js"></script>';
 					$output .= ' <link rel="stylesheet" href="'. $myURL. '/css/lib/highlight/atom-one-dark.css">';
 					$output .= ' <style>';
-					$output .= 'body{margin:0;height:100%;} .clear{position:absolute;top:1em;right:2em;border:1px solid #fff;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .hljs{padding:0;max-height:100%;height:100%;}';
+					$output .= 'body{margin:0;height:100%;} .clear{position:absolute;top:1em;right:2em;border:1px solid #fff;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .zip{position:absolute;bottom:1.5em;right:2em;background-color:#000;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .hljs{padding:0;max-height:100%;height:100%;}';
 					$output .= ' </style>';
 
 					$output .= ' <script>$(document).ready(function() {$("pre").each(function(i, block) {hljs.highlightBlock(block);}); });</script>';
 					$output .= "</head><body>";
 					$output .= '<a class="clear" href="?name='. $name. '&clear=true">Clear it!</a>';
+					$output .= '<a class="zip" href="?name='. $name. '&zip=true">ZIP it!</a>';
 					$output .= "<pre class='$lang'>";
 					$output .= $fileData;
 					$output .= "</pre>";
