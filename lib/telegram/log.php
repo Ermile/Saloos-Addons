@@ -292,6 +292,7 @@ class log extends tg
 	 */
 	private static function catchTelegramUser($_telegram_id, $_fromDetail = null)
 	{
+		$_fromDetail = \lib\utility\safe::safe($_fromDetail);
 		// if user_id is not set try to give user_id from database
 		// search in db to find user_id
 		$qry = "SELECT `user_id`
@@ -346,8 +347,6 @@ class log extends tg
 			}
 
 			// save telegram user detail like name and username into options
-			$_fromDetail['first_name'] = $_fromDetail['first_name'];
-			$_fromDetail['last_name'] = $_fromDetail['last_name'];
 			$userDetail =
 			[
 				'cat'    	=> 'telegram',
