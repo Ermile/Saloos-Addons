@@ -333,7 +333,7 @@ class log extends tg
 					'mobile'      => $mobile,
 					'password'    => null,
 					'permission'  => true,
-					'user_verify' => 'uniqueid'
+					'user_verify' => 'uniqueid',
 					'displayname' => $fullName,
 					'ref'         => $ref,
 					'port'        => $port, // telegram|telagram_guest; the users answer the inline keyboard or in bot
