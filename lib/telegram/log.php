@@ -324,7 +324,7 @@ class log extends tg
 				$ref = null;
 				if(is_array($_ref) && isset($_ref[1]))
 				{
-					$ref = \lib\utility\shortURL::decode($ref[1]);
+					$ref = $ref[1];
 				}
 				$port = substr(self::response('text'), 0, 6) === '/start' ? 'telegram' : 'telegram_guest';
 
@@ -335,7 +335,7 @@ class log extends tg
 					'permission'  => true,
 					'user_verify' => 'uniqueid',
 					'displayname' => $fullName,
-					'ref'         => $ref,
+					'ref'         => $ref[1],
 					'port'        => $port, // telegram|telagram_guest; the users answer the inline keyboard or in bot
 					'subport'     => null, // the group code or chanal code
 				]);
