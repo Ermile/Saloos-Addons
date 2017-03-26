@@ -75,15 +75,11 @@ class exec extends tg
 		$curlConfig =
 		[
 			CURLOPT_URL            => "https://api.telegram.org/bot".self::$api_key."/$_method",
-			CURLOPT_POST           => true,
+			CURLOPT_HEADER         => false,
 			CURLOPT_RETURNTRANSFER => true,
-			// CURLOPT_HEADER         => true, // get header
+			CURLOPT_POST           => true,
 			CURLOPT_SAFE_UPLOAD    => true,
 			CURLOPT_SSL_VERIFYPEER => false,
-			// CURLOPT_SSL_VERIFYHOST => false,
-			// CURLOPT_DNS_USE_GLOBAL_CACHE => false,
-			CURLOPT_DNS_CACHE_TIMEOUT => 2,
-			CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
 		];
 		curl_setopt_array($ch, $curlConfig);
 		if (!empty($_data))
@@ -99,10 +95,10 @@ class exec extends tg
 			}
 			else
 			{
+				curl_setopt( $ch, CURLOPT_POSTFIELDS, $_data);
 				curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
 				// curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
 				// curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query($_data));
-				curl_setopt( $ch, CURLOPT_POSTFIELDS, $_data);
 			}
 		}
 		if(Tld === 'dev')
