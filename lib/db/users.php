@@ -155,6 +155,34 @@ class users
 
 
 	/**
+	 * check valid ref
+	 *
+	 * @param      <type>  $_ref   The reference
+	 */
+	private static function check_ref($_ref)
+	{
+		if(!is_string($_ref))
+		{
+			return null;
+		}
+
+		if($_ref)
+		{
+			$ref_id = \lib\utility\shortURL::decode($_ref);
+			if($ref_id)
+			{
+				$check_ref = self::get($ref_id);
+				if(!empty($check_ref))
+				{
+					return $ref_id;
+				}
+			}
+		}
+		return null;
+	}
+
+
+	/**
 	 * check signup and if can add new user
 	 * @return [type] [description]
 	 */
@@ -225,13 +253,24 @@ class users
 		{
 			$ref = null;
 			// get the ref and set in users_parent
-			if(isset($_SESSION['user']['ref']))
+			if(isset($_SESSION['ref']))
 			{
-				$ref = $_SESSION['user']['ref'];
+				$ref = self::check_ref($_SESSION['ref']);
 			}
 			elseif($_args['ref'])
 			{
-				$ref = $_args['ref'];
+				$ref = self::check_ref($_args['ref']);
+			}
+			// elseif(\lib\utility::cookie('ref'))
+			// {
+			// 	$ref = self::check_ref(\lib\utility::cookie('ref'));
+			// }
+
+			if($ref)
+			{
+				unset($_SESSION['ref']);
+				// unset($_COOKIE['ref']);
+				// setcookie("ref", null, time() - (60 * 60 * 24 * 30), '/');
 			}
 
 			if($_args['password'])
