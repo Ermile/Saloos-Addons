@@ -64,6 +64,16 @@ class exec extends tg
 		{
 			return 'api key is not correct!';
 		}
+		if(!isset($_data['method']))
+		{
+			$log = ['METHOD_NOT_FOUND'];
+			foreach (debug_backtrace() as $key => $value) {
+				if($key == 7) break;
+				$log[] = $value;
+			}
+			\lib\db::log($log, null, 'telegram-error.json', 'json');
+			return "METHOD NOT FOUND";
+		}
 
 		// initialize curl
 		$ch = curl_init();
