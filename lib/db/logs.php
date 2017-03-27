@@ -288,6 +288,8 @@ class logs
 			"order"           => "ASC",
 			// custom sort by field
 			"sort"			  => null,
+			// search in caller
+			"caller"          => null,
 		];
 		$_options = array_merge($default_options, $_options);
 
@@ -305,7 +307,11 @@ class logs
 		if($_options['get_count'] === true)
 		{
 			$get_count      = true;
-			$public_fields  = " COUNT(logs.id) AS 'logcount' FROM logs ";
+			$public_fields  =
+			" COUNT(logs.id) AS 'logcount' FROM
+				logs
+			LEFT JOIN logitems ON logitems.id = logs.logitem_id
+			LEFT JOIN users ON logs.user_id = users.id ";
 			$limit          = null;
 			$only_one_value = true;
 		}
@@ -316,6 +322,19 @@ class logs
 			if($_options['limit'])
 			{
 				$limit = $_options['limit'];
+			}
+		}
+
+		if(isset($_options['caller']) && $_options['caller'])
+		{
+			if(preg_match("/\%/", $_options['caller']))
+			{
+				$where[] = " logitems.logitem_caller LIKE '$_options[caller]' ";
+
+			}
+			else
+			{
+				$where[] = " logitems.logitem_caller = '$_options[caller]' ";
 			}
 		}
 
@@ -342,6 +361,7 @@ class logs
 		unset($_options['get_last']);
 		unset($_options['order']);
 		unset($_options['sort']);
+		unset($_options['caller']);
 
 		foreach ($_options as $key => $value)
 		{
