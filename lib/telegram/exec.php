@@ -64,7 +64,7 @@ class exec extends tg
 		{
 			return 'api key is not correct!';
 		}
-		if(!isset($_data['method']))
+		if(!isset($_method))
 		{
 			$log = ['METHOD_NOT_FOUND'];
 			foreach (debug_backtrace() as $key => $value) {
