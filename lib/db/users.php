@@ -256,10 +256,18 @@ class users
 			if(isset($_SESSION['ref']))
 			{
 				$ref = self::check_ref($_SESSION['ref']);
+				if(!$ref)
+				{
+					$_args['invalid_ref_session'] = $_SESSION['ref'];
+				}
 			}
 			elseif($_args['ref'])
 			{
 				$ref = self::check_ref($_args['ref']);
+				if(!$ref)
+				{
+					$_args['invalid_ref_args'] = $_args['ref'];
+				}
 			}
 			// elseif(\lib\utility::cookie('ref'))
 			// {
@@ -269,8 +277,6 @@ class users
 			if($ref)
 			{
 				unset($_SESSION['ref']);
-				// unset($_COOKIE['ref']);
-				// setcookie("ref", null, time() - (60 * 60 * 24 * 30), '/');
 			}
 
 			if($_args['password'])
@@ -300,6 +306,7 @@ class users
 			if(method_exists('\lib\utility\users', 'signup'))
 			{
 				$_args['insert_id'] = $insert_id;
+				$_args['ref']       = $ref;
 				\lib\utility\users::signup($_args);
 			}
 			return $insert_id;

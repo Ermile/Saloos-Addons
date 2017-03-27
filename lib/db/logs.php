@@ -67,13 +67,7 @@ class logs
 			}
 		}
 		$set = join($set, ',');
-		$query =
-		"
-			INSERT INTO
-				logs
-			SET
-				$set
-		";
+		$query ="INSERT IGNORE INTO	logs SET $set ";
 		return \lib\db::query($query);
 	}
 
@@ -111,11 +105,11 @@ class logs
 	public static function delete($_id)
 	{
 		// get id
-		$query = "
-				UPDATE FROM logs
-				SET logs.notification_status = 'expire'
-				WHERE logs.id = $_id
-				";
+		$query =
+		"UPDATE FROM logs
+		SET logs.notification_status = 'expire'
+		WHERE logs.id = $_id
+		";
 
 		return \lib\db::query($query);
 	}
@@ -156,6 +150,11 @@ class logs
 			'status' => 'enable',
 		];
 
+		if(!is_array($_options))
+		{
+			$_options = [];
+		}
+
 		$_options = array_merge($default_options, $_options);
 
 		$_options['meta'] = \lib\utility\safe::safe($_options['meta']);
@@ -174,6 +173,11 @@ class logs
 			'log_meta'       => $_options['meta'],
 			'log_createdate' => $_options['time'],
 		];
+
+		if(isset($_options['desc']))
+		{
+			$insert_log['log_desc'] = $_options['desc'];
+		}
 
 		return self::insert($insert_log);
 	}
