@@ -14,13 +14,17 @@
 
 {%if perm.tools.admin%}
 
+{%if url.tld == 'dev'%}
   <h2>{%trans "Translate"%}</h2>
   <div class="btns">
    <a target='_blank' href="{{url.baseFull}}/tools/twigtrans">{%trans "Extract twig trans func in current project"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/twigtrans?path=addons">{%trans "Extract twig trans func in saloos addons"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/twigtrans?path=addons&update=saloos">{%trans "Extract twig trans func in saloos addons and update on saloos addons"%}</a>
   </div>
+{%endif%}
 
+
+{%if url.tld != 'dev'%}
   <h2>{%trans "Git Repository"%}</h2>
   <div class="btns">
    <a target='_blank' href="{{url.baseFull}}/tools/git?name=saloos">{%trans "Update"%} {%trans "Saloos Repository"%}</a>
@@ -28,10 +32,12 @@
    <a target='_blank' href="{{url.baseFull}}/tools/git?name=ermile">{%trans "Update"%} {%trans "Ermile Repository"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/git?name={{site.title | lower}}">{%trans "Update"%} {%trans "Current Project Repository"%}</a>
   </div>
+{%endif%}
+
 
   <h2>{%trans "Other Tools"%}</h2>
   <div class="btns">
-   <a target='_blank' href="{{url.baseFull}}/tools/sitemap">{%trans "Regenerate sitemap"%}</a>
+   <!-- <a target='_blank' href="{{url.baseFull}}/tools/sitemap">{%trans "Regenerate sitemap"%}</a> -->
    <a target='_blank' href="socialnetwork">{%trans "social networks"%}</a>
   </div>
 
