@@ -288,6 +288,17 @@ class users
 				$password = null;
 			}
 
+			if(!$_args['mobile'])
+			{
+				return false;
+			}
+
+			$_args['displayname'] = \lib\utility\safe::safe($_args['displayname']);
+			if(mb_strlen($_args['displayname']) > 99)
+			{
+				$_args['displayname'] = substr($_args['displayname'], 0, 95);
+			}
+
 			// signup up users
 			$args =
 			[
@@ -510,6 +521,14 @@ class users
 		{
 			return true;
 		}
+
+		$_displayname = \lib\utility\safe::safe($_displayname);
+		if(mb_strlen($_displayname) > 99)
+		{
+			$_displayname = substr($_displayname, 0, 95);
+		}
+
+
 		$result = self::set_user_data($_user_id, "user_displayname", $_displayname);
 		if($result)
 		{
