@@ -296,7 +296,7 @@ class users
 			$_args['displayname'] = \lib\utility\safe::safe($_args['displayname']);
 			if(mb_strlen($_args['displayname']) > 99)
 			{
-				$_args['displayname'] = substr($_args['displayname'], 0, 95);
+				$_args['displayname'] = null;
 			}
 
 			// signup up users
@@ -525,7 +525,7 @@ class users
 		$_displayname = \lib\utility\safe::safe($_displayname);
 		if(mb_strlen($_displayname) > 99)
 		{
-			$_displayname = substr($_displayname, 0, 95);
+			$_displayname = null;
 		}
 
 
