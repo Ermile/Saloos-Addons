@@ -96,33 +96,17 @@ class termusages
 	 */
 	public static function update($_old, $_new)
 	{
-		if(!isset($_old['term_id']) || !isset($_new['term_id']))
-		{
-			return false;
-		}
-
-		if(!isset($_old['termusage_foreign']) || !isset($_new['termusage_foreign']))
-		{
-			return false;
-		}
-
-		if(!isset($_old['termusage_id']) || !isset($_new['termusage_id']))
-		{
-			return false;
-		}
+		$set = \lib\db\config::make_set($_new);
+		$where = \lib\db\config::make_where($_old);
 
 		$query =
 		"
 			UPDATE
 				termusages
 			SET
-				term_id           = $_new[term_id],
-				termusage_id      = $_new[termusage_id],
-				termusage_foreign = '$_new[termusage_foreign]'
+				$set
 			WHERE
-				term_id           = $_old[term_id] AND
-				termusage_id      = $_old[termusage_id] AND
-				termusage_foreign = '$_old[termusage_foreign]'
+				$where
 			LIMIT 1
 		";
 		return \lib\db::query($query);
