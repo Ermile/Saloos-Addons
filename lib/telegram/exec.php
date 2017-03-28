@@ -37,6 +37,12 @@ class exec extends tg
 		// if method or data is not set return
 		if(!$_method || !$_data)
 		{
+			$log = ['METHOD_NOT_FOUND'];
+			foreach (debug_backtrace() as $key => $value) {
+				if($key == 7) break;
+				$log[] = $value;
+			}
+			\lib\db::log($log, null, 'telegram-error.json', 'json');
 			return 'method or data is not set!';
 		}
 		if(array_key_exists('method', $_data))
@@ -63,16 +69,6 @@ class exec extends tg
 		if(strlen(self::$api_key) < 20)
 		{
 			return 'api key is not correct!';
-		}
-		if(!isset($_method))
-		{
-			$log = ['METHOD_NOT_FOUND'];
-			foreach (debug_backtrace() as $key => $value) {
-				if($key == 7) break;
-				$log[] = $value;
-			}
-			\lib\db::log($log, null, 'telegram-error.json', 'json');
-			return "METHOD NOT FOUND";
 		}
 
 		// initialize curl
