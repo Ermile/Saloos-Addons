@@ -553,6 +553,10 @@ class tg
 				$value($_name, $_args);
 			}
 		}
+		if(empty($_args) || is_null($_args))
+		{
+			return false;
+		}
 		$return = exec::send($_name, $_args);
 		if(!array_key_exists('after', self::$methods))
 		{
