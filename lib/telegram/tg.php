@@ -253,7 +253,7 @@ class tg
 		// markdown is enable by default
 		if(isset($_prop['text']) && !isset($_prop['parse_mode']))
 		{
-			$_prop['parse_mode'] = 'html';
+			$_prop['parse_mode'] = 'markdown';
 		}
 		// call bot send message func
 		$funcName = 'self::'. $_prop['method'];
