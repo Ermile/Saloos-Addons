@@ -12,11 +12,11 @@ class logitems
 
 	public static $fields =
 	"
-			logitems.logitem_type				AS 	`logitem_type`,
-			logitems.logitem_caller				AS 	`logitem_caller`,
-			logitems.logitem_title				AS 	`logitem_title`,
-			logitems.logitem_desc				AS 	`logitem_desc`,
-			logitems.logitem_meta				AS 	`logitem_meta`,
+			logitems.logitem_type				AS 	`type`,
+			logitems.logitem_caller				AS 	`caller`,
+			logitems.logitem_title				AS 	`title`,
+			logitems.logitem_desc				AS 	`desc`,
+			logitems.logitem_meta				AS 	`meta`,
 			IFNULL(logitems.count, 0) 			AS 	`count`,
 			logitems.logitem_priority 			AS 	`priority`,
 			logitems.date_modified 				AS 	`date_modified`
@@ -259,20 +259,57 @@ class logitems
 			}
 		}
 
+		if($_options['sort'])
+		{
+			$temp_sort = null;
+			switch ($_options['sort'])
+			{
+				case 'type':
+				case 'caller':
+				case 'title':
+				case 'desc':
+				case 'meta':
+				case 'priority':
+					$temp_sort = 'logitem_'.  $_options['sort'];
+					break;
+				case 'count':
+				case 'date_modified':
+					$temp_sort = $_options['sort'];
+					break;
+				default:
+					$temp_sort = 'id';
+					break;
+			}
+			$_options['sort'] = $temp_sort;
+		}
+
 		// ------------------ get last
 		$order = null;
 		if($_options['get_last'])
 		{
-			$order = " ORDER BY logitems.id DESC ";
+			if($_options['sort'])
+			{
+				$order = " ORDER BY $_options[sort] $_options[order] ";
+			}
+			else
+			{
+				$order = " ORDER BY logitems.id DESC ";
+			}
 		}
 		else
 		{
-			$order = " ORDER BY logitems.id $_options[order] ";
+			if($_options['sort'])
+			{
+				$order = " ORDER BY $_options[sort] $_options[order] ";
+			}
+			else
+			{
+				$order = " ORDER BY logitems.id $_options[order] ";
+			}
 		}
 
 		$start_limit = $_options['start_limit'];
 		$end_limit   = $_options['end_limit'];
-
 
 		unset($_options['pagenation']);
 		unset($_options['get_count']);

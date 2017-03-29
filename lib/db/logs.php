@@ -13,14 +13,16 @@ class logs
 	"
 			logs.id								AS 	`id`,
 			logs.logitem_id 					AS 	`logitem_id`,
-			logitems.logitem_type				AS 	`logitem_type`,
-			logitems.logitem_caller				AS 	`logitem_caller`,
-			logitems.logitem_title				AS 	`logitem_title`,
-			logitems.logitem_desc				AS 	`logitem_desc`,
-			logitems.logitem_meta				AS 	`logitem_meta`,
-			IFNULL(logitems.count, 0) 			AS 	`count`,
+			logitems.logitem_type				AS 	`type`,
+			logitems.logitem_caller				AS 	`caller`,
+			logitems.logitem_title				AS 	`title`,
+
+			-- logitems.logitem_desc				AS 	`logitem_desc`,
+			-- logitems.logitem_meta				AS 	`logitem_meta`,
+			-- IFNULL(logitems.count, 0) 			AS 	`count`,
+			-- logitems.date_modified 				AS 	`date_modified`,
+
 			logitems.logitem_priority 			AS 	`priority`,
-			logitems.date_modified 				AS 	`date_modified`,
 			logs.user_id						AS 	`user_id`,
 			logs.log_data						AS 	`data`,
 			logs.log_meta						AS 	`meta`,
@@ -271,26 +273,33 @@ class logs
 		$default_options =
 		[
 			// just return the count record
-			"get_count"   => false,
+			"get_count"      => false,
 			// enable|disable paignation,
-			"pagenation"  => true,
+			"pagenation"     => true,
 			// for example in get_count mode we needless to limit and pagenation
 			// default limit of record is 15
-			// set the limit  = null and pagenation = false to get all record whitout limit
-			"limit"           => 15,
+			// set the limit = null and pagenation = false to get all record whitout limit
+			"limit"          => 15,
 			// for manual pagenation set the statrt_limit and end limit
-			"start_limit"     => 0,
+			"start_limit"    => 0,
 			// for manual pagenation set the statrt_limit and end limit
-			"end_limit"       => 10,
+			"end_limit"      => 10,
 			// the the last record inserted to post table
-			"get_last"        => false,
-			// default order by ASC you can change to DESC
-			"order"           => "ASC",
+			"get_last"       => false,
+			// default order by DESC you can change to DESC
+			"order"          => "DESC",
 			// custom sort by field
-			"sort"			  => null,
+			"sort"           => null,
 			// search in caller
-			"caller"          => null,
+			"caller"         => null,
+			// search by user
+			"user"           => null,
+			// search by mobile
+			"mobile"         => null,
+			// search by date
+			"date"           => null,
 		];
+
 		$_options = array_merge($default_options, $_options);
 
 		$pagenation = false;
@@ -338,15 +347,79 @@ class logs
 			}
 		}
 
+		if(isset($_options['mobile']) && $_options['mobile'])
+		{
+			$where[] = " users.user_mobile LIKE '%$_options[mobile]%' ";
+		}
+
+		if(isset($_options['user']) && $_options['user'])
+		{
+			$where[] = " logs.user_id = $_options[user] ";
+		}
+
+		if(isset($_options['date']) && $_options['date'])
+		{
+			if(mb_strlen($_options['date']) === 8)
+			{
+				$where[] = " DATE(logs.log_createdate) = DATE('$_options[date]') ";
+			}
+			else
+			{
+				$where[] = " TIME(logs.log_createdate) = TIME('$_options[date]') ";
+			}
+		}
+
+		if($_options['sort'])
+		{
+			$temp_sort = null;
+			switch ($_options['sort'])
+			{
+				case 'type':
+				case 'caller':
+				case 'title':
+				case 'desc':
+				case 'meta':
+				case 'priority':
+					$temp_sort = 'logitems.logitem_'.  $_options['sort'];
+					break;
+				case 'count':
+					$temp_sort = 'logitems.logitem_'.  $_options['sort'];
+					break;
+
+				case 'date':
+					$temp_sort = 'logs.log_createdate';
+					break;
+
+				default:
+					$temp_sort = 'id';
+					break;
+			}
+			$_options['sort'] = $temp_sort;
+		}
+
 		// ------------------ get last
 		$order = null;
 		if($_options['get_last'])
 		{
-			$order = " ORDER BY logs.id DESC ";
+			if($_options['sort'])
+			{
+				$order = " ORDER BY $_options[sort] $_options[order] ";
+			}
+			else
+			{
+				$order = " ORDER BY logs.id DESC ";
+			}
 		}
 		else
 		{
-			$order = " ORDER BY logs.id $_options[order] ";
+			if($_options['sort'])
+			{
+				$order = " ORDER BY $_options[sort] $_options[order] ";
+			}
+			else
+			{
+				$order = " ORDER BY logs.id $_options[order] ";
+			}
 		}
 
 		$start_limit = $_options['start_limit'];
@@ -362,6 +435,9 @@ class logs
 		unset($_options['order']);
 		unset($_options['sort']);
 		unset($_options['caller']);
+		unset($_options['user']);
+		unset($_options['date']);
+		unset($_options['mobile']);
 
 		foreach ($_options as $key => $value)
 		{
