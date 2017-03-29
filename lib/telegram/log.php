@@ -313,7 +313,7 @@ class log extends tg
 		{
 			// calc full_name of user
 			$fullName = trim(self::response('from','first_name'). ' '. self::response('from','last_name'));
-			$fullName = lib\utility\safe::safe($fullName, 'sqlinjection');
+			$fullName = \lib\utility\safe::safe($fullName, 'sqlinjection');
 			$mobile = 'tg_'. $_telegram_id;
 			$user = \lib\db\users::get_by_mobile($mobile);
 			if(empty($user))
