@@ -342,7 +342,7 @@ class log extends tg
 				\lib\storage::set_is_new_user(true);
 				self::$user_id = \lib\db\users::$user_id;
 			}
-			else
+			elseif (isset($user['id']))
 			{
 				self::$user_id = $user['id'];
 			}
