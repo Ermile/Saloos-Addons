@@ -434,7 +434,7 @@ class log extends tg
 				break;
 		}
 
-		\lib\db\users::updateDetail(self::$user_id, $_type, 'telegram', $_args);
+		\lib\db\users::updateDetail(self::$user_id, $_type, 'telegram', \lib\utility\safe::safe($_args, 'sqlinjection'));
 	}
 }
 ?>
