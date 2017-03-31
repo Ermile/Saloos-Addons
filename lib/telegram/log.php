@@ -370,7 +370,7 @@ class log extends tg
 
 		// save session id database only one time
 		// if exist use old one else insert new one to database
-		\lib\utility\session::save_once(self::$user_id, 'telegram_'.$_telegram_id);
+		// \lib\utility\session::save_once(self::$user_id, 'telegram_'.$_telegram_id);
 		if(!array_key_exists('tg', $_SESSION) || !is_array($_SESSION['tg']))
 		{
 			$_SESSION['tg'] = array();
