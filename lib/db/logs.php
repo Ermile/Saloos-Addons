@@ -492,8 +492,10 @@ class logs
 
 		if($pagenation && !$get_count)
 		{
-			$pagenation_query = "SELECT	$public_fields $where $search ";
-			list($limit_start, $limit) = \lib\db::pagnation($pagenation_query, $limit);
+			$pagenation_query = "SELECT	COUNT(logs.id) AS `count` FROM logs $where $search ";
+			$pagenation_query = \lib\db::get($pagenation_query, 'count', true);
+
+			list($limit_start, $limit) = \lib\db::pagnation((int) $pagenation_query, $limit);
 			$limit = " LIMIT $limit_start, $limit ";
 		}
 		else
