@@ -472,8 +472,7 @@ class logs
 				logitems.logitem_type 		LIKE '%$_string%' OR
 				logitems.logitem_caller 	LIKE '%$_string%' OR
 				logitems.logitem_title 		LIKE '%$_string%' OR
-				logs.log_data 				LIKE '%$_string%' OR
-				logs.log_meta 				LIKE '%$_string%'
+				logs.log_data 				LIKE '%$_string%'
 			)";
 			if($where)
 			{
@@ -492,7 +491,13 @@ class logs
 
 		if($pagenation && !$get_count)
 		{
-			$pagenation_query = "SELECT	COUNT(logs.id) AS `count` FROM logs $where $search ";
+			$pagenation_query =
+			"SELECT	COUNT(logs.id) AS `count`
+			FROM
+			logs
+			LEFT JOIN logitems ON logitems.id = logs.logitem_id
+			LEFT JOIN users ON logs.user_id = users.id
+			$where $search ";
 			$pagenation_query = \lib\db::get($pagenation_query, 'count', true);
 
 			list($limit_start, $limit) = \lib\db::pagnation((int) $pagenation_query, $limit);
