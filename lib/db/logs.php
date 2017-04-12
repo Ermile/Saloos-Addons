@@ -5,6 +5,18 @@ namespace lib\db;
 class logs
 {
 	/**
+	 * Gets the database name.
+	 * if defined db_log return the db_log name to connect to this database
+	 * else return true to connect to default database
+	 *
+	 * @return     boolean  The database name.
+	 */
+	public static function get_db_log_name()
+	{
+		return \lib\db\logitems::get_db_log_name();
+	}
+
+	/**
 	 * this library work with logs table
 	 * v1.0
 	 */
@@ -16,28 +28,16 @@ class logs
 			logitems.logitem_type				AS 	`type`,
 			logitems.logitem_caller				AS 	`caller`,
 			logitems.logitem_title				AS 	`title`,
-
-			-- logitems.logitem_desc				AS 	`logitem_desc`,
-			-- logitems.logitem_meta				AS 	`logitem_meta`,
-			-- IFNULL(logitems.count, 0) 			AS 	`count`,
-			-- logitems.date_modified 				AS 	`date_modified`,
-
 			logitems.logitem_priority 			AS 	`priority`,
 			logs.user_id						AS 	`user_id`,
 			logs.log_data						AS 	`data`,
 			logs.log_meta						AS 	`meta`,
 			logs.log_status						AS 	`status`,
 			logs.log_createdate					AS 	`createdate`,
-			logs.date_modified					AS 	`date_modified`,
-			users.user_displayname				AS  `displayname`,
-			users.user_mobile					AS  `mobile`,
-			users.user_port						AS  `port`,
-			users.user_verify					AS  `verify`,
-			users.user_trust					AS  `trust`
+			logs.date_modified					AS 	`date_modified`
 		FROM
 			logs
 		LEFT JOIN logitems ON logitems.id = logs.logitem_id
-		LEFT JOIN users ON logs.user_id = users.id
 	";
 
 	/**
@@ -70,7 +70,7 @@ class logs
 		}
 		$set = join($set, ',');
 		$query ="INSERT IGNORE INTO	logs SET $set ";
-		return \lib\db::query($query);
+		return \lib\db::query($query, self::get_db_log_name());
 	}
 
 
@@ -94,7 +94,7 @@ class logs
 
 		// make update query
 		$query = " UPDATE logs SET $query WHERE logs.id = $_id ";
-		return \lib\db::query($query);
+		return \lib\db::query($query, self::get_db_log_name());
 	}
 
 
@@ -113,7 +113,7 @@ class logs
 		WHERE logs.id = $_id
 		";
 
-		return \lib\db::query($query);
+		return \lib\db::query($query, self::get_db_log_name());
 	}
 
 
@@ -124,7 +124,8 @@ class logs
 	 */
 	public static function select($_query, $_type = 'query')
 	{
-		return \lib\db::$_type($_query);
+		return false;
+		// return \lib\db::$_type($_query, self::get_db_log_name());
 	}
 
 
@@ -240,7 +241,7 @@ class logs
 
 		$query = " SELECT * FROM logs $where $limit ";
 
-		$result = \lib\db::get($query, null, $only_one_recort);
+		$result = \lib\db::get($query, null, $only_one_recort, self::get_db_log_name());
 		if(isset($result['log_meta']) && substr($result['log_meta'], 0, 1) == '{')
 		{
 			$result['log_meta'] = json_decode($result['log_meta'], true);
@@ -319,8 +320,7 @@ class logs
 			$public_fields  =
 			" COUNT(logs.id) AS 'logcount' FROM
 				logs
-			LEFT JOIN logitems ON logitems.id = logs.logitem_id
-			LEFT JOIN users ON logs.user_id = users.id ";
+			LEFT JOIN logitems ON logitems.id = logs.logitem_id";
 			$limit          = null;
 			$only_one_value = true;
 		}
@@ -345,11 +345,6 @@ class logs
 			{
 				$where[] = " logitems.logitem_caller = '$_options[caller]' ";
 			}
-		}
-
-		if(isset($_options['mobile']) && $_options['mobile'])
-		{
-			$where[] = " users.user_mobile LIKE '%$_options[mobile]%' ";
 		}
 
 		if(isset($_options['user']) && $_options['user'])
@@ -496,9 +491,8 @@ class logs
 			FROM
 			logs
 			LEFT JOIN logitems ON logitems.id = logs.logitem_id
-			LEFT JOIN users ON logs.user_id = users.id
 			$where $search ";
-			$pagenation_query = \lib\db::get($pagenation_query, 'count', true);
+			$pagenation_query = \lib\db::get($pagenation_query, 'count', true, self::get_db_log_name());
 
 			list($limit_start, $limit) = \lib\db::pagnation((int) $pagenation_query, $limit);
 			$limit = " LIMIT $limit_start, $limit ";
@@ -513,26 +507,16 @@ class logs
 		}
 
 		$json = json_encode(func_get_args());
-		$query =
-		"
-			SELECT SQL_CALC_FOUND_ROWS
-				$public_fields
-				$where
-				$search
-			$order
-			$limit
-			-- logs::search()
-			-- $json
-		";
+		$query = " SELECT $public_fields $where $search $order $limit -- logs::search() 	-- $json";
 
 		if(!$only_one_value)
 		{
-			$result = \lib\db::get($query);
+			$result = \lib\db::get($query, null, false, self::get_db_log_name());
 			$result = \lib\utility\filter::meta_decode($result);
 		}
 		else
 		{
-			$result = \lib\db::get($query, 'logcount', true);
+			$result = \lib\db::get($query, 'logcount', true, self::get_db_log_name());
 		}
 
 		return $result;
@@ -560,7 +544,7 @@ class logs
 		INNER JOIN logitems ON logitems.id = logs.logitem_id
 		$where
 		ORDER BY logs.log_createdate DESC LIMIT 0,1";
-		return \lib\db::get($query, null, true);
+		return \lib\db::get($query, null, true, self::get_db_log_name());
 	}
 }
 ?>
