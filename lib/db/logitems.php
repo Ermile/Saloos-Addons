@@ -9,6 +9,24 @@ class logitems
 	 * v1.0
 	 */
 
+	/**
+	 * Gets the database name.
+	 * if defined db_log return the db_log name to connect to this database
+	 * else return true to connect to default database
+	 *
+	 * @return     boolean  The database name.
+	 */
+	public static function get_db_log_name()
+	{
+		if(defined('db_log_name'))
+		{
+			return db_log_name;
+		}
+		else
+		{
+			return true;
+		}
+	}
 
 	public static $fields =
 	"
@@ -57,7 +75,7 @@ class logitems
 				$set
 		";
 
-		return \lib\db::query($query);
+		return \lib\db::query($query, self::get_db_log_name());
 
 	}
 
@@ -87,7 +105,7 @@ class logitems
 				WHERE logitems.id = $_id;
 				";
 
-		return \lib\db::query($query);
+		return \lib\db::query($query, self::get_db_log_name());
 	}
 
 
@@ -98,7 +116,8 @@ class logitems
 	 */
 	public static function select($_query , $_type = 'query')
 	{
-		return \lib\db::$_type($_query);
+		return false;
+		// return \lib\db::$_type($_query);
 	}
 
 
@@ -148,17 +167,8 @@ class logitems
 			$get_field = null;
 		}
 
-		$query =
-		"
-			SELECT
-				$field
-			FROM
-				logitems
-			WHERE
-				logitems.logitem_caller = '$_caller'
-			LIMIT 1
-		";
-		$result = \lib\db::get($query, $get_field, true);
+		$query = " SELECT $field FROM logitems 	WHERE logitems.logitem_caller = '$_caller' LIMIT 1 ";
+		$result = \lib\db::get($query, $get_field, true, self::get_db_log_name());
 		if(!$result || empty($result))
 		{
 			return self::auto_insert($_caller);
@@ -185,7 +195,7 @@ class logitems
 		$result = self::insert($insert_log_items);
 		if($result)
 		{
-			return (int) \lib\db::insert_id(\lib\db::$link);
+			return (int) \lib\db::get("SELECT id AS `id` FROM logitems WHERE logitems.logitem_caller = '$_caller' LIMIT 1 ", 'id', true, self::get_db_log_name());
 		}
 		return false;
 	}
@@ -371,7 +381,7 @@ class logitems
 
 		if($pagenation && !$get_count)
 		{
-			$pagenation_query = "SELECT	$public_fields $where $search ";
+			$pagenation_query = (int) \lib\db::get("SELECT COUNT(*) AS `count` FROM logitems $where $search -- get count log for pagenation", 'count', true, self::get_db_log_name());
 			list($limit_start, $limit) = \lib\db::pagnation($pagenation_query, $limit);
 			$limit = " LIMIT $limit_start, $limit ";
 		}
@@ -385,26 +395,16 @@ class logitems
 		}
 
 		$json = json_encode(func_get_args());
-		$query =
-		"
-			SELECT SQL_CALC_FOUND_ROWS
-				$public_fields
-				$where
-				$search
-			$order
-			$limit
-			-- logitems::search()
-			-- $json
-		";
+		$query = " SELECT $public_fields $where	$search	$order $limit	-- logitems::search()	-- $json";
 
 		if(!$only_one_value)
 		{
-			$result = \lib\db::get($query);
+			$result = \lib\db::get($query, null, false, self::get_db_log_name());
 			$result = \lib\utility\filter::meta_decode($result);
 		}
 		else
 		{
-			$result = \lib\db::get($query, 'logcount', true);
+			$result = \lib\db::get($query, 'logcount', true, self::get_db_log_name());
 		}
 
 		return $result;
