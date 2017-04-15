@@ -328,6 +328,18 @@ class logs
 		{
 			$limit         = null;
 			$public_fields = self::$fields;
+
+			$domain = \lib\router::get_root_domain();
+			$domain = explode('.', $domain);
+			if(count($domain) === 2 && isset($domain[0]))
+			{
+				if($domain[0] === 'sarshomar')
+				{
+					$log_have_log_desc = true;
+					$public_fields = " logs.log_desc AS `desc`, ". $public_fields;
+				}
+			}
+
 			if($_options['limit'])
 			{
 				$limit = $_options['limit'];
@@ -372,13 +384,24 @@ class logs
 				case 'type':
 				case 'caller':
 				case 'title':
-				case 'desc':
 				case 'meta':
 				case 'priority':
 					$temp_sort = 'logitems.logitem_'.  $_options['sort'];
 					break;
+
 				case 'count':
 					$temp_sort = 'logitems.logitem_'.  $_options['sort'];
+					break;
+
+				case 'desc':
+					if(isset($log_have_log_desc) && $log_have_log_desc)
+					{
+						$temp_sort = 'logs.log_desc';
+					}
+					else
+					{
+						$temp_sort = 'logitems.logitem_desc';
+					}
 					break;
 
 				case 'date':
@@ -386,7 +409,7 @@ class logs
 					break;
 
 				default:
-					$temp_sort = 'id';
+					$temp_sort = $_options['sort'];
 					break;
 			}
 			$_options['sort'] = $temp_sort;
