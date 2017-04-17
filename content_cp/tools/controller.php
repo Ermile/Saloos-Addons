@@ -61,13 +61,18 @@ class controller extends \addons\content_cp\home\controller
 
 				if(\lib\utility::post('type') == 'upgrade')
 				{
-
 					// do upgrade
 					$result = \lib\db::install(true, true);
 				}
 				elseif(\lib\utility::post('type') == 'backup')
 				{
+					// do backup
 					$result = \lib\db::backup(true);
+				}
+				elseif(\lib\utility::post('type') == 'backup_dump')
+				{
+					// do backup
+					$result = \lib\db::backup_dump();
 				}
 
 				echo '<pre>';

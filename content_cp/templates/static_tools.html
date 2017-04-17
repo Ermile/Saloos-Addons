@@ -47,14 +47,18 @@
    <form method="post" action="{{url.baseFull}}/tools/db" data-action >
      <input type="text" name="username" placeholder="db username">
      <input type="password" name="password" placeholder="db password" autocomplete="new-password">
-     <input type="hidden" name="type" value="upgrade">
+     <select name="type">
+       <option value="upgrade" selected="selected">{%trans "Upgrade"%}</option>
+       <option value="backup" >{%trans "Backup"%}</option>
+       <option value="backup_dump" >{%trans "Backup by dump"%}</option>
+     </select>
      <input type="submit" value='{%trans "Submit"%}'>
    </form>
    <br/>
 
-   <a target='_blank' href="{{url.baseFull}}/tools/db?upgrade=true">{%trans "Upgrade"%} {%trans "Project Database"%}</a>
+   <!-- <a target='_blank' href="{{url.baseFull}}/tools/db?upgrade=true">{%trans "Upgrade"%} {%trans "Project Database"%}</a> -->
    <a target='_blank' href="{{url.baseFull}}/tools/dbtables">{%trans "Automatically read database and create sql files"%}</a>
-   <a target='_blank' href="{{url.baseFull}}/tools/db?backup=true">{%trans "Backup"%} {%trans "Project Database"%}</a>
+   <!-- <a target='_blank' href="{{url.baseFull}}/tools/db?backup=true">{%trans "Backup"%} {%trans "Project Database"%}</a> -->
   </div>
 {%endif%}
 {%if perm.tools.view%}
