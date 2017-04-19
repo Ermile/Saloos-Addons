@@ -107,6 +107,62 @@ class users
 	}
 
 
+	/**
+	 * insert multi record in one query
+	 *
+	 * @param      <type>   $_args  The arguments
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function insert_multi($_args)
+	{
+		if(!is_array($_args))
+		{
+			return false;
+		}
+		// marge all input array to creat list of field to be insert
+		$fields = [];
+		foreach ($_args as $key => $value)
+		{
+			$fields = array_merge($fields, $value);
+		}
+		// empty record not inserted
+		if(empty($fields))
+		{
+			return true;
+		}
+
+		// creat multi insert query : INSERT INTO TABLE (FIELDS) VLUES (values), (values), ...
+		$values = [];
+		$together = [];
+		foreach ($_args	 as $key => $value)
+		{
+			foreach ($fields as $field_name => $vain)
+			{
+				if(array_key_exists($field_name, $value))
+				{
+					$values[] = "'" . $value[$field_name] . "'";
+				}
+				else
+				{
+					$values[] = "NULL";
+				}
+			}
+			$together[] = join($values, ",");
+			$values     = [];
+		}
+
+		$fields = join(array_keys($fields), ",");
+
+		$values = join($together, "),(");
+
+		// crate string query
+		$query = "INSERT INTO users ($fields) VALUES ($values) ";
+
+		\lib\db::query($query);
+		return \lib\db::insert_id();
+	}
+
 
 	/**
 	 * update field from users table
