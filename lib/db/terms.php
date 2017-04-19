@@ -121,13 +121,7 @@ class terms
 		}
 		$set = join($set, ',');
 
-		$query =
-		"
-			INSERT INTO
-				terms
-			SET
-				$set
-		";
+		$query = " INSERT INTO terms SET $set";
 
 		\lib\db::query($query);
 		return \lib\db::insert_id();
@@ -381,6 +375,13 @@ class terms
 	 */
 	public static function get_multi($_args = [])
 	{
+		$limit = null;
+		if(isset($_args['limit']) && $_args['limit'] === 1)
+		{
+			$limit = " LIMIT 1 ";
+		}
+		unset($_args['limit']);
+
 		$where = [];
 		foreach ($_args as $key => $value)
 		{
@@ -392,16 +393,18 @@ class terms
 		}
 
 		$where = join($where , " AND ");
-		$query =
-		"
-			SELECT
-				*
-			FROM
-				terms
-			WHERE
-				$where
-		";
-		return self::select($query, "get");
+
+		$query = "SELECT * FROM terms WHERE $where $limit";
+
+		if($limit)
+		{
+			return \lib\db::get($query, null, true);
+		}
+		else
+		{
+			return \lib\db::get($query);
+		}
+
 	}
 
 

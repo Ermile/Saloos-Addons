@@ -118,12 +118,21 @@ class termusages
 	 *
 	 * @return     <type>  ( description_of_the_return_value )
 	 */
-	public static function insert_multi($_args)
+	public static function insert_multi($_args, $_options = [])
 	{
 		if(empty($_args))
 		{
 			return false;
 		}
+
+		$default_options = ['ignore' => false];
+
+		if(!is_array($_options))
+		{
+			$_options = [];
+		}
+
+		$_options = array_merge($default_options, $_options);
 
 		// marge all input array to creat list of field to be insert
 		$fields = [];
@@ -161,13 +170,13 @@ class termusages
 
 		$values = join($together, "),(");
 
+		$ignore = null;
+		if($_options['ignore'])
+		{
+			$ignore = "IGNORE";
+		}
 		// crate string query
-		$query = "
-				INSERT INTO	termusages
-				($fields)
-				VALUES
-				($values)
-				";
+		$query = "INSERT $ignore INTO termusages ($fields) VALUES ($values) ";
 		return \lib\db::query($query);
 	}
 

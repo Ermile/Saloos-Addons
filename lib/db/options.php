@@ -40,14 +40,9 @@ class options
 			}
 		}
 		$set = join($set, ',');
-		$query =
-		"
-			INSERT INTO
-				options
-			SET
-				$set
-		";
-		return \lib\db::query($query);
+		$query = " INSERT INTO 	options SET $set ";
+		\lib\db::query($query);
+		return \lib\db::insert_id();
 	}
 
 
