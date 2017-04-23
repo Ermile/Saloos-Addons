@@ -48,40 +48,49 @@ class model extends \mvc\model
 		switch ($_type)
 		{
 			case 'posts':
-				$qry = $qry->table('posts')->where('post_type', 'post');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM posts WHERE post_type = 'posts' ", 'count', true);
+				// $qry = $qry->table('posts')->where('post_type', 'post');
 				break;
 
 			case 'pages':
-				$qry = $qry->table('posts')->where('post_type', 'page');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM posts WHERE post_type = 'page' ", 'count', true);
+				// $qry = $qry->table('posts')->where('post_type', 'page');
 				break;
 
 			case 'helps':
-				$qry = $qry->table('posts')->where('post_type', 'help');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM posts WHERE post_type = 'help' ", 'count', true);
+				// $qry = $qry->table('posts')->where('post_type', 'help');
 				break;
 
 			case 'attachments':
-				$qry = $qry->table('posts')->where('post_type', 'attachment');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM posts WHERE post_type = 'attachment' ", 'count', true);
+				// $qry = $qry->table('posts')->where('post_type', 'attachment');
 				break;
 
 			case 'tags':
-				$qry = $qry->table('terms')->where('term_type', 'tag');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM terms WHERE term_type = 'tag' ", 'count', true);
+				// $qry = $qry->table('terms')->where('term_type', 'tag');
 				break;
 
 			case 'categories':
-				$qry = $qry->table('terms')->where('term_type', 'cat');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM terms WHERE term_type = 'cat' ", 'count', true);
+				// $qry = $qry->table('terms')->where('term_type', 'cat');
 				break;
 
 			case 'books':
-				$qry = $qry->table('posts')->where('post_type', 'book');
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM posts WHERE post_type = 'book' ", 'count', true);
+				// $qry = $qry->table('posts')->where('post_type', 'book');
 				break;
 
 			default:
-				$qry = $qry->table($_type);
+				$qry = \lib\db::get("SELECT COUNT(*) AS `count` FROM `$_type` ", 'count', true);
+				// $qry = $qry->table($_type);
 				break;
 		}
 
-		$count = $qry->select()->num();
-		$count = $count? $count: 0;
+		// $count = $qry->select()->num();
+		// $count = $count? $count: 0;
+		$count  = $qry ? (int) $qry : 0;
 		return $count;
 	}
 
