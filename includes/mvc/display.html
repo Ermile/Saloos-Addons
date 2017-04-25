@@ -120,7 +120,7 @@
 {%if include.heatmap   %} <script src="{{url.myStatic}}js/simpleheat.min.js"></script>{{include.newline}}{%endif%}
 {%if include.uploader  %} <script src="{{url.myStatic}}js/cp/uploader.js" async></script>{{include.newline}}{%endif%}
 {%if include.cp        %} <script src="{{url.myStatic}}js/cp/cp.js" async></script>{{include.newline}}{%endif%}
-{%if include.js        %} <script src="{{url.static}}js/script.js"></script>{{include.newline}}{%endif%}
+{%if include.js        %} <script src="{{url.static}}{{'js/script.js' | filemtime(true)}}"></script>{{include.newline}}{%endif%}
 {%block js             %}{%endblock%}
 
  <div data-xhr='foot_js' class="foot_js">{%block foot_js%}{%endblock%}</div>
