@@ -105,6 +105,13 @@ trait terms
 	 */
 	public function sp_postsInTerm($_id = null ,$_limit = null)
 	{
+		$domain = \lib\router::get_domain();
+		$sarshomar = false;
+		if(preg_match("/sarshomar/", $domain))
+		{
+			$sarshomar = true;
+		}
+
 		$url = $this->url('path');
 		if(substr($url, 0, 4) === 'tag/')
 		{
@@ -119,9 +126,13 @@ trait terms
 
 			if($m[2] !== '')
 			{
-				$qry = $this->sql()->table('posts')->where('post_status', 'publish')->order('id', 'ASC');
+				$qry = $this->sql()->table('posts')->where('post_status', 'publish')->and('post_privacy', 'public')->order('id', 'ASC');
 				$qry->join('termusages')->on('termusage_id', '#posts.id')->and('termusage_foreign', '#"posts"');
 				$qry->join('terms')->on('id', '#termusages.term_id')->and('term_url', $url)->groupby('#posts.id');
+				if($sarshomar)
+				{
+					$qry->and('post_privacy', 'public');
+				}
 			}
 			else
 			{
@@ -129,6 +140,10 @@ trait terms
 					->and('post_status', 'publish')->select()->assoc('id');
 				$qry = $this->sql()->table('posts')->where('post_parent', $parent_id)
 					->and('post_status', 'publish')->order('id', 'ASC');
+					if($sarshomar)
+					{
+						$qry->and('post_privacy', 'public');
+					}
 			}
 
 
@@ -136,6 +151,10 @@ trait terms
 		}
 
 		$qry = $this->sql()->table('posts')->where('post_status', 'publish')->order('id', 'DESC');
+		if($sarshomar)
+		{
+			$qry->and('post_privacy', 'public');
+		}
 		if($_id)
 		{
 			$qry->join('termusages')->on('termusage_id', '#posts.id')
