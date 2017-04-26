@@ -366,8 +366,7 @@ class options
 				option_value 	AS 'value',
 				option_meta 	AS 'meta',
 				option_status 	AS 'status',
-				date_modified,
-				option_createdate
+				date_modified
 				$parent_id
 			FROM
 				options
