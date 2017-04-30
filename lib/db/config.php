@@ -83,7 +83,11 @@ class config
 			{
 				$set[] = " `$key` = NULL ";
 			}
-			elseif(is_int($value))
+			elseif(is_numeric($value))
+			{
+				$set[] = " `$key` = $value ";
+			}
+			elseif(is_string($value) && substr($value, 0,7) === '(SELECT')
 			{
 				$set[] = " `$key` = $value ";
 			}
