@@ -90,27 +90,8 @@ class model extends \addons\content_account\home\model
 				if(utility::post('remember_me'))
 				{
 					$user_id = (int) $tmp_result['id'];
-					if(\lib\utility::cookie('remember_me'))
-					{
-						\lib\db\options::delete([
-						'option_cat'	=> 'session',
-						'option_key'	=> 'rememberme',
-						'option_value'	=> \lib\utility::cookie('remember_me'),
-						]);
-					}
-
-					$uniq_id = urlencode(\lib\utility::hasher(time() . $user_id)) . rand(701, 1301);
-					$insert = \lib\db\options::insert([
-						'user_id' 		=> $user_id,
-						'option_cat'	=> 'session',
-						'option_key'	=> 'rememberme',
-						'option_value'	=> $uniq_id,
-						'date_modified'	=> date("Y-m-d H:i:s", time())
-						]);
-					$service_name = '.' . \lib\router::get_domain(count(\lib\router::get_domain(-1))-2);
-					$tld = \lib\router::get_domain(-1);
-					$service_name .= '.' . end($tld);
-					setcookie("remember_me", $uniq_id, time() + (60*60*24*365), '/', $service_name);
+					// set remember me
+					\lib\db\sessions::set($user_id);
 				}
 				// ======================================================
 				// you can manage next event with one of these variables,
