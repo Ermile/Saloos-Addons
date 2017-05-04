@@ -91,6 +91,10 @@ class config
 			{
 				$set[] = " `$key` = $value ";
 			}
+			elseif(is_string($value) && (!$value || $value === '' ))
+			{
+				$set[] = " `$key` = NULL";
+			}
 			else
 			{
 				$set[] = " `$key` = '$value' ";
@@ -148,7 +152,18 @@ class config
 			{
 				if(array_key_exists($field_name, $value))
 				{
-					$values[] = "'" . $value[$field_name] . "'";
+					if(is_numeric($value[$field_name]))
+					{
+						$values[] = $value[$field_name];
+					}
+					elseif($value[$field_name] === null || (is_string($value[$field_name]) && (!$value[$field_name] || $value[$field_name] === '' )))
+					{
+						$values[] = "NULL";
+					}
+					else
+					{
+						$values[] = "'" . $value[$field_name] . "'";
+					}
 				}
 				else
 				{
