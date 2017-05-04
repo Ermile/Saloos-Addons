@@ -62,15 +62,20 @@
   </div>
 {%endif%}
 {%if perm.tools.view%}
+  <h2>{%trans "Server Logs"%}</h2>
+  <div class="btns">
+   <a target='_blank' href="{{url.baseFull}}/tools/log?name=accesslog">{%trans "Access logs"%}</a>
+   <a target='_blank' class="warn" href="{{url.baseFull}}/tools/log?name=errorlog">{%trans "Error logs"%}</a>
+   </div>
 
   <h2>{%trans "Database Logs"%}</h2>
 
   <div class="btns">
    <a target='_blank' href="{{url.baseFull}}/tools/log?name=sql">{%trans "Logs"%}</a>
-   <a class="info" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_check">{%trans "Logs - check"%}</a>
-   <a class="info" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_warn">{%trans "Logs - warn"%}</a>
-   <a class="info" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_critical">{%trans "Logs - critical"%}</a>
-   <a class="warn" target='_blank' href="{{url.baseFull}}/tools/log?name=sql_error">{%trans "Error Logs"%}</a>
+   <a target='_blank' class="info" href="{{url.baseFull}}/tools/log?name=sql_check">{%trans "Logs - check"%}</a>
+   <a target='_blank' class="info" href="{{url.baseFull}}/tools/log?name=sql_warn">{%trans "Logs - warn"%}</a>
+   <a target='_blank' class="info" href="{{url.baseFull}}/tools/log?name=sql_critical">{%trans "Logs - critical"%}</a>
+   <a target='_blank' class="warn" href="{{url.baseFull}}/tools/log?name=sql_error">{%trans "Error Logs"%}</a>
    </div>
 
   <h2>{%trans "Telegram Errors"%}</h2>
@@ -78,7 +83,7 @@
   <div class="btns">
    <a target='_blank' href="{{url.baseFull}}/tools/log?name=telegram">{%trans "telegram Logs"%}</a>
    <a target='_blank' href="{{url.baseFull}}/tools/log?name=telegram_info">{%trans "telegram Logs"%}</a>
-   <a class="warn" target='_blank' href="{{url.baseFull}}/tools/log?name=telegram_error">{%trans "telegram - Error Logs"%}</a>
+   <a target='_blank' class="warn" href="{{url.baseFull}}/tools/log?name=telegram_error">{%trans "telegram - Error Logs"%}</a>
    <br/>
    </div>
 {%endif%}

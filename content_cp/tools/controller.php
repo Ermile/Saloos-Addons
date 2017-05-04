@@ -257,6 +257,22 @@ class controller extends \addons\content_cp\home\controller
 
 				switch ($name)
 				{
+					case 'accesslog':
+						$clearName = 'log_access_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-log/'. $clearName. $clearExt;
+						$filepath = '/var/log/apache2/access.log';
+						$lang     = 'sql';
+						break;
+
+					case 'errorlog':
+						$clearName = 'log_erro_bak_' .date("Ymd_His");
+						$clearExt  = '.sql';
+						$clearURL = database.'log/backup-log/'. $clearName. $clearExt;
+						$filepath = '/var/log/apache2/error.log';
+						$lang     = 'sql';
+						break;
+
 					case 'sql':
 						$clearName = 'log_bak_' .date("Ymd_His");
 						$clearExt  = '.sql';
@@ -334,25 +350,11 @@ class controller extends \addons\content_cp\home\controller
 				if($isZip)
 				{
 					$newZipAddr = database.'log/dl.zip';
-					$zip = new \ZipArchive();
-
-					if ($zip->open($newZipAddr, \ZIPARCHIVE::OVERWRITE) !== TRUE)
+					// create zip
+					if(\lib\utility\zip::create($filepath, $newZipAddr) === true)
 					{
-						// if file not exist, add to existing file
-						if ($zip->open($newZipAddr, \ZipArchive::CREATE) !== TRUE)
-						{
-							exit("cannot open <$newZipAddr>\n");
-						}
+						\lib\utility\zip::download_on_fly($newZipAddr, $clearName);
 					}
-
-					// add file to zip archive
-					$zip->addFile($filepath, $clearName. $clearExt);
-					$zip->close();
-
-					\lib\utility\file::download($newZipAddr, $clearName. '.zip', 'archive/zip');
-
-					exit();
-					// $this->redirector('?name='. $name)->redirect();
 				}
 
 				// read file data
