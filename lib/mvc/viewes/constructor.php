@@ -44,11 +44,6 @@ trait constructor
 		$this->data->site['currentlang'] = \lib\define::get_language();
 		$this->data->site['defaultLang'] = \lib\define::get_language('default');
 
-		// if allow to use social then get social network account list
-		if(\lib\utility\option::get('social', 'status'))
-		{
-			$this->data->social = \lib\utility\option::get('social', 'meta');
-		}
 		// save all options to use in display
 		$this->data->options = \lib\utility\option::get(true);
 
@@ -85,6 +80,18 @@ trait constructor
 		$this->data->template['header']    = 'content/template/header.html';
 		$this->data->template['sidebar']   = 'content/template/sidebar.html';
 		$this->data->template['footer']    = 'content/template/footer.html';
+
+		// if allow to use social then get social network account list
+		if(\lib\utility\option::get('social', 'status'))
+		{
+			$this->data->social = \lib\utility\option::get('social', 'meta');
+
+			// create data of share url
+			$this->data->share['title']       = $this->data->site['title'];
+			$this->data->share['desc']        = $this->data->site['desc'];
+			$this->data->share['image']       = $this->url->static. 'images/logo.png';
+			$this->data->share['twitterCard'] = 'summary';
+		}
 
 		// define default value for include
 		$this->include->newline      = PHP_EOL;

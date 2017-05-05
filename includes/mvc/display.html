@@ -10,13 +10,13 @@
  <meta name     ="description"             content="{{pageDesc}}"/>
  <meta name     ="site:root"               content="{{url.root}}"/>
 {%block head_twitter%}
- <meta name     ="twitter:card"            content="summary"/>
+ <meta name     ="twitter:card"            content="{{share.twitterCard}}"/>
 {%if social.twitter%}
  <meta name     ="twitter:site"            content="@{{social.twitter}}"/>
 {%endif%}
  <meta name     ="twitter:title"           content="{{pageTitle}}"/>
  <meta name     ="twitter:description"     content="{{pageDesc}}"/>
- <meta name     ="twitter:image"           content="{{url.static}}images/logo.png"/>
+ <meta name     ="twitter:image"           content="{{share.image}}"/>
 {%endblock%}
 {%if browser.ua_type == 'mobile' %}
  {%if browser.browser_name == 'edge' %}
