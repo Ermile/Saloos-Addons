@@ -35,28 +35,6 @@ CREATE TABLE IF NOT EXISTS `logitems` (
   `date_modified` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `logitems`
---
-
-INSERT INTO `logitems` (`id`, `logitem_title`, `logitem_desc`, `logitem_meta`, `logitem_priority`, `date_modified`) VALUES
-(1, 'low priority', NULL, NULL, 'low', NULL),
-(2, 'mediym priority', NULL, NULL, 'medium', NULL),
-(3, 'high priority', NULL, NULL, 'high', NULL),
-(4, 'critical priority', NULL, NULL, 'critical', NULL),
-(5, 'php/error', NULL, NULL, 'critical', NULL),
-(6, 'db/error', NULL, NULL, 'high', NULL),
-(7, 'account/login', NULL, NULL, 'low', NULL),
-(8, 'account/signup', NULL, NULL, 'medium', NULL),
-(9, 'account/recovery', NULL, NULL, 'medium', NULL),
-(10, 'account/change password', NULL, NULL, 'low', NULL),
-(11, 'account/verification sms', NULL, NULL, 'low', NULL),
-(12, 'account/verification email', NULL, NULL, 'medium', NULL),
-(13, 'Page 400', NULL, NULL, 'low', NULL),
-(14, 'Page 401 ', NULL, NULL, 'medium', NULL),
-(15, 'Page 403', NULL, NULL, 'low', NULL),
-(16, 'Page 404', NULL, NULL, 'low', NULL),
-(17, 'Page 500', NULL, NULL, 'low', NULL);
 
 --
 -- Indexes for dumped tables
