@@ -37,9 +37,6 @@ CREATE TABLE IF NOT EXISTS `termusages` (
 -- Dumping data for table `termusages`
 --
 
-INSERT INTO `termusages` (`term_id`, `termusage_id`, `termusage_foreign`, `termusage_order`) VALUES
-(1, 1, 'posts', NULL);
-
 --
 -- Indexes for dumped tables
 --

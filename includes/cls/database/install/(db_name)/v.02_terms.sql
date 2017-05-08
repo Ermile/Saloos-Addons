@@ -41,13 +41,6 @@ CREATE TABLE IF NOT EXISTS `terms` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `terms`
---
-
-INSERT INTO `terms` (`id`, `term_language`, `term_type`, `term_title`, `term_slug`, `term_url`, `term_desc`, `term_meta`, `term_parent`, `user_id`, `date_modified`) VALUES
-(1, NULL, 'cat', 'اخبار', 'news', 'news', NULL, NULL, NULL, NULL, NULL);
-
---
 -- Indexes for dumped tables
 --
 
