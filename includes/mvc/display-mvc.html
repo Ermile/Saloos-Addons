@@ -113,7 +113,6 @@
 {%if include.cp        %} <script src="{{url.myStatic}}js/cp/cp.js" async></script>{{include.newline}}{%endif%}
 {%if include.js        %} <script src="{{url.static}}{{'js/script.js' | filemtime(true)}}"></script>{{include.newline}}{%endif%}
 {%block js             %}{%endblock%}
-
  <div data-xhr='foot_js' class="foot_js">{%block foot_js%}{%endblock%}</div>
 </body>
 </html>
