@@ -1,0 +1,101 @@
+{%extends display.mvc%}
+
+
+{%set codeUrl%}{%if url.tld == 'dev'%}http://code.ermile.dev/{%else%}https://code.ermile.com/{%endif%}{%endset%}
+
+
+{%block head_css%}
+ <link rel="stylesheet"       href="{{codeUrl}}css/ermile-10.0.0.css">
+ <link rel="stylesheet"       href="{{codeUrl}}dash/dash-2.0.0.css">
+{%endblock%}
+
+
+{%block js%}
+ <script src="{{codeUrl}}dash/dash-2.0.0.js"></script>
+{%endblock%}
+
+
+{%block body%}
+<div class='f'>
+ <aside id='sidebar' class='c2 x1'>
+  {{block ('aside')}}
+ </aside>
+
+ <main id='main' class='c'>
+  <header id='header'>{{block ('header')}}</header>
+  <div id='content' data-xhr='content'>{{block ('content')}}</div>
+  <footer id='footer'>{{block ('footer')}}</footer>
+ </main>
+</div>
+
+{%endblock%}
+
+
+
+{%block aside%}
+<div>
+  <figure>
+{%block avatar%}
+    <div class="avatar">
+      <img src="{{codeUrl}}dash/images/avatar.jpg" alt="Avatar of you">
+    </div>
+    <figcaption>{%trans "Hello"%} <b>{{site.title}}</b></figcaption>
+{%endblock%}
+  </figure>
+
+
+  <h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>
+
+  <ul>
+    <li><a href="{{url.base}}/admin" data-icon="pie-chart">{% trans "Dashboard" %}</a></li>
+    <li><a href="{{url.base}}/admin/attachments" data-icon="pie-chart">{% trans "Attachments" %}</a></li>
+    <li>
+      <ul>
+        <li><a href="{{url.base}}/admin/knowledge" data-icon="pie-chart">{% trans "All" %}</a></li>
+        <li><a href="{{url.base}}/admin/knowledge/sarshomar=1" data-icon="pie-chart">{% trans "Sarshomar" %}</a></li>
+        <li><a href="{{url.base}}/admin/knowledge/sarshomar=0" data-icon="pie-chart">{% trans "People" %}</a></li>
+
+      </ul>
+    </li>
+  </ul>
+
+  <nav>
+   <a href="{{url.base}}/admin" data-icon="pie-chart">{% trans "Dashboard" %}</a>
+   <div>
+    <span data-icon="check-form">{% trans "Polls" %}</span>
+    <ul>
+    </ul>
+   </div>
+   <a href="{{url.base}}/admin/attachments" data-icon="pie-chart">{% trans "Attachments" %}</a>
+  </nav>
+
+</div>
+
+{%endblock%}
+
+
+{%block wrapperAdmin%}
+ <div class="f">
+  <div class="c2 m0 s0"></div>
+  <div class="c10 m12 s12">
+   {{block ('headerAdmin')}}
+   <div class="wrapper">
+    {%block content%}{%endblock%}
+   </div>
+  </div>
+ </div>
+{%endblock%}
+
+{%block headerAdmin%}
+ <header>
+  {{langList({'html':true})}}
+  <div id="profile">
+   <span>{{displayname}}</span>
+   <nav>
+    <a href="">{% trans "My Profile" %}</a>
+    <a href="">{% trans "Change Password" %}</a>
+    <a href="{{url.base}}/logout" data-direct>{% trans "Logout" %}</a>
+   </nav>
+  </div>
+ </header>
+{%endblock%}
