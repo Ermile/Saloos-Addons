@@ -17,12 +17,12 @@
 
 {%block body%}
 <div class='f'>
- <aside id='sidebar' class='c2 x1'>
+ <aside id='sidebar' class='c2 x2'>
   {{block ('aside')}}
  </aside>
 
  <main id='main' class='c'>
-  <header id='header'>{{block ('header')}}</header>
+  <header id='header' class='flex'>{{block ('header')}}</header>
   <div id='content' data-xhr='content'>{{block ('content')}}</div>
   <footer id='footer'>{{block ('footer')}}</footer>
  </main>
@@ -37,7 +37,7 @@
   <figure>
 {%block avatar%}
     <div class="avatar">
-      <img src="{{codeUrl}}dash/images/avatar.jpg" alt="Avatar of you">
+      <img src="{{codeUrl}}dash/images/logo.jpg" alt="Avatar of you">
     </div>
     <figcaption>{%trans "Hello"%} <b>{{site.title}}</b></figcaption>
 {%endblock%}
@@ -52,6 +52,29 @@
 {%endblock%}
   </ul>
 </div>
+{%endblock%}
+
+
+{%block header%}
+{%block headerTitle%}
+  <h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>
+{%endblock%}
+
+  <div class='flex'>
+{%block headerMenu%}
+   <div class="f">
+    <span class="icon-globe"></span>
+    {{langList({'html':true, 'all': true})}}
+   </div>
+{%endblock%}
+  </div>
+
+  <div class='flex right'>
+{%block headerRight%}
+   <span class="icon-save"></span>
+   <span class="icon-unlock-alt"></span>
+{%endblock%}
+  </div>
 {%endblock%}
 
 
