@@ -16,42 +16,38 @@
 
 
 {%block body%}
-<div class='f'>
- <aside id='sidebar' class='c2 x2'>
+ <aside id='sidebar' class='unselectable'>
   {{block ('aside')}}
  </aside>
 
- <main id='main' class='c'>
+ <main id='main'>
   <header id='header' class='flex'>{{block ('header')}}</header>
-  <div id='content' data-xhr='content'>{{block ('content')}}</div>
+  <div id='content' class='scr' data-xhr='content'>{{block ('content')}}</div>
   <footer id='footer'>{{block ('footer')}}</footer>
  </main>
-</div>
 
 {%endblock%}
 
 
 
 {%block aside%}
-<div>
   <figure>
 {%block avatar%}
     <div class="avatar">
       <img src="{{codeUrl}}dash/images/logo.jpg" alt="Avatar of you">
     </div>
-    <figcaption>{%trans "Hello"%} <b>{{site.title}}</b></figcaption>
+    <figcaption>{%trans "Hello"%} <b>{{displayname}}</b></figcaption>
 {%endblock%}
+   <h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>
   </figure>
 
-
-  <h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>
-
-  <ul class="sidenav">
+  <div class="menu scr dark">
+   <ul class="sidenav">
 {%block sidenav%}
     <li><a href="{{url.baseFull}}"><i class='icon-tachometer'></i> <span>{% trans "Dashboard" %}</span></a></li>
 {%endblock%}
-  </ul>
-</div>
+   </ul>
+  </div>
 {%endblock%}
 
 
@@ -62,44 +58,25 @@
 
   <div class='flex'>
 {%block headerMenu%}
-   <div class="f">
-    <span class="icon-globe"></span>
-    {{langList({'html':true, 'all': true})}}
+   <div>
+    <i class="icon-globe"></i>
+    {{langList({'html':true, 'all':true})}}
    </div>
 {%endblock%}
   </div>
 
   <div class='flex right'>
 {%block headerRight%}
-   <span class="icon-save"></span>
-   <span class="icon-unlock-alt"></span>
+   <a><i class="icon-save"></i></a>
+   <a href="{{url.base}}/logout" data-direct><i class="icon-unlock-alt"></i></a>
 {%endblock%}
   </div>
 {%endblock%}
 
 
-{%block wrapperAdmin%}
- <div class="f">
-  <div class="c2 m0 s0"></div>
-  <div class="c10 m12 s12">
-   {{block ('headerAdmin')}}
-   <div class="wrapper">
-    {%block content%}{%endblock%}
-   </div>
-  </div>
- </div>
+{%block footer%}
+ <nav class="breadcrumb unselectable" data-xhr="breadcrumb" tabindex='-1' data-step='4' data-intro='{%trans "View your current location and navigate to parent of it"%}' data-position='bottom'>
+   {{breadcrumb() | raw}}
+ </nav>
 {%endblock%}
 
-{%block headerAdmin%}
- <header>
-  {{langList({'html':true})}}
-  <div id="profile">
-   <span>{{displayname}}</span>
-   <nav>
-    <a href="">{% trans "My Profile" %}</a>
-    <a href="">{% trans "Change Password" %}</a>
-    <a href="{{url.base}}/logout" data-direct>{% trans "Logout" %}</a>
-   </nav>
-  </div>
- </header>
-{%endblock%}
