@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_displayname` varchar(50) DEFAULT NULL,
   `user_meta` mediumtext,
   `user_status` enum('active','awaiting','deactive','removed','filter') DEFAULT 'awaiting',
+  `user_parent` int(10) unsigned NULL DEFAULT NULL,
   `user_permission` smallint(5) unsigned DEFAULT NULL,
   `user_createdate` datetime NOT NULL,
   `date_modified` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
