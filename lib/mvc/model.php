@@ -17,11 +17,11 @@ class model extends \lib\model
 
 	use \lib\mvc\controllers\login;
 	use \lib\mvc\controllers\tools;
-	
+
 	public function __construct($object = false)
 	{
 		parent::__construct($object);
-		$this->permissions = \lib\utility\option::get('permissions', 'meta');
+		// $this->permissions = \lib\utility\option::get('permissions', 'meta');
 	}
 }
 ?>

@@ -79,11 +79,11 @@ class tg
 	public static function hook()
 	{
 		// if telegram is off then do not run
-		if(!\lib\utility\option::get('telegram', 'status'))
+		if(!\lib\option::social('telegram', 'status'))
 			return 'telegram is off!';
 		self::$hook = json_decode(file_get_contents('php://input'), true);
 		// if debug mode is enable give text from get parameter
-		if(!isset(self::$hook['message']['text']) && \lib\utility\option::get('telegram', 'meta', 'debug') && \lib\utility::get('text'))
+		if(!isset(self::$hook['message']['text']) && \lib\option::social('telegram', 'debug') && \lib\utility::get('text'))
 		{
 			self::$hook['message']['text'] = \lib\utility::get('text');
 		}
@@ -143,7 +143,7 @@ class tg
 	 */
 	public static function sendResponse($_prop)
 	{
-		if(self::$skipText && !\lib\utility\option::get('telegram', 'meta', 'debug'))
+		if(self::$skipText && !\lib\option::social('telegram', 'debug'))
 		{
 			return false;
 		}
@@ -507,7 +507,7 @@ class tg
 	{
 		if(empty($_url))
 		{
-			$_url = \lib\utility\option::get('telegram', 'meta', 'hook');
+			$_url = \lib\option::social('telegram', 'hook');
 		}
 		$answer = ['url' => $_url];
 		// if (!is_null($_file))

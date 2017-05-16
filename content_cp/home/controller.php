@@ -18,7 +18,7 @@ class controller extends \mvc\controller
 		{
 			\lib\debug::warn(T_("first of all, you must login to system!"));
 
-			$mydomain = \lib\utility\option::get('config', 'meta', 'redirectURL');
+			$mydomain = \lib\option::config('redirect_url');
 			if($mydomain && $mydomain !== 'on')
 			{
 				$this->redirector($mydomain.'/account/login?referer='.$_SERVER['REQUEST_SCHEME'] . '://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], false)->redirect();
@@ -35,7 +35,22 @@ class controller extends \mvc\controller
 		}
 		// Check permission and if user can do this operation
 		// allow to do it, else show related message in notify center
-		$this->access($_content, $_module, $_perm, 'block');
+		if(intval($this->login('id')) === 1 || ( intval($this->login('id')) === 1001 && $this->login('displayname') === 'Javad Evazzadeh' ))
+		{
+			//
+		}
+		else
+		{
+			if(Tld === 'dev')
+			{
+
+			}
+			else
+			{
+				\lib\error::access(T_("Can not access to cp"));
+			}
+		}
+		// $this->access($_content, $_module, $_perm, 'block');
 	}
 
 

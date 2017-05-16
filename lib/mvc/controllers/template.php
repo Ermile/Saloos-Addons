@@ -66,7 +66,7 @@ trait template
 		{
 			// save name of current module as name of social
 			$social_name = $mymodule;
-			if($this->option('socialy'))
+			if(\lib\option::social('status'))
 			{
 				// declare list of shortkey for socials
 				$social_list =
@@ -100,10 +100,10 @@ trait template
 			];
 
 			// if social name exist in social adresses then redirect to it
-			if(isset($social_list[$social_name]) && $this->option($social_name))
+			if(isset($social_list[$social_name]) && \lib\option::social($social_name))
 			{
 				// create url of social network
-				$social_url = $social_list[$social_name] . $this->option($social_name);
+				$social_url = $social_list[$social_name] . \lib\option::social($social_name);
 				// redirect to new address
 				$this->redirector($social_url, false)->redirect();
 				return;

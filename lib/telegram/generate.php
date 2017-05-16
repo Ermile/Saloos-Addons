@@ -54,7 +54,7 @@ class generate extends tg
 					$answer = ['text' => $msg ];
 				}
 			}
-			elseif(\lib\utility\option::get('telegram', 'meta', 'debug') && !is_array($answer))
+			elseif(\lib\option::social('telegram', 'debug') && !is_array($answer))
 			{
 				// then if not exist set default text
 				$answer = ['text' => self::$defaultText];

@@ -12,7 +12,7 @@
    <a target='_blank' href="{{url.baseFull}}/tools/phpinfo">{%trans "Show PHP info"%}</a>
   </div>
 
-{%if perm.tools.admin%}
+{%if true or perm.tools.admin%}
 
 {%if url.tld == 'dev'%}
   <h2>{%trans "Translate"%}</h2>
@@ -61,7 +61,7 @@
    <!-- <a target='_blank' href="{{url.baseFull}}/tools/db?backup=true">{%trans "Backup"%} {%trans "Project Database"%}</a> -->
   </div>
 {%endif%}
-{%if perm.tools.view%}
+{%if true or perm.tools.view%}
   <h2>{%trans "Server Logs"%}</h2>
   <div class="btns">
    <a target='_blank' href="{{url.baseFull}}/tools/log?name=accesslog">{%trans "Access logs"%}</a>

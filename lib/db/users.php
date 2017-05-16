@@ -275,7 +275,7 @@ class users
 		if($_args['permission'] === true)
 		{
 			// if use true fill it with default value
-			$_args['permission']     = \lib\utility\option::get('account');
+			$_args['permission']     = \lib\option::config('default_permission');
 			// default value not set in database
 			if($_args['permission'] == '')
 			{

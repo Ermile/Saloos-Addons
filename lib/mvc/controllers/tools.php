@@ -9,7 +9,8 @@ trait tools
 	 */
 	public function option()
 	{
-		return \lib\utility\option::get(...func_get_args());
+		// var_dump(debug_backtrace());exit();
+		return \lib\option::config(...func_get_args());
 	}
 
 
@@ -19,7 +20,8 @@ trait tools
 	 */
 	public function access()
 	{
-		return \lib\utility\permission::access(...func_get_args());
+		\lib\permission::$user_id = $this->login('id');
+		return \lib\permission::access(...func_get_args());
 	}
 
 
