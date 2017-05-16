@@ -25,7 +25,7 @@ class view extends \addons\content_cp\home\view
 
 
 		// add languages item
-      	foreach (\lib\utility\option::languages() as $key => $value)
+      	foreach (\lib\option::language('list') as $key => $value)
 		{
 			$form_config->config_defaultLang->child()->id('lang_'.$key)->value($key)->label($value);
 		}

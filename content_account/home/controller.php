@@ -138,14 +138,14 @@ class controller extends \mvc\controller
 			$url .= '/referer?to=' . \lib\utility::get('referer');
 			$this->redirector($url)->redirect();
 		}
-		elseif(\lib\utility\option::get('account', 'status'))
+		elseif(\lib\option::config('account_status'))
 		{
 			$url = $this->url("root");
-			$_redirect_sub = \lib\utility\option::get('account', 'meta', 'redirect');
+			$_redirect_sub = \lib\option::config('redirect');
 
 			if($_redirect_sub !== 'home')
 			{
-				// if(\lib\utility\option::get('config', 'meta', 'fakeSub'))
+				// if(\lib\option::config('fake_sub'))
 				// {
 				// 	echo $this->redirector()->set_subdomain()->set_url($_redirect_sub)->redirect();
 				// }

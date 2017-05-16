@@ -38,7 +38,7 @@ trait options
 		$permList = [];
 		if($_status === false)
 		{
-			$permList = \lib\utility\option::get('permissions', 'meta');
+			// $permList = \lib\utility\option::get('permissions', 'meta');
 			return $permList;
 		}
 

@@ -40,12 +40,12 @@ trait constructor
 		$this->data->site['title']       = T_("Saloos");
 		$this->data->site['desc']        = T_("Another Project with Saloos");
 		$this->data->site['slogan']      = T_("Saloos is an artichokes for PHP programming!!");
-		$this->data->site['langlist']    = \lib\utility\option::languages();
+		$this->data->site['langlist']    = \lib\option::language('list');
 		$this->data->site['currentlang'] = \lib\define::get_language();
 		$this->data->site['defaultLang'] = \lib\define::get_language('default');
 
 		// save all options to use in display
-		$this->data->options = \lib\utility\option::get(true);
+		$this->data->options = \lib\option::config();
 
 		$this->data->page['title']   = null;
 		$this->data->page['desc']    = null;
@@ -82,9 +82,9 @@ trait constructor
 		$this->data->template['footer']    = 'content/template/footer.html';
 
 		// if allow to use social then get social network account list
-		if(\lib\utility\option::get('social', 'status'))
+		if(\lib\option::social('status'))
 		{
-			$this->data->social = \lib\utility\option::get('social', 'meta');
+			$this->data->social = \lib\option::social('list');
 
 			// create data of share url
 			$this->data->share['title']       = $this->data->site['title'];
@@ -124,7 +124,7 @@ trait constructor
 			$this->options();
 		}
 
-		if(\lib\utility\option::get('config', 'meta', 'saveAsCookie'))
+		if(\lib\option::config('save_as_cookie'))
 		{
 			$mygetlist = \lib\utility::get(null, 'raw');
 			if($mygetlist)

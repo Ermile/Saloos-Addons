@@ -102,7 +102,7 @@ class user
 			],
 		];
 		// on debug mode send made by ermile at the end of start msg
-		if(\lib\utility\option::get('telegram', 'meta', 'debug'))
+		if(\lib\option::social('telegram', 'debug'))
 		{
 			$result[] =
 			[

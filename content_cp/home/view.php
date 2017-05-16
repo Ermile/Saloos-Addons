@@ -47,7 +47,7 @@ class view extends \mvc\view
 		switch ($mymodule)
 		{
 			case 'visitors':
-				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
+				if(\lib\option::config('log_visitors'))
 				{
 					// create for chart
 					$type  = \lib\utility::get('type');
@@ -115,7 +115,7 @@ class view extends \mvc\view
 				if($ref !== 'cp' && $ref !== null)
 					$this->data->visitor_new = true;
 
-				if(\lib\utility\option::get('config', 'meta', 'logVisitors'))
+				if(\lib\option::config('log_visitors'))
 				{
 					// create for chart
 					$this->data->chart_type             = 'column';
@@ -272,7 +272,7 @@ class view extends \mvc\view
 				$url = $this->data->datarow['post_url'];
 				$this->data->datarow['cat_url'] = substr($url, 0, strrpos( $url, '/'));
 				// if defaultlang and lang of the post is not the same then add lang to url
-				$defaultLang = substr(\lib\utility\option::get('config', 'meta', 'defaultLang'), 0, 2);
+				$defaultLang = substr(\lib\option::config('default_language'), 0, 2);
 				if($defaultLang !== $this->data->datarow['post_language'])
 				{
 					$this->data->datarow['post_url'] = $this->data->datarow['post_language']. "/".$this->data->datarow['post_url'];

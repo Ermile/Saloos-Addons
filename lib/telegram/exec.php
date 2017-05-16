@@ -30,7 +30,7 @@ class exec extends tg
 			unset($_data['storage']);
 		}
 		// if telegram is off then do not run
-		if(!\lib\utility\option::get('telegram', 'status'))
+		if(!\lib\option::social('telegram', 'status'))
 		{
 			return 'telegram is off!';
 		}
@@ -63,7 +63,7 @@ class exec extends tg
 		// if api key is not set get it from options
 		if(!self::$api_key)
 		{
-			self::$api_key = \lib\utility\option::get('telegram', 'meta', 'key');
+			self::$api_key = \lib\option::social('telegram', 'key');
 		}
 		// if key is not correct return
 		if(strlen(self::$api_key) < 20)

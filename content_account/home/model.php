@@ -6,7 +6,7 @@ class model extends \mvc\model
 	function __construct($object = false)
 	{
 		parent::__construct($object);
-		$settings = $this->option('account', null, false, $this);
+		// $settings = $this->option('account', null, false, $this);
 		$mymodule = $this->module();
 		$isValid  = false;
 
@@ -18,14 +18,13 @@ class model extends \mvc\model
 
 		// check access permission to account
 		// if user set passphrase for enter account
-		if(isset($settings['meta']['passphrase']) && $settings['meta']['passphrase']
-			&& $mymodule !=='logout')
+		if(\lib\option::config('passphrase') && $mymodule !=='logout')
 		{
 			// if user set pass key
-			if(isset($settings['meta']['passkey']) && $settings['meta']['passkey'])
+			if(\lib\option::config('passkey'))
 			{
 				// get pass key and save it in myphrase variable
-				$myPassKey   = $settings['meta']['passkey'];
+				$myPassKey   = \lib\option::config('passkey');
 				$myPassValue = \lib\utility::get($myPassKey);
 				// if user not set pass value in get, then check cookie for it
 				if($myPassValue === null)
@@ -39,10 +38,10 @@ class model extends \mvc\model
 					$isValid = false;
 				}
 				// elseif set, compare value of it with settings
-				elseif(isset($settings['meta']['passvalue']) && $settings['meta']['passvalue'])
+				elseif(\lib\option::config('passvalue'))
 				{
 					// passvalue exist and equal
-					if($settings['meta']['passvalue'] === $myPassValue)
+					if(\lib\option::config('passvalue') === $myPassValue)
 					{
 						$isValid = true;
 					}

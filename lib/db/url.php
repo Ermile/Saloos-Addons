@@ -18,7 +18,7 @@ class url
 	public static function checkShortURL($_shortURL = null)
 	{
 		// set this shorturl, real url:)
-		if(!\lib\utility\option::get('config', 'meta', 'shortURL'))
+		if(!\lib\option::config('short_url'))
 		{
 			return null;
 		}
@@ -59,7 +59,7 @@ class url
 			return false;
 		}
 
-		if(!\lib\utility\option::get('config', 'meta', 'forceShortURL') && isset($result['post_url']))
+		if(!\lib\option::config('force_short_url') && isset($result['post_url']))
 		{
 			$post_url = $result['post_url'];
 			// redirect to url of this post
