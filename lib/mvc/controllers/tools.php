@@ -20,8 +20,8 @@ trait tools
 	 */
 	public function access()
 	{
-		// \lib\permission::$user_id = $this->login('id');
-		// return \lib\permission::access(...func_get_args());
+		\lib\permission::$user_id = $this->login('id');
+		return \lib\permission::access(...func_get_args());
 	}
 
 

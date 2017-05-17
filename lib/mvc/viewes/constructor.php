@@ -55,8 +55,8 @@ trait constructor
 		$this->data->module          = $this->module();
 		$this->data->child           = $this->child();
 		$this->data->login           = $this->login('all');
-		$this->data->perm            = $this->access(null, 'all');
-		$this->data->permContent     = $this->access('all');
+		// $this->data->perm            = $this->access(null, 'all');
+		// $this->data->permContent     = $this->access('all');
 
 		// set detail of browser
 		$this->data->browser         = \lib\utility\browserDetection::browser_detection('full_assoc');
