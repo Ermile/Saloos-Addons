@@ -75,6 +75,7 @@ trait constructor
 		$this->data->display['home']       = "content/home/display.html";
 		$this->data->display['account']    = "content_account/home/layout.html";
 		$this->data->display['cp']         = "content_cp/home/layout.html";
+		$this->data->display['cpMain']     = "content_cp/main/layout.html";
 		$this->data->display['pagination'] = "content_cp/templates/inc_pagination.html";
 		// add special pages to template array to use without name
 		$this->data->template['header']    = 'content/template/header.html';

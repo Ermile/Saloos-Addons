@@ -1,7 +1,9 @@
 {%extends display.mvc%}
 
 
+
 {%set codeUrl%}{%if url.tld == 'dev'%}http://code.ermile.dev/{%else%}https://code.ermile.com/{%endif%}{%endset%}
+
 
 
 {%block head_css%}
@@ -10,37 +12,36 @@
 {%endblock%}
 
 
+
 {%block js%}
  <script src="{{codeUrl}}dash/dash-2.0.0.js"></script>
 {%endblock%}
 
 
+
 {%block body%}
- <aside id='sidebar' class='unselectable'>
-  {{block ('aside')}}
- </aside>
+ <aside id='sidebar' class='unselectable'>{{block ('aside')}} </aside>
 
  <main id='main'>
-  <header id='header' class='flex'>{{block ('header')}}</header>
-  <div id='content' class='scr' data-xhr='content'>{{block ('content')}}</div>
-  <footer id='footer'>{{block ('footer')}}</footer>
+  <header id='header' class='flex'>{{block ('header')}}  </header>
+  <div id='content' class='scr' data-xhr='content'>{{block ('content')}}  </div>
+  <footer id='footer'>{{block ('footer')}}  </footer>
  </main>
 
 {%endblock%}
 
 
 
+
 {%block aside%}
+
   <figure>
 {%block avatar%}
-    <div class="avatar">
-      <img src="{{codeUrl}}dash/images/logo.jpg" alt="Avatar of you">
-    </div>
-    <figcaption>{%trans "Hello"%} <b>{{displayname}}</b></figcaption>
+   <div class="avatar"><img src="{{codeUrl}}dash/images/logo.jpg" alt='{%trans "Avatar of you"%}'></div>
+   <figcaption>{%trans "Hello"%} <b>{{displayname}}</b></figcaption>
 {%endblock%}
-   <h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>
   </figure>
-
+  <h2><a href="{{url.base}}" data-direct>{{site.title}}</a></h2>
   <div class="menu scr dark">
    <ul class="sidenav">
 {%block sidenav%}
@@ -51,32 +52,27 @@
 {%endblock%}
 
 
+
 {%block header%}
-{%block headerTitle%}
-  <h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>
-{%endblock%}
 
-  <div class='flex'>
+   {%block headerTitle%}<h1><a href="{{url.base}}" data-direct>{{site.title}}</a></h1>{%endblock%}
+
+   <div class='hm flex'>
 {%block headerMenu%}
-   <div>
-    <i class="icon-globe"></i>
-    {{langList({'html':true, 'all':true})}}
+    <div class="vm"><i class="icon-globe"></i>{{langList({'html':true, 'all':true})}}</div>
+{%endblock%}
    </div>
-{%endblock%}
-  </div>
-
-  <div class='flex right'>
+   <div class='hm right flex'>
 {%block headerRight%}
-   <a><i class="icon-save"></i></a>
-   <a href="{{url.base}}/logout" data-direct><i class="icon-unlock-alt"></i></a>
+    <a><i class="icon-unlock-alt"></i></a>
+    <a href="{{url.base}}/logout" title='{%trans "Logout"%}' data-direct><i class="icon-out"></i></a>
 {%endblock%}
-  </div>
+   </div>
 {%endblock%}
 
 
 {%block footer%}
- <nav class="breadcrumb unselectable" data-xhr="breadcrumb" tabindex='-1' data-step='4' data-intro='{%trans "View your current location and navigate to parent of it"%}' data-position='bottom'>
-   {{breadcrumb() | raw}}
- </nav>
+
+   <nav class="breadcrumb unselectable" data-xhr="breadcrumb" tabindex='-1' data-step='4' data-intro='{%trans "View your current location and navigate to parent of it"%}' data-position='bottom'>{{breadcrumb() | raw}}</nav>
 {%endblock%}
 
