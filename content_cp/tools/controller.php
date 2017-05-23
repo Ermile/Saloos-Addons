@@ -6,7 +6,7 @@ class controller extends \addons\content_cp\home\controller
 	function _route()
 	{
 		// check permission to access to cp
-		if(Tld !== 'dev')
+		// if(Tld !== 'dev')
 		{
 			parent::_permission('cp');
 		}
@@ -18,8 +18,6 @@ class controller extends \addons\content_cp\home\controller
 		$mymodule = $this->cpModule('table');
 		$cpModule = $this->cpModule('raw');
 
-		// var_dump($this->child());
-		$this->display_name	= 'content_cp/templates/raw.html';
 		switch ($this->child())
 		{
 			case 'dbtables':
@@ -111,7 +109,7 @@ class controller extends \addons\content_cp\home\controller
 				}
 				\lib\utility\tools::linfo();
 
-				$this->display_name	= 'content_cp/templates/raw-all.html';
+				$this->display_name	= 'content_cp/tools/raw-all.html';
 
 				break;
 
@@ -400,11 +398,12 @@ class controller extends \addons\content_cp\home\controller
 				break;
 
 			default:
-				$this->display_name	= 'content_cp/templates/static_tools.html';
+				// $this->display_name	= 'content_cp/templates/static_tools.html';
 
 				return;
 				break;
 		}
+		// $this->display_name	= 'content_cp/tools/raw.html';
 
 		// $this->get()->ALL();
 		if($exist)
