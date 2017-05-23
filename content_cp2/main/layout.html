@@ -11,3 +11,16 @@
 {%endif%}
 
 {%endblock%}
+
+
+
+{%block footer%}
+{{parent()}}
+
+{%set versionHint%}
+{%if saloos.lastUpdate%}data-hint='{%trans "Last update on"%} {{saloos.lastUpdate | tdate}}'{%else%}data-hint='{%trans "wait for next version!"%}'{%endif%}
+{%endset%}
+
+<p class="" id='copyright' itemscope><span>{%trans "Powered by"%} <a href='http://saloos.ir' target="_blank" title='{%trans "Some right reserved"%}' tabindex='-1'>{%trans "Saloos"%}</a></span> | <abbr class="hint--left" {{versionHint}}>{%trans "Version"%} {{saloos.version}}</abbr></p>
+{%endblock%}
+

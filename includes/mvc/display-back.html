@@ -25,7 +25,7 @@
  <main id='main'>
   <header id='header' class='flex'>{{block ('header')}}  </header>
   <div id='content' class='scr' data-xhr='content'>{{block ('content')}}  </div>
-  <footer id='footer'>{{block ('footer')}}  </footer>
+  <footer id='footer' class='flex'>{{block ('footer')}}  </footer>
  </main>
 
 {%endblock%}
@@ -73,6 +73,6 @@
 
 {%block footer%}
 
-   <nav class="breadcrumb unselectable" data-xhr="breadcrumb" tabindex='-1' data-step='4' data-intro='{%trans "View your current location and navigate to parent of it"%}' data-position='bottom'>{{breadcrumb() | raw}}</nav>
+   <nav class="breadcrumb c8" data-xhr="breadcrumb" tabindex='-1' data-step='4' data-intro='{%trans "View your current location and navigate to parent of it"%}' data-position='top'>{{breadcrumb() | raw}}</nav>
 {%endblock%}
 
