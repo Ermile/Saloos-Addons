@@ -36,7 +36,7 @@ class view extends \mvc\view
 		$this->data->page['title']    = T_(ucfirst(\lib\router::get_url(' ')));
 
 
-		$this->data->cpModule         = $this->cpModule();
+		// $this->data->cpModule         = $this->cpModule();
 
 		$this->data->dir['right']     = $this->global->direction == 'rtl'? 'left':  'right';
 		$this->data->dir['left']      = $this->global->direction == 'rtl'? 'right': 'left';
