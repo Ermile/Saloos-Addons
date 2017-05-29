@@ -15,33 +15,41 @@ class config
 	{
 		$default_options =
 		[
-			'condition' => 'AND',
+			'condition'  => 'AND',
+			'table_name' => null,
 		];
 
 		if(!is_array($_options))
 		{
 			$_options = [];
 		}
+
 		$_options = array_merge($default_options, $_options);
+
+		$table_name = null;
+		if($_options['table_name'])
+		{
+			$table_name = "`$_options[table_name]`.";
+		}
 
 		$where = [];
 		foreach ($_where as $field => $value)
 		{
 			if(is_string($value) && preg_match("/\%/", $value))
 			{
-				$where[] = " $field LIKE '$value' ";
+				$where[] = " $table_name`$field` LIKE '$value' ";
 			}
 			elseif($value === null || is_null($value))
 			{
-				$where[] = " $field IS NULL ";
+				$where[] = " $table_name`$field` IS NULL ";
 			}
 			elseif(is_string($value))
 			{
-				$where[] = " $field = '$value' ";
+				$where[] = " $table_name`$field` = '$value' ";
 			}
 			elseif(is_numeric($value))
 			{
-				$where[] = " $field = $value ";
+				$where[] = " $table_name`$field` = $value ";
 			}
 		}
 
