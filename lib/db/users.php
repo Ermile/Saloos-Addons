@@ -803,23 +803,15 @@ class users
 	 */
 	public static function set_login_session($_datarow = null, $_fields = null, $_user_id = null)
 	{
+		// if user id set load user data by get from database
 		if($_user_id)
 		{
-			$session_fields =
-				[
-					'id',
-					'user_displayname',
-					'user_mobile',
-					'user_email',
-					'user_meta',
-					'user_status',
-					'user_permission'
-				];
+			// load all user field
+			$user_data = self::get_user_data($_user_id);
 
-			$user_data = self::get_user_data($_user_id, $session_fields);
+			// check the reault is true
 			if(is_array($user_data))
 			{
-				$_fields = array_keys($user_data);
 				$_datarow = $user_data;
 			}
 			else
@@ -827,28 +819,35 @@ class users
 				return false;
 			}
 		}
+
+		// set main cat of session
 		$_SESSION['user']       = [];
 		$_SESSION['permission'] = [];
-		foreach ($_fields as $value)
+
+		if(is_array($_datarow))
 		{
-			if(substr($value, 0, 5) === 'user_')
+			// and set the session
+			foreach ($_datarow as $key => $value)
 			{
-				$key = substr($value, 5);
-				if($key == 'meta')
+				if(substr($key, 0, 5) === 'user_')
 				{
-					$_SESSION['user'][$key] = json_decode($_datarow[$value], true);
+					// remove 'user_' from first of index of session
+					$key = substr($key, 5);
+					if($key == 'meta' && is_string($value))
+					{
+						$_SESSION['user'][$key] = json_decode($value, true);
+					}
+					else
+					{
+						$_SESSION['user'][$key] = $value;
+					}
 				}
 				else
 				{
-					$_SESSION['user'][$key] = $_datarow[$value];
+					$_SESSION['user'][$key] = $value;
 				}
 			}
-			else
-			{
-				$_SESSION['user'][$value] = $_datarow[$value];
-			}
 		}
-
 	}
 
 
