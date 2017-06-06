@@ -100,10 +100,14 @@ trait template
 			];
 
 			// if social name exist in social adresses then redirect to it
-			if(isset($social_list[$social_name]) && \lib\option::social($social_name))
+			if(
+				isset($social_list[$social_name]) &&
+				\lib\option::social($social_name, 'name') &&
+				is_string(\lib\option::social($social_name, 'name'))
+			  )
 			{
 				// create url of social network
-				$social_url = $social_list[$social_name] . \lib\option::social($social_name);
+				$social_url = $social_list[$social_name] . \lib\option::social($social_name, 'name');
 				// redirect to new address
 				$this->redirector($social_url, false)->redirect();
 				return;
