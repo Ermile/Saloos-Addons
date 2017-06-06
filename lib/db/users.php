@@ -871,16 +871,16 @@ class users
 			case 'deactive':
 			case 'removed':
 			case 'filter':
-				$query = "SELECT COUNT(users.id) AS 'count' FROM users WHERE users.user_status = '$_type' ";
+				$query = "SELECT COUNT(*) AS 'count' FROM users WHERE users.user_status = '$_type' ";
 				break;
 
 			case 'valid':
 			case 'invalid':
-				$query = "SELECT COUNT(users.id) AS 'count' FROM users WHERE users.user_validstatus = '$_type' ";
+				$query = "SELECT COUNT(*) AS 'count' FROM users WHERE users.user_validstatus = '$_type' ";
 				break;
 
 			case 'all':
-				$query = "SELECT COUNT(users.id) AS 'count' FROM users";
+				$query = "SELECT COUNT(*) AS 'count' FROM users";
 				break;
 
 
@@ -888,7 +888,7 @@ class users
 				$query = "SELECT
 							users.user_validstatus AS 'valid',
 							users.user_status AS 'status',
-							COUNT(users.id) AS 'count'
+							COUNT(*) AS 'count'
 						FROM users
 						GROUP BY valid,status";
 				$field = null;
