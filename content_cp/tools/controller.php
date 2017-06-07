@@ -256,16 +256,19 @@ class controller extends \addons\content_cp\home\controller
 				$software_loc = '';
 				if(isset($_SERVER['SERVER_SOFTWARE']))
 				{
-					if(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache'))
+					if(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache') !== false)
 					{
 						$software_loc = '/var/log/apache2/';
 					}
 					else
 					{
-						var_dump($_SERVER['SERVER_SOFTWARE']);
-						if(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'nginx'))
+						if(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'nginx') !== false)
 						{
 							$software_loc = '/var/log/nginx/';
+						}
+						else
+						{
+							var_dump($_SERVER['SERVER_SOFTWARE']);
 						}
 					}
 				}
@@ -286,6 +289,7 @@ class controller extends \addons\content_cp\home\controller
 						$clearExt  = '.sql';
 						$clearURL = database.'log/backup-log/'. $clearName. $clearExt;
 						$filepath = $software_loc. 'error.log';
+						var_dump($filepath);
 						$lang     = 'sql';
 						break;
 
