@@ -252,6 +252,20 @@ class controller extends \addons\content_cp\home\controller
 				$filepath   = '';
 				$fileFormat = 'sql';
 
+				// check server software
+				$software_loc = '';
+				if(isset($_SERVER['SERVER_SOFTWARE']))
+				{
+					if(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'apache'))
+					{
+						$software_loc = '/var/log/apache2/';
+					}
+					elseif(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'nginx'))
+					{
+						$software_loc = '/var/log/nginx/';
+					}
+				}
+
 
 				switch ($name)
 				{
@@ -259,7 +273,7 @@ class controller extends \addons\content_cp\home\controller
 						$clearName = 'log_access_bak_' .date("Ymd_His");
 						$clearExt  = '.sql';
 						$clearURL = database.'log/backup-log/'. $clearName. $clearExt;
-						$filepath = '/var/log/apache2/access.log';
+						$filepath = $software_loc. 'access.log';
 						$lang     = 'sql';
 						break;
 
@@ -267,7 +281,7 @@ class controller extends \addons\content_cp\home\controller
 						$clearName = 'log_erro_bak_' .date("Ymd_His");
 						$clearExt  = '.sql';
 						$clearURL = database.'log/backup-log/'. $clearName. $clearExt;
-						$filepath = '/var/log/apache2/error.log';
+						$filepath = $software_loc. 'error.log';
 						$lang     = 'sql';
 						break;
 
