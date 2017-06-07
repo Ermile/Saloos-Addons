@@ -260,9 +260,13 @@ class controller extends \addons\content_cp\home\controller
 					{
 						$software_loc = '/var/log/apache2/';
 					}
-					elseif(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'nginx'))
+					else
 					{
-						$software_loc = '/var/log/nginx/';
+						var_dump($_SERVER['SERVER_SOFTWARE']);
+						if(strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'nginx'))
+						{
+							$software_loc = '/var/log/nginx/';
+						}
 					}
 				}
 
