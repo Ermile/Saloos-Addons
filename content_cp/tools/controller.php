@@ -289,7 +289,6 @@ class controller extends \addons\content_cp\home\controller
 						$clearExt  = '.sql';
 						$clearURL = database.'log/backup-log/'. $clearName. $clearExt;
 						$filepath = $software_loc. 'error.log';
-						var_dump($filepath);
 						$lang     = 'sql';
 						break;
 
