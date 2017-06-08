@@ -21,7 +21,7 @@ class controller extends \mvc\controller
 			$mydomain = \lib\option::config('redirect_url');
 			if($mydomain && $mydomain !== 'on')
 			{
-				$this->redirector($mydomain.'/account/login?referer='.$_SERVER['REQUEST_SCHEME'] . '://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], false)->redirect();
+				$this->redirector($mydomain.'/enter?referer='.$_SERVER['REQUEST_SCHEME'] . '://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], false)->redirect();
 			}
 			else
 			{
