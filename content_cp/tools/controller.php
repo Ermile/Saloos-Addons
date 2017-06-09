@@ -382,11 +382,13 @@ class controller extends \addons\content_cp\home\controller
 				{
 					$myURL    = Protocol."://". \lib\router::get_root_domain().'/static';
 					$myCommon = Protocol."://ermile.".Tld.'/static/js/common.js';
+					$myCode   = Protocol."://code.ermile.".Tld.'/';
+
 					$output .= "<head>";
 					$output .= ' <title>Log | '. $name. '</title>';
 					$output .= ' <script src="'. $myCommon. '"></script>';
-					$output .= ' <script src="'. $myURL. '/js/lib/highlight/highlight.min.js"></script>';
-					$output .= ' <link rel="stylesheet" href="'. $myURL. '/css/lib/highlight/atom-one-dark.css">';
+					$output .= ' <script src="'. $myCode. 'highlight/highlight.min.js"></script>';
+					$output .= ' <link rel="stylesheet" href="'. $myCode. 'highlight/atom-one-dark.css">';
 					$output .= ' <style>';
 					$output .= 'body{margin:0;height:100%;} .clear{position:absolute;top:1em;right:2em;border:1px solid #fff;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .zip{position:absolute;bottom:1.5em;right:2em;background-color:#000;color:#fff;border-radius:3px;padding:0.5em 1em;text-decoration:none} .hljs{padding:0;max-height:100%;height:100%;}';
 					$output .= ' </style>';
