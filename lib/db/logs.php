@@ -68,9 +68,20 @@ class logs
 				$set[] = " `$key` = '". json_encode($value, JSON_UNESCAPED_UNICODE). "' ";
 			}
 		}
-		$set = join($set, ',');
-		$query ="INSERT IGNORE INTO	logs SET $set ";
-		return \lib\db::query($query, self::get_db_log_name());
+
+		$set    = join($set, ',');
+		$query  ="INSERT IGNORE INTO	logs SET $set ";
+		$resutl = \lib\db::query($query, self::get_db_log_name());
+		// get the link
+		if(self::get_db_log_name() === true)
+		{
+			$resutl = \lib\db::insert_id();
+		}
+		elseif(isset(\lib\db::$link_open[self::get_db_log_name()]))
+		{
+			$resutl = \lib\db::insert_id(\lib\db::$link_open[self::get_db_log_name()]);
+		}
+		return $resutl;
 	}
 
 
@@ -216,8 +227,14 @@ class logs
 		{
 			$limit = null;
 		}
-
 		$where = [];
+		// get logitemid by caller in one query
+		if(isset($_args['caller']) && $_args['caller'] && is_string($_args['caller']))
+		{
+			$where[] = " logs.logitem_id = (SELECT logitems.id FROM logitems WHERE logitems.logitem_caller = '$_args[caller]' LIMIT 1) ";
+		}
+		unset($_args['caller']);
+
 		foreach ($_args as $key => $value)
 		{
 			if(preg_match("/\%/", $value))
