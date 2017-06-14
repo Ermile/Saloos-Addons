@@ -76,9 +76,12 @@ class controller extends \lib\controller
 			$this->s_template_finder();
 		}
 
+		// pagnation config
 		$this->pagnation_config();
-
+		// save referer of users
 		$this->save_ref();
+		// check if isset remember me and login by this
+		$this->check_remeber_login();
 	}
 }
 ?>
