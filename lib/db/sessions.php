@@ -46,6 +46,20 @@ class sessions
 
 
 	/**
+	* check session id is matched by user id
+	*/
+	public static function is_my_session($_session_id, $_user_id)
+	{
+		if(!$_session_id || !$_user_id || !is_numeric($_session_id) || !is_numeric($_user_id))
+		{
+			return false;
+		}
+		$query = "SELECT * FROM sessions WHERE user_id = $_user_id AND id = $_session_id LIMIT 1";
+		return \lib\db::get($query, null, true);
+	}
+
+
+	/**
 	 * get record is exist or no
 	 *
 	 * @param      <type>  $_args  The arguments
@@ -122,6 +136,19 @@ class sessions
 			return (int) $get['user_id'];
 		}
 		return false;
+	}
+
+	/**
+	* terminate one id
+	*/
+	public static function terminate_id($_id)
+	{
+		if(!$_id || !is_numeric($_id))
+		{
+			return false;
+		}
+
+		\lib\db::query("UPDATE sessions SET status = 'terminate' WHERE id = $_id LIMIT 1");
 	}
 
 
@@ -206,6 +233,91 @@ class sessions
 		}
 	}
 
+	/**
+	 * get the session details
+	 *
+	 * @param      <type>  $_session  The session
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function get_active_sessions($_user_id, $_raw = false)
+	{
+		if(!$_user_id || !is_numeric($_user_id))
+		{
+			return false;
+		}
+
+		if($_raw)
+		{
+			$query = "SELECT * FROM  sessions WHERE `user_id` = '$_user_id' ";
+		}
+		else
+		{
+			$query =
+			"
+				SELECT
+					id,
+					ip,
+					last_seen,
+					agent_id
+				FROM
+					sessions
+				WHERE
+					user_id = $_user_id AND
+					status = 'active'
+			";
+		}
+
+		$result = \lib\db::get($query, null);
+		// get agent list form saloos tools
+		if($result && is_array($result))
+		{
+			$agent_id    = array_column($result, 'agent_id');
+			$agent_id    = array_unique($agent_id);
+			$agent_id    = implode(',', $agent_id);
+			$agent_query = "SELECT * FROM agents WHERE id IN ($agent_id)";
+			$agents      = \lib\db::get($agent_query, null, false, '[tools]');
+			if($agents && is_array($agents))
+			{
+				$agent_id = array_column($agents, 'id');
+				$agents   = array_combine($agent_id, $agents);
+				foreach ($result as $key => $value)
+				{
+					if(isset($value['agent_id']))
+					{
+						if(array_key_exists($value['agent_id'], $agents))
+						{
+							// get agent group
+							if(isset($agents[$value['agent_id']]['agent_group']))
+							{
+								$result[$key]['agent_group'] = $agents[$value['agent_id']]['agent_group'];
+							}
+
+							// get agent name
+							if(isset($agents[$value['agent_id']]['agent_name']))
+							{
+								$result[$key]['agent_name'] = $agents[$value['agent_id']]['agent_name'];
+							}
+
+							// get agent version
+							if(isset($agents[$value['agent_id']]['agent_version']))
+							{
+								$result[$key]['agent_version'] = $agents[$value['agent_id']]['agent_version'];
+							}
+
+							// get agent os
+							if(isset($agents[$value['agent_id']]['agent_os']))
+							{
+								$result[$key]['agent_os'] = $agents[$value['agent_id']]['agent_os'];
+							}
+						}
+					}
+				}
+			}
+		}
+		// var_dump($result);exit();
+		return $result;
+	}
 
 	/**
 	 * get the session details
@@ -230,6 +342,7 @@ class sessions
 			$query =
 			"
 				SELECT
+					id,
 					status,
 					ip,
 					last_seen,
@@ -241,7 +354,7 @@ class sessions
 			";
 		}
 
-		$result = \lib\db::get($query, null, true);
+		$result = \lib\db::get($query, null);
 		return $result;
 	}
 
