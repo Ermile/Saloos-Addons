@@ -426,5 +426,17 @@ class sessions
 		self::change_status($_user_id, 'changed', true);
 	}
 
+	/**
+	 * set status of code on changepass
+	 *
+	 * @param      <type>   $_user_id  The user identifier
+	 *
+	 * @return     boolean  ( description_of_the_return_value )
+	 */
+	public static function delete_account($_user_id)
+	{
+		self::change_status($_user_id, 'disable', true);
+	}
+
 }
 ?>
