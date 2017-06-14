@@ -31,19 +31,26 @@ class users
 			$get_field = $_field;
 		}
 
-		$query =
-		"
-			SELECT
-				$field
-			FROM
-				users
-			WHERE
-				users.id = $_user_id
-			LIMIT 1
+		$query = " SELECT $field FROM users WHERE users.id = $_user_id LIMIT 1
 			-- users::get()
 		";
 		$result = \lib\db::get($query, $get_field, true);
 		return $result;
+	}
+
+
+
+	/**
+	 * get all data by mobile
+	 *
+	 * @param      <type>  $_mobile  The mobile
+	 *
+	 * @return     <type>  The identifier.
+	 */
+	public static function get_by_username($_username)
+	{
+		$query = " SELECT * FROM users WHERE users.user_username = '$_username' LIMIT 1	-- users::get_by_username()";
+		return \lib\db::get($query, null, true);
 	}
 
 
@@ -56,17 +63,7 @@ class users
 	 */
 	public static function get_by_mobile($_mobile)
 	{
-		$query =
-		"
-			SELECT
-				*
-			FROM
-				users
-			WHERE
-				users.user_mobile = '$_mobile'
-			LIMIT 1
-			-- users::get_id()
-		";
+		$query = " SELECT * FROM users WHERE users.user_mobile = '$_mobile' LIMIT 1 -- users::get_id()";
 		return \lib\db::get($query, null, true);
 	}
 
@@ -96,13 +93,7 @@ class users
 			}
 		}
 		$set = join($set, ',');
-		$query =
-		"
-			INSERT INTO
-				users
-			SET
-				$set
-		";
+		$query = " INSERT INTO users SET $set ";
 		return \lib\db::query($query);
 	}
 
