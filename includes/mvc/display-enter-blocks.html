@@ -16,6 +16,15 @@
 
 
 
+{%block eramzNew%}
+   <div class='flex fix' id='eramzNew'>
+    <label for='ramz' title='{%trans "New Password"%}'>*</label>
+    <input id='ramz' name="ramz" type='password' placeholder='{%trans "New Password"%}' autocomplete="new-password" autocapitalize="off" minlength="6" maxlength="40" pattern=".{6,40}" title='{%trans "Enter a valid password from 6 to 40 character"%}' autofocus required>
+   </div>
+{%endblock%}
+
+
+
 {%block epass%}
    <div class='flex fix{%if url.tld != "dev" or true%} hide{%endif%}' id='epasscode'>
     <label for='passcode'>Pwd</label>
