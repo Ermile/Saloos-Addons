@@ -17,7 +17,7 @@
 
 
 {%block epass%}
-   <div class='flex fix{%if url.tld != "dev"%} hide{%endif%}' id='epasscode'>
+   <div class='flex fix{%if url.tld != "dev" or true%} hide{%endif%}' id='epasscode'>
     <label for='passcode'>Pwd</label>
     <input id='passcode' name="password" type='password' placeholder='{%trans "Password?"%}' autocomplete="new-password" autocapitalize="off">
    </div>
@@ -50,7 +50,7 @@
 
 
 {%block ego%}
-   <div class='flex' id='ego'>
+   <div class='flex hide' id='ego'>
     <button type="submit">{%trans "Go"%}</button>
    </div>
 {%endblock%}
