@@ -19,7 +19,7 @@
 {%block epass%}
    <div class='flex fix{%if url.tld != "dev" or true%} hide{%endif%}' id='epasscode'>
     <label for='passcode'>Pwd</label>
-    <input id='passcode' name="password" type='password' placeholder='{%trans "Password?"%}' autocomplete="new-password" autocapitalize="off" minlength="6" maxlength="40">
+    <input id='passcode' name="password" type='password' placeholder='{%trans "Password?"%}' autocomplete="new-password" minlength="6" maxlength="40">
    </div>
 {%endblock%}
 
