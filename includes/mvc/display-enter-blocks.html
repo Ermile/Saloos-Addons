@@ -57,6 +57,14 @@
 
 
 
+{%block egoMobile%}
+   <div class='flex hide' id='egoMobile' data-require='mobile'>
+    <button type="submit">{%trans "Go"%}</button>
+   </div>
+{%endblock%}
+
+
+
 {%block enext%}
    <div class='flex' id='enext'>
     <button type="submit">{%trans "Next"%}</button>
@@ -75,6 +83,13 @@
 
 {%block elogin%}
    <div class='flex' id='elogin'>
+    <button type="submit">{%trans "Login"%}</button>
+   </div>
+{%endblock%}
+
+
+{%block eloginUsername%}
+   <div class='flex' id='eloginUsername' data-require='usercode'>
     <button type="submit">{%trans "Login"%}</button>
    </div>
 {%endblock%}
