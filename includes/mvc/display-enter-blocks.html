@@ -45,7 +45,7 @@
 {%block email%}
    <div class='flex fix' id='email'>
     <label for='email' title='{%trans "Email"%}'>@</label>
-    <input id='email' name="email" type='email' placeholder='{%trans "email"%}' autocomplete="off" autocapitalize="off" minlength="6" maxlength="100" title='{%trans "Enter a valid eamil!"%}' required>
+    <input id='email' name="email" type='email' placeholder='{%trans "email"%}' autocomplete="off" autocapitalize="off" minlength="6" maxlength="100" title='{%trans "Enter a valid eamil!"%}' value="{{get_email}}" required>
    </div>
 {%endblock%}
 
@@ -175,3 +175,57 @@
    </div>
 {%endblock%}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%block emailNew%}
+   <div class='flex fix' id='emailNew'>
+    <label for='emailNew' title='{%trans "New email"%}'>@</label>
+    <input id='emailNew' name="emailNew" type='email' placeholder='{%trans "New email"%}' autocomplete="off" autocapitalize="off" minlength="6" maxlength="100" title='{%trans "Enter a valid eamil!"%}' required>
+   </div>
+{%endblock%}
+
+
+{%block usernameNew%}
+   <div class='flex fix' id='usernameNew'>
+    <label for='usernameNew' title='{%trans "New username"%}'>@</label>
+    <input id='usernameNew' name="usernameNew" type='username' placeholder='{%trans "New username"%}' autocomplete="off" autocapitalize="off" minlength="6" maxlength="100" title='{%trans "Enter a valid username!"%}' required>
+   </div>
+{%endblock%}
