@@ -293,6 +293,12 @@ class sessions
 								$result[$key]['agent_group'] = $agents[$value['agent_id']]['agent_group'];
 							}
 
+							// get agent agent
+							if(isset($agents[$value['agent_id']]['agent_agent']))
+							{
+								$result[$key]['agent_agent'] = $agents[$value['agent_id']]['agent_agent'];
+							}
+
 							// get agent name
 							if(isset($agents[$value['agent_id']]['agent_name']))
 							{
@@ -309,6 +315,12 @@ class sessions
 							if(isset($agents[$value['agent_id']]['agent_os']))
 							{
 								$result[$key]['agent_os'] = $agents[$value['agent_id']]['agent_os'];
+							}
+
+							// get agent osnum
+							if(isset($agents[$value['agent_id']]['agent_osnum']))
+							{
+								$result[$key]['agent_osnum'] = $agents[$value['agent_id']]['agent_osnum'];
 							}
 						}
 					}
