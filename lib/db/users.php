@@ -39,11 +39,24 @@ class users
 	}
 
 
+	/**
+	 * get all data by email
+	 *
+	 * @param      <type>  $_email  The email
+	 *
+	 * @return     <type>  The identifier.
+	 */
+	public static function get_by_email($_email)
+	{
+		$query = " SELECT * FROM users WHERE users.user_email = '$_email' LIMIT 1 ";
+		return \lib\db::get($query, null, true);
+	}
+
 
 	/**
-	 * get all data by mobile
+	 * get all data by username
 	 *
-	 * @param      <type>  $_mobile  The mobile
+	 * @param      <type>  $_username  The username
 	 *
 	 * @return     <type>  The identifier.
 	 */
@@ -239,6 +252,7 @@ class users
 		[
 			'mobile'      => null,
 			'password'    => null,
+			'email'       => null,
 			'permission'  => null,
 			'displayname' => null,
 			'ref'         => null,
@@ -278,16 +292,7 @@ class users
 			$_args['permission'] = null;
 		}
 
-		$query =
-		"
-			SELECT
-				id
-			FROM
-				users
-			WHERE
-				user_mobile = '$_args[mobile]'
-			LIMIT 1
-		";
+		$query = " SELECT id FROM users WHERE user_mobile = '$_args[mobile]' LIMIT 1 ";
 
 		$result = \lib\db::get($query, 'id', true);
 
@@ -341,11 +346,21 @@ class users
 			}
 
 			$_args['displayname'] = \lib\utility\safe::safe($_args['displayname']);
+
 			if(mb_strlen($_args['displayname']) > 99)
 			{
 				$_args['displayname'] = null;
 			}
 
+			// check email exist
+			if($_args['email'])
+			{
+				if(self::get_by_email($_args['email']))
+				{
+					// the user by this email exist
+					return false;
+				}
+			}
 			// signup up users
 			$args =
 			[
@@ -353,12 +368,13 @@ class users
 				'user_pass'        => $password,
 				'user_displayname' => $_args['displayname'],
 				'user_permission'  => $_args['permission'],
+				'user_email'       => $_args['email'],
 				'user_parent'      => $ref,
 				'user_createdate'  => date('Y-m-d H:i:s')
 			];
 
-			$insert_new = self::insert($args);
-			$insert_id = \lib\db::insert_id();
+			$insert_new    = self::insert($args);
+			$insert_id     = \lib\db::insert_id();
 			self::$user_id = $insert_id;
 
 			if(method_exists('\lib\utility\users', 'signup'))
