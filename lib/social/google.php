@@ -1,6 +1,6 @@
 <?php
-namespace lib\google;
-require_once ('libraries/Google/autoload.php');
+namespace lib\social;
+require_once ('google/libraries/Google/autoload.php');
 
 class google
 {
@@ -132,9 +132,23 @@ class google
       *
       * @return     <type>  ( description_of_the_return_value )
       */
-     public static function user_info()
+     public static function user_info($_key = null)
      {
-          return self::$userinfo;
+          if(!$_key)
+          {
+               return self::$userinfo;
+          }
+          else
+          {
+               if(isset(self::$userinfo[$_key]))
+               {
+                    return self::$userinfo[$_key];
+               }
+               else
+               {
+                    return null;
+               }
+          }
      }
 }
 ?>
