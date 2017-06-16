@@ -5,16 +5,6 @@ require_once ('libraries/Google/autoload.php');
 class google
 {
 
-     // self::$social['google']['status']                      = true;
-     // self::$social['google']['clinet_id']                   = '395232553225-140n5eq7ha34thagrbcnns125ocmqk96.apps.googleusercontent.com';
-     // self::$social['google']['project_id']                  = 'ermile-tejarak';
-     // self::$social['google']['auth_uri']                    = 'https://accounts.google.com/o/oauth2/auth';
-     // self::$social['google']['token_uri']                   = 'https://accounts.google.com/o/oauth2/token';
-     // self::$social['google']['auth_provider_x509_cert_url'] = 'https://www.googleapis.com/oauth2/v1/certs';
-     // self::$social['google']['client_secret']               = 'h3q_yNJFqbqO5SV-PK2cXMmc';
-
-
-
      //Insert your cient ID and secret
      //You can get it from : https://console.developers.google.com/
      private static $client_id     = null;
@@ -37,7 +27,7 @@ class google
           /**
            * get client id
            */
-          self::$client_id     = \lib\option::social('google', 'client_id');
+          self::$client_id     = \lib\option::social('google', 'clinet_id');
           /**
            * get client secret
            */
@@ -54,7 +44,6 @@ class google
                self::$redirect_url .= \lib\define::get_current_language_string();
                self::$redirect_url .= '/enter/google';
           }
-
 
           /************************************************
           Make an API request on behalf of a user. In
