@@ -189,5 +189,77 @@ class config
 		$temp_query = "($fields) VALUES ($values) ";
 		return $temp_query;
 	}
+
+
+	/**
+	 * public get from tables
+	 *
+	 * @param      <type>  $_table  The table
+	 * @param      <type>  $_where   The arguments
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function public_get($_table, $_where)
+	{
+		if($_where && $_table)
+		{
+			$only_one_value = false;
+			$limit          = null;
+
+			if(isset($_where['limit']))
+			{
+				if($_where['limit'] === 1)
+				{
+					$only_one_value = true;
+				}
+
+				$limit = " LIMIT $_where[limit] ";
+			}
+
+			unset($_where['limit']);
+
+			$where = \lib\db\config::make_where($_where);
+			$query = "SELECT * FROM $_table WHERE $where $limit";
+			$result = \lib\db::get($query, null, $only_one_value);
+			return $result;
+		}
+		return false;
+	}
+
+
+	/**
+	 * insert public
+	 *
+	 * @param      <type>  $_table  The table
+	 * @param      <type>  $_args   The arguments
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function public_insert($_table, $_args)
+	{
+		$set = \lib\db\config::make_set($_args);
+		$query = " INSERT INTO $_table SET $set ";
+		return \lib\db::query($query);
+	}
+
+
+	/**
+	 * update public
+	 *
+	 * @param      <type>  $_args  The arguments
+	 * @param      <type>  $_id    The identifier
+	 *
+	 * @return     <type>  ( description_of_the_return_value )
+	 */
+	public static function public_update($_table, $_args, $_id)
+	{
+		$set = \lib\db\config::make_set($_args);
+		if($set && $_id && is_numeric($_id))
+		{
+			// make update query
+			$query = "UPDATE $_table SET $set WHERE $_table.id = $_id ";
+			return \lib\db::query($query);
+		}
+	}
 }
 ?>
