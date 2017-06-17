@@ -21,3 +21,5 @@ CREATE TABLE IF NOT EXISTS `socials` (
 PRIMARY KEY (`id`),
 CONSTRAINT `sessions_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `users` ADD  `user_two_step` bit(1)  NULL DEFAULT NULL;
