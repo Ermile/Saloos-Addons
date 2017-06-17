@@ -23,3 +23,7 @@ CONSTRAINT `sessions_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `users` ADD  `user_two_step` bit(1)  NULL DEFAULT NULL;
+ALTER TABLE `users` ADD  `user_google_mail` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `users` ADD  `user_facebook_mail` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `users` ADD  `user_twitter_mail` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `users` ADD  `user_dont_will_set_mobile` VARCHAR(50) NULL DEFAULT NULL;
