@@ -46,9 +46,26 @@ class users
 	 *
 	 * @return     <type>  The identifier.
 	 */
-	public static function get_by_email($_email)
+	public static function get_by_email($_email, $_search_in_all_email_field = false)
 	{
-		$query = " SELECT * FROM users WHERE users.user_email = '$_email' LIMIT 1 ";
+		if(!$_search_in_all_email_field)
+		{
+			$query = " SELECT * FROM users WHERE users.user_email = '$_email' LIMIT 1 ";
+		}
+		else
+		{
+			$query =
+			"
+			SELECT * FROM users
+			WHERE
+			users.user_email = '$_email' OR
+			users.user_google_mail = '$_email' OR
+			users.user_facebook_mail = '$_email' OR
+			users.user_twitter_mail = '$_email'
+			LIMIT 1
+			";
+
+		}
 		return \lib\db::get($query, null, true);
 	}
 
