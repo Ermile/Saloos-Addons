@@ -27,7 +27,7 @@ class google
           /**
            * get client id
            */
-          self::$client_id     = \lib\option::social('google', 'clinet_id');
+          self::$client_id     = \lib\option::social('google', 'client_id');
           /**
            * get client secret
            */
