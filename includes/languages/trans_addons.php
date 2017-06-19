@@ -105,7 +105,7 @@ private function transtext()
 
 	//----------------------------------saloos-addons\content_cp1\home\layout-xhr.html
 	echo T_("Add New Record");                                                        // Line 87 Seperate
-	echo T_("View your current location and navigate to parent of it");               // Line 77
+	echo T_("View your current location and navigate to parent of it");               // Line 78
 
 	//--------------------------------------saloos-addons\content_cp1\home\layout.html
 	echo T_("Use this menu for navigating to all part of control panel");             // Line 8
@@ -120,7 +120,7 @@ private function transtext()
 	echo T_("My Profile");                                                            // Line 101 Seperate
 	echo T_("Change Password");                                                       // Line 335 Seperate
 	echo T_("Lock Screen");                                                           // Line 103 Seperate
-	echo T_("Logout");                                                                // Line 68
+	echo T_("Logout");                                                                // Line 69
 	echo T_("We glad to working for you and hope you enjoy using our system");        // Line 61
 
 	//------------------------------------saloos-addons\content_cp1\home\sidemenu.html
@@ -598,7 +598,7 @@ private function transtext()
 	//-----------------------------------------saloos-addons\includes\macro\forms.html
 	echo T_("Select");                                                                // Line 81
 
-	//------------------------------------saloos-addons\includes\mvc\display-back.html
+	//------------------------------------saloos-addons\includes\mvc\display-dash.html
 	echo T_("Avatar of you");                                                         // Line 40
 	echo T_("Hello");                                                                 // Line 41
 
@@ -611,7 +611,7 @@ private function transtext()
 	echo T_("Verify Code");                                                           // Line 40
 	echo T_("Enter a valid code!");                                                   // Line 40
 	echo T_("email");                                                                 // Line 48
-	echo T_("Enter a valid eamil!");                                                  // Line 48
+	echo T_("Enter a valid eamil!");                                                  // Line 221
 	echo T_("username");                                                              // Line 56
 	echo T_("Enter a valid username from 4 to 50 character");                         // Line 56
 	echo T_("Go");                                                                    // Line 71
@@ -619,6 +619,10 @@ private function transtext()
 	echo T_("Signup");                                                                // Line 87
 	echo T_("Log in with another methods");                                           // Line 121
 	echo T_("Log in with mobile");                                                    // Line 134
+	echo T_("Enter with Google");                                                     // Line 155
+	echo T_("New email");                                                             // Line 221
+	echo T_("New username");                                                          // Line 229
+	echo T_("Enter a valid username!");                                               // Line 229
 
 	//-----------------------------------saloos-addons\includes\mvc\display-enter.html
 	echo T_("tejarak");                                                               // Line 32
