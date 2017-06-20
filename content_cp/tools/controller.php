@@ -180,53 +180,50 @@ class controller extends \addons\content_cp\home\controller
 				// declare variables
 				$exist    = true;
 				$rep      = null;
-				$result   = [];
-				$location = '../../';
+				$location = null;
 				$name     = \lib\utility::get('name');
-				$output   = null;
 
 				// switch by name of repository
 				switch ($name)
 				{
 					case 'saloos':
-						$location .= 'saloos';
-						$rep      .= "https://github.com/Ermile/Saloos.git";
+						// $rep      .= "https://github.com/Ermile/Saloos.git";
+						$location = '../../saloos';
+						echo \lib\utility\git::pull($location);
 						break;
 
 					case 'addons':
-						$location .= 'saloos/saloos-addons';
-						$rep      .= "https://github.com/Ermile/Saloos-Addons.git";
+						// $rep      .= "https://github.com/Ermile/Saloos-Addons.git";
+						$location = '../../saloos/saloos-addons';
+						echo \lib\utility\git::pull($location);
+						break;
+
+					case 'all':
+						// pull saloos
+						$location = '../../saloos';
+						echo "<h1>Saloos</h1>";
+						echo \lib\utility\git::pull($location);
+
+						// pull saloos addons
+						$location = '../../saloos/saloos-addons';
+						echo "<h1>Saloos Addons</h1>";
+						echo \lib\utility\git::pull($location);
+
+						// pull current project
+						$name = Domain;
+						$location = '../../'. $name;
+						echo "<h1>Current Project $name</h1>";
+						echo \lib\utility\git::pull($location);
 						break;
 
 					default:
-						$location .= $name;
+						$location = '../../'. $name;
+						echo \lib\utility\git::pull($location);
 						// $exist = false;
 						// return;
 						break;
 				}
-				// change location to address of requested
-				chdir($location);
-				// start show result
-				$output   = "<pre>";
-				$output  .= 'Repository address: '. getcwd(). '<br/>';
-				$output  .= 'Remote address:     '. $location. '<hr/>';
-				// $command  = 'git pull '.$rep.' 2>&1';
-				$command  = 'git pull origin master 2>&1';
 
-
-				// Print the exec output inside of a pre element
-				exec($command, $result);
-				if(!$result)
-				{
-					$output .= T_('Not Work!');
-				}
-				foreach ($result as $line)
-				{
-					$output .= $line . "\n";
-				}
-				$output .= "</pre>";
-
-				echo $output;
 				break;
 
 
