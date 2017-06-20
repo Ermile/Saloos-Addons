@@ -457,7 +457,7 @@ class config
 
 		if($pagenation && !$get_count)
 		{
-			$pagenation_query = "SELECT	COUNT(*) AS `count`	FROM search	$where $search ";
+			$pagenation_query = "SELECT	COUNT(*) AS `count`	FROM `$_table`	$where $search ";
 			$pagenation_query = \lib\db::get($pagenation_query, 'count', true);
 
 			list($limit_start, $limit) = \lib\db::pagnation((int) $pagenation_query, $limit);
