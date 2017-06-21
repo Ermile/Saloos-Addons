@@ -152,6 +152,50 @@ class posts
 
 
 	/**
+	 * Gets some identifier.
+	 * get some posts by id
+	 * @param      <type>   $_ids   The identifiers
+	 *
+	 * @return     boolean  Some identifier.
+	 */
+	public static function get_some_id($_ids)
+	{
+		if(!$_ids)
+		{
+			return false;
+		}
+
+		if(is_array($_ids))
+		{
+			$_ids = implode(',', $_ids);
+		}
+
+		$result = \lib\db::get("SELECT * FROM posts WHERE id IN ($_ids)");
+		$result = \lib\utility\filter::meta_decode($result);
+		return $result;
+	}
+
+
+	/**
+	 * Determines if attachment.
+	 *
+	 * @param      <type>  $_id    The identifier
+	 */
+	public static function is_attachment($_id)
+	{
+		if(!$_id || !is_numeric($_id))
+		{
+			return false;
+		}
+
+		if(\lib\db::get("SELECT id FROM posts WHERE id = $_id AND post_type = 'attachment' LIMIT 1", null, true))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * get list of polls
 	 * @param  [type] $_user_id set userid
 	 * @param  [type] $_return  set return field value
