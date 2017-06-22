@@ -188,9 +188,13 @@ class posts
 			return false;
 		}
 
-		if(\lib\db::get("SELECT id FROM posts WHERE id = $_id AND post_type = 'attachment' LIMIT 1", null, true))
+		if($result = \lib\db::get("SELECT * FROM posts WHERE id = $_id AND post_type = 'attachment' LIMIT 1", null, true))
 		{
-			return true;
+			if(isset($result['post_meta']) && substr($result['post_meta'], 0,1) === '{')
+			{
+				$result['post_meta'] = json_decode($result['post_meta'], true);
+			}
+			return $result;
 		}
 		return false;
 	}
