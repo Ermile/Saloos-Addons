@@ -44,7 +44,7 @@
   </figure>
   <h2><a href="{{url.base}}" data-direct>{{site.title}}</a></h2>
   <div class="menu scr dark">
-   <ul class="sidenav">
+   <ul class="sidenav" data-xhr='sidenav'>
 {%block sidenav%}
     <li><a href="{{url.baseFull}}"><i class='icon-tachometer'></i> <span>{% trans "Dashboard" %}</span></a></li>
 {%endblock%}
