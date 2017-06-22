@@ -188,7 +188,17 @@ class posts
 			return false;
 		}
 
-		if($result = \lib\db::get("SELECT * FROM posts WHERE id = $_id AND post_type = 'attachment' LIMIT 1", null, true))
+		$query =
+		"
+			SELECT * FROM posts
+			WHERE id = $_id
+			AND post_type = 'attachment'
+			AND posts.post_status IN ('draft', 'publish')
+			LIMIT 1
+		";
+		$result = \lib\db::get($query, null, true);
+
+		if($result)
 		{
 			if(isset($result['post_meta']) && substr($result['post_meta'], 0,1) === '{')
 			{
