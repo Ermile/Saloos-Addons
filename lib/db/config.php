@@ -230,9 +230,13 @@ class config
 			unset($_where['limit']);
 
 			$where = \lib\db\config::make_where($_where);
-			$query = "SELECT * FROM $_table WHERE $where $limit";
-			$result = \lib\db::get($query, null, $only_one_value);
-			return $result;
+			if($where)
+			{
+				$query = "SELECT * FROM $_table WHERE $where $limit";
+				$result = \lib\db::get($query, null, $only_one_value);
+				return $result;
+			}
+
 		}
 		return false;
 	}
@@ -249,8 +253,11 @@ class config
 	public static function public_insert($_table, $_args)
 	{
 		$set = \lib\db\config::make_set($_args);
-		$query = " INSERT INTO $_table SET $set ";
-		return \lib\db::query($query);
+		if($set)
+		{
+			$query = " INSERT INTO $_table SET $set ";
+			return \lib\db::query($query);
+		}
 	}
 
 
