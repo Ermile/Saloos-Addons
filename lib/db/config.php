@@ -35,7 +35,14 @@ class config
 		$where = [];
 		foreach ($_where as $field => $value)
 		{
-			if(is_string($value) && preg_match("/\%/", $value))
+			if(is_array($value))
+			{
+				if(isset($value[0]) && isset($value[1]) && is_string($value[0]) && is_string($value[1]))
+				{
+					$where[] = " $table_name`$field` $value[0] $value[1] ";
+				}
+			}
+			elseif(is_string($value) && preg_match("/\%/", $value))
 			{
 				$where[] = " $table_name`$field` LIKE '$value' ";
 			}
