@@ -39,10 +39,10 @@
   <figure>
 {%block avatar%}
    <div class="avatar"><img src="{{codeUrl}}dash/images/logo.jpg" alt='{%trans "Avatar of you"%}'></div>
-   <figcaption>{%trans "Hello"%} <b>{{displayname}}</b></figcaption>
+   <figcaption>{%trans "Hello"%} <b>{{login.displayname}}</b></figcaption>
 {%endblock%}
   </figure>
-  <h2><a href="{{url.base}}" data-direct>{{site.title}}</a></h2>
+{%block sideTitle%}  <h2><a href="{{url.base}}" data-direct>{{site.title}}</a></h2>{%endblock%}
   <div class="menu scr dark">
    <ul class="sidenav" data-xhr='sidenav'>
 {%block sidenav%}
