@@ -25,6 +25,11 @@ trait pagnation
 			$this->pagnation_set('custom_length', true);
 			\lib\router::remove_url_property('length');
 		}
+		// set get in pagnation url
+		if(\lib\utility::get())
+		{
+			$this->pagnation_set('get_url', '?'. \lib\utility::get());
+		}
 	}
 
 	public function pagnation_set($_name, $_value)
