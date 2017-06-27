@@ -24,7 +24,7 @@
 {%block sideBox%} <aside id='sidebar' class='unselectable scr dark' data-xhr='sidebar'>{{block ('aside')}} </aside>{%endblock%}
 
  <main id='main'>
-{%block headerBox%}  <header id='header' class='flex'>{{block ('header')}}  </header>{%endblock%}
+{%block headerBox%}  <header id='header' class='f'>{{block ('header')}}  </header>{%endblock%}
 {%block contentBox%}  <div id='content' class='scr' data-xhr='content'>{{block ('content')}}  </div>{%endblock%}
 {%block footerBox%}  <footer id='footer' class='flex'>{{block ('footer')}}  </footer>{%endblock%}
  </main>
@@ -55,15 +55,16 @@
 
 
 {%block header%}
+   <div id='sidenavHandler' class="c0 sauto mauto"><i class="icon-ellipsis-v"></i></div>
 
-   {%block headerTitle%}<h1><a href="{{url.base}}" data-direct target='_blank' class='flex'><img src="{{url.static}}images/logo.png" alt='{{site.title}}'><span>{{site.title}}</span></a></h1>{%endblock%}
+   {%block headerTitle%}<h1 class='cauto'><a href="{{url.base}}" data-direct target='_blank' class='flex'><img src="{{url.static}}images/logo.png" alt='{{site.title}}'><span>{{site.title}}</span></a></h1>{%endblock%}
 
-   <div class='hm flex'>
+   <div class='hm flex cauto'>
 {%block headerMenu%}
     <div class="vm"><i class="icon-globe"></i>{{langList({'html':true, 'all':true})}}</div>
 {%endblock%}
    </div>
-   <div class='hm right flex'>
+   <div class='hm right flex cauto os'>
 {%block headerRight%}
 {%block headerLock%}    <a><i class="icon-unlock-alt"></i></a>
 {%endblock%}
