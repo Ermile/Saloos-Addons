@@ -1,7 +1,7 @@
 {%extends display.cpMain%}
 
 {%block content%}
-  <aside id="sidebar" class="unselectable scr dark">
+<!--   <aside id="sidebar" class="unselectable scr dark">
     <figure>
       <div class="avatar"><img src="http://code.ermile.dev/dash/images/logo.jpg" alt="Avatar of you"></div>
       <figcaption>Hello <b>Ali Modabber</b></figcaption>
@@ -21,9 +21,9 @@
         <li><a href="http://tejarak.dev/cp"><i class="icon-laptop"></i> <span>Dashboard</span></a></li>
       </ul>
     </div>
-    <span id="page-cover"></span>
-  </aside>
 
+  </aside>
+ -->
   <h1>Sample Page of admin</h1>
 
   <br/><br/><br/>
@@ -94,6 +94,8 @@
 
 <script type="text/javascript">
     console.log('sample page');
+
+$("#sidebar").append("<span id='page-cover'></span>");
 
     $("#sidenavHandler").click(function(){
       $("#page-cover").css('display','block');
