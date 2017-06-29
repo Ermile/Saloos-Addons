@@ -88,7 +88,7 @@ trait template
 			$url = str_replace('`', '', $url);
 			$url = str_replace('%', '', $url);
 
-			if(substr($url, 0, 7) == 'static/')
+			if(substr($url, 0, 7) == 'static/' || substr($url, 0, 6) == 'files/')
 			{
 				return false;
 			}
