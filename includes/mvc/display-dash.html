@@ -38,7 +38,11 @@
 
   <figure>
 {%block avatar%}
-   <div class="avatar"><img src="{{codeUrl}}dash/images/logo.jpg" alt='{%trans "Avatar of you"%}'></div>
+  {%if login.file_url%}
+    <div class="avatar"><img src="{{url.root}}/{{login.file_url}}" alt='{%trans "Avatar of you"%}'></div>
+  {%else%}
+    <div class="avatar"><img src="{{codeUrl}}dash/images/logo.jpg" alt='{%trans "Avatar of you"%}'></div>
+  {%endif%}
    <figcaption>{%trans "Hello"%} <b>{{login.displayname}}</b></figcaption>
 {%endblock%}
   </figure>
