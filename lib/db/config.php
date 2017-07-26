@@ -50,6 +50,10 @@ class config
 			{
 				$where[] = " $table_name`$field` IS NULL ";
 			}
+			elseif(is_string($value) && substr($value, 0,7) === '(SELECT')
+			{
+				$where[] = " $table_name`$field` = $value ";
+			}
 			elseif(is_string($value))
 			{
 				$where[] = " $table_name`$field` = '$value' ";
