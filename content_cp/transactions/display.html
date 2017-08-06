@@ -1,0 +1,57 @@
+{%extends display.cpMain%}
+
+
+{%block content%}
+<!-- <form method="get" class="df f" data-action>
+	<div class="c1">
+		<label for="start_date">{%trans "Start Date"%}</label>
+		<input type="text" name="start" class="c1" id="start_date" value='{{get_start_date}}' >
+	</div>
+		<div class="c1">
+		<label for="end_date">{%trans "End Date"%}</label>
+		<input type="text" name="end" class="c1" id="end_date" value='{{get_end_date}}' >
+	</div>
+
+	<div class="c1">
+		<label>‌</label>
+		<input type="submit"  class="c1 b1"  value='{%trans "Go"%}'>
+	</div>
+</form>
+<br>
+ -->
+<div class="dt big">
+	<div class="f th">
+		<div class="c">{%trans "ID"%}</div>
+		<div class="c">{%trans "Title"%}</div>
+		<div class="c">{%trans "Type"%}</div>
+		<div class="c">{%trans "Unit"%}</div>
+		<div class="c">{%trans "Minus"%}</div>
+		<div class="c">{%trans "Plus"%}</div>
+		<div class="c">{%trans "Budget Before"%}</div>
+		<div class="c">{%trans "Budget"%}</div>
+		<div class="c">{%trans "Date"%}</div>
+	</div>
+	{%for key, value in transactions_list%}
+	<div class="f">
+		<div class="c">{{value.id}}</div>
+		<div class="c">{{value.title}}</div>
+		<div class="c">{%set myType = value.type%}{%trans myType%}</div>
+		<div class="c">{%set myUnit = value.unit %}{%trans myUnit%}</div>
+		<div class="c">{{value.minus | number_format | fitNumber}}</div>
+		<div class="c">{{value.plus | number_format | fitNumber}}</div>
+		<div class="c">{{value.budgetbefore | number_format | fitNumber }}</div>
+		<div class="c">{{value.budget | number_format | fitNumber}}</div>
+		{%if site.currentlang == 'fa'%}
+			<div class="c">{{value.date | jdate("Y-m-d H:i:s") }}</div>
+		{%else%}
+			<div class="c">{{value.date | fitNumber}}</div>
+		{%endif%}
+	</div>
+	{%endfor%}
+</div>
+<div class="pagination-container">
+	{%include display.pagination%}
+</div>
+
+
+{%endblock%}
