@@ -5,9 +5,6 @@ class view extends \mvc\view
 {
 	public function view_list($_args)
 	{
-		$list = $this->model()->transactions_list($_args);
-
-		$this->data->transactions_list = $list;
 
 		$field =
 		[
@@ -32,6 +29,10 @@ class view extends \mvc\view
 			'displayname',
 			'caller',
 		];
+
+		$list = $this->model()->transactions_list($_args, $field);
+
+		$this->data->transactions_list = $list;
 
 		$this->order_url($_args, $field);
 
