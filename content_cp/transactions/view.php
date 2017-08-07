@@ -40,6 +40,13 @@ class view extends \mvc\view
 			$this->data->pagnation = $this->controller->pagnation_get();
 		}
 
+		if(\lib\utility::get('search'))
+		{
+			$url = $this->url('full');
+			$url = preg_replace("/search\=(.*)(\/|)/", "search=". \lib\utility::get('search'), $url);
+			$this->redirector($url)->redirect();
+		}
+
 		if(isset($_args->get("search")[0]))
 		{
 			$this->data->get_search = $_args->get("search")[0];
