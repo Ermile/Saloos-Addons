@@ -32,19 +32,30 @@
 	{%for key, value in transactions_list%}
 	<div class="f">
 		<div class="c">{{value.id}}</div>
-		<div class="c" title="{{value.user_id}}">{{value.mobile| fitNumber}} - {{value.displayname}}</div>
-		<div class="c" title="{{value.transactionitem_id}} - {{value.caller}}">{{value.title}}</div>
-		<div class="c">{%set myStatus = value.status%}{%trans myStatus%}</div>
-		<div class="c">{%set myType = value.type%}{%trans myType%}</div>
-		<div class="c">{%set myUnit = value.unit %}{%trans myUnit%}</div>
-		<div class="c">{{value.minus | number_format | fitNumber}}</div>
-		<div class="c">{{value.plus | number_format | fitNumber}}</div>
-		<div class="c">{{value.budgetbefore | number_format | fitNumber }}</div>
-		<div class="c">{{value.budget | number_format | fitNumber}}</div>
+		<div class="c" title="{{value.user_id}}">
+			<a href="{{url.base}}/cp/transactions/mobile={{value.mobile}}">{{value.mobile| fitNumber}}</a>
+			-
+			<a href="{{url.base}}/cp/transactions/user={{value.user_id}}">{{value.displayname}}</a>
+		</div>
+
+		<div class="c" title="{{value.transactionitem_id}} - {{value.caller}}">
+			<a href="{{url.base}}/cp/transactions/caller={{value.caller}}">{{value.title}}</a>
+		</div>
+
+		<div class="c">
+			<a href="{{url.base}}/cp/transactions/status={{value.status}}">{%set myStatus = value.status%}{%trans myStatus%}</a>
+		</div>
+
+		<div class="c"><a href="{{url.base}}/cp/transactions/type={{value.type}}">{%set myType = value.type%}{%trans myType%}</a></div>
+		<div class="c"><a href="{{url.base}}/cp/transactions/unit={{value.unit}}">{%set myUnit = value.unit %}{%trans myUnit%}</a></div>
+		<div class="c"><a href="{{url.base}}/cp/transactions/minus={{value.minus}}">{{value.minus | number_format | fitNumber}}</a></div>
+		<div class="c"><a href="{{url.base}}/cp/transactions/plus={{value.plus}}">{{value.plus | number_format | fitNumber}}</a></div>
+		<div class="c"><a href="{{url.base}}/cp/transactions/budgetbefore={{value.budgetbefore}}">{{value.budgetbefore | number_format | fitNumber }}</a></div>
+		<div class="c"><a href="{{url.base}}/cp/transactions/budget={{value.budget}}">{{value.budget | number_format | fitNumber}}</a></div>
 		{%if site.currentlang == 'fa'%}
-			<div class="c">{{value.date | jdate("Y-m-d H:i:s") }}</div>
+			<div class="c"><a href='{{url.base}}/cp/transactions/date={{value.date | date("Y-m-d")}}'>{{value.date | jdate("Y-m-d H:i:s") }}</a></div>
 		{%else%}
-			<div class="c">{{value.date | fitNumber}}</div>
+			<div class="c"><a href='{{url.base}}/cp/transactions/date={{value.date | date("Y-m-d")}}'>{{value.date | fitNumber}}</a></div>
 		{%endif%}
 	</div>
 	{%endfor%}

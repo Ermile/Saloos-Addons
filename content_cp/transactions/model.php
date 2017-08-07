@@ -5,7 +5,7 @@ use \lib\utility;
 use \lib\debug;
 class model extends \mvc\model
 {
-	public function transactions_list($_args)
+	public function transactions_list($_args, $_fields = [])
 	{
 		$meta   = [];
 		$meta['admin'] = true;
@@ -16,34 +16,12 @@ class model extends \mvc\model
 			$search = $_args->get("search")[0];
 		}
 
-		if(isset($_args->get("order")[0]))
+		foreach ($_fields as $key => $value)
 		{
-			$meta['order'] = $_args->get("order")[0];
-		}
-
-		if(isset($_args->get("sort")[0]))
-		{
-			$meta['sort'] = $_args->get("sort")[0];
-		}
-
-		if(isset($_args->get("mobile")[0]))
-		{
-			$meta['mobile'] = $_args->get("mobile")[0];
-		}
-
-		if(isset($_args->get("caller")[0]))
-		{
-			$meta['caller'] = $_args->get("caller")[0];
-		}
-
-		if(isset($_args->get("user_id")[0]))
-		{
-			$meta['user_id'] = $_args->get("user_id")[0];
-		}
-
-		if(isset($_args->get("date")[0]))
-		{
-			$meta['date'] = $_args->get("date")[0];
+			if(isset($_args->get($value)[0]))
+			{
+				$meta[$value] = $_args->get($value)[0];
+			}
 		}
 
 		$result = \lib\db\transactions::search($search, $meta);
