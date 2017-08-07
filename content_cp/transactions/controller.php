@@ -26,6 +26,7 @@ class controller extends \mvc\controller
 		$property['search']       = ["/.*/", true , 'search'];
 		$property['mobile']       = ["/.*/", true , 'mobile'];
 		$property['user']       = ["/.*/", true , 'user'];
+		$property['caller']       = ["/.*/", true , 'caller'];
 
 		$this->get(false, "list")->ALL(['property' => $property]);
 
