@@ -1,9 +1,9 @@
 <?php
-namespace addons\content_cp\transactions;
+namespace addons\content_cp\transactions\add;
 
 class view extends \mvc\view
 {
-	public function view_list($_args)
+	public function view_add($_args)
 	{
 
 		$field =
@@ -28,10 +28,6 @@ class view extends \mvc\view
 			'mobile',
 			'displayname',
 			'caller',
-			'order',
-			'sort',
-			'search',
-			'user',
 		];
 
 		$list = $this->model()->transactions_list($_args, $field);
