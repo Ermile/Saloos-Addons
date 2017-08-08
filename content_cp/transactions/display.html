@@ -17,8 +17,7 @@
 
 <div class="dt big">
 	<div class="f th">
-		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.id}}">{%trans "ID"%}</a></div>
-		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.name}}">{%trans "Name"%}</a></div>
+		<div class="c2"><a href="{{url.base}}/cp/transactions/{{order_url.name}}">{%trans "Name"%}</a></div>
 		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.title}}">{%trans "Title"%}</a></div>
 		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.status}}">{%trans "Status"%}</a></div>
 		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.type}}">{%trans "Type"%}</a></div>
@@ -28,14 +27,17 @@
 		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.budgetbefore}}">{%trans "Budget Before"%}</a></div>
 		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.budget}}">{%trans "Budget"%}</a></div>
 		<div class="c"><a href="{{url.base}}/cp/transactions/{{order_url.date}}">{%trans "Date"%}</a></div>
+		<div class="c">{%trans "More"%}</div>
+		<div class="c">{%trans "Edit"%}</div>
 	</div>
 	{%for key, value in transactions_list%}
 	<div class="f">
-		<div class="c">{{value.id}}</div>
-		<div class="c" title="{{value.user_id}}">
+		<div class="c2" title="{{value.user_id}}">
 			<a href="{{url.base}}/cp/transactions/mobile={{value.mobile}}">{{value.mobile| fitNumber}}</a>
 			-
 			<a href="{{url.base}}/cp/transactions/user={{value.user_id}}">{{value.displayname}}</a>
+			<!-- add new transaction of this user -->
+			<a href="{{url.base}}/cp/transactions/add?mobile={{value.mobile}}"><i class='icon-gavel'></i> <span> </span></a>
 		</div>
 
 		<div class="c" title="{{value.transactionitem_id}} - {{value.caller}}">
@@ -57,6 +59,15 @@
 		{%else%}
 			<div class="c"><a href='{{url.base}}/cp/transactions/date={{value.date | date("Y-m-d")}}'>{{value.date | fitNumber}}</a></div>
 		{%endif%}
+		<div class="c">
+		<!-- show log detail -->
+			<a href="{{url.base}}/cp/transactions/log/id={{value.id}}"><i class='icon-gavel'></i> <span> </span></a>
+		</div>
+
+		<div class="c">
+			<!-- save repait transaction -->
+			<a href="{{url.base}}/cp/transactions/add/transactions={{value.id}}"><i class='icon-balance-scale'></i> <span> </span></a>
+		</div>
 	</div>
 	{%endfor%}
 </div>
