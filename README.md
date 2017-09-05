@@ -14,6 +14,15 @@ Already we don't have good documentaion! We hope can complete this before die!
 
 Changelog
 =========
+ ..: BYE BYE SALOOS :..    HI DASH ;)
+
+/**
+ * Saloos is not developed after this version...
+ * if this framework is interesting for you!
+ * you can follow Dash in github
+ * https://github.com/Ermile/dash
+ */
+
  * Version 8.0.0: complete template base to handle specefic type with detail
  * Version 7.9.0: allow to have template in specefic language and minor updates
  * Version 7.8.0: many bugfix on cp and add helpcenter
